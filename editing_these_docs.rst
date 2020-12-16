@@ -1,7 +1,7 @@
 
 .. _editing_this_user_guide:
 
-Editing this user guide
+Editing this User Guide
 =======================
 
 This user guide is generated with `Sphinx <https://www.sphinx-doc.org/>`_. 

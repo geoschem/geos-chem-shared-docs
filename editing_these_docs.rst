@@ -1,19 +1,25 @@
 
+.. _editing_this_user_guide:
+
 Editing this user guide
 =======================
 
 This user guide is generated with `Sphinx <https://www.sphinx-doc.org/>`_. 
+Sphinx is an open-source Python project designed to make writing software documentation easier. 
+The documentation is written in a reStructuredText (it's similar to markdown), which Sphinx extends for software documentation.
+The source for the documentation is the :file:`docs/source` directory in top-level of the source code.
 
 Quick start
 -----------
 
 To build this user guide on your local machine, you need to install Sphinx. Sphinx is a Python 3 package and
 it is available via :program:`pip`. This user guide uses the Read The Docs theme, so you will also need to 
-install :literal:`sphinx-rtd-theme`.
+install :literal:`sphinx-rtd-theme`. It also uses the `sphinxcontrib-bibtex <https://pypi.org/project/sphinxcontrib-bibtex/>`_
+and `recommonmark <https://recommonmark.readthedocs.io/>`_ extensions, which you'll need to install.
 
 .. code-block:: console
 
-   $ pip install sphinx sphinx-rtd-theme
+   $ pip install sphinx sphinx-rtd-theme sphinxcontrib-bibtex recommonmark
 
 
 To build this user guide locally, navigate to the :file:`docs/` directory and make the :literal:`html` target.

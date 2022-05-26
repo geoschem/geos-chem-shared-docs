@@ -189,7 +189,7 @@ sysadmin for more information.
 
 Once you know the location of the compiler and netCDF libraries, you can
 :ref:`Set the proper environment variables for GEOS-Chem
-<configuring-your-computational-environment>`.  
+<configure-your-computational-environment>`.  
 
 .. _libguide-install-spack:
 

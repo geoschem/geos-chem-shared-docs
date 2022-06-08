@@ -1,8 +1,8 @@
 .. _bashdatacatalog:
 
-#################################################################
-Use bashdatacatalog to download and manage GEOS-Chem input data
-#################################################################
+####################################################
+Manage a GEOS-Chem data archive with bashdatacatalog
+####################################################
 
 If you need to download a large amount of :ref:`GEOS-Chem input data
 <input-overview>` (e.g. in support of a large GEOS-Chem user group at
@@ -17,7 +17,7 @@ What is bashdatacatalog?
 ========================
 
 The :program:`bashdatacatalog` is a command-line tool (written by
-`Liam <https://github.com/LiamBindle>`_) that facilitates
+`Liam Bindle <https://github.com/LiamBindle>`_) that facilitates
 synchronizing local data collections with a remote data 
 source. With the :program:`bashdatacatalog`, you can run queries on
 your local data collections to answer questions like "What files am I

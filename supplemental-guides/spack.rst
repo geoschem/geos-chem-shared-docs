@@ -5,7 +5,7 @@ Build libraries with Spack
 ##########################
 
 Here are some up-to-date instructions on installing a software stack
-for program:`GEOS-Chem Classic` or :program:`HEMCO` with Spack.
+for :program:`GEOS-Chem Classic` or :program:`HEMCO` with Spack.
 
 .. note::
 

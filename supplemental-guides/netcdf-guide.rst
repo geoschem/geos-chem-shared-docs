@@ -1,8 +1,8 @@
 .. _ncguide:
 
-#########################
-Working with netCDF files
-#########################
+######################
+Work with netCDF files
+######################
 
 On this page we provide some useful information about working with data
 files in netCDF format.

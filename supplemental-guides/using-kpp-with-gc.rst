@@ -1,8 +1,8 @@
 .. _kppguide:
 
-########################
-Using KPP with GEOS-Chem
-########################
+###################################
+Update chemical mechanisms with KPP
+###################################
 
 This Guide demonstrates how you can use `The Kinetic PreProcessor
 (aka KPP) <https://kpp.readthedocs.io>`_ to translate a chemical
@@ -161,7 +161,7 @@ see output similar to this:
   Reactivity consists of 172 reactions
   Written to gckpp_Util.F90
 
-where :file:`X.Y.Z`` denotes the :program:`KPP` version that you are using.
+where :file:`X.Y.Z` denotes the :program:`KPP` version that you are using.
 
 If this process is successful, the :file:`custom` folder will have
 several new files starting with :file:`gckpp`:
@@ -207,8 +207,6 @@ From the build directory, type:
 .. code-block:: console
 
    $ cmake ../CodeDir -DMECH=custom -DRUNDIR=..
-
-**TODO**: Add link to config section here
 
 You should see output similar to this written to the screen:
 

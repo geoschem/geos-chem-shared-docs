@@ -1,14 +1,13 @@
 .. _bashdatacatalog:
 
-####################################################
-Manage a GEOS-Chem data archive with bashdatacatalog
-####################################################
+##########################################
+Manage a data archive with bashdatacatalog
+##########################################
 
-If you need to download a large amount of :ref:`GEOS-Chem input data
-<input-overview>` (e.g. in support of a large GEOS-Chem user group at
-your institution) you may find it easier to use 
-:program:`bashdatacatalog` to download and manage data than with a
-GEOS-Chem dry-run simulation.
+If you need to download a large amount of input data for
+:program:`GEOS-Chem` or :program:`HEMCO` (e.g. in support of a large
+user group at your institution) you may find
+:program:`bashdatacatalog` helpful.
 
 .. _bashdatacatalog-what-is:
 

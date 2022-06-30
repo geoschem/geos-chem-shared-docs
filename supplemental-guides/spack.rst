@@ -1,11 +1,17 @@
-.. _build-libraries-for-geos-chem-with-spack:
+.. _build-libraries-with-spack:
 
-########################################
-Build libraries for GEOS-Chem with Spack
-########################################
+##########################
+Build libraries with Spack
+##########################
 
-Here are some up-to-date instructions on installing a software stack for
-GEOS-Chem Classic with Spack.
+Here are some up-to-date instructions on installing a software stack
+for program:`GEOS-Chem Classic` or :program:`HEMCO` with Spack.
+
+.. note::
+
+   If you will be using GCHP, please see `gchp.readthedocs.io
+   <gchp.readthedocs.io>`_ for instructions on how to download
+   required libraries with Spack.
 
 ===================
 Initial Spack setup
@@ -46,18 +52,20 @@ Tell Spack to search for compilers:
 
     $ spack compiler find
 
-You can confirm that the default compiler was found by inspecing compilers.yaml file with your favorite editor, e.g.:
+You can confirm that the default compiler was found by inspecing
+:file:`compilers.yaml` file with your favorite editor, e.g.:
 
 .. code-block:: console
 
     $ emacs ~/.spack/linux/compilers.yaml
 
 For example, the default compiler that was on my cloud instance was
-the GNU Compiler Collection 7.4.0. This collection contains C (``gcc``),
-C++ (``g++``), and Fortran (``gfortran``) compilers.  These are specified in
-the compiler.yaml file as:
+the GNU Compiler Collection 7.4.0. This collection contains C
+(:program:`gcc`), C++ (:program`g++`), and Fortran
+(:program:`gfortran`) compilers.  These are specified in the
+:file:`compiler.yaml` file as:
 
-.. code-block:: console
+.. code-block:: YAML
 
     compilers:
     - compiler:
@@ -75,9 +83,8 @@ the compiler.yaml file as:
         extra_rpaths: []
 
 As you can see, the default compiler executables are located in the
-/usr/bin folder. This is where many of the system-supplied executable
-files are located.
-exec
+:file:`/usr/bin` folder. This is where many of the system-supplied
+executable files are located.
 
 ==============================
 Build the GCC 10.2.0 compilers
@@ -97,7 +104,7 @@ Update compilers.yaml
 ---------------------
 
 In order for Spack to use this new compiler to build other packages,
-the compilers.yaml file must be updated using these commands:
+the :file:`compilers.yaml` file must be updated using these commands:
 
 .. code-block:: console
 
@@ -114,7 +121,8 @@ Install required libraries for GEOS-Chem
 .. _install-hdf5:
 
 Now that we have installed a the GNU Compiler Collection 10.2.0, we
-can use it to build the required libraries for GEOS-Chem Classic.
+can use it to build the required libraries for :program:`GEOS-Chem
+Classic` and :program:`HEMCO`.
 
 
 HDF5
@@ -135,7 +143,8 @@ netCDF-Fortran and netCDF-C
 ---------------------------
 
 Now that we have installed :program:, we may proceed to installing
-netCDF-Fortran (which will install netCDF-C as a dependency).
+:program:`netCDF-Fortran` (which will install :program:`netCDF-C` as a
+dependency).
 
 .. code-block:: console
 
@@ -144,7 +153,7 @@ netCDF-Fortran (which will install netCDF-C as a dependency).
     $ spack load netcdf-c%gcc@10.2.0
 
 We tell Spack to use the same version of HDF5 that we just built by appending
-``^hdf5+cxx+fortran+hl+pic+shared+threadsafe`` to the spack install
+:code:`^hdf5+cxx+fortran+hl+pic+shared+threadsafe` to the spack install
 command.  Otherwise, Spack will try to build a new version of HDF5
 with default options (which is not what we want).
 
@@ -193,7 +202,7 @@ flex
 ----
 
 The :program:`flex` library is a lexical parser. It is a dependency for
-`KPP <https://kpp.readthedocs.io>`_.
+`The Kinetic PreProcessor (KPP) <https://kpp.readthedocs.io>`_.
 
 .. code-block:: console
 
@@ -205,7 +214,7 @@ The :program:`flex` library is a lexical parser. It is a dependency for
 gdb and cgdb
 ~~~~~~~~~~~~
 
-:program:`Gdb`` is the GNU Debugger. :program:`Cgdb`` is a visual,
+:program:`Gdb` is the GNU Debugger. :program:`Cgdb` is a visual,
 user-friendly interface for :program:`gdb`.
 
 .. code-block:: console
@@ -258,7 +267,8 @@ TAU performance profiler
 ------------------------
 
 The Tuning and Analysis Utilities (;program:`tau`) lets you profile
-:program:`GEOS-Chem` in order to locate computational bottlenecks:
+:program:`GEOS-Chem` and :program:`HEMCO` in order to locate
+computational bottlenecks:
 
 .. code-block:: console
 
@@ -404,9 +414,9 @@ be used (or modified) to load the Spack libraries described above.
     echo "NETCDF_FORTRAN_INCLUDE : $NETCDF_FORTRAN_INCLUDE"
     echo "NETCDF_FORTRAN_LIB     : $NETCDF_FORTRAN_LIB"
 
-Save this to your home folder with a name such as ``~/.spack_env``. The
-``.`` in front of the name will make it a hidden file like your ``.bashrc``
-or ``.bash_aliases``.
+Save this to your home folder with a name such as :file:`~/.spack_env`. The
+:code:`.` in front of the name will make it a hidden file like your
+:file:`.bashrc` or :file:`.bash_aliases`.
 
 .. _loading-spack-built-libraries:
 

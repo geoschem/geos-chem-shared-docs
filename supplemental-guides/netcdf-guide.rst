@@ -521,7 +521,7 @@ Concatenating with Python
 You can use the `xarray <http://xarray.pydata.org/en/stable/>`__
 Python package to create a single netCDF file from multiple files. `Click
 HERE
-<https://github.com/geoschem/gcpy/blob/master/examples/working_with_files/concatenate_files.py>`__ to view a sample Python script that does this.
+<https://github.com/geoschem/gcpy/blob/main/examples/working_with_files/concatenate_files.py>`__ to view a sample Python script that does this.
 
 .. _ncguide-regridding:
 
@@ -530,8 +530,7 @@ Regridding netCDF files
 =======================
 
 The following tools can be used to regrid netCDF data files (such as
-`GEOS-Chem restart files <GEOS-Chem_restart_files>`__ and `GEOS-Chem
-diagnostic files <Guide_to_GEOS-Chem_History_diagnostics>`__):
+GEOS-Chem restart files and GEOS-Chem diagnostic files.
 
 .. _ncguide-regrid-cdo:
 
@@ -619,9 +618,9 @@ functionality can also be used for vertical regridding.
 Cropping netCDF files
 =====================
 
-If needed, regrid a coarse netCDF file (such as a :ref:`restart file
-<restart-files>`) can be cropped to a subset of the globe with the
-:program:`nco` or :program:`cdo` utilities (cf. :ref:`ncguide-useful-tools`).
+If needed, regrid a coarse netCDF file (such as a restart file) can be
+cropped to a subset of the globe with the :program:`nco` or
+:program:`cdo` utilities (cf. :ref:`ncguide-useful-tools`). 
 
 For example, :program:`cdo` has a :program:`SELBOX` operator for
 selecting a box by specifying the lat/lon bounds:
@@ -642,8 +641,8 @@ Adding a new variable to a netCDF file
 ======================================
 
 You have a couple of options for adding a new variable to a netCDF file
-(for example, when having to add a new species to an existing :ref:`GEOS-Chem
-restart file <gc-restart-files>`.
+(for example, when having to add a new species to an existing GEOS-Chem
+restart file).
 
 #. You can use :program:`cdo` and :program:`*nco` to copy the the
    data from one variable to another variable. For example:

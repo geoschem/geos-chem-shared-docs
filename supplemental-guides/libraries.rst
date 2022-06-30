@@ -1,12 +1,12 @@
 .. _libguide:
 
-#####################################
-Load required libraries for GEOS-Chem
-#####################################
+#######################
+Load required libraries
+#######################
 
 This supplemental guide describes the how to load the
-:ref:`required software dependencies for GEOS-Chem Classic
-<software-requirements>` into your computational environment.
+required software dependencies for :program:`GEOS-Chem` and
+:program:`HEMCO` into your computational environment.
 
 .. _libguide-cloud:
 
@@ -14,11 +14,11 @@ This supplemental guide describes the how to load the
 On the Amazon Web Services Cloud
 ================================
 
-All of the required software libraries for :program:`GEOS-Chem
-Classic` will be included in the Amazon Machine Image (AMI) that you
-use to initialize your Amazon Elastic Cloud Compute (EC2)
+All of the required software libraries for :program:`GEOS-Chem` and
+:program:`HEMCO` will be included in the Amazon Machine Image (AMI)
+that you use to initialize your Amazon Elastic Cloud Compute (EC2)
 instance. For more information, please see our `our GEOS-Chem cloud
-computing tutorial <http://cloud-gc.readthedocs.io>`_. 
+computing tutorial <http://geos-chem-cloud.readthedocs.io>`_.
 
 .. _libguide-cluster:
 
@@ -26,10 +26,10 @@ computing tutorial <http://cloud-gc.readthedocs.io>`_.
 On a shared computer cluster
 ============================
 
-If you plan to use GEOS-Chem on a shared computational cluster
-(e.g. at a university or research institution), then there is a good
-chance that your IT staff will have already installed several of the
-required libraries. 
+If you plan to use :program:`GEOS-Chem` or :program:`HEMCO` on a
+shared computational cluster (e.g. at a university or research
+institution), then there is a good chance that your IT staff will have
+already installed several of the required libraries.
 
 Depending on your system's setup, there are a few different ways in
 which you can make these libraries available for use in your
@@ -109,7 +109,7 @@ Here is a summary of what the above commands do:
       library separately, e.g.:
 
       .. code-block:: console
-		      
+
 	 module load netcdf-fortran/...
 
 .. option:: module load perl/...
@@ -120,14 +120,14 @@ Here is a summary of what the above commands do:
 
    Loads Cmake (needed to compile GEOS-Chem)
 
-.. _libguide-spack:
+.. _libguide-check-spack:
 
-Check if libraries are available via Spack
-------------------------------------------
+Check if Spack-built libraries are available
+--------------------------------------------
 
 If your system doesn't have a module manager installed, check to see
-if the required libraries for GEOS-Chem were built the `Spack package
-manager <https://github.com/spack/spack>`_.  Type
+if the required libraries for :program:`GEOS-Chem and HEMCO were built the
+`Spack package manager <https://github.com/spack/spack>`_.  Type
 
 .. code-block:: console
 
@@ -158,7 +158,7 @@ These specification methods are often necessary to select a given
 library in case there are several available builds to choose from.
 
 We recommend that you place :command:`spack load` commands into an
-:ref:`environment file <environment_files>`.
+environment file.
 
 If a `Spack environment
 <https://spack-tutorial.readthedocs.io/en/latest/tutorial_environments.html>`_
@@ -188,20 +188,20 @@ software libraries are installed into standard locations (such as the
 sysadmin for more information.
 
 Once you know the location of the compiler and netCDF libraries, you can
-:ref:`Set the proper environment variables for GEOS-Chem
-<configure-your-computational-environment>`.  
+set the proper environment variables for GEOS-Chem and HEMCO.
 
 .. _libguide-install-spack:
 
 If there are none of these, install them with Spack
 ---------------------------------------------------
 
-If your system has none of the required software packages that GEOS-Chem
-needs, then we recommend that you  :ref:`use Spack to build the
-libraries yourself <build-libraries-for-geos-chem-with-spack>`.
+If your system has none of the required software packages that
+:program:`GEOS-Chem` and :program:`HEMCO` need, then we recommend that
+you :ref:`use Spack to build the libraries yourself
+<build-libraries-with-spack>`.
 Spack makes the process easy and will make sure that all software
 dependences are resolved.
 
 Once you have installed the libraries with Spack, you can load the
 libraries into your computational environment :ref:`as described above
-<libguide-spack>`.
+<libguide-check-spack>`.

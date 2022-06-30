@@ -1,8 +1,8 @@
 .. _related-documentation:
 
-#####################
-Related documentation
-#####################
+##########################
+View related documentation
+##########################
 
 .. table:: Documentation for GEOS-Chem and related software
    :align: center

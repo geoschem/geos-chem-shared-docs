@@ -74,7 +74,7 @@ administrator or IT staff to see what is available on your system.
 .. _ncguide-bpch-to-nc:
 
 ===================================================
-Converting files from binary punch format to netCDF
+Convert files from binary punch format to netCDF
 ===================================================
 
 Older GEOS-Chem versions used a file format known as **binary punch
@@ -159,8 +159,8 @@ concatenate these into a single netCDF file.
 
 .. _ncguide-bpch-to-nc-edit-attrs:
 
-Further Edit variable names and attributes
-------------------------------------------
+Edit variable names and attributes
+----------------------------------
 
 Whether you use Python or IDL to create a netCDF file from a bpch file,
 you will still need to edit the variable attributes in order to make the
@@ -169,7 +169,7 @@ file COARDS-compliant (cf.:ref:`ncguide-edit-vars-attrs`).
 .. _ncguide-examine-contents:
 
 =======================================
-Examining the contents of a netCDF file
+Examine the contents of a netCDF file
 =======================================
 
 An easy way to examine the contents of a netCDF file is to use this
@@ -269,14 +269,14 @@ Or you can redirect the output to a file:
 
 .. _ncguide-reading-files:
 
-=====================================
-Reading the contents of a netCDF file
-=====================================
+==================================
+Read the contents of a netCDF file
+==================================
 
 .. _ncguide-reading-w-python:
 
-Reading data in Python
-----------------------
+Read data with Python
+---------------------
 
 The easiest way to read a netCDF file is to use the `xarray Python
 package <https://xarray.readthedocs.io>`_.
@@ -335,8 +335,8 @@ This above script will print the following output:
 
 .. _ncguide-reading-multiple-files-w-python:
 
-Reading data from multiple files in Python
-------------------------------------------
+Read data from multiple files in Python
+---------------------------------------
 
 The xarray package will also let you read data from multiple files into
 a single Dataset object. This is done with the open_mfdataset (open
@@ -488,17 +488,17 @@ netCDF files.
 
 .. _ncguide-concat-files:
 
-==========================
-Concatenating netCDF files
-==========================
+========================
+Concatenate netCDF files
+========================
 
 There are a couple of ways to concatenate multiple netCDF files into a
 single netCDF file, as shown in the sections below.
 
 .. _ncguide-concat-nco:
 
-Concatenating with the netCDF operators
----------------------------------------
+Concatenate with the netCDF operators
+-------------------------------------
 
 You can use the ncrcat commmand of the `netCDF Operators
 (nco) <http://research.jisao.washington.edu/data_sets/nco/>`__ to
@@ -515,8 +515,8 @@ created directly by IDL :program:`bpch2coards`,
 
 .. _ncguide-concat-python:
 
-Concatenating with Python
--------------------------
+Concatenate with Python
+-----------------------
 
 You can use the `xarray <http://xarray.pydata.org/en/stable/>`__
 Python package to create a single netCDF file from multiple files. `Click
@@ -525,17 +525,17 @@ HERE
 
 .. _ncguide-regridding:
 
-=======================
-Regridding netCDF files
-=======================
+===================
+Regrid netCDF files
+===================
 
 The following tools can be used to regrid netCDF data files (such as
 GEOS-Chem restart files and GEOS-Chem diagnostic files.
 
 .. _ncguide-regrid-cdo:
 
-Regridding with cdo
--------------------
+Regrid with cdo
+---------------
 The Climate Data Operators include tools for regridding netCDF
 files. For example:
 
@@ -581,16 +581,16 @@ You can also use conservative regridding:
 
 .. _ncguide-regrid-nco:
 
-Regridding with nco
--------------------
+Regrid with nco
+---------------
 The netCDF Operators also include tools for regridding. See the
 `Regridding section of the NCO User Guide
 <http://nco.sourceforge.net/nco.html#Regridding>`_ for more information.
 
 .. _ncguide-regrid-xesmf:
 
-Regridding with xESMF
----------------------
+Regrid with xESMF
+-----------------
 
 `xESMF <https://xesmf.readthedocs.io>`_ is a universal regridding tool
 for geospatial data, which is written in Python. It can be used to
@@ -603,8 +603,8 @@ unstructured grids.
 
 .. _ncguide-regrid-xarray:
 
-Regridding with xarray
-----------------------
+Regrid with xarray
+------------------
 
 The `xarray <https://xarray.readthedocs.io>`_ Python package has a
 built-in capability for 1-D interpolation. It wraps the `SciPy
@@ -614,9 +614,9 @@ functionality can also be used for vertical regridding.
 
 .. _ncguide-cropping:
 
-=====================
-Cropping netCDF files
-=====================
+=================
+Crop netCDF files
+=================
 
 If needed, regrid a coarse netCDF file (such as a restart file) can be
 cropped to a subset of the globe with the :program:`nco` or
@@ -636,9 +636,9 @@ information.
 
 .. _ncguide-adding-new-var:
 
-======================================
-Adding a new variable to a netCDF file
-======================================
+===================================
+Add a new variable to a netCDF file
+===================================
 
 You have a couple of options for adding a new variable to a netCDF file
 (for example, when having to add a new species to an existing GEOS-Chem
@@ -768,9 +768,9 @@ restart file).
 
 .. _ncguide-chunk-deflate:
 
-===================================================
-Chunking and deflating a netCDF file to improve I/O
-===================================================
+==============================================
+Chunk and deflate a netCDF file to improve I/O
+==============================================
 
 We recommend that you **chunk** the data in your netCDF file. Chunking
 specifies the order in along which the data will be read from

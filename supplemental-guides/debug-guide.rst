@@ -4,10 +4,11 @@
 Debug GEOS-Chem and HEMCO errors
 ################################
 
-If your GEOS-Chem or HEMCO simulation dies unexpectedly with an error
-or takes much longer to execute than it should, the most important
-thing is to try to isolate the source of the error or bottleneck right
-away. Below are some debugging tips that you can use.
+If your :program:`GEOS-Chem` or :program:`HEMCO` simulation dies
+unexpectedly with an error or takes much longer to execute than it
+should, the most important thing is to try to isolate the source of
+the error or bottleneck right away. Below are some debugging tips that
+you can use.
 
 .. _debug-guide-github:
 
@@ -15,11 +16,23 @@ away. Below are some debugging tips that you can use.
 Check if a solution has been posted to Github
 =============================================
 
-We have migrated GEOS-Chem support requests from the `GEOS-Chem wiki
-<https://wiki.geos-chem.org>`_ to `Github issues
-<https://github.com/geoschem/geos-chem/issues/>`_.  A quick search of
-Github issues (both open and closed) might reveal the answer to your
+We have migrated support requests from the `GEOS-Chem wiki
+<https://wiki.geos-chem.org>`_ to **Github issues**.  A quick search
+of Github issues (both open and closed) might reveal the answer to your
 question or provide a solution to your problem.
+
+You should also feel free to open a new issue at one of these Github
+links:
+
+- `GEOS-Chem Classic new issues page
+  <https://github.com/geoschem/geos-chem/issues/new/choose/>`_
+- `GCHP new issues page
+  <https://github.com/geoschem/GCHP/issues/new/choose>`_
+- `HEMCO new issues page
+  <https://github.com/geoschem/HEMCO/issues/new/choose>`_
+
+If you are new to Github, we recommend viewing our Github tutorial
+videos at `our GEOS-Chem Youtube site <https://youtube.com/c/geoschem>`_.
 
 .. _debug-guide-config:
 
@@ -27,15 +40,16 @@ question or provide a solution to your problem.
 Check if your computational environment is configured properly
 ==============================================================
 
-Many GEOS-Chem and HEMCO errors occur due to improper configuration
-settings (i.e. missing libraries, incorrectly-specified environment
-variables, etc.) in your computational environment.  Take a moment and
-refer bacfdk to these manual pages for information on configuring your
-environment to run GEOS-Chem or HEMCO:
+Many :program:`GEOS-Chem` and :program:`HEMCO` errors occur due to
+improper configuration settings (i.e. missing libraries,
+incorrectly-specified environment variables, etc.) in your
+computational environment.  Take a moment and refer back to these
+manual pages (on ReadTheDocs) for information on configuring your
+environment:
 
-- `GEOS-Chem Classic <https://geos-chem.readthedocs.io>`_
-- `GCHP <https://gchp.readthedocs.io>`_
-- `HEMCO <https://hemco.readthedocs.io>`_
+- `GEOS-Chem Classic manual <https://geos-chem.readthedocs.io>`_
+- `GCHP manual <https://gchp.readthedocs.io>`_
+- `HEMCO manual <https://hemco.readthedocs.io>`_
 
 .. _debug-guide-usermod:
 
@@ -43,12 +57,12 @@ environment to run GEOS-Chem or HEMCO:
 Check any code modifications that you have added
 ================================================
 
-If you have made modifications to a "fresh out-of-the-box" GEOS-Chem
-or HEMCO version, look over your code edits to search for sources of
-potential error.
+If you have made modifications to a "fresh out-of-the-box"
+:program:`GEOS-Chem` or :program:`HEMCO` version, look over your code
+edits to search for sources of potential error.
 
-You can also use Git to revert to the last stable version of GEOS-Chem,
-which is always in the :command:`main` branch).
+You can also use Git to revert to the last stable version, which is
+always in the :command:`main` branch.
 
 .. _debug-guide-limits:
 
@@ -56,23 +70,23 @@ which is always in the :command:`main` branch).
 Check if your runs exceeded time or memory limits
 =================================================
 
-If you are running GEOS-Chem or HEMCO on a shared computer system,
-you will probably have to use a **job scheduler** (e.g., SLURM) to
-submit your GEOS-Chem job to a computational queue. You should be
-aware of ethe run time and memory limits for each of the queues on
-your system.
+If you are running :program:`GEOS-Chem` or :program:`HEMCO` on a
+shared computer system, you will probably have to use a **job
+scheduler** (such as :program:`SLURM`) to submit your jobs to a
+computational queue. You should be aware of the run time and memory
+limits for each of the queues on your system.
 
-If your GEOS-Chem or HEMCO job uses more memory or run time than the
-computational queue allows, your job can be cancelled by the scheduler.
-You will usually get an error message printed out to the stderr
-stream, and maybe also an email stating that the run was terminated.
-Be sure to check all of the log files created by your GEOS-Chem or
-HEMCO jobs for such error messages.
+If your job uses more memory or run time than the computational queue
+allows, it can be cancelled by the scheduler. You will usually get an
+error message printed out to the stderr stream, and maybe also an
+email stating that the run was terminated. Be sure to check all of the
+log files created by your jobs for such error messages.
 
-To solve this issue, try submitting your GEOS-Chem or HEMCO
-simulation to a queue with larger run-time and memory limits.  You can
-also try splitting up your long simulations into several smaller stages
-(e.g. monthly) that take less time to run to completion.
+To solve this issue, try submitting your :program:`GEOS-Chem` or
+:program:`HEMCO` simulations to a queue with larger run-time and
+memory limits.  You can also try splitting up your long simulations
+into several smaller stages (e.g. monthly) that take less time to run
+to completion.
 
 .. _debug-guide-printout:
 
@@ -80,9 +94,10 @@ also try splitting up your long simulations into several smaller stages
 Send debug printout to the log files
 ====================================
 
-If your GEOS-Chem simulation stopped with an error, but you cannot tell
-where, turn on the the :code:`debug_printout` option.  This is found
-in the **Simulation Settings** section of the `geoschem_config.yml` file:
+If your :program:`GEOS-Chem` simulation stopped with an error, but you
+cannot tell where, turn on the the :code:`debug_printout` option.
+This is found in the **Simulation Settings** section of
+:file:`geoschem_config.yml`:
 
 .. code-block:: yaml
 
@@ -96,13 +111,13 @@ in the **Simulation Settings** section of the `geoschem_config.yml` file:
      root_data_dir: /path/to/ExtData
      met_field: MERRA2
      species_database_file: ./species_database.yml
-     debug_printout: false    # <-- Set this to true
+     debug_printout: false  # <---- set this to true
      use_gcclassic_timers: false
 
-This will send additional output to the GEOS-Chem log file, which may help you
-to determine where the simulation is stopping with an error.
+This will send additional output to the :program:`GEOS-Chem` log file,
+which may help you to determine where the simulation stopped.
 
-If your HEMCO simulation is stopping with an error, then turn on debug
+If your :program:`HEMCO` simulation stopped with an error, turn on debug
 printout by editing the :code:`Verbose` and :code:`Warnings` settings
 at the top of the :file:`HEMCO_Config.rc` configuration file:
 
@@ -125,17 +140,16 @@ at the top of the :file:`HEMCO_Config.rc` configuration file:
    Unit tolerance:              1
    Negative values:             0
    Only unitless scale factors: false
-   Verbose:                     0      # <--- set this to 3
-   Warnings:                    1      # <--- set this to 3
+   Verbose:                     0      # <---- set this to 3
+   Warnings:                    1      # <---- set this to 3
 
 Both :code:`Verbose` and :code:`Warnings` settings can have values
 from 0 to 3.  The higher the number, the more information will be
 printed out to the :file:`HEMCO.log` file.  A value of 0 disables
 debug printout.
 
-Having this extra debug printout in the GEOS-Chem and HEMCO log file
-output may provide insight as to where your simulation stopped with an
-error.
+Having this extra debug printout in your log file output may provide
+insight as to where your simulation is halting.
 
 .. _debug-guide-traceback:
 
@@ -143,11 +157,12 @@ error.
 Look at the traceback output
 ============================
 
-When GEOS-Chem or HEMCO dies with an error, an **error traceback**
-will be printed out.  This is a list of routines that were called when
-the error occurred and the line at which the error occurred.
+An **error traceback** will be printed out whenever a
+:program:`GEOS-Chem` or :program:`HEMCO` simulation halts with an
+error.  This is a list of routines that were called when the error
+occurred.
 
-An sample error stack is included below:
+An sample error traceback is shown here:
 
 .. code-block:: console
 
@@ -174,13 +189,14 @@ some more information about the error (e.g. :file:`main.F90`, line
 Identify whether the error happens consistently
 ===============================================
 
-If your GEOS-Chem or HEMCO error always happens at the same model date
-and time, then it could indicate bad meteorology or emissions input
-data. In this case, you may be able to fix the issue simply by
-re-downloading the data to your disk space.
+If your :program:`GEOS-Chem` or :program:`HEMCO` error always happens
+at the same model date and time, this could indicate corrupted
+meteorology or emissions input data files. In this case, you may be
+able to fix the issue simply by re-downloading the files to your disk
+space.
 
-If the error happened only once, it could be caused by a network problem
-or other such transient condition.
+If the error happened only once, it could be caused by a network
+problem or other such transient condition.
 
 .. _debug-guide-isolate:
 
@@ -188,14 +204,17 @@ or other such transient condition.
 Isolate the error to a particular operation
 ===========================================
 
-If you are not sure where a GEOS-Chem error is occurring, turn off
-one operation (transport, chemistry, dry deposition,
-etc.) one at a time in the :file:`geoschem_config.yml` configuration file,
-and rerun your simulation.
+If you are not sure where a :program:`GEOS-Chem` error is occurring,
+turn off operations (such as transport, chemistry, dry deposition,
+etc.) one at a time in the :file:`geoschem_config.yml` configuration
+file, and rerun your simulation.
 
-Similarly, if you are debugging a HEMCO error, turn off
+Similarly, if you are debugging a :program:`HEMCO` error, turn off
 different emissions inventories and extensions one at a time in the
-:file:`HEMCO_Config.rc` file and rerun your simulation.
+:file:`HEMCO_Config.rc` file, and rerun your simulation.
+
+Repeating this process should eventually lead you to the source of the
+error.
 
 .. _debug-guide-debug-flags:
 
@@ -203,13 +222,13 @@ different emissions inventories and extensions one at a time in the
 Compile with debugging options
 ==============================
 
-You can compile GEOS-Chem or HEMCO in debug mode.  This will activate
-several additional error run-time error checks (such as looking for
-assignments that go outside of array bounds or floating point math
-errors) that can give you more insight as to where a GEOS-Chem or
-HEMCO simulation is dying.
+You can compile :program:`GEOS-Chem` or :program:`HEMCO` in debug
+mode.  This will activate several additional error run-time error
+checks (such as looking for assignments that go outside of array
+bounds or floating point math errors) that can give you more insight
+as to where your simulation is dying.
 
-To activate debug mode, configure GEOS-Chem or HEMCO with the
+Configure your code for debug mode with the
 :command:`-DCMAKE_RELEASE_TYPE=Debug` option.  From your run
 directory, type these commands:
 
@@ -223,10 +242,10 @@ directory, type these commands:
 
 .. attention::
 
-   Compiling GEOS-Chem or HEMCO in debug mode will add a significant
-   amount of computational overhead to your simulation.  Therefore, we
-   recommend to activate these additional error checks only in short
-   simulations and not in long production runs.
+   Compiling in debug mode will add a significant amount of
+   computational overhead to your simulation.  Therefore, we recommend
+   to activate these additional error checks only in short simulations
+   and not in long production runs.
 
 .. _debug-guide-debugger:
 
@@ -241,18 +260,35 @@ such as :program:`gdb` (the GNU debugger).  With a debugger you can:
 -  Navigate the stack when a program stops
 -  Set break points
 
-To run GEOS-Chem or HEMCO in a debugger, you should first
-:ref:`compile in debug mode <debug-guide-debug-flags>`.  This will
-compile GEOS-Chem or HEMCO with the :code:`-g` flag (which tells the
-compiler to generate symbolic information for debugging) and the
-:code:`-O0` flag (which shuts off all optimizations).
+To run :program:`GEOS-Chem` or :program:`HEMCO` in the :program:`gdb`
+debugger, you should first :ref:`compile in debug mode
+<debug-guide-debug-flags>`. This will turn on the :code:`-g` compiler
+flag (which tells the compiler to generate symbolic information for
+debugging) and the :code:`-O0` compiler flag (which shuts off all
+optimizations.  Once the executable has been created, type one of the
+following commands, which will start :program:`gdb`:
 
-If you are using :program:`gdb`, you can go directly to the point of
+.. code-block:: console
+
+   $ gdb gcclassic    # for GEOS-Chem Classic
+   $ gdb gchp         # for GCHP
+   $ gdb hemco        # for HEMCO standalone
+
+At the :program:`gdb` prompt, type one of these commands:
+
+.. code-block:: console
+
+   (gdb) run                     # for GEOS-Chem Classic or GCHP
+   (gdb) run HEMCO_sa_Config.rc  # for HEMCO standalone
+
+With :program:`gdb`, you can also go directly to the point of
 the error without having to re-run GEOS-Chem or HEMCO.  When your
-GEOS-Chem or HEMCO simulation dies, it will create a **corefile**,
-such as :file:`core.12345` (where the :code:`12345`, or whatever
-number it happens to be, refers to the actual process ID). Typing one
-of these commands:
+GEOS-Chem or HEMCO simulation dies, it will create a **corefile**
+such as  :file:`core.12345`.  The :code:`12345` refers to the process
+ID assigned to your executable by the operating system; this number is
+different for each running process on your system.
+
+Typing one of these commands:
 
 .. code-block:: console
 
@@ -277,29 +313,29 @@ To exit :program:`gdb`, type :code:`quit`.
 Print it out if you are in doubt!
 =================================
 
-Add :code:`print*,` statements to print out values of variables in the
-area of the code where you suspect the error lies.  Also add the
-:code:`call flush(6)` statement to flush the output to the screen
+Add :code:`print*,` statements to write values of variables in the
+area of the code where you suspect the error is occurring.  Also add
+the :code:`call flush(6)` statement to flush the output to the screen
 and/or log file immediately after printing.  Maybe you will see
 something wrong in the output.
 
 You can often detect numerical errors by adding debugging print
 statements into your source code:
 
-#. Check the minimum and maximum values of an array with the
-   :code:`MINVAL` and :code:`MAXVAL` intrinsic functions:
+#. Use :code:`MINVAL` and :code:`MAXVAL` functions to get the minimum
+   and maximum values of an array:
 
-   .. code-block:: Fortran
+   .. code-block:: fortran
 
-      PRINT*, '### Min, Max: ', MINVAL( ARRAY ), MAXVAL( ARRAY )``
-      CALL FLUSH( 6 )``
+      PRINT*, '### Min, Max: ', MINVAL( ARRAY ), MAXVAL( ARRAY )
+      CALL FLUSH( 6 )
 
-#. Check the sum of an array with the ``SUM`` intrinsic function:
+#. Use the :code:`SUM` function to check the sum of an array:
 
-   .. code-block:: Fortran
+   .. code-block:: fortran
 
-      PRINT*, '### Sum of X : ', SUM( ARRAY )``
-      CALL FLUSH( 6 )``
+      PRINT*, '### Sum of X : ', SUM( ARRAY )
+      CALL FLUSH( 6 )
 
 .. _debug-guide-brute-force:
 
@@ -308,9 +344,9 @@ Use the brute-force method when all else fails
 ==============================================
 
 If the bug is difficult to locate, then comment out a large section of
-code and run your GEOS-Chem or HEMCO simulation again.  If the error
-does not occur, then uncomment some more code and run GEOS-Chem or
-HEMCO again.  Repeat the process until you find the location of the
+code and run your :program:`GEOS-Chem` or :program:`HEMCO` simulation
+again.  If the error does not occur, then uncomment some more code and
+run again.  Repeat the process until you find the location of the
 error. The brute force method may be tedious, but it will usually lead
 you to the source of the problem.
 
@@ -320,9 +356,9 @@ you to the source of the problem.
 Identify poorly-performing code with a profiler
 ===============================================
 
-If you think your GEOS-Chem or HEMCO simulation is taking too long to
-run, consider using profiling tools to generate a list of the time
-that is spent in each routine. This can help you identify badly
-written or parallelized code that is causing GEOS-Chem to slow
-down. For more information, please see `our Profiling GEOS-Chem wiki
+If you think your :program:`GEOS-Chem` or :program:`HEMCO` simulation
+is taking too long to run, consider using profiling tools to generate
+a list of the time that is spent in each routine. This can help you
+identify badly written and/or poorly-parallelized code.  For more
+information, please see `our Profiling GEOS-Chem wiki
 page <https://wiki.geos-chem.org/Profiling_GEOS-Chem>`_.

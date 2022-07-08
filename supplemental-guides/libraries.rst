@@ -126,8 +126,9 @@ Check if Spack-built libraries are available
 --------------------------------------------
 
 If your system doesn't have a module manager installed, check to see
-if the required libraries for :program:`GEOS-Chem and HEMCO were built the
-`Spack package manager <https://github.com/spack/spack>`_.  Type
+if the required libraries for :program:`GEOS-Chem` and
+:program:`HEMCO` were built the `Spack package manager
+<https://github.com/spack/spack>`_.  Type 
 
 .. code-block:: console
 

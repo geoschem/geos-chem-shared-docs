@@ -1,8 +1,8 @@
 .. _coards-guide:
 
-############################################
-Preparing data files for HEMCO and GEOS-Chem
-############################################
+#####################################
+Prepare COARDS-compliant netCDF files
+#####################################
 
 On this page we discuss how you can generate netCDF data files in the
 proper format for HEMCO and GEOS-Chem:

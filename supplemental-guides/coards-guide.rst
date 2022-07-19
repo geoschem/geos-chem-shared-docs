@@ -273,8 +273,9 @@ Additional considerations for lev vectors:
 When using `GEOS-Chem <https://geos-chem.readthedocs.io>`_ or `HEMCO
 <https://hemco.readthedocs.io>`_ in a non-ESMF environment, data is
 interpolated onto the simulation levels if the input data is on
-vertical levels other than the HEMCO model levels (see
-:ref:`hco-filefmt-regrid-vert`.
+vertical levels other than the HEMCO model levels (see `HEMCO vertical
+regridding
+<https://hemco.readthedocs.io/en/latest/hco-ref-guide/input-file-format.html#vertical-regridding>`_). 
 
 Data on non-model levels must be on a hybrid sigma pressure coordinate
 system. In order to properly determine the vertical pressure levels of
@@ -600,7 +601,7 @@ COARDS Global attributes
 that contain information about a netCDF file, as opposed to
 information about an individual data array.
 
-From our example in the :ref:`Examine the conteents of a netCDF file
+From our example in the :ref:`Examine the contents of a netCDF file
 <ncguide-examine-contents>`, the output from :command:`ncdump` showed
 that our sample netCDF file has several global attributes:
 

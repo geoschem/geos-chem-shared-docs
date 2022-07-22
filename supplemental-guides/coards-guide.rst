@@ -275,7 +275,7 @@ When using `GEOS-Chem <https://geos-chem.readthedocs.io>`_ or `HEMCO
 interpolated onto the simulation levels if the input data is on
 vertical levels other than the HEMCO model levels (see `HEMCO vertical
 regridding
-<https://hemco.readthedocs.io/en/latest/hco-ref-guide/input-file-format.html#vertical-regridding>`_). 
+<https://hemco.readthedocs.io/en/latest/hco-ref-guide/input-file-format.html#vertical-regridding>`_).
 
 Data on non-model levels must be on a hybrid sigma pressure coordinate
 system. In order to properly determine the vertical pressure levels of
@@ -519,13 +519,13 @@ such as:
 
 .. code-block:: fortran
 
-  INTEGER            :: I, J, L, T
-  INTEGER, PARAMETER :: N_LON  = 360
-  INTEGER, PARAMETER :: N_LAT  = 181
-  INTEGER, PARAMETER :: N_LEV  = 72
-  INTEGER, PARAMTER  :: N_TIME = 12
-  REAL*4             :: CO  (N_LON,N_LAT,N_LEV,N_TIME)
-  REAL*4             :: PRPE(N_LON,N_LAT,N_LEV,N_TIME)
+   INTEGER            :: I, J, L, T
+   INTEGER, PARAMETER :: N_LON  = 360
+   INTEGER, PARAMETER :: N_LAT  = 181
+   INTEGER, PARAMETER :: N_LEV  = 72
+   INTEGER, PARAMTER  :: N_TIME = 12
+   REAL*4             :: CO  (N_LON,N_LAT,N_LEV,N_TIME)
+   REAL*4             :: PRPE(N_LON,N_LAT,N_LEV,N_TIME)
 
 then for optimal efficiency, the leftmost dimension (:code:`I`) needs
 to vary the fastest, and needs to be accessed by the innermost
@@ -573,7 +573,7 @@ you reverse the order of the DO loops, you will be reading the array
 in the wrong order. In C you would have to use this ordering scheme
 (using Fortran-style syntax to illustrate the point):
 
-.. code-block:: console
+.. code-block:: fortran
 
    DO I = 1, N_LON
    DO J = 1, N_LAT
@@ -607,7 +607,7 @@ that our sample netCDF file has several global attributes:
 
 .. code-block:: console
 
-// global attributes:
+   // global attributes:
                :Title = "COARDS/netCDF file containing X data"
                :Contact = "GEOS-Chem Support Team (geos-chem-support@as.harvard.edu)" ;
                :References = "www.geos-chem.org; wiki.geos-chem.org" ;

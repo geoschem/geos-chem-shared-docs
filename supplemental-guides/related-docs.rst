@@ -4,17 +4,30 @@
 View related documentation
 ##########################
 
-.. table:: Documentation for GEOS-Chem and related software
+.. table:: **GEOS-Chem web, wiki and Youtube channel**
+   :align: center
+
+   +--------------------------------+--------------------------------------------+
+   | Site                           | Link                                       |
+   +================================+============================================+
+   | GEOS-Chem web site             | `geos-chem.org                             |
+   |                                | <http://geos-chem.org>`_                   |
+   +--------------------------------+--------------------------------------------+
+   | GEOS-Chem wiki                 | `wiki.geos-chem.org                        |
+   |                                | <http://wiki.geos-chem.org>`_              |
+   +--------------------------------+--------------------------------------------+
+   | Video tutorials on Youtube     | `youtube.com/c/geoschem                    |
+   | (various)                      | <https://youtube.com/c/geoschem>`_         |
+   +--------------------------------+--------------------------------------------+
+
+.. table:: **User manuals for GEOS-Chem and related software**
    :align: center
 
    +--------------------------------+--------------------------------------------+
    | Software                       | Documentation                              |
    +================================+============================================+
-   | Video tutorials on Youtube     | `youtube.com/c/geoschem                    |
-   | (various)                      | <https://youtube.com/c/geoschem>`_         |
-   +--------------------------------+--------------------------------------------+
    | GEOS-Chem Classic              | `geos-chem.readthedocs.io                  |
-   |                                | <https:/geos-chem.readthedocs.io>`_        |
+   |                                | <https://geos-chem.readthedocs.io>`_       |
    +--------------------------------+--------------------------------------------+
    | GCHP                           | `gchp.readthedocs.io                       |
    |                                | <https://gchp.readthedocs.io>`_            |

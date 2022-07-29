@@ -660,9 +660,9 @@ that our sample netCDF file has several global attributes:
 
    .. note::
 
-      If you edit the file with :ref:`hco-sa-soft-nco` or
-      :ref:`hco-sa-soft-cdo`, then this attribute will be updated to
-      reflect the modification that was done.
+      If you edit the file with :program:`nco` or :program:`cdo`, then
+      this attribute will be updated to reflect the modification that
+      was done.
 
 .. option:: Format (or format)
 

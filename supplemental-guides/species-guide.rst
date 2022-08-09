@@ -16,13 +16,19 @@ View species properties from the current stable GEOS-Chem version:
 - `View properties for TOMAS microphysics species <https://github.com/geoschem/geos-chem/blob/main/run/shared/species_database_tomas.yml>`_
 - `View properties for Hg simulation species <https://github.com/geoschem/geos-chem/blob/main/run/shared/species_database_hg.yml>`_
 
-Read more about species properties contained in the GEOS-Chem Species Database:
+.. _spcguide-defs:
 
-.. _spcguide-defaults:
+==========================
+Species properties defined
+==========================
 
-=========================
-Requried default settings
-=========================
+The following sections contain a detailed description of GEOS-Chem
+species properties.
+
+.. _spcguide-defs-defaults:
+
+Required default properties
+---------------------------
 
 All GEOS-Chem species should have these properties defined:
 
@@ -31,7 +37,7 @@ All GEOS-Chem species should have these properties defined:
          Name:
            FullName: full name of the species
            Formula: chemical formula of the species
-           MW_g: molecular weight of the species
+           MW_g: molecular weight of the species in grams
    EITHER  Is_Gas: true
    OR      Is_Aerosol: true
 
@@ -41,11 +47,10 @@ value" (e.g. :code:`false`, :code:`-999`, :code:`-999.0`, or,
 :code:`UNKNOWN`) to these properties when it reads the
 :file:`species_database.yml` file from disk.
 
-.. _spcguide-id:
+.. _spcguide-defs-id:
 
-==============
 Identification
-==============
+--------------
 
 .. option:: Name
 
@@ -124,11 +129,10 @@ Identification
    Indicates that the species is a radionuclide (:literal:`true`), or
    isn't (:literal:`false`).
 
-.. _spcguide-physprop:
+.. _spcguide-defs-physprop:
 
-===================
 Physical properties
-===================
+-------------------
 
 .. option:: Density
 
@@ -168,11 +172,10 @@ Physical properties
    Radius (:math:`m`) of the species.  Typically defined only for
    aerosols.
 
-.. _spcguide-drydep:
+.. _spcguide-defs-drydep:
 
-=========================
 Dry deposition properties
-=========================
+-------------------------
 
 .. option:: DD_AeroDryDep
 
@@ -196,13 +199,13 @@ Dry deposition properties
 
 .. option:: DD_DvzAerSnow
 
-   Specifies the dry deposition velocity (:math:`cm\ s^-{1}`) over
+   Specifies the dry deposition velocity (:math:`cm\ s^{-1}`) over
    ice and snow for certain aerosol species.  Typically,
    :code:`DD_DvzAerSnow = 0.03`.
 
 .. option:: DD_DvzAerSnow_Luo
 
-   Specifies the dry deposition velocity (:math:`cm s^-{1}`) over
+   Specifies the dry deposition velocity (:math:`cm\ s^{-1}`) over
    ice and snow for certain aerosol species.
 
    .. note::
@@ -212,7 +215,7 @@ Dry deposition properties
 
 .. option:: DD_DvzMinVal
 
-   Specfies minimum dry deposition velocities (:math:`cm s^-{1}`) for
+   Specfies minimum dry deposition velocities (:math:`cm\ s^{-1}`) for
    sulfate  species (:literal:`SO2`, :literal:`SO4`, :literal:`MSA`,
    :literal:`NH3`, :literal:`NH4`, :literal:`NIT`).  This follows the
    methodology of the GOCART model.
@@ -244,18 +247,17 @@ Dry deposition properties
 .. option:: DD_KOA
 
    Specifies the octanal-air partition coefficient, used for the dry
-   deposition of species :math:`POPG`.
+   deposition of species :code:`POPG`.
 
    .. note::
 
       :code:`DD_KOA` is only used in the `POPs simulation
       <https://wiki.geos-chem.org/POPs_simulation>`_.
 
-.. _spcguide-wetdep:
+.. _spcguide-defs-wetdep:
 
-=========================
 Wet deposition properties
-=========================
+-------------------------
 
 .. option:: WD_Is_H2SO4
 
@@ -414,11 +416,27 @@ Wet deposition properties
       For SOA species, the maximum value of :code:`WD_RainoutEff_Luo`
       will  be 0.8 instead of 1.0.
 
-.. _spcguide-microphys:
+.. _spcguide-defs-other:
 
-=======================
-Microphysics parameters
-=======================
+Other properties
+----------------
+
+.. option:: BackgroundVV
+
+   If a restart file does not contain an global initial concentration
+   field for a species, GEOS-Chem will attempt to set the initial
+   concentration (in :math:`vol\ vol^{-1}` dry air) to the value
+   specified in :code:`BackgroundVV` globally.   But if
+   :code:`BackgroundVV` has not been specified, GEOS-Chem will set
+   the initial concentration for the species to :math:`10^{-20}
+   vol\ vol^{-1}` dry air instead.
+
+   .. note::
+
+      Recent versions of GCHP may require that all initial conditions
+      for all species to be used in a simulation be present in the
+      restart file.  See `gchp.readthedocs.io
+      <https://gchp.readthedocs.io>`_ for more information.
 
 .. option:: MP_SizeResAer
 
@@ -438,25 +456,283 @@ Microphysics parameters
    or `TOMAS <http://wiki.geos-chem.org/TOMAS_aerosol_microphysics>`_
    microphysics packages.
 
-.. _spcguide-metadata-other:
+.. _spcguide-using:
 
-================
-Other parameters
-================
+======================================
+Access species properties in GEOS-Chem
+======================================
 
-.. option:: BackgroundVV
+In this section we will describe the derived types and objects that
+are used to store GEOS-Chem species properties.  We will also describe
+how you can extract species properties from the GEOS-Chem Species
+Database when you create new GEOS-Chem code routines.
 
-   If a restart file does not contain an global initial concentration
-   field for a species, GEOS-Chem will attempt to set the initial
-   concentration (in :math:`vol\ vol^{-1}` dry air) to the value
-   specified in :code:`BackgroundVV` globally.   But if
-   :code:`BackgroundVV` has not been specified, GEOS-Chem will set
-   the initial concentration for the species to :math:`10^{-20}
-   vol\ vol^{-1}` dry air instead.
+.. _spcguide-access-spctype:
 
-   .. note::
+The Species derived type
+-------------------------
 
-      Recent versions of GCHP may require that all initial conditions
-      for all species to be used in a simulation be present in the
-      restart file.  See `gchp.readthedocs.io
-      <https://gchp.readthedocs.io>`_ for more information.
+The `Species
+<https://github.com/geoschem/geos-chem/blob/main/Headers/species_mod.F90#L61>`_
+derived type (defined in module :file:`Headers/species_mod.F90`)
+describes a complete set of properties for a single GEOS-Chem
+species. In addition to the fields mentioned in the preceding sections, the
+:code:`Species` derived type also contains several species indices.
+
+.. table:: Indices stored in the :code:`Species` derived type
+   :align: center
+
+   +-------------------+----------------------------------+
+   | Index             | Description                      |
+   +===================+==================================+
+   | :code:`ModelId`   | Model species index              |
+   +-------------------+----------------------------------+
+   | :code:`AdvectId`  | Advected species index           |
+   +-------------------+----------------------------------+
+   | :code:`AerosolId` | Aerosol species index            |
+   +-------------------+----------------------------------+
+   | :code:`DryAltId`  | Dry dep species at altitude Id   |
+   +-------------------+----------------------------------+
+   | :code:`DryDepId`  | Dry deposition species index     |
+   +-------------------+----------------------------------+
+   | :code:`GasSpcId`  | Gas-phase species index          |
+   +-------------------+----------------------------------+
+   | :code:`HygGrthId` | Hygroscopic growth species index |
+   +-------------------+----------------------------------+
+   | :code:`KppVarId`  | KPP variable species index       |
+   +-------------------+----------------------------------+
+   | :code:`KppFixId`  | KPP fixed spcecies index         |
+   +-------------------+----------------------------------+
+   | :code:`KppSpcId`  | KPP species index                |
+   +-------------------+----------------------------------+
+   | :code:`PhotolId`  | Photolyis species index          |
+   +-------------------+----------------------------------+
+   | :code:`RadNuclId` | Radionuclide index               |
+   +-------------------+----------------------------------+
+   | :code:`WetDepId`  | Wet deposition index             |
+   +-------------------+----------------------------------+
+
+.. _spcguide-access-spcptrtype:
+
+The SpcPtr derived type
+-----------------------
+
+The `SpcPtr
+<https://github.com/geoschem/geos-chem/blob/main/Headers/species_mod.F90#L54>`_
+derived type (also defined in :file:`Headers/species_mod.F90`)
+describes a container for an object of type :ref:`Species
+<spcguide-access-spctype>`.
+
+.. code-block:: fortran
+
+   TYPE, PUBLIC :: SpcPtr
+      TYPE(Species), POINTER :: Info   ! Single entry of Species Database
+   END TYPE SpcPtr
+
+.. _spcguide-access-spcdata:
+
+The GEOS-Chem Species Database object
+-------------------------------------
+
+The GEOS-Chem Species database is stored in the
+:code:`State_Chm%SpcData` object.  It describes an array, where each
+element of the array is of type :ref:`SpcPtr
+<spcguide-access-spcptrtype>` (which is a container for an object of type
+type :ref:`Species <spcguide-access-spctype>`.
+
+.. code-block:: fortran
+
+    TYPE(SpcPtr),  POINTER :: SpcData(:)   ! GC Species database
+
+.. _spcguide-access-lookup-ind:
+
+Species index lookup with Ind_()
+--------------------------------
+
+Use function :code:`Ind_()` (in module
+:code:`Headers/state_chm_mod.F90`) to look up species indices by
+name. For example:
+
+.. code-block:: fortran
+
+   SUBROUTINE MySub( ..., State_Chm, ... )
+
+      USE State_Chm_Mod, ONLY : Ind_
+
+      ! Local variables
+      INTEGER  :: id_O3, id_Br2, id_CO
+
+      ! Find tracer indices with function the Ind_() function
+      id_O3   = Ind_( 'O3'  )
+      id_Br2  = Ind_( 'Br2' )
+      id_CO   = Ind_( 'CO'  )
+
+      ! Print tracer concentrations
+      print*, 'O3  at (23,34,1) : ', State_Chm%Species(id_O3 )%Conc(23,34,1)
+      print*, 'Br2 at (23,34,1) : ', State_Chm%Species(id_Br2)%Conc(23,34,1)
+      print*, 'CO  at (23,34,1) : ', State_Chm%Species(id_CO )%Conc(23,34,1)
+
+      ! Print the molecular weight of O3 (obtained from the Species Database object)
+      print*, 'Mol wt of O3 [g]: ', State_Chm%SpcData(id_O3)%Info%MW_g
+
+   END SUBROUTINE MySub
+
+Once you have obtained the species ID (aka :code:`ModelId`) you can
+use that to access the individual fields in the Species Database
+object. In the example above, we use the species ID for :literal:`O3` (stored in
+:code:`id_O3`) to look up the molecular weight of :literal:`O3` from
+the Species Database.
+
+You may search for other model indices with :code:`Ind_()` by passing
+an optional second argument:
+
+.. code-block:: fortran
+
+   ! Position of HNO3 in the list of advected species
+   AdvectId = Ind_( 'HNO3',  'A' )
+
+   ! Position of HNO3 in the list of gas-phase species
+   AdvectId = Ind_( 'HNO3',  'G' )
+
+   ! Position of HNO3 in the list of dry deposited species
+   DryDepId = Ind_( 'HNO3',  'D' )
+
+   ! Position of HNO3 in the list of wet deposited species
+   WetDepId = Ind_( 'HNO3',  'W' )
+
+   ! Position of HNO3 in the lists of fixed KPP, active, & overall KPP species
+   KppFixId = Ind_( 'HNO3',  'F' )
+   KppVarId = Ind_( 'HNO3',  'V' )
+   KppVarId = Ind_( 'HNO3',  'K' )
+
+   ! Position of SALA in the list of hygroscopic growth species
+   HygGthId = Ind_( 'SALA',  'H' )
+
+   ! Position of Pb210 in the list of radionuclide species
+   HygGthId = Ind_( 'Pb210', 'N' )
+
+   ! Position of ACET in the list of photolysis species
+   PhotolId = Ind( 'ACET',   'P' )
+
+:code:`Ind_()` will return -1 if a species does not belong to any of
+the above lists.
+
+.. tip::
+
+   For maximum efficiency, we recommend that you use :code:`Ind_()`
+   to obtain the species indices during the initialization phase of a
+   GEOS-Chem simulation. This will minimize the number of
+   name-to-index lookup operations that need to be performed, thus
+   reducing computational overhead.
+
+Implementing the tip mentioned above:
+
+.. code-block:: fortran
+
+   MODULE MyModule
+
+     IMPLICIT NONE
+     . . .
+
+     ! Species ID of CO.  All subroutines in MyModule can refer to id_CO.
+     INTEGER, PRIVATE :: id_CO
+
+   CONTAINS
+
+     . . .  other subroutines  . . .
+
+     SUBROUTINE Init_MyModule
+
+       ! This subroutine only gets called at startup
+
+       . . .
+
+       ! Store ModelId in the global id_CO variable
+       id_CO = Ind_('CO')
+
+       . . .
+
+     END SUBROUTINE Init_MyModule
+
+   END MODULE MyModule
+
+.. _spcguide-access-loop:
+
+Species lookup within a loop
+----------------------------
+
+If you need to access species properties from within a loop, it is
+better not to use the :code:`Ind_()` function, as repeated
+name-to-index lookups will incur computational overhead.  Instead, you
+can access the species properties directly from the GEOS-Chem Species
+Database object, as shown here.
+
+.. code-block:: fortran
+
+   SUBROUTINE MySub( ..., State_Chm, ... )
+
+      !%%% MySub is an example of species lookup within a loop %%%
+
+      ! Uses
+      USE Precision_Mod
+      USE State_Chm_Mod, ONLY : ChmState
+      USE Species_Mod,   ONLY : Species
+
+      ! Chemistry state object (which also holds the species database)
+      TYPE(ChmState), INTENT(INOUT) :: State_Chm
+
+      ! Local variables
+      INTEGER                       :: N
+      TYPE(Species),  POINTER       :: ThisSpc
+      INTEGER                       :: ModelId,  DryDepId, WetDepId
+      REAL(fp)                      :: Mw_g
+      REAL(f8)                      :: Henry_K0, Henry_CR, Henry_pKa
+
+      ! Loop over all species
+      DO N = 1, State_Chm%nSpecies
+
+         ! Point to the species database entry for this species
+	 ! (this makes the coding simpler)
+	 ThisSpc   => State_Chm%SpcData(N)%Info
+
+         ! Get species properties
+	 ModelId   =  ThisSpc%ModelId
+         DryDepId  =  ThisSpc%DryDepId
+         WetDepId  =  ThisSpc%WetDepId
+         MW_g      =  ThisSpc%MW_g
+         Henry_K0  =  ThisSpc%Henry_K0
+         Henry_CR  =  ThisSpc%Henry_CR
+	 Henry_pKa =  ThisSpc%Henry_pKA
+
+
+         IF ( ThisSpc%Is_Gas )
+            ! ... The species is a gas-phase species
+            ! ... so do something appropriate
+         ELSE
+            ! ... The species is an aerosol
+            ! ... so do something else appropriate
+         ENDIF
+
+         IF ( ThisSpc%Is_Advected ) THEN
+            ! ... The species is advected
+            ! ... (i.e. undergoes transport, PBL mixing, cloud convection)
+         ENDIF
+
+         IF ( ThisSpc%Is_DryDep ) THEN
+            ! ... The species is dry deposited
+         ENDIF
+
+         IF ( ThisSpc%Is_WetDep ) THEN
+            ! ... The species is soluble and wet deposits
+            ! ... it is also scavenged in convective updrafts
+            ! ... it probably has defined Henry's law properties
+         ENDIF
+
+         ... etc ...
+
+         ! Free the pointer
+         ThisSpc =>  NULL()
+
+       ENDDO
+
+    END SUBROUTINE MySub

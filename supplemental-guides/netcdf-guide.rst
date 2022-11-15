@@ -17,14 +17,38 @@ Useful tools
 There are many free and open-source software packages readily available
 for visualizing and manipulating netCDF files.
 
+.. option:: cdo
+
+   :program:`Climate Data Operators`: Highly-optimized command-line tools
+   for manipulating and analyzing netCDF files.  Contains features
+   that are especially useful for Earth Science applications.
+
+   See: https://code.zmaw.de/projects/cdo
+
+.. option:: GCPy
+
+   :program:`GEOS-Chem Python toolkit`: Python package for visualizing
+   and analyzing GEOS-Chem output.  Used for creating the GEOS-Chem
+   benchmark plots.  Also contains some useful routines for creating
+   single-panel plots and multi-panel difference plots.
+
+   See: https://gcpy.readthedocs.io
+
 .. option:: ncdump
 
-   Gemerates a text representation of netCDF  data and can be used to
+   Generates a text representation of netCDF data and can be used to
    quickly view the variables contained in a netCDF file.
    :program:`ncdump` is installed to the :file:`bin/` folder of your
    netCDF library distribution.
 
    See: https://www.unidata.ucar.edu/software/netcdf/workshops/2011/utilities/Ncdump.html
+
+.. option:: nco
+
+   :program:`netCDF operators`: Highly-optimized command-line tools for
+   manipulating and analyzing netCDF files.
+
+   See: http://nco.sourceforge.net
 
 .. option:: ncview
 
@@ -36,18 +60,12 @@ for visualizing and manipulating netCDF files.
 
 .. option:: Panoply
 
-   Data viewer for netCDF files.  This package offers an alternative
-   to ncview. From our experience, Panoply works nicely when installed
-   on the desktop, but is slow to respond in the Linux environment.
+   Java-based data viewer for netCDF files.  This package offers an
+   alternative to ncview. From our experience, Panoply works nicely
+   when installed on the desktop, but is slow to respond in the Linux
+   environment.
 
    See: https://www.giss.nasa.gov/tools/panoply/
-
-.. option:: nco and cdo
-
-   Command-line tools for manipulating and analyzing netCDF files.
-   Useful for renaming variables, attributes, and for regridding.
-
-   See: http://nco.sourceforge.net and https://code.zmaw.de/projects/cdo
 
 .. option:: xarray
 
@@ -57,114 +75,11 @@ for visualizing and manipulating netCDF files.
 
    See: https://xarray.readthedocs.io
 
-.. option:: GCPy
-
-   Python package for visualizing and analyzing GEOS-Chem output.
-   Used for creating the GEOS-Chem benchmark plots.  Also contains
-   some useful routines for creating single-panel plots and
-   multi-panel difference plots.
-
-   See: https://gcpy.readthedocs.io
-
-Some of the tools listed above, such as **ncdump** and **ncview**, may
-come pre-installed on your system. Others may need to be installed or
-loaded (e.g. via the :command:`module load` command). Check with your system
-administrator or IT staff to see what is available on your system.
-
-.. _ncguide-bpch-to-nc:
-
-===================================================
-Convert files from binary punch format to netCDF
-===================================================
-
-Older GEOS-Chem versions used a file format known as **binary punch
-format** (or **bpch** for short) which was written as Fortran unformatted
-data with some identifying metadata.  These files could be read with
-the now-unsupported :program:`GAMAP` package (written in the IDL language).
-
-If you are working with binary punch data files from older GEOS-Chem
-versions, or from the GEOS-Chem Classic adjoint model (which is based
-on, then you have a couple of options for converting these to netCDF
-format.
-
-.. _ncguide-bpch-to-nc-w-python:
-
-Using Python
-------------
-
-Perhaps the simplest way to create a netCDF file from a bpch file is
-to use the `xbpch <https://xbpch.readthedocs.io/en/latest/>`__ and
-`xarray <http://xarray.pydata.org/en/stable/>`__ Python packages. (If
-you would like to change the variable names, then you will also need
-our `gcpy <https://github.com/geoschem/gcpy>`__ package.) This can be
-done in only a few lines of Python! Please see our example script
-`bpch2nc.py <https://github.com/geoschem/gcpy/blob/main/examples/bpch_to_nc/bpch2nc.py>`_.
-
-.. _ncguide-bpch-to-nc-w-idl:
-
-Using IDL
----------
-
-You can use the `GAMAP routine :program:`bpch2coards` to create netCDF
-files from a `GEOS-Chem binary punch file
-<http://acmg.seas.harvard.edu/gamap/doc/Chapter_6.html#6.2>`__. For
-example, start IDL and then type this command at the IDL prompt:
-
-.. code-block:: console
-
-   IDL> bpch2coards, 'uvalbedo.geos.2x25', 'uvalbedo.geos.2x25.%DATE%.nc'
-
-will create the following netCDF files:
-
-.. code-block:: console
-
-   uvalbedo.geos.2x25.19850101.nc
-   uvalbedo.geos.2x25.19850201.nc
-   uvalbedo.geos.2x25.19850301.nc
-   uvalbedo.geos.2x25.19850401.nc
-   uvalbedo.geos.2x25.19850501.nc
-   uvalbedo.geos.2x25.19850601.nc
-   uvalbedo.geos.2x25.19850701.nc
-   uvalbedo.geos.2x25.19850801.nc
-   uvalbedo.geos.2x25.19850901.nc
-   uvalbedo.geos.2x25.19851001.nc
-   uvalbedo.geos.2x25.19851101.nc
-   uvalbedo.geos.2x25.19851201.nc
-
-Note that :program:`bpch2coards` will create a new file for each time
-slice. The :code:`%DATE%` token in the output file name will be
-replaced with the year-month-day value for each time stamp. In the
-above example, the binary punch file :file:`uvalbedo.geos.2x25`
-contains monthly data, therefore :program:`bpch2coards` will create 12
-individual netCDF files.
-
-.. note::
-
-   You might sometimes have better luck using the :program:`bpch_sep`
-   routine to split the bpch files into smaller bpch files (e.g. one
-   per month) band then using :program:`bpch2coards` on the smaller
-   files.
-
-   **Special note for timeseries data:** To use :program:`bpch2coards` to
-   convert timeseries (e.g. hourly, 3-hourly, etc) data to netCDF
-   format, add the :code:`%TIME%` token to the netCDF file name. For example:
-
-.. code-block:: console
-
-   IDL> bpch2coards, 'timeseries.geos.2x25', 'timeseries.geos.2x25.%DATE%.%TIME%.nc'
-
-This will create one new netCDF file for each timestamp in the bpch
-file. See :ref:`ncguide-concat-files` for instructions on how you can
-concatenate these into a single netCDF file.
-
-.. _ncguide-bpch-to-nc-edit-attrs:
-
-Edit variable names and attributes
-----------------------------------
-
-Whether you use Python or IDL to create a netCDF file from a bpch file,
-you will still need to edit the variable attributes in order to make the
-file COARDS-compliant (cf.:ref:`ncguide-edit-vars-attrs`).
+Some of the tools listed above, such as :program:`ncdump` and
+:program:`ncview` may come pre-installed on your system. Others may
+need to be installed or loaded (e.g. via the :command:`module load`
+command). Check with your system administrator or IT staff to see what
+is available on your system.
 
 .. _ncguide-examine-contents:
 
@@ -172,100 +87,168 @@ file COARDS-compliant (cf.:ref:`ncguide-edit-vars-attrs`).
 Examine the contents of a netCDF file
 =======================================
 
-An easy way to examine the contents of a netCDF file is to use this
-command:
+An easy way to examine the contents of a netCDF file is to use
+:program:`ncdump` as follows:
 
 .. code-block:: console
 
-   ncdump -cts EMEP.geos.1x1
+   $ ncdump -ct GEOSChem.SpeciesConc.20190701_0000z.nc4
 
 You will see output similar to this:
 
 .. code-block:: console
 
-   netcdf EMEP.geos.1x1 {
+   netcdf GEOSChem.SpeciesConc.20190701_0000z {
    dimensions:
-           lon = 360 ;
-           lat = 181 ;
-           time = UNLIMITED ; // (17 currently)
+   	time = UNLIMITED ; // (1 currently)
+   	lev = 72 ;
+   	ilev = 73 ;
+   	lat = 46 ;
+   	lon = 72 ;
+   	nb = 2 ;
    variables:
-           float lon(lon) ;
-                   lon:standard_name = "longitude" ;
-                   lon:long_name = "Longitude" ;
-                   lon:units = "degrees_east" ;
-                   lon:axis = "X" ;
-                   lon:_Storage = "chunked" ;
-                   lon:_ChunkSizes = 360 ;
-                   lon:_DeflateLevel = 1 ;
-           float lat(lat) ;
-                   lat:standard_name = "latitude" ;
-                   lat:long_name = "Latitude" ;
-                   lat:units = "degrees_north" ;
-                   lat:axis = "Y" ;
-                   lat:_Storage = "chunked" ;
-                   lat:_ChunkSizes = 181 ;
-                   lat:_DeflateLevel = 1 ;
-           double time(time) ;
-                   time:standard_name = "time" ;
-                   time:units = "hours since 1985-01-01 00:00:00" ;
-                   time:calendar = "standard" ;
-                   time:_Storage = "chunked" ;
-                   time:_ChunkSizes = 524288 ;
-                   time:_DeflateLevel = 1 ;
-           float PRPE(time, lat, lon) ;
-                   PRPE:long_name = "Propene" ;
-                   PRPE:units = "kgC/m2/s" ;
-                   PRPE:gamap_category = "ANTHSRCE" ;
-                   PRPE:_Storage = "chunked" ;
-                   PRPE:_ChunkSizes = 1, 181, 360 ;
-                   PRPE:_DeflateLevel = 1 ;
-           float ALK4(time, lat, lon) ;
-                   ALK4:long_name = "Alkanes(>C4)" ;
-                   ALK4:units = "kgC/m2/s" ;
-                   ALK4:gamap_category = "ANTHSRCE" ;
-                   ALK4:_Storage = "chunked" ;
-                   ALK4:_ChunkSizes = 1, 181, 360 ;
-                   ALK4:_DeflateLevel = 1 ;
-           ... etc ...
+   	double time(time) ;
+   		time:long_name = "Time" ;
+   		time:units = "minutes since 2019-07-01 00:00:00" ;
+   		time:calendar = "gregorian" ;
+   		time:axis = "T" ;
+   	double lev(lev) ;
+   		lev:long_name = "hybrid level at midpoints ((A/P0)+B)" ;
+   		lev:units = "level" ;
+   		lev:axis = "Z" ;
+   		lev:positive = "up" ;
+   		lev:standard_name = "atmosphere_hybrid_sigma_pressure_coordinate" ;
+   		lev:formula_terms = "a: hyam b: hybm p0: P0 ps: PS" ;
+   	double ilev(ilev) ;
+   		ilev:long_name = "hybrid level at interfaces ((A/P0)+B)" ;
+   		ilev:units = "level" ;
+   		ilev:positive = "up" ;
+   		ilev:standard_name = "atmosphere_hybrid_sigma_pressure_coordinate" ;
+   		ilev:formula_terms = "a: hyai b: hybi p0: P0 ps: PS" ;
+   	double lat_bnds(lat, nb) ;
+   		lat_bnds:long_name = "Latitude bounds (CF-compliant)" ;
+   		lat_bnds:units = "degrees_north" ;
+   	double lat(lat) ;
+   		lat:long_name = "Latitude" ;
+   		lat:units = "degrees_north" ;
+   		lat:axis = "Y" ;
+   		lat:bounds = "lat_bnds" ;
+   	double lon_bnds(lon, nb) ;
+   		lon_bnds:long_name = "Longitude bounds (CF-compliant)" ;
+   		lon_bnds:units = "degrees_east" ;
+   	double lon(lon) ;
+   		lon:long_name = "Longitude" ;
+   		lon:units = "degrees_east" ;
+   		lon:axis = "X" ;
+   		lon:bounds = "lon_bnds" ;
+   	double hyam(lev) ;
+   		hyam:long_name = "hybrid A coefficient at layer midpoints" ;
+   		hyam:units = "hPa" ;
+   	double hybm(lev) ;
+   		hybm:long_name = "hybrid B coefficient at layer midpoints" ;
+   		hybm:units = "1" ;
+   	double hyai(ilev) ;
+   		hyai:long_name = "hybrid A coefficient at layer interfaces" ;
+   		hyai:units = "hPa" ;
+   	double hybi(ilev) ;
+   		hybi:long_name = "hybrid B coefficient at layer interfaces" ;
+   		hybi:units = "1" ;
+   	double P0 ;
+   		P0:long_name = "reference pressure" ;
+   		P0:units = "hPa" ;
+   	float AREA(lat, lon) ;
+   		AREA:long_name = "Surface area" ;
+   		AREA:units = "m2" ;
+   	float SpeciesConc_RCOOH(time, lev, lat, lon) ;
+   		SpeciesConc_RCOOH:long_name = "Dry mixing ratio of species RCOOH" ;
+   		SpeciesConc_RCOOH:units = "mol mol-1 dry" ;
+   		SpeciesConc_RCOOH:averaging_method = "time-averaged" ;
+   	float SpeciesConc_O2(time, lev, lat, lon) ;
+   		SpeciesConc_O2:long_name = "Dry mixing ratio of species O2" ;
+   		SpeciesConc_O2:units = "mol mol-1 dry" ;
+   		SpeciesConc_O2:averaging_method = "time-averaged" ;
+   	float SpeciesConc_N2(time, lev, lat, lon) ;
+   		SpeciesConc_N2:long_name = "Dry mixing ratio of species N2" ;
+   		SpeciesConc_N2:units = "mol mol-1 dry" ;
+   		SpeciesConc_N2:averaging_method = "time-averaged" ;
+   	float SpeciesConc_H2(time, lev, lat, lon) ;
+   		SpeciesConc_H2:long_name = "Dry mixing ratio of species H2" ;
+   		SpeciesConc_H2:units = "mol mol-1 dry" ;
+   		SpeciesConc_H2:averaging_method = "time-averaged" ;
+   	float SpeciesConc_O(time, lev, lat, lon) ;
+   		SpeciesConc_O:long_name = "Dry mixing ratio of species O" ;
+   		SpeciesConc_O:units = "mol mol-1 dry" ;
+
+		... etc ...
+
    // global attributes:
-                   :CDI = "Climate Data Interface version 1.5.5 (http://code.zmaw.de/projects/cdi)" ;
-                   :Conventions = "COARDS" ;
-                   :history = "Wed Apr 23 17:36:28 2014: cdo mulc,10000 tmptmp.nc EMEP.geos.1x1.nc\n",
-                   :Title = "COARDS/netCDF file created by BPCH2COARDS (GAMAP v2-03+)" ;
-                   :Model = "GEOS3" ;
-                   :Grid = "GEOS_1x1" ;
-                   :Delta_Lon = 1.f ;
-                   :Delta_Lat = 1.f ;
-                   :NLayers = 48 ;
-                   :Start_Date = 19800101 ;
-                   :Start_Time = 0 ;
-                   :End_Date = 19810101 ;
-                   :End_Time = 0 ;
-                   :Delta_Time = 240000 ;
-                   :Temp_Res = "CONSTANT" ;
-                   :CDO = "Climate Data Operators version 1.5.5 (http://code.zmaw.de/projects/cdo)" ;
+   		:title = "GEOS-Chem diagnostic collection: SpeciesConc" ;
+   		:history = "" ;
+   		:format = "not found" ;
+   		:conventions = "COARDS" ;
+   		:ProdDateTime = "" ;
+   		:reference = "www.geos-chem.org; wiki.geos-chem.org" ;
+   		:contact = "GEOS-Chem Support Team (geos-chem-support@g.harvard.edu)" ;
+   		:simulation_start_date_and_time = "2019-07-01 00:00:00z" ;
+   		:simulation_end_date_and_time = "2019-07-01 01:00:00z" ;
    data:
-    lon = 180.5, 181.5, 182.5 ... etc... ;
-    lat = -89.75, -89, -88, -87 ... etc ... ;
-    time = "1980-01-01", "1985-01-01", "1986-01-01", "1987-01-01", "1988-01-01",
-       "1989-01-01", "1990-01-01", "1991-01-01", "1992-01-01", "1993-01-01",
-       "1994-01-01", "1995-01-01", "1996-01-01", "1997-01-01", "1998-01-01",
-       "1999-01-01", "2000-01-01" ;
+
+    time = "2019-07-01 00:30" ;
+
+    lev = 0.99250002413, 0.97749990013, 0.962499776, 0.947499955, 0.93250006,
+       0.91749991, 0.90249991, 0.88749996, 0.87249996, 0.85750006, 0.842500125,
+       0.82750016, 0.8100002, 0.78750002, 0.762499965, 0.737500105, 0.7125001,
+       0.6875001, 0.65625015, 0.6187502, 0.58125015, 0.5437501, 0.5062501,
+       0.4687501, 0.4312501, 0.3937501, 0.3562501, 0.31279158, 0.26647905,
+       0.2265135325, 0.192541016587707, 0.163661504087706, 0.139115, 0.11825,
+       0.10051436, 0.085439015, 0.07255786, 0.06149566, 0.05201591, 0.04390966,
+       0.03699271, 0.03108891, 0.02604911, 0.021761005, 0.01812435, 0.01505025,
+       0.01246015, 0.010284921, 0.008456392, 0.0069183215, 0.005631801,
+       0.004561686, 0.003676501, 0.002948321, 0.0023525905, 0.00186788,
+       0.00147565, 0.001159975, 0.00090728705, 0.0007059566, 0.0005462926,
+       0.0004204236, 0.0003217836, 0.00024493755, 0.000185422, 0.000139599,
+       0.00010452401, 7.7672515e-05, 5.679251e-05, 4.0142505e-05, 2.635e-05,
+       1.5e-05 ;
+
+    ilev = 1, 0.98500004826, 0.969999752, 0.9549998, 0.94000011, 0.92500001,
+       0.90999981, 0.89500001, 0.87999991, 0.86500001, 0.85000011, 0.83500014,
+       0.82000018, 0.80000022, 0.77499982, 0.75000011, 0.7250001, 0.7000001,
+       0.6750001, 0.6375002, 0.6000002, 0.5625001, 0.5250001, 0.4875001,
+       0.4500001, 0.4125001, 0.3750001, 0.3375001, 0.28808306, 0.24487504,
+       0.208152025, 0.176930008175413, 0.150393, 0.127837, 0.108663, 0.09236572,
+       0.07851231, 0.06660341, 0.05638791, 0.04764391, 0.04017541, 0.03381001,
+       0.02836781, 0.02373041, 0.0197916, 0.0164571, 0.0136434, 0.0112769,
+       0.009292942, 0.007619842, 0.006216801, 0.005046801, 0.004076571,
+       0.003276431, 0.002620211, 0.00208497, 0.00165079, 0.00130051, 0.00101944,
+       0.0007951341, 0.0006167791, 0.0004758061, 0.0003650411, 0.0002785261,
+       0.000211349, 0.000159495, 0.000119703, 8.934502e-05, 6.600001e-05,
+       4.758501e-05, 3.27e-05, 2e-05, 1e-05 ;
+
+    lat = -89, -86, -82, -78, -74, -70, -66, -62, -58, -54, -50, -46, -42, -38,
+       -34, -30, -26, -22, -18, -14, -10, -6, -2, 2, 6, 10, 14, 18, 22, 26, 30,
+       34, 38, 42, 46, 50, 54, 58, 62, 66, 70, 74, 78, 82, 86, 89 ;
+
+    lon = -180, -175, -170, -165, -160, -155, -150, -145, -140, -135, -130,
+       -125, -120, -115, -110, -105, -100, -95, -90, -85, -80, -75, -70, -65,
+       -60, -55, -50, -45, -40, -35, -30, -25, -20, -15, -10, -5, 0, 5, 10, 15,
+       20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105,
+       110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160, 165, 170, 175 ;
    }
 
-You can also use ncdump to display the data values for a given variable
-in the netCDF file. This command will display the values in the
-SpeciesRst_NO variable to the screen:
+
+You can also use :program:`ncdump` to display the data values for a
+given variable in the netCDF file. This command will display the
+values in the :literal:`SpeciesRst_O3` variable to the screen:
 
 .. code-block:: console
 
-   ncdump -v SpeciesRst_NO GEOSChem_restart.20160701_0000z.nc4 | less
+   $ ncdump -v SpeciesConc_O3 GEOSChem.SpeciesConc.20190701_0000z.nc4 | less
 
 Or you can redirect the output to a file:
 
 .. code-block:: console
 
-   ncdump -v SpeciesRst_NO GEOSChem_restart.20160701_0000z.nc4
+   $ ncdump -v SpeciesConc_O3 GEOSChem.SpeciesConc.20190701_0000z.nc4 > log
 
 .. _ncguide-reading-files:
 
@@ -290,48 +273,63 @@ package <https://xarray.readthedocs.io>`_.
    import xarray as xr
 
    # Read a restart file into an xarray Dataset object
-   ds = xr.open_dataset("GEOSChem.Restart.20160101_0000z.nc4")
+   ds = xr.open_dataset("GEOSChem.SpeciesConc.20190701_0000z.nc4")
 
    # Print the contents of the DataSet
    print(ds)
 
-   # Print the units of the SpeciesRst_O3 field
-   print(ds["SpeciesRst_O3"].units)
+   # Print units of data
+   print(f"\nUnits of SpeciesRst_O3: {ds['SpeciesConc_O3'].units}")
 
-   # Convert the SpeciesRst_O3 (O3 concentration) to
-   # a numpy array so that we can take the sum
-   O3_values = ds["SpeciesRst_O3"].values
-
-   # Take the sum of SpeciesRst_O3
-   sum_O3 = np.sum(O3_values)
-   print("Sum of SpeciesRst_O3: {}".format(sum_O3))
-   ... etc ...
+   # Print the sum, max, and min of the data
+   # NOTE .values returns a numpy ndarray so that we can use
+   # other numpy functions like np.sum() on the data
+   print(f"Sum of SpeciesRst_O3: {np.sum(ds['SpeciesConc_O3'].values)}")
+   print(f"Max of SpeciesRst_O3: {np.max(ds['SpeciesConc_O3'].values)}")
+   print(f"Min of SpeciesRst_O3: {np.min(ds['SpeciesConc_O3'].values)}")
 
 This above script will print the following output:
 
 .. code-block:: console
 
    <xarray.Dataset>
-   Dimensions:              (lat: 46, lev: 72, lon: 72, time: 1)
+   Dimensions:               (ilev: 73, lat: 46, lev: 72, lon: 72, nb: 2, time: 1)
    Coordinates:
-     * lon                  (lon) float64 -180.0 -175.0 -170.0 -165.0 -160.0 ...
-     * lat                  (lat) float64 -89.0 -86.0 -82.0 -78.0 -74.0 -70.0 ...
-     * lev                  (lev) float64 1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0 ...
-     * time                 (time) datetime64[ns] 2016-07-01
-   Data variables:
-       AREA                 (lat, lon) float64 ...
-       SpeciesRst_RCOOH     (time, lev, lat, lon) float32 ...
-       SpeciesRst_O2        (time, lev, lat, lon) float32 ...
-       ... etc...
-       SpeciesRst_O3        (time, lev, lat, lon) float32 ...
-       SpeciesRst_NO        (time, lev, lat, lon) float32 ...
+     * time                  (time) datetime64[ns] 2019-07-01T00:30:00
+     * lev                   (lev) float64 0.9925 0.9775 ... 2.635e-05 1.5e-05
+     * ilev                  (ilev) float64 1.0 0.985 0.97 ... 3.27e-05 2e-05 1e-05
+     * lat                   (lat) float64 -89.0 -86.0 -82.0 ... 82.0 86.0 89.0
+     * lon                   (lon) float64 -180.0 -175.0 -170.0 ... 170.0 175.0
+   Dimensions without coordinates: nb
+   Data variables: (12/315)
+       lat_bnds              (lat, nb) float64 ...
+       lon_bnds              (lon, nb) float64 ...
+       hyam                  (lev) float64 ...
+       hybm                  (lev) float64 ...
+       hyai                  (ilev) float64 ...
+       hybi                  (ilev) float64 ...
+       ...                    ...
+       SpeciesConc_AONITA    (time, lev, lat, lon) float32 ...
+       SpeciesConc_ALK4      (time, lev, lat, lon) float32 ...
+       SpeciesConc_ALD2      (time, lev, lat, lon) float32 ...
+       SpeciesConc_AERI      (time, lev, lat, lon) float32 ...
+       SpeciesConc_ACTA      (time, lev, lat, lon) float32 ...
+       SpeciesConc_ACET      (time, lev, lat, lon) float32 ...
    Attributes:
-       title:        GEOSChem  restart
-       history:      Created by routine NC_CREATE (in ncdf_mod.F90)
-       format:       NetCDF-4
-       conventions:  COARDS
-   Units of SpeciesRst_O3: mol/mol
-   Sum of SpeciesRst_O3: 0.40381380915641785
+       title:                           GEOS-Chem diagnostic collection: Species...
+       history:
+       format:                          not found
+       conventions:                     COARDS
+       ProdDateTime:
+       reference:                       www.geos-chem.org; wiki.geos-chem.org
+       contact:                         GEOS-Chem Support Team (geos-chem-suppor...
+       simulation_start_date_and_time:  2019-07-01 00:00:00z
+       simulation_end_date_and_time:    2019-07-01 01:00:00z
+
+   Units of SpeciesRst_O3: mol mol-1 dry
+   Sum of SpeciesRst_O3: 0.4052325189113617
+   Max of SpeciesRst_O3: 1.01212954177754e-05
+   Min of SpeciesRst_O3: 3.758645839013752e-09
 
 .. _ncguide-reading-multiple-files-w-python:
 
@@ -350,7 +348,11 @@ multi-file-dataset) function as shown below:
    import xarray as xr
 
    # Create a list of files to open
-   filelist = ['GEOSChem.SpeciesConc.20160101_0000z.nc4', 'GEOSChem.SpeciesConc_20160201_0000z.nc4', ...]
+   filelist = [
+       'GEOSChem.SpeciesConc.20160101_0000z.nc4',
+       'GEOSChem.SpeciesConc_20160201_0000z.nc4',
+       ...
+   ]
 
    # Read a restart file into an xarray Dataset object
    ds = xr.open_mfdataset(filelist)
@@ -361,10 +363,69 @@ multi-file-dataset) function as shown below:
 Determining if a netCDF file is COARDS-compliant
 ================================================
 
-Please see `The COARDS conventions for earth science
-data
-<The_COARDS_netCDF_conventions_for_earth_science_data#Determining_if_a_netCDF_file_is_COARDS-compliant>`_
-on the GEOS-Chem wiki.
+All netCDF files used as input to GEOS-Chem and/or HEMCO must adhere
+to the :ref:`COARDS netCDF conventions <coards-guide>`.  You can use
+the `isCoards script
+<https://github.com/geoschem/geos-chem/blob/main/NcdfUtil/perl/isCoards>`_
+to determine if a netCDF file adheres to the COARDS conventions.
+
+Run the :file:`isCoards` script at the command line on any netCDF file, and
+you will receive a report as to which elements of the file do not
+comply with the COARDS conventions.
+
+.. code-block:: console
+
+   isCoards myfile.nc
+
+   ===========================================================================
+   Filename: myfile.nc
+   ===========================================================================
+
+   The following items adhere to the COARDS standard:
+   ---------------------------------------------------------------------------
+   -> Dimension "time" adheres to standard usage
+   -> Dimension "lev" adheres to standard usage
+   -> Dimension "lat" adheres to standard usage
+   -> Dimension "lon" adheres to standard usage
+   -> time(time)
+   -> time is monotonically increasing
+   -> time:axis = "T"
+   -> time:calendar = "gregorian"
+   -> time:long_name = "Time"
+   -> time:units = "hours since 1985-1-1 00:00:0.0"
+   -> lev(lev)
+   -> lev is monotonically decreasing
+   -> lev:axis = "Z"
+   -> lev:positive = "up"
+   -> lev:long_name = "GEOS-Chem levels"
+   -> lev:units = "sigma_level"
+   -> lat(lat)
+   -> lat is monotonically increasing
+   -> lat:axis = "Y"
+   -> lat:long_name = "Latitude"
+   -> lat:units = "degrees_north"
+   -> lon(lon)
+   -> lon is monotonically increasing
+   -> lon:axis = "X"
+   -> lon:long_name = "Longitude"
+   -> lon:units = "degrees_east"
+   -> OH(time,lev,lat,lon)
+   -> OH:long_name = "Chemically produced OH"
+   -> OH:units = "kg/m3"
+   -> OH:long_name = 1.e+30f
+   -> OH:missing_value = 1.e+30f
+   -> conventions: "COARDS"
+   -> history: "Mon Apr  3 08:26:19 2017"
+   -> title: "COARDS/netCDF file created by BPCH2COARDS (GAMAP v2-17+)"
+   -> format: "NetCDF-3"
+
+   The following items DO NOT ADHERE to the COARDS standard:
+   ---------------------------------------------------------------------------
+   -> time[0] != 0 (this is required for GCHP)
+
+   The following optional items are RECOMMENDED:
+   ---------------------------------------------------------------------------
+   -> Consider adding the "references" global attribute
 
 .. _ncguide-edit-vars-attrs:
 
@@ -372,64 +433,53 @@ on the GEOS-Chem wiki.
 Edit variable names and attributes
 ==================================
 
-If you have obtained a netCDF file from a data archive (or have
-:ref:`converted data in bpch format to netCDF <ncguide-bpch-to-nc>`,
-you will probably have to further edit certain attributes and variable
-names in order to make your file COARDS-compliant. You can use `the isCoards
-script
-<https://github.com/geoschem/geos-chem/blob/main/NcdfUtil/perl/isCoards>`_
-to determine which elements of your netCDF file need to be edited.
-
-**Christoph Keller** has provided these several useful commands for editing
-netCDF files.
+As discussed :ref:`in the preceding section
+<ncguide-coards-compliant>`, you may find that you need to edit your
+netCDF files for COARDS-compliance.  Below are several useful commands
+for editing netCDF files.  Many of these commands utilize the
+:option:`nco` and :option:`cdo` utilities.
 
 #. Display the header and coordinate variables of a netCDF file, with
-   the time variable dipslayed in human-readable format:
+   the time variable displayed in human-readable format.  Also show
+   status of file :ref:`compression and/or chunking <ncguide-chunk-deflate>`.
 
    .. code-block:: console
 
-      ncdump -cts file.nc
+      $ ncdump -cts file.nc
 
-#. Compress a netCDF file.  This can considerably reduce the file
-   size! (cf. :ref:`ncguide-chunk-deflate`)
+#. :ref:`Compress a netCDF file <ncguide-chunk-deflate>`.  This can
+   considerably reduce the file size!
 
    .. code-block:: console
 
       # No deflation
-      nccopy -d0 in.nc out.nc
-      mv out.nc in.nc
+      $ nccopy -d0 myfile.nc tmp.nc
+      $ mv tmp.nc myfile.nc
 
       # Minimum deflation (good for most applications)
-      nccopy -d1 in.nc out.nc
-      mv out.nc in.nc
+      $ nccopy -d1 myfile.nc tmp.nc
+      $ mv tmp.nc myfile.nc
 
       # Medium deflation
-      nccopy -d5 in.nc out.nc
-      mv out.nc in.nc
+      $ nccopy -d5 myfile.nc tmp.nc
+      $ mv tmp.nc myfile.nc
 
-   # Maximum deflation
-   nccopy -d9 in.nc out.nc
-   mv out.nc in.nc
+      # Maximum deflation
+      $ nccopy -d9 myfile.nc tmp.nc
+      $ mv tmp.nc myfile.nc
 
-#. Change variable name from :code:`SpeciesConc_NO` to :code:`NO`
-
-   .. code-block:: console
-
-      ncrename -v SpeciesConc_NO,NO file.nc
-
-#. Change the timestamp in the file from 1 Jan 1985 to 1 Jan 2000
+#. Change variable name from :literal:`SpeciesConc_NO` to :literal:`NO`:
 
    .. code-block:: console
 
-      cdo settime,2000-01-01 in.nc out.nc
-      mv out.nc in.nc
+      $ ncrename -v SpeciesConc_NO,NO myfile.nc
 
 #. Set all missing values to zero:
 
    .. code-block:: console
 
-      cdo setemisstoc,0 in.nc out.nc
-      mv out.nc in.nc
+      $ cdo setemisstoc,0 myfile.nc tmp.nc
+      $ mv tmp.nc myfile.nc
 
 #. Add/change the long-name attribute of the vertical coordinates
    (lev) to "GEOS-Chem levels".  This will ensure that `HEMCO
@@ -438,53 +488,113 @@ netCDF files.
 
    .. code-block:: console
 
-      ncatted -a long_name,lev,o,c,"GEOS-Chem levels" file.nc
+      $ ncatted -a long_name,lev,o,c,"GEOS-Chem levels" myfile.nc
 
 #. Add/change the axis and positive attributes to the vertical
    coordinate (lev):
 
    .. code-block:: console
 
-      ncatted -a axis,lev,o,c,"Z" file.nc
-      ncatted -a positive,lev,o,c,"up" file.nc
+      $ ncatted -a axis,lev,o,c,"Z" myfile.nc
+      $ ncatted -a positive,lev,o,c,"up" myfile.nc
 
-#. Add/change the :code:`units` attribute of the latitude (lat) coordinate to
-   :code:`degrees_north`:
-
-   .. code-block:: console
-
-      ncatted -a units,lat,o,c,"degrees_north" file.nc
-
-#. Add/change the :code:`references`, :code:`title`, and
-   :code:`history` global attributes
+#. Add/change the :literal:`units` attribute of the latitude (lat) coordinate to
+   :literal:`degrees_north`:
 
    .. code-block:: console
 
-      ncatted -a references,global,o,c,"www.geos-chem.org; wiki.geos-chem.org" file.nc
-      ncatted -a history,global,o,c,"Tue Mar  3 12:18:38 EST 2015" file.nc
-      ncatted -a title,global,o,c,"XYZ data from ABC source" file.nc
+      $ ncatted -a units,lat,o,c,"degrees_north" myfile.nc
 
-#. Remove the :code:`references` global attribute:
-
-   .. code-block:: console
-
-      ncatted -a references,global,d,, file.nc
-
-#. Add a :code:`time` dimension to a file with a missing time dimension
+#. Convert the :literal:`units` attribute of the CHLA variable from
+   :literal:`mg/m3` to :literal:`kg/m3`
 
    .. code-block:: console
 
-      ncap2 -h -s 'defdim(“time”,1);time[time]=0.0;time@long_name=“time”;time@calendar=“standard”;time@units=“days since 2007-01-01 00:00:00”' -O in.nc out.nc
-      mv out.nc in.nc
+      $ ncap2 -v -s "CHLA=CHLA/1000000.0f" myfile.nc tmp.nc
+      $ ncatted -a units,CHLA,o,c,"kg/m3" tmp.nc
+      $ mv tmp.nc myfile.nc
 
-#. Convert the :code:`units` attribute of the CHLA variable from
-   :code:`mg/m3` to :code:`kg/m3`
+#. Add/change the :literal:`references`, :literal:`title`, and
+   :literal:`history` global attributes
 
    .. code-block:: console
 
-       ncap2 -v -s "CHLA=CHLA/1000000.0f" in.nc out.nc
-       ncatted -a units,CHLA,o,c,"kg/m3" out.nc
-       mv out.nc in.nc
+      $ ncatted -a references,global,o,c,"www.geos-chem.org; wiki.geos-chem.org" myfile.nc
+      $ ncatted -a history,global,o,c,"Tue Mar  3 12:18:38 EST 2015" myfile.nc
+      $ ncatted -a title,global,o,c,"XYZ data from ABC source" myfile.nc
+
+#. Remove the :literal:`references` global attribute:
+
+   .. code-block:: console
+
+      $ ncatted -a references,global,d,, myfile.nc
+
+#. Add a :literal:`time` dimension to a file that does not have one:
+
+   .. code-block:: console
+
+      $ ncap2 -h -s 'defdim(“time”,1);time[time]=0.0;time@long_name=“time”;time@calendar=“standard”;time@units=“days since 2007-01-01 00:00:00”' -O myfile.nc tmp.nc
+      $ mv tmp.nc myfile.nc
+
+#. Add a :literal:`time` dimension to a variable:
+
+   .. code-block:: console
+
+      # Assume myVar has lat and lon dimensions to start with
+      $ ncap2 -h -s 'myVar[$time,$lat,$lon]=myVar;' myfile.nc tmp.nc
+      $ mv tmp.nc myfile.nc
+
+#. Make the :literal:`time` dimension unlimited:
+
+   .. code-block:: console
+
+      $ ncks --mk_rec_dmn time myfile.nc tmp.nc
+      $ mv tmp.nc myfile.nc
+
+#. Change the file reference date and time (i.e. :literal:`time:units`)
+   from 1 Jan 1985 to 1 Jan 2000:
+
+   .. code-block:: console
+
+      $ cdo setreftime,2000-01-01,00:00:00 myfile.nc tmp.nc
+      $ mv tmp.nc myfile.nc
+
+#. Shift all time values ahead or back by 1 hour in a file:
+
+   .. code-block:: console
+
+      # Shift ahead 1 hour
+      $ cdo shifttime,1hour myfile.nc tmp.nc
+      $ mv tmp.nc myfile.nc
+
+      # Shift back 1 hour
+      $ cdo shiftime,-1hour myfile.nc tmp.nc
+      $ mv tmp.nc myfile.nc
+
+#. Set the date of all variables in the file.  (Useful for files that
+   have only one time point.)
+
+   .. code-block:: console
+
+      $ cdo setdate,2019-07-02 myfile.nc tmp.nc
+      $ mv tmp.nc myfile.nc
+
+   .. tip::
+
+      The following :program:`cdo` commands are similar to
+      :command:`cdo setdate`, but allow you to manipulate other time
+      variables:
+
+      .. code-block:: console
+
+         $ cdo settime,03:00:00 ...  # Sets time to 03:00 UTC
+	 $ cdo setday,26, ...        # Sets day of month to 26
+	 $ cdo setmon,10, ...        # Sets month to 10 (October)
+	 $ cdo setyear,1992, ...     # Sets year to 1992
+
+      See the `cdo user manual
+      <https://code.mpimet.mpg.de/projects/cdo/embedded/index.html#x1-2690002.6.4>`_
+      for more information.
 
 .. _ncguide-concat-files:
 
@@ -500,18 +610,51 @@ single netCDF file, as shown in the sections below.
 Concatenate with the netCDF operators
 -------------------------------------
 
-You can use the ncrcat commmand of the `netCDF Operators
-(nco) <http://research.jisao.washington.edu/data_sets/nco/>`__ to
-concatenate the 12 individual files created by :program:`bpch2coards`
-into a single netCDF file. Make sure you have exited IDL, and then type the
-following command at the Unix prompt:
+You can use the :program:`ncrcat` utility (from :option:`nco`)
+to concatenate the individual netCDF files into a single netCDF file.
+
+Let's assume we want to combine 12 monthy data files
+(e.g. :file:`month_01.nc`, :file:`month_02.nc`, .. :file:`month_12.nc`
+into a single file called :file:`annual_data.nc`.
+
+First, make sure that each of the :file:`month_*nc` files has an
+unlimited :literal:`time` dimension.  Type this at the command line:
 
 .. code-block:: console
 
-   ncrcat -hO uvalbedo.geos.2x25.1985*.nc uvalbedo.geos.2x25.nc
+   $ ncdump -ct month_01.nc | grep "time"
 
-You can then discard the :file:`uvalbedo.geos.2x25.1985*.nc` files that were
-created directly by IDL :program:`bpch2coards`,
+Then you should see this as the first line in the output:
+
+.. code-block:: console
+
+   time = UNLIMITED ; // (1 currently)
+
+This indicates that the time dimension is unlimited.  If on the other
+hand you see this output:
+
+.. code-block:: console
+
+   time = 1 ;
+
+Then it means that the time dimension is fixed.  If this is the case,
+you will have to use the :program:`ncks` command to make the time
+dimension unlimited, as follows:
+
+.. code-block:: console
+
+   $ ncks --mk_rec_dmn time month_01.nc tmp.nc
+   $ mv tmp.nc month_01.nc
+   ... etc for the other files ...
+
+Then use :program:`ncrcat` to combine the monthly data
+along the time dimension, and save the result to a single netCDF file:
+
+.. code-block:: console
+
+   $ ncrcat -hO month_*nc annual_data.nc
+
+You may then discard the :file:`month_*.nc` files if so desired.
 
 .. _ncguide-concat-python:
 
@@ -536,13 +679,13 @@ GEOS-Chem restart files and GEOS-Chem diagnostic files.
 
 Regrid with cdo
 ---------------
-The Climate Data Operators include tools for regridding netCDF
-files. For example:
+:option:`cdo` includes several tools for regridding netCDF files. For
+example:
 
    .. code-block:: console
 
       # Apply conservative regridding
-      cdo remapcon,gridfile infile.nc outfile.nc
+      $ cdo remapcon,gridfile infile.nc outfile.nc
 
 For :file:`gridfile`, you can use the files `here
 <https://geoschemdata.wustl.edu/ExtData/HEMCO/grids/>`_.  Also see
@@ -551,7 +694,7 @@ For :file:`gridfile`, you can use the files `here
 
 .. _ncguide-regrid-cdo-issue:
 
-Issue with CDO remapdis regridding tool
+Issue with cdo remapdis regridding tool
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 GEOS-Chem user **Bram Maasakkers** wrote:
@@ -561,7 +704,7 @@ GEOS-Chem user **Bram Maasakkers** wrote:
 
    .. code-block:: console
 
-      cdo remapdis,geos.2x25.grid GEOSChem.Restart.4x5.nc GEOSChem.Restart.2x25.nc
+      $ cdo remapdis,geos.2x25.grid GEOSChem.Restart.4x5.nc GEOSChem.Restart.2x25.nc
 
    The last latitudinal band (-89.5) remains empty and gets filled with
    the standard missing value of cdo, which is really large. This leads
@@ -571,21 +714,22 @@ GEOS-Chem user **Bram Maasakkers** wrote:
 
    .. code-block:: console
 
-      cdo remapbic,geos.2x25.grid GEOSChem.Restart.4x5.nc GEOSChem.Restart.2x25.nc
+      $ cdo remapbic,geos.2x25.grid GEOSChem.Restart.4x5.nc GEOSChem.Restart.2x25.nc
 
 You can also use conservative regridding:
 
 .. code-block:: console
 
-   cdo remapcon,geos.2x25.grid GEOSChem.Restart.4x5.nc GEOSChem.Restart.2x25.nc
+   $ cdo remapcon,geos.2x25.grid GEOSChem.Restart.4x5.nc GEOSChem.Restart.2x25.nc
 
 .. _ncguide-regrid-nco:
 
 Regrid with nco
 ---------------
-The netCDF Operators also include tools for regridding. See the
+:option:`nco` also includes several regridding utilities.  See the
 `Regridding section of the NCO User Guide
-<http://nco.sourceforge.net/nco.html#Regridding>`_ for more information.
+<http://nco.sourceforge.net/nco.html#Regridding>`_ for more
+information.
 
 .. _ncguide-regrid-xesmf:
 
@@ -612,26 +756,36 @@ interpolation module
 <https://docs.scipy.org/doc/scipy/reference/interpolate.html>`_. This
 functionality can also be used for vertical regridding.
 
+.. _ncguide-gridspec-sparselt:
+
+Regrid with gridspec and sparselt
+---------------------------------
+
+Please see `this chapter at gcpy.readthedocs.io
+<https://gcpy.readthedocs.io/en/stable/Regridding.html#regridding-with-gridspec-and-sparselt>`_
+for more information about this method of regridding.
+
+
 .. _ncguide-cropping:
 
 =================
 Crop netCDF files
 =================
 
-If needed, regrid a coarse netCDF file (such as a restart file) can be
-cropped to a subset of the globe with the :program:`nco` or
-:program:`cdo` utilities (cf. :ref:`ncguide-useful-tools`). 
+If needed, a netCDF file can be cropped to a subset of the globe with
+the :program:`nco` or :program:`cdo` utilities
+(cf. :ref:`ncguide-useful-tools`).
 
-For example, :program:`cdo` has a :program:`SELBOX` operator for
+For example, :program:`cdo` has a :command:`selbox` operator for
 selecting a box by specifying the lat/lon bounds:
 
 .. code-block:: console
 
-   cdo sellonlatbox,lon1,lon2,lat1,lat2 in.nc out.nc
-   mv out.nc in.nc
+   $ cdo sellonlatbox,lon1,lon2,lat1,lat2 myfile.nc tmp.nc
+   $ mv tmp.nc myfile.nc
 
-See page 44 of the `CDO
-guide <https://code.zmaw.de/projects/cdo/embedded/cdo.pdf>`__ for more
+See the `cdo guide
+<https://code.zmaw.de/projects/cdo/embedded/cdo.pdf>`__ for more
 information.
 
 .. _ncguide-adding-new-var:
@@ -644,10 +798,12 @@ You have a couple of options for adding a new variable to a netCDF file
 (for example, when having to add a new species to an existing GEOS-Chem
 restart file).
 
-#. You can use :program:`cdo` and :program:`*nco` to copy the the
+#. You can use :program:`cdo` and :program:`nco` utilities to copy the
    data from one variable to another variable. For example:
 
    .. code-block:: bash
+
+      #!/bin/bash
 
       # Extract field SpeciesRst_PMN from the original restart file
       cdo selvar,SpeciesRst_PMN initial_GEOSChem_rst.4x5_standard.nc NPMN.nc4
@@ -784,7 +940,7 @@ when the file is split into one chunk per level (assuming your data
 has a lev dimension). This allows each individual vertical level of
 data to be read in parallel.
 
-You can use the :command:`nccopy` command of :option:`nco` to do the
+You can use the :program:`nccopy` command of :option:`nco` to do the
 chunking. For example, say you have a netCDF file called
 :file:`myfile.nc` with these dimensions:
 
@@ -796,26 +952,26 @@ chunking. For example, say you have a netCDF file called
            lat = 181 ;
            lon = 360 ;
 
-Then you can issue this command to apply the optimal chunking along
-levels:
+Then you can use the :program:`nccopy` command to apply the optimal
+chunking along levels:
 
 .. code-block:: console
 
-   nccopy -c lon/360,lat/181,lev/1,time/1\ -d1 myfile.nc tmp.nc
-    mv tmp.nc myfile.nc
+   $ nccopy -c lon/360,lat/181,lev/1,time/1 -d1 myfile.nc tmp.nc
+   $ mv tmp.nc myfile.nc
 
 This will create a new file called :file:`tmp.nc` that has the proper
 chunking. We then replace :file:`myfile.nc` with this temporary file.
 
 You can specify the chunk sizes that will be applied to the variables
 in the netCDF file with the :command:`-c`  argument to
-:command:`nccopy`. To obtain the optimal chunking, the :code:`lon` chunksize
-must be identical to the number of values along the longitude
-dimension (e.g. :code:`lon/360` and the :code:`lat` chunksize must be
-equal to the number of points in the latitude dimension
-(e.g. :code:`lat/181`).
+:program:`nccopy`. To obtain the optimal chunking, the :literal:`lon`
+chunksize must be identical to the number of values along the
+longitude dimension (e.g. :literal:`lon/360` and the :literal:`lat`
+chunksize must be equal to the number of points in the latitude
+dimension (e.g. :literal:`lat/181`).
 
-We also recommend that you :command:`deflate` (i.e. compress) the
+We also recommend that you :program:`deflate` (i.e. compress) the
 netCDF data variables at the same time you apply the
 chunking. Deflating can substantially reduce the file size, especially
 for emissions data that are only defined over the land but not over
@@ -882,7 +1038,7 @@ compression to myfile.nc, you would see output such as this:
                     CO:_DeflateLevel = 1 ;
                     CO:_Endianness = "little" ;\
 
-The attributes that begin with a :code:`_` character are "hidden"
+The attributes that begin with a :literal:`_` character are "hidden"
 netCDF attributes. They represent file properties instead of
 user-defined properties (like the long name, units, etc.). The
 "hidden" attributes can be shown by adding the :command:`-s` argument

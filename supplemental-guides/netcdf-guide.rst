@@ -366,7 +366,7 @@ Determining if a netCDF file is COARDS-compliant
 All netCDF files used as input to GEOS-Chem and/or HEMCO must adhere
 to the :ref:`COARDS netCDF conventions <coards-guide>`.  You can use
 the `isCoards script
-<https://github.com/geoschem/geos-chem/blob/main/NcdfUtil/perl/isCoards>`_
+<https://github.com/geoschem/netcdf-scripts/blob/main/scripts/isCoards>`_
 to determine if a netCDF file adheres to the COARDS conventions.
 
 Run the :file:`isCoards` script at the command line on any netCDF file, and

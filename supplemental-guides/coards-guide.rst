@@ -9,7 +9,7 @@ Prepare COARDS-compliant netCDF files
 #####################################
 
 On this page we discuss how you can generate netCDF data files in the
-proper format for HEMCO and and GEOS-Chem:
+proper format for HEMCO and and GEOS-Chem.
 
 .. _coards-guide-coards:
 
@@ -35,6 +35,11 @@ defines regular conventions for naming dimensions as well as the
 describing the data. You will find more information about these
 conventions in the sections below. HEMCO requires its input data to be
 adhere to the COARDS standard.
+
+Our :ref:`our "Work with
+netCDF files" supplemental guide <ncguide-coards-compliant>`
+contains detailed instructions on how you can check a netCDF file for
+COARDS compliance.
 
 .. _coards-guide-dims:
 

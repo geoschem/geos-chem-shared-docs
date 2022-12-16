@@ -58,6 +58,12 @@ for visualizing and manipulating netCDF files.
 
    See: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
 
+.. option:: netcdf-scripts
+
+   Our repository of useful netCDF utility scripts for GEOS-Chem.
+
+   See: https://github.com/geoschem/netcdf-scripts
+
 .. option:: Panoply
 
    Java-based data viewer for netCDF files.  This package offers an
@@ -367,7 +373,9 @@ All netCDF files used as input to GEOS-Chem and/or HEMCO must adhere
 to the :ref:`COARDS netCDF conventions <coards-guide>`.  You can use
 the `isCoards script
 <https://github.com/geoschem/netcdf-scripts/blob/main/scripts/isCoards>`_
-to determine if a netCDF file adheres to the COARDS conventions.
+(from our `netcdf-scripts repository at GitHub
+<https://github.com/geoschem/netcdf-scripts>`_) to determine if a
+netCDF file adheres to the COARDS conventions.
 
 Run the :file:`isCoards` script at the command line on any netCDF file, and
 you will receive a report as to which elements of the file do not
@@ -375,7 +383,7 @@ comply with the COARDS conventions.
 
 .. code-block:: console
 
-   isCoards myfile.nc
+   $ isCoards myfile.nc
 
    ===========================================================================
    Filename: myfile.nc
@@ -421,7 +429,7 @@ comply with the COARDS conventions.
 
    The following items DO NOT ADHERE to the COARDS standard:
    ---------------------------------------------------------------------------
-   -> time[0] != 0 (this is required for GCHP)
+   -> time[0] != 0 (problem for GCHP)
 
    The following optional items are RECOMMENDED:
    ---------------------------------------------------------------------------
@@ -429,9 +437,9 @@ comply with the COARDS conventions.
 
 .. _ncguide-edit-vars-attrs:
 
-==================================
-Edit variable names and attributes
-==================================
+=============================
+Edit variables and attributes
+=============================
 
 As discussed :ref:`in the preceding section
 <ncguide-coards-compliant>`, you may find that you need to edit your
@@ -982,24 +990,16 @@ purposes, a deflation level of 1 (:command:`d1`) is sufficient.
 
 The `GEOS-Chem Support Team
 <https://wiki.geos-chem.org/GEOS-Chem_Support_Team>`_ has created a
-script named :file:`nc_chunk.pl` that will automatically chunk and
-compress data for you. You may obtain this script from our
-:program:`NcdfUtilities` repository. We also recommend that you copy
-:program:`nc_chunk.pl` into a folder that is in your search path (such
-as :file:`~/bin`) so that it will be available to you in whatever
-directory you are working in.
+Perl script named  `nc_chunk.pl
+<https://github.com/geoschem/netcdf-scripts/blob/main/scripts/nc_chunk.pl>`_
+(contained in the `netcdf-scripts repository at GitHub
+<https://github.com/geoschem/netcdf-scripts>`_)  that will
+automatically chunk and  compress data for you.
 
 .. code-block:: console
 
-   git clone https://github.com/geoschem/ncdfutil NcdfUtil
-   cp NcdfUtil/perl/nc_chunk.pl ~/bin
-
-To use the script, type:
-
-.. code-block:: console
-
-   nc_chunk.pl myfile.nc    # Chunk netCDF file
-   nc_chunk.pl myfile.nc 1  # Chunk and compress file using deflate level 1
+   $ nc_chunk.pl myfile.nc    # Chunk netCDF file
+   $ nc_chunk.pl myfile.nc 1  # Chunk and compress file using deflate level 1
 
 You can use the :command:`ncdump -cts myfile.nc` command to view the chunk size
 and deflation level in the file. After applying the chunking and

@@ -604,6 +604,24 @@ for editing netCDF files.  Many of these commands utilize the
       <https://code.mpimet.mpg.de/projects/cdo/embedded/index.html#x1-2690002.6.4>`_
       for more information.
 
+#. Change the :literal:`time:calendar` attribute:
+
+   GEOS-Chem and HEMCO cannot read data from netCDF files where:
+
+   .. code-block:: none
+
+      time:calendar = "360_day"
+      time:calendar = "365_day"
+      time:calendar = "noleap"
+
+   We recommend converting the calendar used in the netCDF file to the
+   :literal:`standard` netCDF calendar with these commands:
+
+   .. code-block:: console
+
+      $ cdo setcalendar,standard myfile.nc tmp.nc
+      $ mv tmp.nc myfile.nc
+
 .. _ncguide-concat-files:
 
 ========================

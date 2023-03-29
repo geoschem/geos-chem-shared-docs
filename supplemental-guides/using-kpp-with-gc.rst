@@ -9,6 +9,12 @@ This Guide demonstrates how you can use `The Kinetic PreProcessor
 mechanism specification in plain text format to highly-optimized
 Fortran90 code for use with GEOS-Chem:
 
+.. attention::
+
+   `KPP 3.0.0
+   <https://kpp.readthedocs.io/en/stable/getting_started/00_revision_history.html#kpp-3-0-0>`_ is the minimum KPP version that you must use with the
+   current GEOS-Chem release series.
+
 .. _kppguide-quick-start:
 
 ======================
@@ -291,10 +297,10 @@ section of :file:`custom.eqn`.
    //
    ...skipping over the comment header...
    //
-   O3 + NO = NO2 + O2 :                         GCARR(3.00E-12, 0.0, -1500.0);
-   O3 + OH = HO2 + O2 :                         GCARR(1.70E-12, 0.0, -940.0);
-   O3 + HO2 = OH + O2 + O2 :                    GCARR(1.00E-14, 0.0, -490.0);
-   O3 + NO2 = O2 + NO3 :                        GCARR(1.20E-13, 0.0, -2450.0);
+   O3 + NO = NO2 + O2 :                         GCARR_ac(3.00E-12, -1500.0);
+   O3 + OH = HO2 + O2 :                         GCARR_ac(1.70E-12, -940.0);
+   O3 + HO2 = OH + O2 + O2 :                    GCARR_ac(1.00E-14, -490.0);
+   O3 + NO2 = O2 + NO3 :                        GCARR_ac(1.20E-13, -2450.0);
    ... etc ...
 
 .. _kppguide-general-form:
@@ -442,8 +448,6 @@ using the rate law function for when both :code:`a0 > 0` and :code:`c0
 Heterogeneous reactions
 -----------------------
 
-**TODO** Remove reference to HET array
-
 List heterogeneous reactions after all of the gas-phase reactions in
 :file:`custom.eqn`, according to the format below:
 
@@ -452,10 +456,10 @@ List heterogeneous reactions after all of the gas-phase reactions in
   //
   // Heterogeneous reactions
   //
-  HO2 = O2 :                                   HET(ind_HO2,1);                      {2013/03/22; Paulot2009; FP,EAM,JMAO,MJE}
-  NO2 = 0.500HNO3 + 0.500HNO2 :                HET(ind_NO2,1);
-  NO3 = HNO3 :                                 HET(ind_NO3,1);
-  NO3 = NIT :                                  HET(ind_NO3,2);                      {2018/03/16; XW}
+  HO2 = O2 :                                   HO2uptk1stOrd( State_Het );           {2013/03/22; Paulot2009; FP,EAM,JMAO,MJE}
+  NO2 = 0.500HNO3 + 0.500HNO2 :                NO2uptk1stOrdAndCloud( State_Het );
+  NO3 = HNO3 :                                 NO3uptk1stOrdAndCloud( State_Het );
+  NO3 = NIT :                                  NO3hypsisClonSALA( State_Het );       {2018/03/16; XW}
   ... etc ...
 
 Implementing new heterogeneous chemistry requires an additional step.
@@ -465,47 +469,35 @@ this time the rate function should be given as an entry in the
 
 .. code-block:: none
 
-  HO2 = O2 : HET(ind_HO2,1);
+  HO2 = O2 : NO2uptk1stOrd( State_Het );
 
 Note that the product in this case, O2, is actually a fixed species, so
 no O2 will actually be produced. O2 is used in this case only as a dummy
 product to satisfy the KPP requirement that all reactions have at least
-one product. Here, :code:`HET` is simply an array of pre-calculated
-rate constants. The rate constants in :code:`HET` are actually
-calculated in :file:`gckpp_HetRates.F90`.
+one product.
 
+The rate law function :file:`NO2uptk1stOrd` is contained in the
+Fortran module :file:`KPP/fullchem/fullchem_RateLawFuncs.F90`, which
+is symbolically linked to the :file:`custom` folder.  The
+:file:`fullchem_RateLawFuncs.F90` file is inlined into
+:file:`gckpp_Rates.F90` so that it can be used within the custom
+mechanism. 
+ 
 To implement an additional heterogeneous reaction, the rate calculation
-must be added to this file. The following example illustrates a
-(fictional) heterogeneous mechanism which converts the species XYZ into
-CH2O. This reaction is assumed to take place on the surface of all
-aerosols, but not cloud droplets (this requires additional steps not
-shown here). Three steps would be required:
+must be added to the :file:`KPP/custom/custom.eqn` file.  Rate
+calculations may be specified as mathematical expressions (using any
+of the variables contained in the :file:`gckpp_Global.F90`)
 
-#. Add a new line to the :file:`custom.eqn` file, such as :code:`XYZ =
-   CH2O : HET(ind_XYZ,1);`
+.. code-block:: none
 
-#. Add a new function to :file:`gckpp_HetRates.F90` designed to
-   calculate the heterogeneous reaction rate. As a simple example, we
-   can copy the function :code:`HETNO3` and rename it :code:`HETXYZ`.
-   This function accepts two arguments: molecular mass of the impinging
-   gas-phase species, in this case XYZ, and the reaction's "sticking
-   coefficient" - the probability that an incoming molecule will stick
-   to the surface and undergo the reaction in question. In the case of
-   :code:`HETNO3`, it is assumed that all aerosols will have the same
-   sticking coefficient, and the function returns a first-order rate
-   constant based on the total available aerosol surface area and the
-   frequency of collisions
+   SPC1 + SPC2 = SPC3 + SPC4: 8.0e-13 * TEMP_OVER_K300;  {Example}
 
-#. Add a new line to the function :code:`SET_HET` in
-   :file:`gckpp_HetRates.F90` which calls the new function with the
-   appropriate arguments and passes the calculated constant to
-   :code:`HET`. Example: assuming a molar mass of 93 g/mol, and a
-   sticking coefficient of 0.2, we would write
-   :code:`HET(ind_XYZ, 1) = HETXYZ(93.0_fp, 0.2_fp)`
+or you may define a new rate law function in the
+:file:`fullchem_RateLawFuncs.F90` such as:
 
-The function :code:`HETXYZ` can then be specialized to distinguish
-between aerosol types, or extended to provide a second-order reaction
-rate, or whatever the user desires.
+.. code-block:: none
+
+   SPC1 + SPC2 = SPC3 + SPC4: myNewRateFunction( State_Het ); {Example}       
 
 .. _kppguide-photo-rxns:
 
@@ -533,7 +525,7 @@ the :code:`PHOTOL` array. This index can be determined by inspecting the file
 
 .. tip::
 
-   See the `photolysis section of :file:`geoschem_config.yml` to
+   See the photolysis section of :file:`geoschem_config.yml` to
    determine the folder in which :file:`FJX_j2j.dat` is located.
 
 For example, one branch of the :math:`NO_3` photolysis reaction is specified in
@@ -613,7 +605,7 @@ Adding production and loss families to a mechanism
 
 Certain common families (e.g. :math:`PO_x`, :math:`LO_x`) have been
 pre-defined for you. You will find the family definitions near the top of the
-:file:`gckpp.kpp` file:
+:file:`custom.kpp` file (which is symbolically linked to :file:`gckpp,kpp`):
 
 .. code-block:: none
 
@@ -711,23 +703,45 @@ Several global options for :program:`KPP` are listed at the top of the
 
 .. code-block:: none
 
-   #MINVERSION   2.5.0
-   #INTEGRATOR   rosenbrock
-   #LANGUAGE     Fortran90
-   #UPPERCASEF90 on
-   #DRIVER       none
-   #HESSIAN      off
-   #MEX          off
-   #STOICMAT     off
+   #MINVERSION   3.0.0                  { Need this version of KPP or later          }
+   #INTEGRATOR   rosenbrock_autoreduce  { Use Rosenbrock integration method          }
+   #AUTOREDUCE   on                     { ... with autoreduce enabled but optional   }
+   #LANGUAGE     Fortran90              { Generate solver code in Fortran90 ...      }
+   #UPPERCASEF90 on                     { ... with .F90 suffix (instead of .f90)     }
+   #DRIVER       none                   { Do not create gckpp_Main.F90               }
+   #HESSIAN      off                    { Do not create the Hessian matrix           }
+   #MEX          off                    { MEX is for Matlab, so skip it              }
+   #STOICMAT     off                    { Do not create stoichiometric matrix        }		
 
 The `#INTEGRATOR
 <https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#integrator>`_
 tag specifies the choice of numerical integrator that you wish to use
-with your chemical mechanism.  The Rosenbrock solver is used by
-default for the GEOS-Chem :command:`fullchem` and :command:`Hg`
-mechanisms.  But if you wish to use a different integrator for research
-purposes, you may select from `several more options
-<https://kpp.readthedocs.io/en/latest/tech_info/07_numerical_methods.html>`_.
+with your chemical mechanism. The table below lists
+
+.. table:: Integrators used for each KPP-based GEOS-Chem mechanism
+   :align: center
+
+   +-------------+----------------------------+----------------------+
+   | Simulation  | **#INTEGRATOR**            | **#AUTOREDUCE**      |
+   +=============+============================+======================+
+   | carbon      | ``feuler``                 |                      |
+   +-------------+----------------------------+----------------------+
+   | custom      | ``rosenbrock_autoreduce``  | ``on``               |
+   +-------------+----------------------------+----------------------+
+   | fullchem    | ``rosenbrock_autoreduce``  | ``on``               |
+   +-------------+----------------------------+----------------------+
+   | Hg          | ``rosenbrock``             |                      |
+   +-------------+----------------------------+----------------------+
+
+.. attention::
+
+   The auto-reduction option is activated but disabled by default
+   in the GEOS-Chem carbon and fullchem mechanisms.  You must
+   activate the auto-reduction option in
+   :file:`geoschem_config.yml`. 
+
+If you wish to use a different integrator for research purposes, you may select from `several more options
+<https://kpp.readthedocs.io/en/latest/tech_info/07_numerical_methods.html>`_.  
 
 The `#LANGUAGE
 <https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#language>`_

@@ -11,9 +11,9 @@ Fortran90 code for use with GEOS-Chem:
 
 .. attention::
 
-   `KPP 3.0.0
-   <https://kpp.readthedocs.io/en/stable/getting_started/00_revision_history.html#kpp-3-0-0>`_ is the minimum KPP version that you must use with the
-   current GEOS-Chem release series.
+   You must use at least `KPP 3.0.0
+   <https://kpp.readthedocs.io/en/stable/getting_started/00_revision_history.html#kpp-3-0-0>`_
+   with the current GEOS-Chem release series.
 
 .. _kppguide-quick-start:
 
@@ -164,7 +164,7 @@ see output similar to this:
 
   KPP has succesfully created the model "gckpp".
 
-  Reactivity consists of 172 reactions
+  Reactivity consists of xxx reactions    # NOTE: xxx will be replaced by the actual number
   Written to gckpp_Util.F90
 
 where :file:`X.Y.Z` denotes the :program:`KPP` version that you are using.
@@ -175,14 +175,14 @@ several new files starting with :file:`gckpp`:
 .. code-block:: console
 
   $ ls gckpp*
-  gckpp_Function.F90    gckpp_Jacobian.F90       gckpp.map             gckpp_Precision.F90
+  gckpp_Function.F90    gckpp_Jacobian.F90       gckpp.log             gckpp_Precision.F90
   gckpp_Global.F90      gckpp_JacobianSP.F90     gckpp_Model.F90       gckpp_Rates.F90
   gckpp_Initialize.F90  gckpp.kpp@               gckpp_Monitor.F90     gckpp_Util.F90
   gckpp_Integrator.F90  gckpp_LinearAlgebra.F90  gckpp_Parameters.F90
 
 The :file:`gckpp*.F90` files contain optimized Fortran-90 instructions
 for solving the chemical mechanism that you have specified.  The
-:file:`gckpp.map` file is a human-readable description of the
+:file:`gckpp.log` file is a human-readable description of the
 mechanism.  Also, :file:`gckpp.kpp` is a symbolic link to the
 :file:`custom.kpp` file.
 
@@ -219,7 +219,7 @@ You should see output similar to this written to the screen:
 .. code-block:: none
 
   -- General settings:
-     * CUSTOMMECH:  fullchem  Hg  **custom**
+     * MECH:  fullchem  carbon  Hg  **custom**
 
 This confirms that the custom mechanism has been selected.
 
@@ -462,27 +462,27 @@ List heterogeneous reactions after all of the gas-phase reactions in
   NO3 = NIT :                                  NO3hypsisClonSALA( State_Het );       {2018/03/16; XW}
   ... etc ...
 
-Implementing new heterogeneous chemistry requires an additional step.
-For the reaction in question, a reaction should be added as usual, but
-this time the rate function should be given as an entry in the
-:code:`HET` array. A simple example is uptake of HO2, specified as
+A simple example is uptake of HO2, specified as
 
 .. code-block:: none
 
-  HO2 = O2 : NO2uptk1stOrd( State_Het );
+  HO2 = H2O : HO2uptk1stOrd( State_Het );
 
-Note that the product in this case, O2, is actually a fixed species, so
-no O2 will actually be produced. O2 is used in this case only as a dummy
-product to satisfy the KPP requirement that all reactions have at least
-one product.
+.. note::
+
+   KPP requires that each reaction have at least one product.  In
+   order to satisfy this requirement, you might need to set the
+   product of your heterogeneous reaction to a dummy product or a
+   fixed species (i.e. one whose concentration does not change with
+   time).
 
 The rate law function :file:`NO2uptk1stOrd` is contained in the
 Fortran module :file:`KPP/fullchem/fullchem_RateLawFuncs.F90`, which
 is symbolically linked to the :file:`custom` folder.  The
 :file:`fullchem_RateLawFuncs.F90` file is inlined into
 :file:`gckpp_Rates.F90` so that it can be used within the custom
-mechanism. 
- 
+mechanism.
+
 To implement an additional heterogeneous reaction, the rate calculation
 must be added to the :file:`KPP/custom/custom.eqn` file.  Rate
 calculations may be specified as mathematical expressions (using any
@@ -497,7 +497,7 @@ or you may define a new rate law function in the
 
 .. code-block:: none
 
-   SPC1 + SPC2 = SPC3 + SPC4: myNewRateFunction( State_Het ); {Example}       
+   SPC1 + SPC2 = SPC3 + SPC4: myNewRateFunction( State_Het ); {Example}
 
 .. _kppguide-photo-rxns:
 
@@ -633,13 +633,30 @@ section with the format
   FAM_NAME : MEMBER_1 + MEMBER_2 + ... + MEMBER_N;
 
 The family name must start with :code:`P` or :code:`L` to indicate
-whether KPP should calculate a production or a loss rate.
+whether KPP should calculate a production or a loss rate.  You will
+also need to make a corresponding update to the :ref:`GEOS-Chem
+species database <spcguide>` (:file:`species_database.yml`) in order
+to define the :literal:`FullName`, :literal:`Is_Gas`, and
+:literal:`MW_g`, and attributes.  For example, the entries for family
+species :literal:`LCO` and :literal:`PCO` are:
+
+.. code-block:: yaml
+
+   LCO:
+     FullName: Dummy species to track loss rate of CO
+     Is_Gas: true
+     MW_g: 28.01
+   PCO:
+     FullName: Dummy species to track production rate of CO
+     Is_Gas: true
+     MW_g: 28.01
 
 The maximum number of families allowed by KPP is currently set to 300.
 Depending on how many prod/loss families you add, you may need to
 increase that to a larger number to avoid errors in KPP. You can change
-the number for :code:`MAX_FAMILIES` in :file:`KPP/kpp-code/src/gdata.h` and then `rebuild
-KPP <FlexChem#KPP_source_code>`__.
+the number for :code:`MAX_FAMILIES` in
+:file:`KPP/kpp-code/src/gdata.h` and then `rebuild the KPP executable
+<https://kpp.readthedocs.io/en/stable/getting_started/01_installation.html#build-the-kpp-executableFlexChem#KPP_source_code>`_.
 
 .. code-block:: C
 
@@ -711,7 +728,7 @@ Several global options for :program:`KPP` are listed at the top of the
    #DRIVER       none                   { Do not create gckpp_Main.F90               }
    #HESSIAN      off                    { Do not create the Hessian matrix           }
    #MEX          off                    { MEX is for Matlab, so skip it              }
-   #STOICMAT     off                    { Do not create stoichiometric matrix        }		
+   #STOICMAT     off                    { Do not create stoichiometric matrix        }
 
 The `#INTEGRATOR
 <https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#integrator>`_
@@ -738,10 +755,10 @@ with your chemical mechanism. The table below lists
    The auto-reduction option is activated but disabled by default
    in the GEOS-Chem carbon and fullchem mechanisms.  You must
    activate the auto-reduction option in
-   :file:`geoschem_config.yml`. 
+   :file:`geoschem_config.yml`.
 
 If you wish to use a different integrator for research purposes, you may select from `several more options
-<https://kpp.readthedocs.io/en/latest/tech_info/07_numerical_methods.html>`_.  
+<https://kpp.readthedocs.io/en/latest/tech_info/07_numerical_methods.html>`_.
 
 The `#LANGUAGE
 <https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#language>`_
@@ -751,7 +768,7 @@ should be set to :command:`on`.
 
 The `#MINVERSION
 <https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#minversion>`_
-should be set to 2.5.0.  This is the minimum KPP version you should be
+should be set to 3.0.0.  This is the minimum KPP version you should be
 using with GEOS-Chem.
 
 The other options should be left as they are, as they are not relevant

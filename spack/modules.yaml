@@ -1,5 +1,6 @@
-# DESCRIPTION   This file has recommended module settings for GCHP dependencies. It is meant to be
-#               used by including GCHP/spack as a custom scope for spack.
+# DESCRIPTION   This file has recommended module settings for
+#               GEOS-Chem/GCHP/HEMCO GCHP dependencies. It is
+#               meant to be used a custom scope for spack.
 
 modules:
     default:

@@ -1,37 +1,76 @@
-# DESCRIPTION   This file has recommended package settings for GCHP dependencies. It is meant to be
-#               used by including GCHP/spack as a custom scope for spack.
+# DESCRIPTION   This file has recommended package settings for
+#               GEOS-Chem/GCHP/HEMCO dependencies. It is meant to be
+#               as a custom scope for spack.
 #
 # HOW TO UPGRADE
 #   1. Update pacakge.<package-name>.version to the appropriate version number
-#   2. Check for changes to the variants by running `spack info <package-name>@<version>`. Only the
+#   2. Check for changes to the variants by running
+#      `spack info <package-name>@<version>`. Only the
 #      required extensions should be enabled.
 #   3. Verify install spec with updated geoschem-deps/package.yaml by running 
-#        spack -C GCHP/spack spec -I esmf%intel ^intel-oneapi-mpi
-#        spack -C GCHP/spack spec -I esmf%intel ^openmpi
-#      Check for duplicate installs (same package different hash) and unnecessary dependencies.
+#        spack -C GCHP/spack spec -I esmf^gcc^open
+#      Check for duplicate installs (same package different hash)
+#      and unnecessary dependencies.
 
 packages:
-    hdf5:
-        variants: ~mpi
-    esmf:
-        version: [8.3.0]
-        variants: ~pio~pnetcdf~xerces
-        compiler: [gcc]
-    netcdf-c:
-        version: [4.8.1]
-        variants: ~dap~fsync~hdf4~jna~mpi~parallel-netcdf+pic+shared
-    netcdf-fortran:
-        version: [4.5.3]
-        variants: ~doc+pic+shared
-    cmake:
-        version: [3.22.2]
-        variants: ~doc~ncurses+openssl+ownlibs~qt
-    gcc:
-        version: [10.2.0]
-    openmpi:
-        version: [4.1.0]
-        variants: ~doc+schedulers=[auto]+pmi
-    all:
-        target: [x86_64]
-        providers:
-            mpi: [openmpi]
+  #
+  # Preferred compiler
+  #
+  gcc:
+    version: [10.2.0]
+  #
+  # Core GEOS-Chem/GCHP/HEMCO dependencies
+  #
+  cmake:
+    version: [3.22.2]
+    variants: ~doc~ncurses+openssl+ownlibs~qt
+    compiler: [gcc@10.2.0]
+  esmf:
+    version: [8.1.1]
+    variants: ~pio~pnetcdf~xerces
+    compiler: [gcc@10.2.0]    
+  hdf5:
+    version: [1.14.0]
+    variants: ~doc~mpi+cxx+fortran+hl+pic+shared+threadsafe
+    compiler: [gcc@10.2.0]
+  netcdf-c:
+    version: [4.8.1]
+    variants: ^hdf5~doc~mpi+cxx+fortran+hl+pic+shared+threadsafe~dap~fsync~hdf4~jna~mpi~parallel-netcdf
+    compiler: [gcc@10.2.0]    
+  netcdf-fortran:
+    version: [4.5.3]
+    variants: ~doc+pic+shared
+    compiler: [gcc@10.2.0]    
+  openmpi:
+    version: [4.1.0]
+    variants: ~doc+auto+pmi
+    compiler: [gcc@10.2.0]    
+  #
+  # Optional auxiliary packages
+  #
+  cdo:
+    version: [2.1.1]
+    variants: ^hdf5~doc~mpi+cxx+fortran+hl+pic+shared+threadsafe
+    compiler: [gcc@10.2.0]
+  flex:
+    compiler: [gcc@10.2.0]    
+  cgdb:
+    compiler: [gcc@10.2.0]
+  gdb:
+    compiler: [gcc@10.2.0]
+  nco:
+    version: [5.1.4]
+    variants: ^hdf5~doc~mpi+cxx+fortran+hl+pic+shared+threadsafe
+    compiler: [gcc@10.2.0]
+  openjdk:
+    compiler: [gcc@10.2.0]
+  tau:
+    variants: ~otf2+pthread+openmp
+    compiler: [gcc@10.2.0]
+  #
+  # Settings for all Spack-built packages
+  #
+  all:
+    target: [x86_64]
+    providers:
+      mpi: [openmpi]

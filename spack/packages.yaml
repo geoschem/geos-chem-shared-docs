@@ -3,12 +3,13 @@
 #               as a custom scope for spack.
 #
 # HOW TO UPGRADE
-#   1. Update pacakge.<package-name>.version to the appropriate version number
+#   1. Update package.<package-name>.version to the appropriate version number
 #   2. Check for changes to the variants by running
 #      `spack info <package-name>@<version>`. Only the
 #      required extensions should be enabled.
 #   3. Verify install spec with updated geoschem-deps/package.yaml by running 
-#        spack -C GCHP/spack spec -I esmf^gcc^open
+#        spack -C ${model}/spack spec -I esmf^gcc^openmpi
+#      where ${model} is one of "GCClassic", "GCHP", "HEMCO".
 #      Check for duplicate installs (same package different hash)
 #      and unnecessary dependencies.
 
@@ -32,11 +33,11 @@ packages:
     compiler: [gcc@10.2.0]    
   hdf5:
     version: [1.14.0]
-    variants: ~doc~mpi+cxx+fortran+hl+pic+shared+threadsafe
+    variants: ~doc~mpi+hl+pic+shared+threadsafe
     compiler: [gcc@10.2.0]
   netcdf-c:
     version: [4.8.1]
-    variants: ^hdf5~doc~mpi+cxx+fortran+hl+pic+shared+threadsafe~dap~fsync~hdf4~jna~parallel-netcdf
+    variants: ^hdf5~doc~mpi+hl+pic+shared+threadsafe~dap~fsync~hdf4~jna~parallel-netcdf
     compiler: [gcc@10.2.0]    
   netcdf-fortran:
     version: [4.5.3]
@@ -47,26 +48,24 @@ packages:
     variants: ~doc+auto+pmi
     compiler: [gcc@10.2.0]    
   #
-  # Optional auxiliary packages
+  # Useful tools
   #
   cdo:
     version: [2.1.1]
-    variants: ^hdf5~doc~mpi+cxx+fortran+hl+pic+shared+threadsafe
+    variants: ^hdf5~doc~mpi+hl+pic+shared+threadsafe
     compiler: [gcc@10.2.0]
   flex:
     compiler: [gcc@10.2.0]    
   cgdb:
+    version: [0.7.1]
     compiler: [gcc@10.2.0]
   gdb:
+    version: [9.2]
+    variants: ~python~xz
     compiler: [gcc@10.2.0]
   nco:
     version: [5.1.4]
-    variants: ^hdf5~doc~mpi+cxx+fortran+hl+pic+shared+threadsafe
-    compiler: [gcc@10.2.0]
-  openjdk:
-    compiler: [gcc@10.2.0]
-  tau:
-    variants: ~otf2+pthread+openmp
+    variants: ^hdf5~doc~mpi+hl+pic+shared+threadsafe
     compiler: [gcc@10.2.0]
   #
   # Settings for all Spack-built packages

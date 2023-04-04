@@ -18,6 +18,7 @@ packages:
   #
   gcc:
     version: [10.2.0]
+    variants: ^texinfo
   #
   # Core GEOS-Chem/GCHP/HEMCO dependencies
   #
@@ -35,7 +36,7 @@ packages:
     compiler: [gcc@10.2.0]
   netcdf-c:
     version: [4.8.1]
-    variants: ^hdf5~doc~mpi+cxx+fortran+hl+pic+shared+threadsafe~dap~fsync~hdf4~jna~mpi~parallel-netcdf
+    variants: ^hdf5~doc~mpi+cxx+fortran+hl+pic+shared+threadsafe~dap~fsync~hdf4~jna~parallel-netcdf
     compiler: [gcc@10.2.0]    
   netcdf-fortran:
     version: [4.5.3]

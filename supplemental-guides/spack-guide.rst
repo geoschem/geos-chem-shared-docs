@@ -8,21 +8,24 @@
 Build required libraries with Spack
 ###################################
 
-This page has instructions for building :term:`dependencies` for
-GEOS-Chem Classic, GCHP, and HEMCO. These are the **software
-libraries** that are needed to compile and execute these programs.
+This page has instructions for building **dependencies** for
+`GEOS-Chem Classic <https://geos-chem.readthedocs.io>`_, `GCHP
+<https://gchp.readthedocs.io>`_, and `HEMCO
+<https://hemco.readthedocs.io>`_ These are the **software libraries**
+that are needed to compile and execute these programs.
 
 
 Before proceeding, please also check if the dependencies for
 GEOS-Chem, GCHP, and HEMCO are already found on your computational
 cluster or cloud environment. If this is the case, you may use the
 pre-installed versions of these software libraries and won't have
-to install your own versions.  You may find more information about
-which software libraries are required at these links:
+to install your own versions.
 
-- `GEOS-Chem Classic software dependencies <https://geos-chem.readthedocs.io/en/stable/gcc-guide/01-startup/system-req-soft.html>`_
-- `GCHP software dependencies <https://gchp.readthedocs.io/en/stable/getting-started/requirements.html#software-requirements>`_
-- `HEMCO software dependencies <https://hemco.readthedocs.io/en/stable/hco-sa-guide/software.html>`_
+For more information about software dependencies, see:
+
+- `GEOS-Chem Classic software requirements <https://geos-chem.readthedocs.io/en/stable/gcc-guide/01-startup/system-req-soft.html>`_
+- `GCHP software requirements <https://gchp.readthedocs.io/en/stable/getting-started/requirements.html#software-requirements>`_
+- `HEMCO software requirements <https://hemco.readthedocs.io/en/stable/hco-sa-guide/software.html>`_
 
 .. _spack-intro:
 
@@ -31,13 +34,13 @@ Introduction
 ============
 
 In the sections below, we will show you how to **build a single
-software environment containing all dependencies for GEOS-Chem
+software environment containing all software dependencies for GEOS-Chem
 Classic, GCHP, and HEMCO**.  This will be especially of use for those
-users working on a computational cluster where these dependencies are
-not installed.
+users working on a computational cluster where these dependencies have
+not yet been installed.
 
 We will be using the `Spack <https://spack.readthedocs.io>`_ package
-manager to download and build all required dependencies for GEOS-Chem
+manager to download and build all required software dependencies for GEOS-Chem
 Classic, GCHP and HEMCO.
 
 .. note::
@@ -53,7 +56,6 @@ You will be using this workflow:
 #. :ref:`spack-model`
 #. :ref:`spack-compiler`
 #. :ref:`spack-build`
-#. :ref:`spack-loader`
 #. :ref:`spack-envfile`
 #. :ref:`spack-cleanup`
 
@@ -63,37 +65,61 @@ You will be using this workflow:
 Install Spack and do first-time setup
 =====================================
 
-Decide where you want to install Spack. A few details you should consider are:
+Decide where you want to install Spack (aka the **Spack root
+directory**).  A few details you should consider are:
 
-* This directory will be ~5-20 GB (keep in mind that some clusters
-  limit :file:`$HOME` to a few GB).
-* This directory cannot be moved (needs a rebuild if you need to move it in
-  the future).
-* If other people are going to use these dependencies, this directory
-  should be in a shared location.
+- The Spack root directory will be ~5-10 GB.  Keep in mind that some
+  computational clusters restrict the size of your home directory (aka
+  :code:`${HOME}`) to a few GB). |br|
+  |br|
 
-Once you choose an install location, proceed with the commands below.
-You can copy-paste these commands, but lookout for lines marked with a
-:literal:`# (modifiable) ...` comment as they might require
-modification.
+- This Spack root directory cannot be moved.  Instead, you will have
+  to reinstall Spack to a different directory location (and rebuild
+  all software packages). |br|
+  |br|
+
+- The Spack root directory should be placed in a shared drive if
+  several users need to access it.
+
+Once you have chosen an location for the Spack root directory, you may
+continue with the Spack download and setup process.
 
 .. important::
 
-   All commands in this tutorial are executed in the same directory.
+   Execute all commands in this tutorial from the same directory.
+   This is typically one directory level higher than the Spack root
+   directory.
 
-Install Spack and perform the following first-time setup.
+   For example, if you install Spack as a subdirectory of
+   :envvar:`${HOME}`, then you will issue all commands from
+   :envvar:`${HOME}`.
+
+Use the commands listed below to install Spack and perform first-time
+setup.  You can copy-paste these commands, but lookout for lines
+marked with a  :literal:`# (modifiable) ...` comment as they might
+require modification.
 
 .. code-block:: console
 
-   $ cd $HOME  # (modifiable) cd to the install location you chose
+   $ cd ${HOME}                             # (modifiable) cd to the install location you chose
 
    $ git clone -c feature.manyFiles=true https://github.com/spack/spack.git  # download Spack
 
-   $ source spack/share/spack/setup.env   # Load Spack
+   $ source spack/share/spack/setup-env.sh  # Load Spack
 
-   $ spack external find                  # Tell Spack to look for existing software
+   $ spack external find                    # Tell Spack to look for existing software
 
-   $ spack compiler find                  # Tell Spack to look for existing complilers
+   $ spack compiler find                    # Tell Spack to look for existing complilers
+
+After the first-time setup has been completed, an environment variable
+named  :envvar:`SPACK_ROOT`, will be created in your Unix/Linux
+environment.  This contains to the absolute path of the Spack root
+directory.  Use this command to view the value of :envvar:`SPACK_ROOT`:
+
+.. code-block:: console
+
+   $ echo ${SPACK_ROOT}
+   /path/to/home/spack    # Absolute path to Spack root, assumes installation to a subdir of ${HOME}
 
 .. _spack-model:
 
@@ -101,25 +127,28 @@ Install Spack and perform the following first-time setup.
 Clone a copy of GCClassic, GCHP, or HEMCO
 =========================================
 
-The GCClassic, GCHP, and HEMCO repositories contain YAML files named
-:file:`spack/modules.yaml` and :file:`spack/packages.yaml`.  We have
-updated these YAML files with the proper settings in order to ensure a
-smooth build process with Spack.
+The `GCClassic  <https://github.com/geoschem/GCClassic>`_, `GCHP
+<https://github.com/geoschem/GCHP>`_ , and `HEMCO
+<https://github.com/geoschem/HEMCO>`_ repositories each contain a
+:file:`spack/` subdirectory with customized Spack configuration files
+:file:`modules.yaml` and :file:`packages.yaml`.  We have updated these
+YAML files with the proper settings in order to ensure a smooth
+software build process with Spack.
 
-Define the :envvar:`model`, :envvar:`scope_dir`, and
+First, define the :envvar:`model`, :envvar:`scope_dir`, and
 :envvar:`scope_args` environment variables as shown below.
 
 .. code-block:: console
 
-   $ model=GCClassic   # Use this if you will be working with GEOS-Chem Classic
-   $ model=GCHP        # Use this if you will be working with GCHP
-   $ model=HEMCO       # Use this if you will be working with HEMCO standalone
+   $ model=GCClassic               # Use this if you will be working with GEOS-Chem Classic
+   $ model=GCHP                    # Use this if you will be working with GCHP
+   $ model=HEMCO                   # Use this if you will be working with HEMCO standalone
 
-   $ scope_dir="${model}/spack"
-   $ scope_args="-C ${scope_dir}"
+   $ scope_dir="${model}/spack"    # Folder where customized YAML files are stored
 
-We will be referring to these environment variables in the steps
-below.
+   $ scope_args="-C ${scope_dir}"  # Tell spack to for custom YAML files in scope_dir
+
+You will use these environment variables in the steps below.
 
 When you have completed this step, download the source code for your
 preferred model (e.g. GEOS-Chem Classic, GCHP, or HEMCO standalone):
@@ -134,34 +163,37 @@ preferred model (e.g. GEOS-Chem Classic, GCHP, or HEMCO standalone):
 Install the recommended compiler
 ================================
 
-Next, install the recommended compiler, :literal:`gcc` (aka the GNU
+Next, install the recommended compiler, :program:`gcc` (aka the GNU
 Compiler Collection).  Use the :envvar:`scope_args` environment
 variable that you defined in the :ref:`previous step <spack-model>`.
 
 .. code-block:: console
 
-   $ spack ${scope_args} install gcc
+   $ spack ${scope_args} install gcc     # Install GNU Compiler Collection
 
 .. note::
 
-   The compiler version that will be installed is included in the
-   :literal:`${scope_dir}/packages.yaml` file.
+   Requested version numbers for software packages (including the
+   compiler) are listed in the :literal:`${scope_dir}/packages.yaml`
+   file.  We have selected software package versions that have been
+   proven to work together.  You should not have to change any of
+   the settings in :literal:`${scope_dir}/packages.yaml`.
 
-   As of this writing, the above command will install the `GNU
-   Compiler Collection 10.2.0
+   As of this writing, the default compiler is `gcc 10.2.0
    <https://gcc.gnu.org/onlinedocs/10.2.0/>`_ (includes C, C++, and
-   Fortran compilers).  This may change in the future as necessary.
+   Fortran compilers).  We will upgrade to newer compiler and software
+   package versions as necessary.
 
-The compiler installation should take several minutes or longer,
-depending on the speed of your internet connection.
+The compiler installation should take several minutes (or longer if
+you have a slow internet connection).
 
-Once the compiler has finished installing, register it with
-Spack. This will allow Spack to use this compiler to build other
-software packages.  Use this command:
+Register the compiler with Spack after it has been installed.  This
+will allow Spack to use this compiler to build other software
+packages.  Use this command:
 
 .. code-block:: console
 
-   $ spack compiler add $(spack location -i gcc)
+   $ spack compiler add $(spack location -i gcc)     # Register GNU Compiler Collection
 
 You will then see output similar to this:
 
@@ -175,7 +207,7 @@ You will then see output similar to this:
 where
 
 - :file:`/path/to/home` indicates the absolute path of your home
-  directory folder
+  directory (aka :literal:`${HOME}`)
 - :literal:`X.Y.Z` indicates the version of the GCC compiler that you
   just built with Spack.
 
@@ -188,6 +220,13 @@ where
 
       $ spack compiler list
 
+   Use this command to view the installation location for a
+   Spack-built software package:
+
+   .. code-block:: console
+
+      $ spack location -i <package-name>
+
 .. _spack-build:
 
 =============================================
@@ -195,7 +234,8 @@ Build GEOS-Chem dependencies and useful tools
 =============================================
 
 Once the compiiler has been built and registered, you may proceed to
-building the dependencies for GEOS-Chem Classic, GCHP, and HEMCO.
+building the software dependencies for GEOS-Chem Classic, GCHP, and
+HEMCO.
 
 The Spack installation commands that you will use take the form:
 
@@ -205,17 +245,24 @@ The Spack installation commands that you will use take the form:
 
 where
 
-- :literal:`${scope_args}` is the environment variable you defined in
-  :ref:`Step 2 above <spack-model>`;
-- :literal:`<package-name>` is a placeholder for the name of the
-  software package that you wish to install;
-- :literal:`%gcc` tells Spack that it should use the compiler that
-  we just built;
-- :literal:`^openmpi` tells Spack to use OpenMPI for packages that
-  require it (e.g. HDF5, netCDF, ESMF, etc.).
+- :literal:`${scope_args}` is the environment variable that
+  :ref:`you defined above <spack-model>`; |br|
+  |br|
 
-Spack will download and build :literal:`<package-name>` plus all other
-packages upon which :literal:`<package-name>` depends.
+- :literal:`<package-name>` is a placeholder for the name of the
+  software package that you wish to install; |br|
+  |br|
+
+- :literal:`%gcc` tells Spack that it should use the GNU Compiler
+  Collection version that you just built; |br|
+  |br|
+
+- :literal:`^openmpi` tells Spack to use OpenMPI when building
+  software packages.  You may omit this setting for packages that do
+  not require it.
+
+Spack will download and build :literal:`<package-name>` plus all of
+its dependencies that have not already been installed.
 
 .. note::
 
@@ -226,7 +273,8 @@ packages upon which :literal:`<package-name>` depends.
 
       $ spack spec <package-name>
 
-   This step is not required, but can be useful for informational purposes.
+   This step is not required, but may be useful for informational
+   purposes.
 
 Use the following commands to build dependencies for GEOS-Chem
 Classic, GCHP, and HEMCO, as well as some useful tools for working
@@ -293,152 +341,11 @@ command:
 
    $ spack find
 
-This will show all of the packages installed to date.
-
-.. _spack-loader:
-
-======================
-Generate a load script
-======================
-
-Once you have built the required packages for GEOS-Chem Classic, GCHP,
-and HEMCO, you can create a script that will load them into your login
-environment.
-
-First, define the :envvar:`load_script_name` and :envvar:`loads_args:`
-environment variables.  You'll need these for subsequent Spack commands.
-
-.. code-block:: console
-
-   $ load_script="geoschem_deps-$(date +%Y.%m)"
-
-   $ load_cmd="loads --dependencies -r -p $(pwd)/spack/share/spack/modules/linux-*-x86_64"
-
-Next, check if you have a module management system already installed
-on your system.  If you do, you can use this to load your Spack-built
-packages.  If not, we will show you how to install a module manager.
-
-.. _spack-loader-envmod:
-
-For environment-modules
------------------------
-
-To check if the `environment-modules module manager
-<https://modules.sourceforge.net>`_ has been already installed on
-your system, type:
-
-.. code_block:: console
-
-   $ echo ${MODULEPATH} | grep environment-modules
-
-If the above-listed command returns a list of directories separated by
-:file:`:` characters, then you have a version of
-:program:`environment-modules` installed.
-
-If on the other hand, the above-listed command returns a
-blank line, then :program:`environment-modules` has not been
-installed on your system.  Skip ahead to the :ref:`next section
-<spack-loader-lmod>`.
-
-You may now create a script that will use
-:program:`environment-modules` to load your Spack-built packages.  Use
-the following command to remove any pre-existing modules:
-
-.. code-block:: console
-
-   $ spack ${scope_args} module tcl refresh -y     # Removes all module files
-
-Then use the commands listed below to create a script that will load
-all of the Spack-built modules with :program`environment-modules`.
-
-.. code-block:: console
-
-   $ spack ${scope_args} module tcl ${load_cmd} gcc                >  ${load_script}
-   $ spack ${scope_args} module tcl ${load_cmd} cmake%gcc          >> ${load_script}
-   $ spack ${scope_args} module tcl ${load_cmd} esmf%gcc^openmpi   >> ${load_script}
-   $ spack ${scope_args} module tcl ${load_cmd} cdo%gcc^openmpi    >> ${load_script}
-   $ spack ${scope_args} module tcl ${load_cmd} nco%gcc^openmpi    >> ${load_script}
-   $ spack ${scope_args} module tcl ${load_cmd} flex%gcc           >> ${load_script}
-   $ spack ${scope_args} module tcl ${load_cmd} ncview%gcc^openmpi >> ${load_script}
-
-This will create a load script entitled :file:`geoschem_deps.YYYY.MM`,
-where :literal:`YYYY` and :file:`MM` are placeholders for the current
-year (e.g. :literal:`2003`) and month (e.g. :literal:`04`).
-
-You may now proceed to the section entitled: :ref:`spack-envfile`.
-
-For Lmod
---------
-
-To check if the `Lmod module manager
-<https://lmod.readthedocs.io/en/latest/>`_ has been already installed
-on your system, type:
-
-.. code_block:: console
-
-   $ echo ${MODULEPATH} | grep lmod
-
-If the above-listed command returns a list of directories separated by
-:file:`:` characters, then you have a version of the :program:`Lmod` module
-manager installed.
-
-If on the other hand, the above-listed command returns a blank line,
-then :program:`Lmod` has not been installed on your system.  Skip
-ahead to the :ref:`next section <spack-loader-lmod>`.
-
-You may now create a script that will use :program:`Lmod` to load
-your Spack-built packages.  Use the following command to remove any
-pre-existing modules:
-
-.. code-block:: console
-
-   $ spack ${scope_args} module lmod refresh -y     # Removes all module files
-
-Then use these commands to create a load script with the commands to
-load each Spack-built package plus its dependencies:
-
-.. code-block:: console
-
-   $ spack ${scope_args} module lmod ${load_cmd} gcc                >  ${load_script}
-   $ spack ${scope_args} module lmod ${load_cmd} cmake%gcc          >> ${load_script}
-   $ spack ${scope_args} module lmod ${load_cmd} esmf%gcc^openmpi   >> ${load_script}
-   $ spack ${scope_args} module lmod ${load_cmd} cdo%gcc^openmpi    >> ${load_script}
-   $ spack ${scope_args} module lmod ${load_cmd} nco%gcc^openmpi    >> ${load_script}
-   $ spack ${scope_args} module lmod ${load_cmd} flex%gcc           >> ${load_script}
-   $ spack ${scope_args} module lmod ${load_cmd} ncview%gcc^openmpi >> ${load_script}
-
-This will create a load script entitled :file:`geoschem_deps.YYYY.MM`,
-where :literal:`YYYY` and :file:`MM` are placeholders for the current
-year (e.g. :literal:`2003`) and month (e.g. :literal:`04`).
-
-You may now proceed to the section entitled: :ref:`spack-envfile`.
-
-.. _spack-loader-nomods:
-
-Install a module manager if you don't have one already
-------------------------------------------------------
-
-If your system does not have a module manager installed, you can use
-Spack to build one.
-
-Install the :program:`environment-modules` module manager with the
-following commands:
-
-.. code-block:: console
-
-   $ spack ${scope_args} install environment-modules
-
-   $ spack load environment-modules
-
-Next, return to the :ref:`spack-loader-envmod` section and follow the
-directions there.  Then you may proceed to the :ref:`last section
-<spack-envfile>`.
-
 .. _spack-envfile:
 
-===============================================
-Source the load script from an environment file
-===============================================
+====================================================
+Add ``spack load`` commands to your environment file
+====================================================
 
 We recommend "sourcing" the load_script that you created in the
 :ref:`previous section <spack-loader>` from within an **environment
@@ -446,78 +353,115 @@ file**.  This is a file that not only loads the required modules but
 also defines settings that you need to run GEOS-Chem Classic, GCHP, or
 the HEMCO standalone.
 
-For more information about environment files, please see:
+Please see the following links for sample environment files.
 
-- `GEOS-Chem Classic environment files <https://geos-chem.readthedocs.io/en/stable/gcc-guide/01-startup/login-env-files.html>`_
-- `HEMCO environment files <https://hemco.readthedocs.io/en/stable/hco-sa-guide/login-env.html>`_
+- `Sample GEOS-Chem Classic environment file
+  <https://geos-chem.readthedocs.io/en/stable/gcc-guide/01-startup/login-env-files-gnu.html>`_
+- `Sample GCHP environment file
+  <https://github.com/geoschem/geos-chem/blob/main/run/GCHP/runScriptSamples/operational_examples/harvard_cannon/gchp.gfortran10.2_openmpi4_cannon.env>`_
+- `Sample HEMCO environment file
+  <https://hemco.readthedocs.io/en/stable/hco-sa-guide/login-env.html>`_
 
-Here is a sample environment file for GEOS-Chem Classic that uses our
-load script.
+Copy and paste the code below into a file named :code:`${model}.env` (using
+the :code:`${model}` environment variable that :ref:`you defined
+above <spack-model>`).  Then replace any existing :code:`module load`
+commands with the following code:
 
 .. code-block:: bash
 
-   # Echo message if we are in a interactive (terminal) session
-   if [[ $- = *i* ]] ; then
-     echo "Loading modules for GEOS-Chem, please wait ..."
+   #=========================================================================
+   # Load Spack-built modules
+   #=========================================================================
+
+   # Setup Spack if it hasn't already been done
+   # ${SPACK_ROOT} will be blank if the setup-env.sh script hasn't been called.
+   # (modifiable) Replace "/path/to/spack" with the path to your Spack root directory
+   if [[ "x${SPACK_ROOT}" == "x" ]]; fi
+      source /path/to/spack/source/spack/setup-env.sh
    fi
 
-   #==============================================================================
-   # Modules for GEOS-Chem Classic
-   #==============================================================================
+   # Load esmf, hdf5, netcdf-c, netcdf-fortran, openmpi
+   spack load esmf%gcc^openmpi
 
-   # Activate environment-modules
-   source /etc/profile.d/modules.sh
+   # Load netCDF packages (cdo, nco, ncview)
+   spack load cdo%gcc^openmpi
+   spack load nco%gcc^openmpi
+   spack load ncview
 
-   # Remove previously-loaded modules
-   module purge
+   # Load flex
+   spack load flex
 
-   # Load modules created in April 2023
-   source geoschem_deps.2023.04
-
-   #==============================================================================
-   # Environment variables
-   #==============================================================================
-
-   # Parallelization settings for GEOS-Chem Classic
-   export OMP_NUM_THREADS=8
-   export OMP_STACKSIZE=500m
-
-   # Make all files world-readable by default
-   umask 022
-
-   # Specify compilers
+   #=========================================================================
+   # Set environment variables for compilers
+   #=========================================================================
    export CC=gcc
    export CXX=g++
    export FC=gfortran
+   export F77=gfortran
 
-   # Set memory limits to max allowable
-   ulimit -c unlimited              # coredumpsize
-   ulimit -l unlimited              # memorylocked
-   ulimit -u 50000                  # maxproc
-   ulimit -v unlimited              # vmemoryuse
-   ulimit -s unlimited              # stacksize
+   #=========================================================================
+   # Set environment variables for Spack-built modules
+   #=========================================================================
 
-   # List modules loaded
-   module list
+   # openmpi (needed for GCHP)
+   export MPI_ROOT=$(spack-location -i openmpi%gcc)
 
-Copy and paste the code above into an environent file and save it to
-the path :file:`/gcclassic_gnu.env`.  This denotes that this
-environment file will load settings for GEOS-Chem Classic with the GNU
-compilers.
+   # esmf (needed for GCHP)
+   export ESMF_DIR=$(spack location -i esmf%gcc^openmpi)
+   export ESMF_LIB=${ESMF_DIR}/lib
+   export ESMF_COMPILER=gfortran
+   export ESMF_COMM=openmpi
+   export ESMF_INSTALL_PREFIX=${ESMF_DIR}/INSTALL_gfortran10_openmpi4
 
-.. tip::
+   # netcdf-c
+   export NETCDF_HOME=$(spack location -i netcdf-c%gcc^openmpi)
+   export NETCDF_LIB=$NETCDF_HOME/lib
 
-   Keeping the module load commands (in :file:`geoschem_deps.2023.04`)
-   separate from the :file:`gcclassic_gnu.env` will allow you to quickly
-   switch to an updated load script while preserving the rest of your
-   settings.
+   # netcdf-fortran
+   export NETCDF_FORTRAN_HOME=$(spack location -i netcdf-fortran%gcc^openmpi)
+   export NETCDF_FORTRAN_LIB=$NETCDF_FORTRAN_HOME/lib
 
-To load the Spack-built packages and apply the settings into your
-login environment, use this command:
+   # flex
+   export FLEX_HOME=$(spack location -i flex%gcc^openmpi)
+   export FLEX_LIB=$NETCDF_FORTRAN_HOME/lib
+   export KPP_FLEX_LIB_DIR=${FLEX_LIB}       # OPTIONAL: Needed for KPP
 
-.. code-block:: $console
+To apply these settings into your login environment, type
 
-   $ source ~/gcclassic_gnu.env
+.. code-block:: console
+
+   source ${model}.env  # One of GCClassic.env, GCHP.env, HEMCO.env
+
+To test if the modules have been loaded properly, type:
+
+.. code-block:: console
+
+   $ nf-config --help   # netcdf-fortran configuration utility
+
+If you see a screen similar to this, you know that the modules have
+been installed properly.
+
+.. code-block:: console
+
+   Usage: nf-config [OPTION]
+
+   Available values for OPTION include:
+
+     --help        display this help message and exit
+     --all         display all options
+     --cc          C compiler
+     --fc          Fortran compiler
+     --cflags      pre-processor and compiler flags
+     --fflags      flags needed to compile a Fortran program
+     --has-dap     whether OPeNDAP is enabled in this build
+     --has-nc2     whether NetCDF-2 API is enabled
+     --has-nc4     whether NetCDF-4/HDF-5 is enabled in this build
+     --has-f90     whether Fortran 90 API is enabled in this build
+     --has-f03     whether Fortran 2003 API is enabled in this build
+     --flibs       libraries needed to link a Fortran program
+     --prefix      Install prefix
+     --includedir  Include directory
+     --version     Library version
 
 .. _spack-cleanup:
 
@@ -525,9 +469,18 @@ login environment, use this command:
 Clean up
 ========
 
-At this point, you can remove the :file:`${model}` directory as it is
-not needed.  (Unless you would like to keep it to build the executable)
+At this point, you can remove the :code:`${model}` directory as it is
+not needed.  (Unless you would like to keep it to build the executable
+for your research with GEOS-Chem Classic, GCHP, or HEMCO.)
 
-The :file:`spack` directory needs to remain.  As mentioned above, this
-directory cannot be moved.  If you need to relocate the :file:`spack`
-folder, do a fresh installation.
+The :file:`spack` directory needs to remain.  :ref:`As mentioned above
+<spack-setup>`, this directory cannot be moved.
+
+You can clean up any Spack temporary build stage information with:
+
+.. code-block:: console
+
+   $ spack clean -m
+   ==> Removing cached information on repositories
+
+That's it!

@@ -2,8 +2,8 @@
 
    <br />
 
-.. _spack:
-
+.. _spackguide:
+   
 ###################################
 Build required libraries with Spack
 ###################################
@@ -27,7 +27,7 @@ For more information about software dependencies, see:
 - `GCHP software requirements <https://gchp.readthedocs.io/en/stable/getting-started/requirements.html#software-requirements>`_
 - `HEMCO software requirements <https://hemco.readthedocs.io/en/stable/hco-sa-guide/software.html>`_
 
-.. _spack-intro:
+.. _spackguide-intro:
 
 ============
 Introduction
@@ -52,14 +52,14 @@ Classic, GCHP and HEMCO.
 
 You will be using this workflow:
 
-#. :ref:`spack-setup`
-#. :ref:`spack-model`
-#. :ref:`spack-compiler`
-#. :ref:`spack-build`
-#. :ref:`spack-envfile`
-#. :ref:`spack-cleanup`
+#. :ref:`spackguide-setup`
+#. :ref:`spackguide-model`
+#. :ref:`spackguide-compiler`
+#. :ref:`spackguide-build`
+#. :ref:`spackguide-envfile`
+#. :ref:`spackguide-cleanup`
 
-.. _spack-setup:
+.. _spackguide-setup:
 
 =====================================
 Install Spack and do first-time setup
@@ -121,7 +121,7 @@ directory.  Use this command to view the value of :envvar:`SPACK_ROOT`:
    $ echo ${SPACK_ROOT}
    /path/to/home/spack    # Absolute path to Spack root, assumes installation to a subdir of ${HOME}
 
-.. _spack-model:
+.. _spackguide-model:
 
 =========================================
 Clone a copy of GCClassic, GCHP, or HEMCO
@@ -157,7 +157,7 @@ preferred model (e.g. GEOS-Chem Classic, GCHP, or HEMCO standalone):
 
    $ git clone --recurse-submodules https://github.com/geoschem/${model}.git
 
-.. _spack-compiler:
+.. _spackguide-compiler:
 
 ================================
 Install the recommended compiler
@@ -165,7 +165,7 @@ Install the recommended compiler
 
 Next, install the recommended compiler, :program:`gcc` (aka the GNU
 Compiler Collection).  Use the :envvar:`scope_args` environment
-variable that you defined in the :ref:`previous step <spack-model>`.
+variable that you defined in the :ref:`previous step <spackguide-model>`.
 
 .. code-block:: console
 
@@ -221,13 +221,13 @@ where
       $ spack compiler list
 
    Use this command to view the installation location for a
-   Spack-built software package:
+   Spackguide-built software package:
 
    .. code-block:: console
 
       $ spack location -i <package-name>
 
-.. _spack-build:
+.. _spackguide-build:
 
 =============================================
 Build GEOS-Chem dependencies and useful tools
@@ -246,7 +246,7 @@ The Spack installation commands that you will use take the form:
 where
 
 - :literal:`${scope_args}` is the environment variable that
-  :ref:`you defined above <spack-model>`; |br|
+  :ref:`you defined above <spackguide-model>`; |br|
   |br|
 
 - :literal:`<package-name>` is a placeholder for the name of the
@@ -341,14 +341,14 @@ command:
 
    $ spack find
 
-.. _spack-envfile:
+.. _spackguide-envfile:
 
 ====================================================
 Add ``spack load`` commands to your environment file
 ====================================================
 
 We recommend "sourcing" the load_script that you created in the
-:ref:`previous section <spack-loader>` from within an **environment
+:ref:`previous section <spackguide-loader>` from within an **environment
 file**.  This is a file that not only loads the required modules but
 also defines settings that you need to run GEOS-Chem Classic, GCHP, or
 the HEMCO standalone.
@@ -364,13 +364,13 @@ Please see the following links for sample environment files.
 
 Copy and paste the code below into a file named :code:`${model}.env` (using
 the :code:`${model}` environment variable that :ref:`you defined
-above <spack-model>`).  Then replace any existing :code:`module load`
+above <spackguide-model>`).  Then replace any existing :code:`module load`
 commands with the following code:
 
 .. code-block:: bash
 
    #=========================================================================
-   # Load Spack-built modules
+   # Load Spackguide-built modules
    #=========================================================================
 
    # Setup Spack if it hasn't already been done
@@ -463,7 +463,7 @@ been installed properly.
      --includedir  Include directory
      --version     Library version
 
-.. _spack-cleanup:
+.. _spackguide-cleanup:
 
 ========
 Clean up
@@ -474,7 +474,7 @@ not needed.  (Unless you would like to keep it to build the executable
 for your research with GEOS-Chem Classic, GCHP, or HEMCO.)
 
 The :file:`spack` directory needs to remain.  :ref:`As mentioned above
-<spack-setup>`, this directory cannot be moved.
+<spackguide-setup>`, this directory cannot be moved.
 
 You can clean up any Spack temporary build stage information with:
 

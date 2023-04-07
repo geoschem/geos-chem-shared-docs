@@ -4,23 +4,39 @@
 
 .. _errguide:
 
-#######################
-Understand error output
-#######################
+################################
+Understand common error messages
+################################
 
 In this Guide we provide information about the different types of errors
 that your GEOS-Chem simulation might encounter.
 
-We strongly encourage that you try to debug the error yourself before
-contacting the `GEOS-Chem Support Team
-<http://geos-chem.org/support-team.html>`_ using the info both in this
-Guide and in our :ref:`debug-guide` Guide.
+.. important::
+
+   **Warnings** are non-fatal informational messages.  Usually you do
+   not have to take any action when encountering a warning.
+   Nevertheless, you should always try to investigate why the warning
+   was generated in the first place.
+
+   **Errors** are fatal and will halt GEOS-Chem compilation or
+   execution. Looking at the error message will give you some clues as
+   to why the error occurred.
+
+We strongly encourage that you try to debug the issue using the info
+both in this Guide and in our :ref:`debug-guide` Guide.  Please see
+our `Support Guidelines
+<https://geos-chem.readthedocs.io/en/latest/help-and-reference/SUPPORT.html>`_
+for more information.
+
+.. _errguide-where:
 
 ====================================
 Where does error output get printed?
 ====================================
 
-GEOS-Chem Classic, GCHP, and HEMCO, like all Linux-based programs,
+`GEOS-Chem Classic <https://geos-chem.readthedocs.io>`_  `GCHP
+<https://gchp.readthedocs.io>`_, and `HEMCO
+<https://hemco.readthedocs.io>`_, like all Linux-based programs,
 send output to two streams: **stdout** and **stderr**.
 
 Most output will go to the **stdout** stream, which takes I/O from the
@@ -42,7 +58,7 @@ also redirect the stdout stream to a log file with the redirect command:
 The :command:`2>&1` tells the bash script to append the stderr stream
 (noted by :literal:`2`) to the stdout stream (noted by :literal:`1`).
 This will make sure that any error output also shows up in the log file.
-   
+
 You can also use the Linux :command:`tee` command, which will send
 output both to a log file as well as to the terminal window:
 
@@ -55,9 +71,9 @@ output both to a log file as well as to the terminal window:
    GCHP sends output to several log files, in addition to stdout and
    stderr.  Please see `gchp.readthedocs.io
    <https://gchp.readthedocs.io>`_ for more information.
-   
+
 .. _errguide-compile:
-   
+
 ===================
 Compile-time errors
 ===================
@@ -65,15 +81,8 @@ Compile-time errors
 In this section we discuss some compilation warnings that you may
 encounter when building GEOS-Chem.
 
-.. important::
-
-   **Warnings** are non-fatal informational messages.  You can ignore
-   these most of the time.
-   
-   **Errors** are fatal and will halt GEOS-Chem compilation or execution.
-
 .. _errguide-compile-ncinc:
-   
+
 Cannot open include file netcdf.inc
 -----------------------------------
 
@@ -98,7 +107,7 @@ KPP error: Cannot find -lfl
    error: ld returned exit 1 status
 
 **Problem:**: The `Kinetic PreProcessor (KPP)
-<https://kpp.readthedocs.io>`_ cannot find the :program*:`flex`
+<https://kpp.readthedocs.io>`_ cannot find the :program:`flex`
 library, which is one of its dependencies.
 
 **Solution:** Make sure that :ref:`all software dependencies have been
@@ -122,17 +131,92 @@ Classic, GCHP, and/or HEMCO.
 - For GEOS-Chem Classic and HEMCO: Use GNU Compiler Collection 7.0 and later
 
 .. _errguide-runtime:
-  
+
 ===============
 Run-time errors
 ===============
 
-HEMCO Error: Cannot find field ___
-----------------------------------
+Forced exit from Rosenbrock
+---------------------------
+
+.. code-block:: none
+
+   Forced exit from Rosenbrock due to the following error:
+   --> Step size too small: T + 10*H = T or H < Roundoff
+   T=   3044.21151383269      and H=  1.281206877135470E-012
+   ### INTEGRATE RETURNED ERROR AT:          40          68           1
+
+   Forced exit from Rosenbrock due to the following error:
+   --> Step size too small: T + 10*H = T or H < Roundoff
+   T=   3044.21151383269      and H=  1.281206877135470E-012
+   ### INTEGRATE FAILED TWICE ###
+
+   ###############################################################################
+   ### KPP DEBUG OUTPUT
+   ### Species concentrations at problem box           40          68          1
+   ###############################################################################
+   ... printout of species concentrations ...
+
+   ###############################################################################
+   ### KPP DEBUG OUTPUT
+   ### Species concentrations at problem box           40          68          1
+   ###############################################################################
+   ... printout of reaction rates ...
+
+**Problem:** The KPP Rosenbrock integrator could not converge to a
+solution at a particular grid box.
+
+If the non-convergence only happens once, then GEOS-Chem will revert
+to prior concentrations and reset the saved KPP internal timestep
+(:code:`Hnew`) to zero before calling the Rosenbrock integrator again.
+In many instances, this is sufficient for the chemistry to converge to
+a soluiton.
+
+In the case that the Rosenbrock integrator fails to converge to a
+solution twice in a row, all of the concentrations and
+reaction rates at the grid box will be printed to :ref:`stdout
+<errguide-where>` and the simulation will terminate.
+
+This error can be caused by:
+
+- A particular species has numerically underflowed or overflowed.
+- A division by zero in the reaction rate computations has occurred.
+- A species has been set to a very low value in another operation
+  (e.g. wet scavenging), thus causing the non-convergence.
+- The initial conditions of the simulation may non-physical.
+- A data file (meteorology or emissions) may be corrupted.
+
+**Solution:** Look at the error printout.  You will likely notice
+species concentrations or reaction rates that are extremely high or
+low compared to the others. This will give you a clue as to where to
+start looking.
+
+Try performing some short test simulations, turning each operation
+(e.g. transport, PBL mixing, convection, etc). off one at a time.
+This should isolate the location of the error.  Make sure to turn on
+verbose output in both :file:`geoschem_config.yml` and
+:file:`HEMCO_Config.rc`; this will send additional printout to the
+:ref:`stdout <errguide-where>` stream.  The clue to finding the error
+may become obvious by looking at this output.
+
+Check your restart file to make sure that the initial concentrations
+make sense.  For certain simulations, using initial conditions from a
+simulation that has been sufficiently spun-up makes a difference.
+
+Use a netCDF file viewer like :program:`ncview` to open the
+meteorology files on the day that the error occurred.  If a file
+does not open properly, it is probably corrupted.  If you suspect that
+the file may have been corrupted during download, then download the
+file again from its original source.  If this still does not fix the
+error, then the file may have been corrupted at its source.  Please
+open a new Github issue to alert the GEOS-Chem Support Team.
+
+HEMCO Error: Cannot find field
+------------------------------
 
 .. code-block:: console
 
-   HEMCO Error: Cannot find field ___.  Please check the name in the config file. 
+   HEMCO Error: Cannot find field ___.  Please check the name in the config file.
 
 **Problem:** A GEOS-Chem Classic or HEMCO standalone simulation halts
 because HEMCO cannot find a certain input field.
@@ -147,54 +231,83 @@ the `HEMCO configuration file
 :literal:`EFYO`.  This setting tells HEMCO to halt if it cannot find a
 species in the restart file.  Changing this time cycle flag
 to :literal:`CYS` will allow the simulation to proceed.  Missing species
-will then be assigned a default background value.   
+will then be assigned a default background value.
 
 List-directed I/O syntax error
 ------------------------------
 
-.. figure:: List_directed_io_error.png
-   :alt: List_directed_io_error.png
+.. code-block:: console
 
-   List_directed_io_error.png
+   forrtl: severe (59): list-directed I/O syntax error, unit -5, file Internal List-Directed Read
 
-The above error message indicates that the simulation crashed at line
-871 in ``GeosCore/input_mod.F``. This means there was an issue while
-reading `the ``input.geos``
-file <GEOS-Chem_Input_Files#The_input.geos_file>`__ (located in the run
-directory). For example, GEOS-Chem might have expected numeric input,
-but instead a character was read from ``input.geos``, thus causing a
-read error. This type of error can occur the ``input.geos`` corresponds
-to a version of GEOS-Chem that is different from yours.
+**Problem:** This error indicates that the wrong type of data was read
+from a text file.  This can happen when:
 
-This error is not limited to ``input.geos``; it can happen for any text
-file that is being read from disk (both in GEOS-Chem and in any other
-Fortran programs you may write).
+- Numeric input is expected but character input was read from disk (or
+  vice-versa);
+- A :command:`READ` statement in your code has been omitted or deleted.
 
---`Bob Yantosca <User:Bmy>`__ (`talk <User_talk:Bmy>`__) 15:51, 27
-February 2017 (UTC)
+**Solution:** Check configuration files (:file:`geoschem_config.yml`,
+:file:`HEMCO_Config.rc`, :file:`HEMCO_Diagn.rc`, etc.) to make sure
+that the actual input matches what GEOS-Chem or HEMCO is actually
+reading.
 
-January 2019 (UTC)
 
-Errors reading the GEOS-Chem restart file
------------------------------------------
+Nf_Def_Var: can not define variable
+-----------------------------------
 
-Please see the following posts for more information about errors that
-may occur when reading GEOS-Chem restart files:
+.. code-block:: console
 
-#. `Error reading restart file when using a fixed emissions year in
-   HEMCO <GEOS-Chem_12#Error_reading_restart_file_when_using_a_fixed_emissions_year_in_HEMCO>`__
+   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+   Nf_Def_var: can not define variable: ____
+
+   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+   Code stopped from DO_ERR_OUT (in module NcdfUtil/m_do_err_out.F90)
+
+   This is an error that was encountered in one of the netCDF I/O modules,
+   which indicates an error in writing to or reading from a netCDF file!
+
+   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+**Problem:** GEOS-Chem or HEMCO could not write a variable to a netCDF
+file.  This error may be caused by:
+
+#. The netCDF file is write-protected and cannot be overwritten.
+#. The path to the netCDF file is incorrect (i.e. directory does not exist).
+#. The netCDF file already contains a variable with the same name.
+
+** Solution:** Try the following:
+
+#. If overwriting a netCDF file, make sure it has write permission
+   (i.e. do :literal`chmod 644 myfile.nc`). |br|
+   |br|
+
+#. Make sure that the path where you intend to write the netCDF file
+   exists. |br|
+   |br|
+
+#. Check your :file:`HISTORY.rc` and :file:`HEMCO_Diagn.rc` diagnostic
+   configuration files to make sure that you are not writing more than
+   one diagnostic variable with the same name.
 
 NetCDF: HDF Error
 -----------------
 
-If you should encounter this error message:
+.. code-block:: console
 
-``NetCDF: HDF error``
+   NetCDF: HDF error
 
-Then this usually means GEOS-Chem was trying to read an incomplete or
-corrupted netCDF file. The quickest solution is to re-download the
-netCDF file from the original source.
+**Problem:** The netCDF library routines in GEOS-Chem or HEMCO cannot
+read a netCDF file.  The error is occurring in the HDF5 library (upon
+which netCDF depends).  This may indicate that the netCDF file is
+either incomplete or corrupted.
+
+**Solution:** Try re-downloading the file from the WashU data portal.
+This is usually sufficient to fix the issue.  If the error persists,
+please open a new GitHub issue to alert the GEOS-Chem Support team, as
+the corruption may have occured at the original source of te data.
 
 Permission denied error
 -----------------------
@@ -240,42 +353,6 @@ do this manually with an ``IF`` statement, or use the routines
 --`Bob Yantosca <User:Bmy>`__ (`talk <User_talk:Bmy>`__) 14:58, 11
 October 2017 (UTC)
 
-KPP "Step size too small" error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The following abnormal exit from the `KPP chemical
-solver <KPP_solvers_FAQ>`__:
-
-| ``Forced exit from Rosenbrock due to the following error:``
-| ``--> Step size too small: T + 10*H = T or H < Roundoff``
-| ``T=   3044.21151383269      and H=  1.281206877135470E-012``
-| ``...``
-| ``       1``
-| ``Forced exit from Rosenbrock due to the following error:``
-| ``--> Step size too small: T + 10*H = T or H < Roundoff``
-| ``T=   3044.21151383269      and H=  1.281206877135470E-012``
-| ``failed twice !!!``
-
-indicates that the chemistry could not converge to a solution in the
-given grid box. Possible reasons for this could be:
-
-#. A particular tracer has numerically underflowed or overflowed. This
-   can happen especially in the aerosol chemistry and equilibrium
-   routines, where many exponentials and logarithms are used in the
-   algorithms.
-#. The restart file is not appropriate for the given simulation. For
-   example, if the restart file was created using the Synoz O3 flux
-   boundary condtion, but you have turned on the Linoz stratospheric O3
-   chemistry, then this mismatch can cause the solver not to converge.
-   You can try switching to a restart file generated from a simulation
-   with the same input options as the simulation that you wish to
-   perform.
-
-You may have to `manually adjust the convergence
-criteria <KPP_solvers_FAQ#How_do_I_choose_the_absolute_and_relative_tolerance.3F>`__
-in the GEOS-Chem code to fix this condition.
-
---`Bob Y. <User:Bmy>`__ 11:30, 9 November 2010 (EST)
 
 Mixed file access modes error
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -402,7 +479,7 @@ file <GEOS-Chem_v11-01#Error_message_output_now_advises_users_to_check_the_HEMCO
 | `` ===============================================================================``
 | `` GEOS-CHEM ERROR: HCO_RUN ``
 | `` ``
-| `` ``\ \ ``HEMCO ERROR: Please check the HEMCO log file for error messages!``\ 
+| `` ``\ \ ``HEMCO ERROR: Please check the HEMCO log file for error messages!``\
 | `` ``
 | `` STOP at HCOI_GC_RUN (GeosCore/hcoi_gc_main_mod.F90)``
 | `` ===============================================================================``

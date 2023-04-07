@@ -348,7 +348,7 @@ Add ``spack load`` commands to your environment file
 ====================================================
 
 We recommend "sourcing" the load_script that you created in the
-:ref:`previous section <spackguide-loader>` from within an **environment
+:ref:`previous section <spackguide-build>` from within an **environment
 file**.  This is a file that not only loads the required modules but
 also defines settings that you need to run GEOS-Chem Classic, GCHP, or
 the HEMCO standalone.

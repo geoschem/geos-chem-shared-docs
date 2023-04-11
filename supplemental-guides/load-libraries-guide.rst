@@ -1,8 +1,8 @@
 .. _libguide:
 
-#######################
-Load required libraries
-#######################
+###################################
+Load software into your environment
+###################################
 
 This supplemental guide describes the how to load the
 required software dependencies for :program:`GEOS-Chem` and
@@ -14,7 +14,7 @@ required software dependencies for :program:`GEOS-Chem` and
 On the Amazon Web Services Cloud
 ================================
 
-All of the required software libraries for :program:`GEOS-Chem` and
+All of the required software dependencies for :program:`GEOS-Chem` and
 :program:`HEMCO` will be included in the Amazon Machine Image (AMI)
 that you use to initialize your Amazon Elastic Cloud Compute (EC2)
 instance. For more information, please see our `our GEOS-Chem cloud
@@ -29,16 +29,16 @@ On a shared computer cluster
 If you plan to use :program:`GEOS-Chem` or :program:`HEMCO` on a
 shared computational cluster (e.g. at a university or research
 institution), then there is a good chance that your IT staff will have
-already installed several of the required libraries.
+already installed several of the required software dependencis.
 
 Depending on your system's setup, there are a few different ways in
-which you can make these libraries available for use in your
-computational environment.  These are described in the following sections:
+which you can activate these software pacakges in your computational
+environment, as shown below.
 
 .. _libguide-check-modules:
 
-Check if libraries are available as modules
--------------------------------------------
+1. Check if libraries are available as modules
+----------------------------------------------
 Many high-performance computing (HPC) clusters use a module manager such
 as `Lmod <https://lmod.readthedocs.io/en/latest/>`_ or
 `environment-modules <https://modules.readthedocs.io/en/latest/>`_
@@ -47,37 +47,39 @@ load different compilers and libraries with simple commands.
 
 One downside of using a module manager is that you are locked into using
 only those compiler and software versions that have already been
-installed on your system by your IT staff.  But in general, module
-managers succeed in ensuring that only well-tested compiler/software
-combinations are made available to users.
+installed on your system by your sysadmin or IT support staff.  But in
+general, module managers succeed in ensuring that only well-tested
+compiler/software combinations are made available to users.
+
+.. tip::
+
+   Ask your sysadmin or IT support staff for the software loading
+   instructions specific to your system.
 
 .. _example-loading-gcc-820:
 
-Example: Load modules for GNU compilers 8.2.0
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1a. Module load example
+~~~~~~~~~~~~~~~~~~~~~~~
 
-If your computer system uses :program:`lmod`, you can load software packages
-into your computational environment with :command:`module load`
-commands, such as:
+The commands shown below are specific to the Harvard Cannon
+cluster, but serve to demonstrate the process.  Note that the names of
+software packages being loaded may contain version numbers and/or ID
+strings that serve to differentiate one build from another.
 
 .. code-block:: console
 
    $ module purge
    $ module load git/2.17.0-fasrc01
-   $ module load gcc/8.2.0-fasrc01
-   $ module load openmpi/3.1.1-fasrc01
-   $ module load netcdf/4.1.3-fasrc02
-   $ module load perl/5.26.1-fasrc01
+   $ module load gcc/10.2.0-fasrc01
+   $ module load openmpi/4.1.0-fasrc01
+   $ module load netcdf-fortran/4.5.3-fasrc03
+   $ module load flex/2.6.4-fasrc01
    $ module load cmake/3.17.3-fasrc01
 
-In this example (from the Harvard Cannon cluster), the version number
-and build identifier are part of the module name.  This setup may
-differ on your system.
-
-.. tip::
-
-   Consult your computer system documentation for more information on
-   software package names.
+Note that it is often not necessary to load all modules.  For example,
+loading :program:`netcdf-fortran` will also cause its dependencies
+(such as :program:`netcdf-c`, :program:`hdf5`, etc.) to also be loaded
+into your environment.
 
 Here is a summary of what the above commands do:
 
@@ -122,13 +124,13 @@ Here is a summary of what the above commands do:
 
 .. _libguide-check-spack:
 
-Check if Spack-built libraries are available
---------------------------------------------
+2. Check if Spack-built libraries are available
+-----------------------------------------------
 
 If your system doesn't have a module manager installed, check to see
 if the required libraries for :program:`GEOS-Chem` and
-:program:`HEMCO` were built the `Spack package manager
-<https://github.com/spack/spack>`_.  Type 
+:program:`HEMCO` were :ref:`built with the Spack package manager
+<spackguide>`.  Type
 
 .. code-block:: console
 
@@ -137,7 +139,7 @@ if the required libraries for :program:`GEOS-Chem` and
 to locate any Spack-built software libraries on your system.  If there
 Spack-built libraries are found, you may present, you may load them
 into your computational environment with :program:`spack load`
-commands:
+commands such as:
 
 .. code-block:: console
 
@@ -159,7 +161,8 @@ These specification methods are often necessary to select a given
 library in case there are several available builds to choose from.
 
 We recommend that you place :command:`spack load` commands into an
-environment file.
+`environment file
+<https://geos-chem.readthedocs.io/getting-started/login-env-files.html>`_.
 
 If a `Spack environment
 <https://spack-tutorial.readthedocs.io/en/latest/tutorial_environments.html>`_
@@ -179,8 +182,8 @@ To deactivate the environment, type:
 
 .. _libguide-check-manual:
 
-Check if libaries have been manually installed
-----------------------------------------------
+3. Check if libaries have been manually installed
+-------------------------------------------------
 
 If your computer system does not use a module manager and does not use
 Spack, check for a manual library installation. Very often, common
@@ -193,13 +196,12 @@ set the proper environment variables for GEOS-Chem and HEMCO.
 
 .. _libguide-install-spack:
 
-If there are none of these, install them with Spack
----------------------------------------------------
+4. If there are none of these, install them with Spack
+------------------------------------------------------
 
 If your system has none of the required software packages that
 :program:`GEOS-Chem` and :program:`HEMCO` need, then we recommend that
-you :ref:`use Spack to build the libraries yourself
-<build-libraries-with-spack>`.
+you :ref:`use Spack to build the libraries yourself <spackguide>`.
 Spack makes the process easy and will make sure that all software
 dependences are resolved.
 

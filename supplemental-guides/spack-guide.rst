@@ -3,10 +3,10 @@
    <br />
 
 .. _spackguide:
-   
-###################################
-Build required libraries with Spack
-###################################
+
+##################################
+Build required software with Spack
+##################################
 
 This page has instructions for building **dependencies** for
 `GEOS-Chem Classic <https://geos-chem.readthedocs.io>`_, `GCHP
@@ -111,6 +111,25 @@ require modification.
 
    $ spack compiler find                    # Tell Spack to look for existing complilers
 
+.. note::
+
+   If you should encounter this error:
+
+   .. code-block:: console
+
+      $ spack external find
+      ==> Error: 'name'
+
+   then Spack could not find any external software on your system.
+
+   Spack searches for executables that are located within your search
+   path (i.e. the list of directories contained in your :envvar:`$PATH`
+   environment variable), but not within software modules. Because of
+   this, you might have to :ref:`load a software package into your
+   environment <libguide>` before Spack can detect it.  Ask your
+   sysadmin or IT staff for more information about your system's
+   specific setup.
+
 After the first-time setup has been completed, an environment variable
 named  :envvar:`SPACK_ROOT`, will be created in your Unix/Linux
 environment.  This contains to the absolute path of the Spack root
@@ -119,7 +138,7 @@ directory.  Use this command to view the value of :envvar:`SPACK_ROOT`:
 .. code-block:: console
 
    $ echo ${SPACK_ROOT}
-   /path/to/home/spack    # Absolute path to Spack root, assumes installation to a subdir of ${HOME}
+   /path/to/home/spack    # Path to Spack root, assumes installation to a subdir of ${HOME}
 
 .. _spackguide-model:
 

@@ -1,4 +1,4 @@
-.. _spcguide:
+ .. _spcguide:
 
 #################################
 View GEOS-Chem species properties
@@ -416,6 +416,292 @@ Wet deposition properties
       For SOA species, the maximum value of :code:`WD_RainoutEff_Luo`
       will  be 0.8 instead of 1.0.
 
+.. _spcguide-defs-tracer:
+
+Transport tracer properties
+---------------------------
+
+These properties are defined for species used in the TransportTracers
+simulation.  We will refer to these species as **tracers**.
+
+.. option:: Is_Tracer
+
+   Indicates that the species is a transport tracer (:literal:`true`),
+   or is not (:literal:`false`).
+
+.. option:: Snk_Horiz
+
+   Specifies the horizontal domain of the tracer sink term.  Allowable
+   values are:
+
+   .. option:: all
+
+      The tracer sink term will be applied throughout the entire
+      horizonatal domain of the simulation grid.
+
+   .. option:: lat_zone
+
+      The tracer sink term will be applied only within the latitude
+      range specified by :option:`Snk_Lats`.
+
+.. option:: Snk_Lats
+
+   Defines the latitude range :literal:`[min_latitude, max_latitude]` for the
+   tracer sink term.  Will only be used if :option:`Snk_Horiz` is
+   set to :literal:`lat_zone`.
+
+.. option:: Snk_Mode
+
+   Specifies the type of the tracer sink term.  Allowable values are:
+
+   .. option:: constant
+
+      The tracer sink term is a constant value (specified in
+      :option:`Snk_Period`).
+
+   .. option:: efolding
+
+      The tracer sink term has an e-folding decay constant (specified in
+      :option:`Snk_Period`).
+
+   .. option:: halflife
+
+      A tracer sink term with has a half-life (specified in
+      :option:`Snk_Period`).
+
+   .. option:: none
+
+      The tracer does not have a sink term.
+
+.. option:: Snk_Period
+
+   Specifies the period (in days) during which the tracer sink term
+   will be applied.
+
+.. option:: Snk_Value
+
+   Specifies an initial value for the tracer sink term.
+
+.. option:: Snk_Vert
+
+   Specifies the vertical domain of the tracer sink term. Allowable
+   values are:
+
+   .. option:: all
+
+      The tracer sink term will be applied throughout the entire
+      vertical domain of the simulation grid.
+
+   .. option:: boundary_layer
+
+      The tracer sink term will only be applied within the planetary
+      boundary layer.
+
+   .. option:: surface
+
+      The tracer sink term will be applied only at the surface.
+
+   .. option:: troposphere
+
+      The tracer sink term will only be applied within the troposphere.
+
+.. option:: Src_Add
+
+   Specifies whether the tracer has a source term (:literal:`true`) or
+   not (:literal:`false`).
+
+.. option:: Src_Horiz
+
+   Specifies the horizontal domain of the tracer source term.
+   Allowable values are:
+
+   .. option:: all
+
+      The tracer source term will be applied across the entire
+      horizontal extent of the simulation grid.
+
+   .. option:: lat_zone
+
+      The tracer source term will only be applied within the latitude
+      range specified by :option:`Src_Lats`.
+
+.. option:: Src_Lats
+
+   Defines the latitude range :literal:`[min_latitude, max_latitude]` for the
+   tracer source term.  Will only be applied if :option:`Src_Horiz` is
+   set to :literal:`lat_zone`.
+
+.. option:: Src_Mode
+
+   Describes the type of tracer source term.  Allowable values are:
+
+   .. option:: constant
+
+      Specifies a constant tracer source term.
+
+   .. option:: decay_of_another_species
+
+      Specifies that the tracer source term comes from the decay of
+      another species (e.g. Pb210 source comes from Rn222 decay).
+
+   .. option:: file2d
+
+      Specifies a 2-dimensional tracer source term read from a file
+      (via HEMCO).
+
+   .. option:: file3d
+
+      Specifies a 3-dimensional tracer source term read from a file
+      via HEMCO.
+
+   .. option:: maintain_mixing_ratio
+
+      Specifies that the tracer source term will be applied as needed
+      to maintain a constant mixing ratio.
+
+   .. option:: none
+
+      Specifies that there is not a tracer source term.
+      it.
+
+.. option:: Src_Unit
+
+   Specifies the unit of the source term that will be applied to the
+   tracer.
+
+   .. option:: ppbv
+
+      The source term has units of parts per billion by volume.
+
+   .. option:: timestep
+
+      The source term has units of per emissions timestep.
+
+.. option:: Src_Value
+
+   Specifies a value for the tracer sink term.
+
+.. option:: Src_Vert
+
+   Specifies the vertical domain of the tracer sink term.  Allowable
+   values are:
+
+   .. option:: all
+
+      The tracer source term will be applied throughout the entire
+      vertical domain of the simulation grid.
+
+   .. option:: pressures
+
+      The tracer source term will only be applied within the pressure
+      range specified in :option:`Src_Pressures`.
+
+   .. option:: stratosphere
+
+      The tracer source term will only be applied in the stratosphere.
+
+   .. option:: surface
+
+      The tracer source term will only be applied at the surface.
+
+.. option:: Src_Pressures
+
+   Defines the pressure range :literal:`[min_pressure, max_pressure]`,
+   in hPa for the tracer source term.  Will only be used
+   if :option:`Src_Vert` is set to :literal:`pressures`.
+
+.. option:: Lifetime_Units
+
+   Specifies the units of age of air tracers (e.g. :literal:`aoa`,
+   :literal:`aoa_nh`, :literal:`aoa_bl`).  This will usually be set to
+   :literal:`days`.
+
+.. _spcguide-defs-tracer-prop:
+
+Properties used by each transport tracer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The list below shows the various :ref:`transport tracer properties <spcguide-defs-tracer>`
+that are used in the current TransportTracers simulation.
+
+.. code-block:: none
+
+   Is_Tracer
+    - true                     : all
+
+   Snk_Horiz:
+    - lat_zone                 : aoa_nh
+    - all                      : all others
+
+   Snk_Lats
+    - 30 50                    : aoa_nh
+
+   Snk_Mode
+    - constant                 : aoa, aoa_bl, aoa_nh
+    - efolding                 : CH3I, CO_25
+    - none                     : SF6
+    - halflife                 : Be7, Be7s, Be10, Be10s
+
+   Snk_Period (days)
+    - 5                        : CH3I
+    - 25                       : CO_25
+    - 50                       : CO_50
+    - 90                       : e90, e90_n, e90_s
+    - 11742.8                  : Pb210, Pb210s
+    - 5.5                      : Rn222
+    - 53.3                     : Be7, Be7s
+    - 5.84e8                   : Be10, Be10s
+
+   Snk_Value
+    - 0                        : aoa, aoa_bl, aoa_nh
+
+   Snk_Vert
+    - boundary_layer           : aoa_bl
+    - surface                  : aoa, aoa_nh
+    - troposphere              : stOx
+    - all                      : all others
+
+   Src_Add
+    - false                    : Passive, stOx, st80_25
+    - true                     : all others
+
+   Src_Horiz
+    - lat_zone                 : e90_n, e90_s, nh_5, nh_50
+    - all                      : all others
+
+   Src_Lats
+    - [ 40.0,   91.0]          : e90_n
+    - [-91.0,  -40.0]          : e90_s
+    - [ 30.0,   50.0]          : nh_5, nh_50
+
+   Src_Mode
+    - constant                 : aoa, aoa_bl, aoa_nh, nh_50, nh_5, st80_25
+    - file2d                   : CH3I, CO_25, CO_50, Rn222, SF6  - HEMCO
+    - file3d                   : Be10, Be7                       - HEMCO
+    - maintain_mixing_ratio    : e_90, e90_n, e90_s
+    - decay_of_another_species : Pb210, Pb210s
+
+   Src_Unit
+    - ppbv                     : e90, e90_n, e90_s, st80_25
+    - timestep                 : aoa, aoa_bl, aoa_nh
+
+   Src_Value
+    - 1                        : aoa, aoa_bl, aoa_nh
+    - 100                      : e90, e90_n, e90_s
+    - 200                      : st80_25
+
+   Src_Vert
+    - all                      : aoa, aoa_bl, aoa_nh, Pb210
+    - pressures                : st80_25
+    - stratosphere             : Be10s, Be7s, Pb210s, stOx
+    - surface                  : all others (not specified when Src_Mode: HEMCO)
+
+   Src_Pressures
+    - [0, 80]                  : st80_25
+
+   Lifetime_Units
+    - days                     : aoa, aoa_bl, aoa_bl
+
 .. _spcguide-defs-other:
 
 Other properties
@@ -508,6 +794,8 @@ species. In addition to the fields mentioned in the preceding sections, the
    | :code:`PhotolId`  | Photolyis species index          |
    +-------------------+----------------------------------+
    | :code:`RadNuclId` | Radionuclide index               |
+   +-------------------+----------------------------------+
+   | :code:`TracerId`  | Transport tracer index           |
    +-------------------+----------------------------------+
    | :code:`WetDepId`  | Wet deposition index             |
    +-------------------+----------------------------------+

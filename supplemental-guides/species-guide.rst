@@ -452,12 +452,12 @@ simulation.  We will refer to these species as **tracers**.
 
 .. option:: Snk_Mode
 
-   Specifies the type of the tracer sink term.  Allowable values are:
+   Specifies how the tracer sink term will be applied.  Allowable values are:
 
    .. option:: constant
 
-      The tracer sink term is a constant value (specified in
-      :option:`Snk_Period`).
+      The tracer sink term is a constant value (specified by
+      :option:`Snk_Value`).
 
    .. option:: efolding
 
@@ -466,7 +466,7 @@ simulation.  We will refer to these species as **tracers**.
 
    .. option:: halflife
 
-      A tracer sink term with has a half-life (specified in
+      A tracer sink term has a half-life (specified in
       :option:`Snk_Period`).
 
    .. option:: none
@@ -475,12 +475,12 @@ simulation.  We will refer to these species as **tracers**.
 
 .. option:: Snk_Period
 
-   Specifies the period (in days) during which the tracer sink term
+   Specifies the period (in days) for which the tracer sink term
    will be applied.
 
 .. option:: Snk_Value
 
-   Specifies an initial value for the tracer sink term.
+   Specifies a value for the tracer sink term.
 
 .. option:: Snk_Vert
 
@@ -499,7 +499,7 @@ simulation.  We will refer to these species as **tracers**.
 
    .. option:: surface
 
-      The tracer sink term will be applied only at the surface.
+      The tracer sink term will only be applied at the surface.
 
    .. option:: troposphere
 
@@ -537,32 +537,26 @@ simulation.  We will refer to these species as **tracers**.
 
    .. option:: constant
 
-      Specifies a constant tracer source term.
+      The tracer source term is a constant value (specified by
+      :option:`Src_Value`).
 
    .. option:: decay_of_another_species
 
-      Specifies that the tracer source term comes from the decay of
+      The tracer source term comes from the decay of
       another species (e.g. Pb210 source comes from Rn222 decay).
 
-   .. option:: file2d
+   .. option:: HEMCO
 
-      Specifies a 2-dimensional tracer source term read from a file
-      (via HEMCO).
-
-   .. option:: file3d
-
-      Specifies a 3-dimensional tracer source term read from a file
-      via HEMCO.
+      The tracer source term will be read from a file via HEMCO.
 
    .. option:: maintain_mixing_ratio
 
-      Specifies that the tracer source term will be applied as needed
-      to maintain a constant mixing ratio.
+      The tracer source term will be calculated as needed
+      to maintain a constant mixing ratio at the surface.
 
    .. option:: none
 
-      Specifies that there is not a tracer source term.
-      it.
+      The tracer does not have a source term.
 
 .. option:: Src_Unit
 
@@ -579,11 +573,11 @@ simulation.  We will refer to these species as **tracers**.
 
 .. option:: Src_Value
 
-   Specifies a value for the tracer sink term.
+   Specifies a value for the tracer source term in :option:`Src_Units`.
 
 .. option:: Src_Vert
 
-   Specifies the vertical domain of the tracer sink term.  Allowable
+   Specifies the vertical domain of the tracer source term.  Allowable
    values are:
 
    .. option:: all
@@ -600,6 +594,10 @@ simulation.  We will refer to these species as **tracers**.
 
       The tracer source term will only be applied in the stratosphere.
 
+   .. option:: troposphere
+
+      The tracer source term will only be applied in the troposphere.
+
    .. option:: surface
 
       The tracer source term will only be applied at the surface.
@@ -610,11 +608,11 @@ simulation.  We will refer to these species as **tracers**.
    in hPa for the tracer source term.  Will only be used
    if :option:`Src_Vert` is set to :literal:`pressures`.
 
-.. option:: Lifetime_Units
+.. option:: Units
 
-   Specifies the units of age of air tracers (e.g. :literal:`aoa`,
-   :literal:`aoa_nh`, :literal:`aoa_bl`).  This will usually be set to
-   :literal:`days`.
+   Specifies the default units of the tracers (e.g. :literal:`aoa`,
+   :literal:`aoa_nh`, :literal:`aoa_bl` are carried in units :literal:`days`,
+   while all other species in GEOS-Chem are :literal:`kg/kg dry air`).
 
 .. _spcguide-defs-tracer-prop:
 
@@ -699,7 +697,7 @@ that are used in the current TransportTracers simulation.
    Src_Pressures
     - [0, 80]                  : st80_25
 
-   Lifetime_Units
+   Units
     - days                     : aoa, aoa_bl, aoa_bl
 
 .. _spcguide-defs-other:

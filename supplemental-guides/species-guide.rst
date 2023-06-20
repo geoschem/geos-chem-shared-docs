@@ -167,6 +167,15 @@ Physical properties
 
    Molecular weight (:math:`g\ mol^{-1}`) of the species.
 
+   .. note::
+
+      Some aerosol-phase species (such as MONITA and IONITA) are given
+      the molar mass corresponding to the number of nitrogens that
+      they carry, whereas gas-phase species (MONITS and MONITU) get
+      the full molar mass of the compounds that they represent.  This
+      treatment has its origins in `J. Fisher et al
+      [2016] <https://acp.copernicus.org/articles/16/5969/2016/acp-16-5969-2016.pdf>`_.
+
 .. option:: Radius
 
    Radius (:math:`m`) of the species.  Typically defined only for

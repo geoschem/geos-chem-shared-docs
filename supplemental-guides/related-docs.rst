@@ -53,3 +53,17 @@ View related documentation
    | CHEEREIO (Data assimilation    | Drew Pendergrass (Harvard)    | `cheereio.readthedocs.io                   |
    | & emissions inversions)        |                               | <https://cheereio.readthedocs.io>`_        |
    +--------------------------------+-------------------------------+--------------------------------------------+
+
+
+.. table:: **User manual archives for unsupported legacy software**
+   :align: center
+
+   +-------------------------------------+-----------------------------------------------------------+
+   | Legacy Software                     |  Documentation archive                                    |
+   +=====================================+===========================================================+
+   | Unsupported GEOS-Chem Classic       | `geoschem.github.io/gcclassic-manpage-archive             |
+   | versions (prior to 13.0.0)          | <https://geoschem.github.io/gcclassic-manpage-archive>`_  |
+   +-------------------------------------+-----------------------------------------------------------+
+   | GAMAP (superseded by GCPy)          | `geoschem.github.io/gamap-manual                          |
+   |                                     | <https://geoschem.github.io/gamap-manual>`_               |
+   +-------------------------------------+-----------------------------------------------------------+

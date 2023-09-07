@@ -366,23 +366,24 @@ You may toggle offline emissions on (:literal:`true`) or off
        -->  CalcBrSeasalt         :       true
        --> OFFLINE_SOILNOX        :       true     # 1980-2020
 
-As stated in the comments, if you deactivate any of these offline
-emissions, the corresponding HEMCO extension will be used instead:
+As stated in the comments, if you switch between offline and online
+emissions, you will need to activate the corresponding HEMCO
+extension:
 
-.. table::
+.. table:: Offline emissions and corresponding HEMCO extensions
    :align: center
 
-   +----------------------------+-------------+------------------------+-------------+
-   | Deactivating this emission | Extension # | Enables this extension | Extension # |
-   +============================+=============+========================+=============+
-   | OFFLINE_DUST               | 0           | DustDead               | 105         |
-   +----------------------------+-------------+------------------------+-------------+
-   | OFFLINE_BIOGENICVOC        | 0           | MEGAN                  | 108         |
-   +----------------------------+-------------+------------------------+-------------+
-   | OFFLINE_SEASALT            | 0           | SeaSalt                | 107         |
-   +----------------------------+-------------+------------------------+-------------+
-   | OFFLINE_SOILOX             | 0           | SoilNOx                | 104         |
-   +----------------------------+-------------+------------------------+-------------+
+   +-----------------------+-------------+-------------------------------+-------------+
+   | Offline base emission | Extension # | Corresponding HEMCO extension | Extension # |
+   +=======================+=============+===============================+=============+
+   | OFFLINE_DUST          | 0           | DustDead                      | 105         |
+   +-----------------------+-------------+-------------------------------+-------------+
+   | OFFLINE_BIOGENICVOC   | 0           | MEGAN                         | 108         |
+   +-----------------------+-------------+-------------------------------+-------------+
+   | OFFLINE_SEASALT       | 0           | SeaSalt                       | 107         |
+   +-----------------------+-------------+-------------------------------+-------------+
+   | OFFLINE_SOILNOX       | 0           | SoilNOx                       | 104         |
+   +-----------------------+-------------+-------------------------------+-------------+
 
 Example: Disabling offline dust emissions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

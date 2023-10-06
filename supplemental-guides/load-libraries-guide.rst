@@ -68,13 +68,12 @@ strings that serve to differentiate one build from another.
 
 .. code-block:: console
 
-   $ module purge
-   $ module load git/2.17.0-fasrc01
-   $ module load gcc/10.2.0-fasrc01
-   $ module load openmpi/4.1.0-fasrc01
-   $ module load netcdf-fortran/4.5.3-fasrc03
-   $ module load flex/2.6.4-fasrc01
-   $ module load cmake/3.17.3-fasrc01
+   $ module load gcc/10.2.0-fasrc01             # gcc / g++ / gfortran
+   $ module load openmpi/4.1.0-fasrc01          # MPI
+   $ module load netcdf-c/4.8.0-fasrc01         # netcdf-c
+   $ module load netcdf-fortran/4.5.3-fasrc01   # netcdf-fortran
+   $ module load flex/2.6.4-fasrc01             # Flex lexer (needed for KPP)
+   $ module load cmake/3.25.2-fasrc01           # CMake (needed to compile)
 
 Note that it is often not necessary to load all modules.  For example,
 loading :program:`netcdf-fortran` will also cause its dependencies
@@ -121,6 +120,12 @@ Here is a summary of what the above commands do:
 .. option:: module load cmake/...
 
    Loads Cmake (needed to compile GEOS-Chem)
+
+.. option:: module load flex/...
+
+   Loads the Flex lexer (needed for `The Kinetic PreProcessor
+   <https://kpp.readthedocs.io>`_).
+
 
 .. _libguide-check-spack:
 

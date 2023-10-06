@@ -549,6 +549,26 @@ Permission denied error
 
    $ chmod 755 geoschem.run
 
+.. _errguide-fallvel:
+
+Excessive fall velocity error
+-----------------------------
+
+.. code-block:: console
+
+   GEOS-CHEM ERROR:  Excessive fall velocity?
+   STOP at  CALC_FALLVEL, UCX_mod
+
+**Problem**: The fall velocity (in stratopsheric chemistry routine
+:file:`Calc_FallVel` in module :file:`GeosCore/ucx_mod.F90`) exceeds
+10 m/s.  This error will most often occur in GEOS-Chem Classic
+nested-grid simulations.
+
+**Solution**: Reduce the default timestep settings in
+:file:`geoschem_config.yml`.  You may need to use 300 seconds
+(transport) and 600 seconds (chemistry) or even smaller depending on
+the horizontal resolution of your simulation.
+
 .. _errguide-fileio:
 
 ===============

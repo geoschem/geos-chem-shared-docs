@@ -30,7 +30,8 @@ for visualizing and manipulating netCDF files.
    :program:`GEOS-Chem Python toolkit`: Python package for visualizing
    and analyzing GEOS-Chem output.  Used for creating the GEOS-Chem
    benchmark plots.  Also contains some useful routines for creating
-   single-panel plots and multi-panel difference plots.
+   single-panel plots and multi-panel difference plots, as well as
+   file regridding utilities.
 
    See: https://gcpy.readthedocs.io
 
@@ -748,6 +749,20 @@ You can also use conservative regridding:
 
    $ cdo remapcon,geos.2x25.grid GEOSChem.Restart.4x5.nc GEOSChem.Restart.2x25.nc
 
+.. _ncguide-
+
+.. _ncguide-gcpy:
+
+Regrid with GCPy
+----------------
+
+GCPy (the GEOS-Chem Python Toolkit) has contains file regridding
+utilities that allow you to regrid from lat/lon to cubed-sphere grids
+(and vice versa).  Regridding weights can be generated on-the-fly, or
+can be archived and reused.  For detailed instructions, please see the
+please see the `GCPy Regridding documentation
+<https://gcpy.readthedocs.io/en/latest/Regridding.html>`_.
+
 .. _ncguide-regrid-nco:
 
 Regrid with nco
@@ -756,6 +771,17 @@ Regrid with nco
 `Regridding section of the NCO User Guide
 <http://nco.sourceforge.net/nco.html#Regridding>`_ for more
 information.
+
+.. _ncguide-regrid-xarray:
+
+Regrid with xarray
+------------------
+
+The `xarray <https://xarray.readthedocs.io>`_ Python package has a
+built-in capability for 1-D interpolation. It wraps the `SciPy
+interpolation module
+<https://docs.scipy.org/doc/scipy/reference/interpolate.html>`_. This
+functionality can also be used for vertical regridding.
 
 .. _ncguide-regrid-xesmf:
 
@@ -770,27 +796,6 @@ unstructured grids.
 .. note::
 
    :program:`xESMF` only handles horizontal regridding.
-
-.. _ncguide-regrid-xarray:
-
-Regrid with xarray
-------------------
-
-The `xarray <https://xarray.readthedocs.io>`_ Python package has a
-built-in capability for 1-D interpolation. It wraps the `SciPy
-interpolation module
-<https://docs.scipy.org/doc/scipy/reference/interpolate.html>`_. This
-functionality can also be used for vertical regridding.
-
-.. _ncguide-gridspec-sparselt:
-
-Regrid with gridspec and sparselt
----------------------------------
-
-Please see `this chapter at gcpy.readthedocs.io
-<https://gcpy.readthedocs.io/en/stable/Regridding.html#regridding-with-gridspec-and-sparselt>`_
-for more information about this method of regridding.
-
 
 .. _ncguide-cropping:
 

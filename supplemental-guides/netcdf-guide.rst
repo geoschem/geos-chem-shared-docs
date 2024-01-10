@@ -107,97 +107,97 @@ You will see output similar to this:
 
    netcdf GEOSChem.SpeciesConc.20190701_0000z {
    dimensions:
-   	time = UNLIMITED ; // (1 currently)
-   	lev = 72 ;
-   	ilev = 73 ;
-   	lat = 46 ;
-   	lon = 72 ;
-   	nb = 2 ;
+       time = UNLIMITED ; // (1 currently)
+       lev = 72 ;
+       ilev = 73 ;
+       lat = 46 ;
+       lon = 72 ;
+       nb = 2 ;
    variables:
-   	double time(time) ;
-   		time:long_name = "Time" ;
-   		time:units = "minutes since 2019-07-01 00:00:00" ;
-   		time:calendar = "gregorian" ;
-   		time:axis = "T" ;
-   	double lev(lev) ;
-   		lev:long_name = "hybrid level at midpoints ((A/P0)+B)" ;
-   		lev:units = "level" ;
-   		lev:axis = "Z" ;
-   		lev:positive = "up" ;
-   		lev:standard_name = "atmosphere_hybrid_sigma_pressure_coordinate" ;
-   		lev:formula_terms = "a: hyam b: hybm p0: P0 ps: PS" ;
-   	double ilev(ilev) ;
-   		ilev:long_name = "hybrid level at interfaces ((A/P0)+B)" ;
-   		ilev:units = "level" ;
-   		ilev:positive = "up" ;
-   		ilev:standard_name = "atmosphere_hybrid_sigma_pressure_coordinate" ;
-   		ilev:formula_terms = "a: hyai b: hybi p0: P0 ps: PS" ;
-   	double lat_bnds(lat, nb) ;
-   		lat_bnds:long_name = "Latitude bounds (CF-compliant)" ;
-   		lat_bnds:units = "degrees_north" ;
-   	double lat(lat) ;
-   		lat:long_name = "Latitude" ;
-   		lat:units = "degrees_north" ;
-   		lat:axis = "Y" ;
-   		lat:bounds = "lat_bnds" ;
-   	double lon_bnds(lon, nb) ;
-   		lon_bnds:long_name = "Longitude bounds (CF-compliant)" ;
-   		lon_bnds:units = "degrees_east" ;
-   	double lon(lon) ;
-   		lon:long_name = "Longitude" ;
-   		lon:units = "degrees_east" ;
-   		lon:axis = "X" ;
-   		lon:bounds = "lon_bnds" ;
-   	double hyam(lev) ;
-   		hyam:long_name = "hybrid A coefficient at layer midpoints" ;
-   		hyam:units = "hPa" ;
-   	double hybm(lev) ;
-   		hybm:long_name = "hybrid B coefficient at layer midpoints" ;
-   		hybm:units = "1" ;
-   	double hyai(ilev) ;
-   		hyai:long_name = "hybrid A coefficient at layer interfaces" ;
-   		hyai:units = "hPa" ;
-   	double hybi(ilev) ;
-   		hybi:long_name = "hybrid B coefficient at layer interfaces" ;
-   		hybi:units = "1" ;
-   	double P0 ;
-   		P0:long_name = "reference pressure" ;
-   		P0:units = "hPa" ;
-   	float AREA(lat, lon) ;
-   		AREA:long_name = "Surface area" ;
-   		AREA:units = "m2" ;
-   	float SpeciesConc_RCOOH(time, lev, lat, lon) ;
-   		SpeciesConc_RCOOH:long_name = "Dry mixing ratio of species RCOOH" ;
-   		SpeciesConc_RCOOH:units = "mol mol-1 dry" ;
-   		SpeciesConc_RCOOH:averaging_method = "time-averaged" ;
-   	float SpeciesConc_O2(time, lev, lat, lon) ;
-   		SpeciesConc_O2:long_name = "Dry mixing ratio of species O2" ;
-   		SpeciesConc_O2:units = "mol mol-1 dry" ;
-   		SpeciesConc_O2:averaging_method = "time-averaged" ;
-   	float SpeciesConc_N2(time, lev, lat, lon) ;
-   		SpeciesConc_N2:long_name = "Dry mixing ratio of species N2" ;
-   		SpeciesConc_N2:units = "mol mol-1 dry" ;
-   		SpeciesConc_N2:averaging_method = "time-averaged" ;
-   	float SpeciesConc_H2(time, lev, lat, lon) ;
-   		SpeciesConc_H2:long_name = "Dry mixing ratio of species H2" ;
-   		SpeciesConc_H2:units = "mol mol-1 dry" ;
-   		SpeciesConc_H2:averaging_method = "time-averaged" ;
-   	float SpeciesConc_O(time, lev, lat, lon) ;
-   		SpeciesConc_O:long_name = "Dry mixing ratio of species O" ;
-   		SpeciesConc_O:units = "mol mol-1 dry" ;
+       double time(time) ;
+           time:long_name = "Time" ;
+           time:units = "minutes since 2019-07-01 00:00:00" ;
+           time:calendar = "gregorian" ;
+           time:axis = "T" ;
+       double lev(lev) ;
+           lev:long_name = "hybrid level at midpoints ((A/P0)+B)" ;
+           lev:units = "level" ;
+           lev:axis = "Z" ;
+           lev:positive = "up" ;
+           lev:standard_name = "atmosphere_hybrid_sigma_pressure_coordinate" ;
+           lev:formula_terms = "a: hyam b: hybm p0: P0 ps: PS" ;
+       double ilev(ilev) ;
+           ilev:long_name = "hybrid level at interfaces ((A/P0)+B)" ;
+           ilev:units = "level" ;
+           ilev:positive = "up" ;
+           ilev:standard_name = "atmosphere_hybrid_sigma_pressure_coordinate" ;
+           ilev:formula_terms = "a: hyai b: hybi p0: P0 ps: PS" ;
+       double lat_bnds(lat, nb) ;
+           lat_bnds:long_name = "Latitude bounds (CF-compliant)" ;
+           lat_bnds:units = "degrees_north" ;
+       double lat(lat) ;
+           lat:long_name = "Latitude" ;
+           lat:units = "degrees_north" ;
+           lat:axis = "Y" ;
+           lat:bounds = "lat_bnds" ;
+       double lon_bnds(lon, nb) ;
+           lon_bnds:long_name = "Longitude bounds (CF-compliant)" ;
+           lon_bnds:units = "degrees_east" ;
+       double lon(lon) ;
+           lon:long_name = "Longitude" ;
+           lon:units = "degrees_east" ;
+           lon:axis = "X" ;
+           lon:bounds = "lon_bnds" ;
+       double hyam(lev) ;
+           hyam:long_name = "hybrid A coefficient at layer midpoints" ;
+           hyam:units = "hPa" ;
+       double hybm(lev) ;
+           hybm:long_name = "hybrid B coefficient at layer midpoints" ;
+           hybm:units = "1" ;
+       double hyai(ilev) ;
+           hyai:long_name = "hybrid A coefficient at layer interfaces" ;
+           hyai:units = "hPa" ;
+       double hybi(ilev) ;
+           hybi:long_name = "hybrid B coefficient at layer interfaces" ;
+           hybi:units = "1" ;
+       double P0 ;
+           P0:long_name = "reference pressure" ;
+           P0:units = "hPa" ;
+       float AREA(lat, lon) ;
+           AREA:long_name = "Surface area" ;
+           AREA:units = "m2" ;
+       float SpeciesConcVV_RCOOH(time, lev, lat, lon) ;
+           SpeciesConc_RCOOH:long_name = "Dry mixing ratio of species RCOOH" ;
+           SpeciesConcVV_RCOOH:units = "mol mol-1 dry" ;
+           SpeciesConcVV_RCOOH:averaging_method = "time-averaged" ;
+       float SpeciesConcVV_O2(time, lev, lat, lon) ;
+           SpeciesConcVV_O2:long_name = "Dry mixing ratio of species O2" ;
+           SpeciesConcVV_O2:units = "mol mol-1 dry" ;
+           SpeciesConcVV_O2:averaging_method = "time-averaged" ;
+       float SpeciesConcVV_N2(time, lev, lat, lon) ;
+           SpeciesConcVV_N2:long_name = "Dry mixing ratio of species N2" ;
+           SpeciesConcVV_N2:units = "mol mol-1 dry" ;
+           SpeciesConcVV_N2:averaging_method = "time-averaged" ;
+       float SpeciesConcVV_H2(time, lev, lat, lon) ;
+           SpeciesConcVV_H2:long_name = "Dry mixing ratio of species H2" ;
+           SpeciesConcVV_H2:units = "mol mol-1 dry" ;
+           SpeciesConcVV_H2:averaging_method = "time-averaged" ;
+       float SpeciesConcVV_O(time, lev, lat, lon) ;
+           SpeciesConcVV_O:long_name = "Dry mixing ratio of species O" ;
+           SpeciesConcVVO:units = "mol mol-1 dry" ;
 
-		... etc ...
+        ... etc ...
 
    // global attributes:
-   		:title = "GEOS-Chem diagnostic collection: SpeciesConc" ;
-   		:history = "" ;
-   		:format = "not found" ;
-   		:conventions = "COARDS" ;
-   		:ProdDateTime = "" ;
-   		:reference = "www.geos-chem.org; wiki.geos-chem.org" ;
-   		:contact = "GEOS-Chem Support Team (geos-chem-support@g.harvard.edu)" ;
-   		:simulation_start_date_and_time = "2019-07-01 00:00:00z" ;
-   		:simulation_end_date_and_time = "2019-07-01 01:00:00z" ;
+               :title = "GEOS-Chem diagnostic collection: SpeciesConc" ;
+               :history = "" ;
+               :format = "not found" ;
+               :conventions = "COARDS" ;
+               :ProdDateTime = "" ;
+               :reference = "www.geos-chem.org; wiki.geos-chem.org" ;
+               :contact = "GEOS-Chem Support Team (geos-chem-support@g.harvard.edu)" ;
+               :simulation_start_date_and_time = "2019-07-01 00:00:00z" ;
+               :simulation_end_date_and_time = "2019-07-01 01:00:00z" ;
    data:
 
     time = "2019-07-01 00:30" ;
@@ -490,25 +490,25 @@ for editing netCDF files.  Many of these commands utilize the
       $ cdo setemisstoc,0 myfile.nc tmp.nc
       $ mv tmp.nc myfile.nc
 
-#. Add/change the long-name attribute of the vertical coordinates
-   (lev) to "GEOS-Chem levels".  This will ensure that `HEMCO
-   <https://hemco.readthedocs.io>`_ recognizes the vertical levels of
-   the input file as GEOS-Chem model levels.
+#. Add/change the :literal:`long_name` attribute of the vertical
+   coordinate (:literal:`lev`) to :literal:`GEOS-Chem levels`.  This
+   will ensure that `HEMCO <https://hemco.readthedocs.io>`_ recognizes
+   the vertical levels of the input file as GEOS-Chem model levels.
 
    .. code-block:: console
 
       $ ncatted -a long_name,lev,o,c,"GEOS-Chem levels" myfile.nc
 
-#. Add/change the axis and positive attributes to the vertical
-   coordinate (lev):
+#. Add/change the :literal:`axis` and :literal:`positive` attributes
+   of the vertical coordinate (:literal:`lev`):
 
    .. code-block:: console
 
       $ ncatted -a axis,lev,o,c,"Z" myfile.nc
       $ ncatted -a positive,lev,o,c,"up" myfile.nc
 
-#. Add/change the :literal:`units` attribute of the latitude (lat) coordinate to
-   :literal:`degrees_north`:
+#. Add/change the :literal:`units` attribute of the latitude
+   (:literal:`lat`) coordinate to :literal:`degrees_north`:
 
    .. code-block:: console
 
@@ -597,9 +597,9 @@ for editing netCDF files.  Many of these commands utilize the
       .. code-block:: console
 
          $ cdo settime,03:00:00 ...  # Sets time to 03:00 UTC
-	 $ cdo setday,26, ...        # Sets day of month to 26
-	 $ cdo setmon,10, ...        # Sets month to 10 (October)
-	 $ cdo setyear,1992, ...     # Sets year to 1992
+         $ cdo setday,26, ...        # Sets day of month to 26
+         $ cdo setmon,10, ...        # Sets month to 10 (October)
+         $ cdo setyear,1992, ...     # Sets year to 1992
 
       See the `cdo user manual
       <https://code.mpimet.mpg.de/projects/cdo/embedded/index.html#x1-2690002.6.4>`_
@@ -622,6 +622,14 @@ for editing netCDF files.  Many of these commands utilize the
 
       $ cdo setcalendar,standard myfile.nc tmp.nc
       $ mv tmp.nc myfile.nc
+
+#. Change the type of the :literal:`time` coordinate from
+   :literal:`int` to :literal:`double`:
+
+   .. code-block:: console
+
+     $ ncap2 -s 'time=double(time))' myfile.nc tmp.nc
+     $ mv tmp.nc myfile.nc
 
 .. _ncguide-concat-files:
 
@@ -748,8 +756,6 @@ You can also use conservative regridding:
 .. code-block:: console
 
    $ cdo remapcon,geos.2x25.grid GEOSChem.Restart.4x5.nc GEOSChem.Restart.2x25.nc
-
-.. _ncguide-
 
 .. _ncguide-gcpy:
 

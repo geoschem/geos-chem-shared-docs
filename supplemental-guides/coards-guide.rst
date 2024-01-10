@@ -175,6 +175,12 @@ The :option:`time` coordinate vector has following attributes:
 Special considerations for time vectors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+#. We recommend that index variables (such as :literal:`time`) be
+   declared with type :literal:`float` or :literal:`double`.  `GCHP
+   <https://gchp.readthedocs.io>`_  cannot parse files with that have
+   index variables of type :literal:`int`. |br|
+   |br|
+
 #. We have noticed that netCDF files having a :option:`time:units`
    reference datetime prior to :literal:`1900/01/01 00:00:00` may not
    be read properly when using `HEMCO <https://hemco.readthedocs.io>`_

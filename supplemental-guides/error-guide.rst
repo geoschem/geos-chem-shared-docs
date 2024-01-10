@@ -946,7 +946,7 @@ at some previous point in time, you may be in for some painful
 debugging (it may not be too painful if the project is small enough
 that you can tackle it piece by piece).
 
-`See this link <http://stackoverflow.com/question/error-free-invalid-next-size-fast>`_ for more information.
+`See this post on StackOverFlow <http://stackoverflow.com/question/error-free-invalid-next-size-fast>`_ for more information.
 
 .. _errguide-lesscommon-munmap:
 
@@ -978,7 +978,8 @@ Out of memory asking for NNNNN
     Fatal compilation error: Out of memory asking for 36864.
 
 **Problem:** This error may be caused by the :literal:`datasize` limit
-not being maxed out in your Linux login environment.  `See this link
+not being maxed out in your Linux login environment.  `For more
+informatin, see this link
 <http://software.intel.com/en-us/forums/topic/268149>`_ for more
 information.
 

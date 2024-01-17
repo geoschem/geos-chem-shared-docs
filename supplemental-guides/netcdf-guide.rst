@@ -628,7 +628,7 @@ for editing netCDF files.  Many of these commands utilize the
 
    .. code-block:: console
 
-     $ ncap2 -s 'time=double(time))' myfile.nc tmp.nc
+     $ ncap2 -s 'time=double(time)' myfile.nc tmp.nc
      $ mv tmp.nc myfile.nc
 
 .. _ncguide-concat-files:

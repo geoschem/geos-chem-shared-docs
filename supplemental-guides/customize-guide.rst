@@ -57,7 +57,7 @@ TOMAS
 
    .. code-block:: console
 
-      $ cmake .. -DTOMAS=y -DTOMAS_BINS=15 -DBPCH_DIAG=y
+      $ cmake .. -DTOMAS=y -DTOMAS_BINS=15
       $ make -j
       $ make install
 

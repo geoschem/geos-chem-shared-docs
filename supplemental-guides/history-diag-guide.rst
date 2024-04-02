@@ -1,8 +1,12 @@
+.. |br| raw:: html
+
+   <br />
+
 .. _histguide:
 
-#############################
-Archive GEOS-Chem diagnostics
-#############################
+###########################################
+Archive output with the History diagnostics
+###########################################
 
 .. _histguide-example:
 
@@ -10,8 +14,18 @@ Archive GEOS-Chem diagnostics
 Introduction
 ============
 
-The following sections describe the GEOS-Chem History diagnostics in
-more detail.
+GEOS-Chem Classic and GCHP allow you to save various diagnostic fields
+to netCDF files via the **History** component.  In the following
+sections you will learn how to schedule diagnostics for output using
+History.
+
+.. note::
+
+   HEMCO has its own diagnostic archiving capability.  Please see the
+   `HEMCO diagnostics
+   <https://hemco.readthedocs.io/en/latesthco-ref-guide/diagnostics.html>`_
+   chapter of `The HEMCO User's Guide <https://hemco.readthedocs.io>`_
+   more information.
 
 The HISTORY.rc configuration file
 ---------------------------------
@@ -45,7 +59,7 @@ what is shown below.
    #
    #============================================================================
    EXPID:  ./OutputDir/GEOSChem
-   
+
    #==============================================================================
    # %%%%% COLLECTION NAME DECLARATIONS %%%%%
    #
@@ -118,7 +132,7 @@ types of netCDF file output. The table below explains in more detail
 parameters shown in the HISTORY.rc file above.
 
 :option:`EXPID`
-	
+
    This parameter controls the filename prefix. :ref:`In this example,
    <histguide-sample>`, :literal:`EXPID` is set to
    :file:`./OutputDir/GEOSChem` by default.  This means that all
@@ -131,7 +145,7 @@ parameters shown in the HISTORY.rc file above.
       Restart files are placed in the :file:`./Restarts` subdirectory
       of the run directory instead of :file:`./OutputDir`, which only
       contains diagnostic files.
-   
+
 :option:`COLLECTIONS:`
 
    The :literal:`COLLECTIONS:` tag specifies all of the diagnostic
@@ -151,7 +165,7 @@ parameters shown in the HISTORY.rc file above.
 
    To disable an entire diagnostic collection, simply put a
    :literal:`#` comment character in front of the collection name in
-   the :literal:`COLLECTIONS:`  section. 
+   the :literal:`COLLECTIONS:`  section.
 
    GEOS-Chem will expect to find a collection definition section for each
    of the activated collections listed under the COLLECTIONS: section.
@@ -166,7 +180,7 @@ parameters shown in the HISTORY.rc file above.
       the :file:`HISTORY.rc` configuration file.  You may create
       additional diagnostic collections to suit your research
       purposes.
-   
+
 :option:`SpeciesConc`
 
    Name of the first collection in this :file:`HISTORY.rc` file. A
@@ -179,7 +193,7 @@ parameters shown in the HISTORY.rc file above.
    collection filename suffix, as described below:
 
    - :literal:`%y4%m2%d2_%h2%n2z.nc4` prints
-     :literal:`YYYYMMDD_hhmmz.nc4` to the end of each netCDF filename. 
+     :literal:`YYYYMMDD_hhmmz.nc4` to the end of each netCDF filename.
    - :literal:`YYYYMMDD` is the date in year/month/day format;
    - :literal:`hhmm` is the time in :literal:`hour:minutes` format.
    - :literal:`z` denotes "Zulu", which is an abbreviation for UTC time.
@@ -194,15 +208,15 @@ parameters shown in the HISTORY.rc file above.
       - :option:`EXPID` specifies the filename prefix
         (:file:`./OutputDir/GEOSChem`)
 
-      - :option:`SpeciesConc.template` specifies the filename suffix 
-        (:file:`.20200101_0000z.nc4`).   
-     
+      - :option:`SpeciesConc.template` specifies the filename suffix
+        (:file:`.20200101_0000z.nc4`).
+
 :option:`SpeciesConc.frequency`
 
    Determines how often the diagnostic quantities belonging to
    :option:`SpeciesConc` collection will be saved to a netCDF file.
    This can be specified as either :literal:`hhmmss` or
-   :literal:`YYYYMMDD hhmmss`. 
+   :literal:`YYYYMMDD hhmmss`.
 
    In the above example, data belonging to the collection will be
    written to  the file every 6 hours.  Because :option:`SpeciesConc`
@@ -228,7 +242,7 @@ parameters shown in the HISTORY.rc file above.
      interval specified by :option:`SpeciesConc.frequency`.
    - :literal:`time-averaged`: Archives values averaged over the
      interval specified by :option:`SpeciesConc.frequency`.
-	   
+
 :option:`SpeciesConc.fields`
 
    Lists the diagnostic quantities to be archived in the
@@ -240,7 +254,7 @@ parameters shown in the HISTORY.rc file above.
    ratio units) you may use the field name
    :literal:`SpeciesConcVV_O3`.  The species name is separated from
    the quantity name by a single underscore.
-   
+
    .. note::
 
       For GCHP, each diagnostic field must be followed by
@@ -252,8 +266,8 @@ parameters shown in the HISTORY.rc file above.
    of species. In the above example :literal:`SpeciesConcVV_?ADV?`
    refers to all advected species and :literal:`SpeciesConcVV_?ALL?`
    refers to all species (both advected and non-advected).
-	   
-   .. note:: 
+
+   .. note::
 
       GCHP does not allow the use of wildcards.  Each diagnostic
       quantity must be listed individually.
@@ -295,7 +309,7 @@ parameters shown in the HISTORY.rc file above.
    archiving.  If omitted, data at all levels will be included.
 
    .. note::
-         
+
       In GEOS-Chem Classic, all levels between the minimum and
       maximum level specified will be included in the diagnostic
       archival.  This differs from the behavior in GCHP, which
@@ -315,16 +329,17 @@ parameters shown in the HISTORY.rc file above.
 
    In this example, the :literal:`ConcAfterChem.mode` setting
    indicates that the :literal:`ConcAfterChem` collection will contain
-   time-averaged data.  The averaging interval is set in the 
+   time-averaged data.  The averaging interval is set in the
 
 
 .. _histguide-wildcards:
 
-Wildcards
----------
+Wildcards (GEOS-Chem Classic only)
+----------------------------------
 
-You can use the following wildcards with diagnostic quantities that
-have a species/bin/reaction dimension, as shown below:
+For GEOS-Chem Classic diagnostic output, you can use the following
+wildcards with diagnostic quantities that have a species/bin/reaction
+dimension:
 
 +------------------+-----------------------------+-------------------------------+
 | Wildcard         | Description                 | Example                       |
@@ -399,7 +414,7 @@ prefixed as described below:
 |                  | from the ``State_Met``      |                               |
 |                  | object                      |                               |
 +------------------+-----------------------------+-------------------------------+
-   
+
 .. _histguide-filename:
 
 File naming convention
@@ -447,7 +462,7 @@ current run directory:
    ... etc ...
 
 .. _histgude_vert_coords:
-   
+
 Vertical coordinates in netCDF files
 ------------------------------------
 
@@ -545,10 +560,10 @@ box (I,J,L), you will need to supply your own 2-D surface pressure field
    Ptop = ( hyai(L+1) * PS(I,J) ) + hybi(L+1)
 
 .. _histguide-collections:
-   
-================================
-GEOS-Chem diagnostic collections
-================================
+
+======================
+Diagnostic collections
+======================
 
 The diagnostic collections described in the sections below are used by
 default in GEOS-Chem simulations. You can create your own customized
@@ -560,10 +575,10 @@ centers. This violates the netCDF convention that all data variables
 have to be defined with the same vertical dimension.
 
 In this section we give an overview of the History diagnostics used in GEOS-Chem.
- 
+
 .. _histguide-legend:
 
-General information about each diagnostic
+General information about each collection
 -----------------------------------------
 
 The tables below list the following parameters for each diagnostic that
@@ -586,13 +601,23 @@ is archived to bpch format:
 |                 | quantity.                                         |
 +-----------------+---------------------------------------------------+
 
+.. note::
+
+   For diagnostic quantities that have a species/bin/reaction
+   dimension, we will use the abbreviation :literal:`<name|wc>` to
+   indicate a species name or wildcard.
+
+   For example, :literal:`SpeciesConcVV_<name|wc>` means that the
+   diagnostic quantity can be a single species
+   (:literal:`SpeciesConcVV_O3`) or a wildcarded subset
+   of species (:literal:`SpeciesConcVV_?ADV?`).
+
 .. _histguide-advfluxvert:
 
 The AdvFluxVert collection
 --------------------------
 
-Here is a sample definition section for the **AdvFluxVert** collection.
-This is used to obtain vertical fluxes of species from advection.
+**Sample definition section for HISTORY.rc**
 
 .. code-block:: none
 
@@ -604,14 +629,929 @@ This is used to obtain vertical fluxes of species from advection.
      AdvFluxVert.fields:         'AdvFluxVert_O3',
    ::
 
-+---------------------------+---------------------------------+-------+-----------+
-| Diagnostic field          | Description                     | Units | Wildcards |
-+===========================+=================================+=======+===========+
-| AdvFluxVert_<spcname>     | Vertical flux of species        | kg/s  | ``?ADV?`` |
-|                           | in advection                    |       |           |
-+---------------------------+---------------------------------+-------+-----------+
+**List of diagnostic quantities**
 
-.. _the_aerosolmass_collection:
++-----------------------------+---------------------------+-------+-----------+
+| Diagnostic field            | Description               | Units | Wildcards |
++=============================+===========================+=======+===========+
+| AdvFluxVert_name|wc [#f1]_  | Vertical flux of species  | kg/s  | ``?ADV?`` |
+|                             | in advection              |       |           |
++-----------------------------+---------------------------+-------+-----------+
+
+.. rubric:: Footnotes
+
+.. [#f1] Only defined for GEOS-Chem Classic simulations.
+
+.. _histguide-aerosols:
+
+The Aerosols collection
+-----------------------
+
+The **Aerosols** collection contains diagnostics for aerosol optical
+depth and related quantities from full-chemistry simulations.
+
+**Sample definition section for HISTORY.rc**
+
+.. code-block:: none
+
+     Aerosols.template:          '%y4%m2%d2_%h2%n2z.nc4',
+     Aerosols.format:            'CFIO',
+     Aerosols.frequency:         00000100 000000
+     Aerosols.duration:          00000100 000000
+     Aerosols.mode:              'time-averaged'
+     Aerosols.fields:            'AODDust                       ',
+                                 'AODDustWL1_?DUSTBIN?          ',
+                                 'AODHygWL1_?HYG?               ',
+                                 'AODSOAfromAqIsopreneWL1       ',
+                                 'AODStratLiquidAerWL1          ',
+                                 'AODPolarStratCloudWL1         ',
+                                 'AerHygroscopicGrowth_?HYG?    ',
+                                 'AerNumDensityStratLiquid      ',
+                                 'AerNumDensityStratParticulate ',
+                                 'AerAqueousVolume              ',
+                                 'AerSurfAreaDust               ',
+                                 'AerSurfAreaHyg_?HYG?          ',
+                                 'AerSurfAreaStratLiquid        ',
+                                 'AerSurfAreaPolarStratCloud    ',
+                                 'Chem_AeroAreaMDUST1           ',
+                                 'Chem_AeroAreaMDUST2           ',
+                                 'Chem_AeroAreaMDUST3'          ',
+                                 'Chem_AeroAreaMDUST4           ',
+                                 'Chem_AeroAreaMDUST5           ',
+                                 'Chem_AeroAreaMDUST6           ',
+                                 'Chem_AeroAreaMDUST7           ',
+                                 'Chem_AeroAreaSULF             ',
+                                 'Chem_AeroAreaBC               ',
+                                 'Chem_AeroAreaOC               ',
+                                 'Chem_AeroAreaSSA              ',
+                                 'Chem_AeroAreaSSC              ',
+                                 'Chem_AeroAreaBGSULF           ',
+                                 'Chem_AeroAreaICEI             ',
+                                 'Chem_AeroRadiMDUST1           ',
+                                 'Chem_AeroRadiMDUST2           ',
+                                 'Chem_AeroRadiMDUST3           ',
+                                 'Chem_AeroRadiMDUST4           ',
+                                 'Chem_AeroRadiMDUST5           ',
+                                 'Chem_AeroRadiMDUST6           ',
+                                 'Chem_AeroRadiMDUST7           ',
+                                 'Chem_AeroRadiSULF             ',
+                                 'Chem_AeroRadiBC               ',
+                                 'Chem_AeroRadiOC               ',
+                                 'Chem_AeroRadiSSA              ',
+                                 'Chem_AeroRadiSSC              ',
+                                 'Chem_AeroRadiBGSULF           ',
+                                 'Chem_AeroRadiICEI             ',
+                                 'Chem_WetAeroAreaMDUST1        ',
+                                 'Chem_WetAeroAreaMDUST2        ',
+                                 'Chem_WetAeroAreaMDUST3        ',
+                                 'Chem_WetAeroAreaMDUST4        ',
+                                 'Chem_WetAeroAreaMDUST5        ',
+                                 'Chem_WetAeroAreaMDUST6        ',
+                                 'Chem_WetAeroAreaMDUST7        ',
+                                 'Chem_WetAeroAreaSULF          ',
+                                 'Chem_WetAeroAreaBC            ',
+                                 'Chem_WetAeroAreaOC            ',
+                                 'Chem_WetAeroAreaSSA           ',
+                                 'Chem_WetAeroAreaSSC           ',
+                                 'Chem_WetAeroAreaBGSULF        ',
+                                 'Chem_WetAeroAreaICEI          ',
+                                 'Chem_WetAeroRadiMDUST1        ',
+                                 'Chem_WetAeroRadiMDUST2        ',
+                                 'Chem_WetAeroRadiMDUST3        ',
+                                 'Chem_WetAeroRadiMDUST4        ',
+                                 'Chem_WetAeroRadiMDUST5        ',
+                                 'Chem_WetAeroRadiMDUST6        ',
+                                 'Chem_WetAeroRadiMDUST7        ',
+                                 'Chem_WetAeroRadiSULF          ',
+                                 'Chem_WetAeroRadiBC            ',
+                                 'Chem_WetAeroRadiOC            ',
+                                 'Chem_WetAeroRadiSSA           ',
+                                 'Chem_WetAeroRadiSSC           ',
+                                 'Chem_WetAeroRadiBGSULF        ',
+                                 'Chem_WetAeroRadiICEI          ',
+                                 'Chem_StatePSC                 ',
+                                 'Chem_KhetiSLAN2O5H2O          ',
+                                 'Chem_KhetiSLAN2O5HCl          ',
+                                 'Chem_KhetiSLAClNO3H2O         ',
+                                 'Chem_KhetiSLAClNO3HCl         ',
+                                 'Chem_KhetiSLAClNO3HBr         ',
+                                 'Chem_KhetiSLABrNO3H2O         ',
+                                 'Chem_KhetiSLABrNO3HCl         ',
+                                 'Chem_KhetiSLAHOClHCl          ',
+                                 'Chem_KhetiSLAHOClHBr          ',
+                                 'Chem_KhetiSLAHOBrHCl          ',
+                                 'Chem_KhetiSLAHOBrHBr          ',
+   ::
+
+**List of diagnostic quantities**
+
++---------+---------+---------+---------+
+| Dia     | Desc    | Units   | Wi      |
+| gnostic | ription |         | ldcards |
+| name    |         |         |         |
+|         |         |         |         |
+|         |         |         |         |
+|         |         |         |         |
+|         |         |         |         |
+|         |         |         |         |
+|         |         |         |         |
++=========+=========+=========+=========+
+| AODDust | Mineral | 1       |         |
+|         | dust    |         |         |
+|         | optical |         |         |
+|         | depth   |         |         |
+|         | for 1st |         |         |
+|         | wav     |         |         |
+|         | elength |         |         |
+|         | sp      |         |         |
+|         | ecified |         |         |
+|         | in      |         |         |
+|         | Ra      |         |         |
+|         | diation |         |         |
+|         | Menu    |         |         |
+|         |         |         |         |
++---------+---------+---------+---------+
+| AODDust | AOD for | 1       | ?D      |
+| _WL1_?D | 1st     |         | USTBIN? |
+| USTBIN? | wav     |         |         |
+|         | elength |         |         |
+|         | sp      |         |         |
+|         | ecified |         |         |
+|         | in      |         |         |
+|         | Ra      |         |         |
+|         | diation |         |         |
+|         | Menu,   |         |         |
+|         | for     |         |         |
+|         | each    |         |         |
+|         | dust    |         |         |
+|         | bin     |         |         |
++---------+---------+---------+---------+
+| AODH    | Optical | 1       | ?HYG?   |
+| ygWL1\_ | depth   |         |         |
+|         | for     |         |         |
+|         | s       |         |         |
+|         | elected |         |         |
+|         | species |         |         |
+|         | (SO4,   |         |         |
+|         | BC, OC, |         |         |
+|         | SALA,   |         |         |
+|         | SALC)   |         |         |
+|         | at the  |         |         |
+|         | 1st     |         |         |
+|         | wav     |         |         |
+|         | elength |         |         |
+|         | sp      |         |         |
+|         | ecified |         |         |
+|         | in the  |         |         |
+|         | Ra      |         |         |
+|         | diation |         |         |
+|         | Menu    |         |         |
++---------+---------+---------+---------+
+| AO      | Optical | 1       |         |
+| DSOAfro | depth   |         |         |
+| mAqIsop | of SOA  |         |         |
+| reneWL1 | from    |         |         |
+|         | aqueous |         |         |
+|         | i       |         |         |
+|         | soprene |         |         |
+|         | optical |         |         |
+|         | depth   |         |         |
+|         |         |         |         |
+|         |         |         |         |
+|         |         |         |         |
+|         |         |         |         |
+|         |         |         |         |
++---------+---------+---------+---------+
+| AODStr  | Strato  |         |         |
+| atLiqui | spheric |         |         |
+| dAerWL1 | liquid  |         |         |
+|         | aerosol |         |         |
+|         | optical |         |         |
+|         | depth   |         |         |
+|         | (600    |         |         |
+|         | nm)     |         |         |
++---------+---------+---------+---------+
+| AODPola | Polar   | 1       |         |
+| rStratC | strato  |         |         |
+| loudWL1 | spheric |         |         |
+|         | cloud   |         |         |
+|         | type    |         |         |
+|         | 1a/2    |         |         |
+|         | optical |         |         |
+|         | depth   |         |         |
+|         | (600    |         |         |
+|         | nm)     |         |         |
+|         |         |         |         |
+|         |         |         |         |
+|         |         |         |         |
+|         |         |         |         |
++---------+---------+---------+---------+
+| A       | Hygr    | 1       | ?HYG?   |
+| erHygro | oscopic |         |         |
+| scopicG | growth  |         |         |
+| rowth\_ | of      |         |         |
+|         | s       |         |         |
+|         | elected |         |         |
+|         | species |         |         |
+|         | (SO4,   |         |         |
+|         | BC, OC, |         |         |
+|         | SALA,   |         |         |
+|         | SALC)   |         |         |
++---------+---------+---------+---------+
+| Aer     | Strato  | 1/cm3   |         |
+| NumDens | spheric |         |         |
+| ityStra | liquid  |         |         |
+| tLiquid | aerosol |         |         |
+|         | number  |         |         |
+|         | density |         |         |
+|         | (UCX    |         |         |
+|         | sim     |         |         |
+|         | ulation |         |         |
+|         | only)   |         |         |
++---------+---------+---------+---------+
+| A       | Strato  | cm2/cm3 |         |
+| erSurfA | spheric |         |         |
+| reaStra | liquid  |         |         |
+| tLiquid | aerosol |         |         |
+|         | surface |         |         |
+|         | area    |         |         |
+|         | (UCX    |         |         |
+|         | sim     |         |         |
+|         | ulation |         |         |
+|         | only)   |         |         |
++---------+---------+---------+---------+
+| AerSu   | Polar   | cm2/cm3 |         |
+| rfAreaP | strato  |         |         |
+| olarStr | spheric |         |         |
+| atCloud | cloud   |         |         |
+|         | type    |         |         |
+|         | 1a/2    |         |         |
+|         | surface |         |         |
+|         | area    |         |         |
+|         | (UCX    |         |         |
+|         | sim     |         |         |
+|         | ulation |         |         |
+|         | only)   |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm2/cm3 |         |
+| AeroAre | aerosol |         |         |
+| aMDUST1 | area    |         |         |
+|         | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.15  |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm2/cm3 |         |
+| AeroAre | aerosol |         |         |
+| aMDUST2 | area    |         |         |
+|         | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.25  |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm2/cm3 |         |
+| AeroAre | aerosol |         |         |
+| aMDUST3 | area    |         |         |
+|         | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.4   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm2/cm3 |         |
+| AeroAre | aerosol |         |         |
+| aMDUST4 | area    |         |         |
+|         | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.8   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm2/cm3 |         |
+| AeroAre | aerosol |         |         |
+| aMDUST5 | area    |         |         |
+|         | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 1.5   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm2/cm3 |         |
+| AeroAre | aerosol |         |         |
+| aMDUST6 | area    |         |         |
+|         | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 2.5   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm2/cm3 |         |
+| AeroAre | aerosol |         |         |
+| aMDUST7 | area    |         |         |
+|         | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 4.0   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Che     | Dry     | cm2/cm3 |         |
+| m_AeroA | aerosol |         |         |
+| reaSULF | area    |         |         |
+|         | for     |         |         |
+|         | sulfate |         |         |
++---------+---------+---------+---------+
+| C       | Dry     | cm2/cm3 |         |
+| hem_Aer | aerosol |         |         |
+| oAreaBC | area    |         |         |
+|         | for     |         |         |
+|         | black   |         |         |
+|         | carbon  |         |         |
++---------+---------+---------+---------+
+| C       | Dry     | cm2/cm3 |         |
+| hem_Aer | aerosol |         |         |
+| oAreaOC | area    |         |         |
+|         | for     |         |         |
+|         | organic |         |         |
+|         | carbon  |         |         |
++---------+---------+---------+---------+
+| Ch      | Dry     | cm2/cm3 |         |
+| em_Aero | aerosol |         |         |
+| AreaSSA | area    |         |         |
+|         | for sea |         |         |
+|         | salt,   |         |         |
+|         | accum   |         |         |
+|         | ulation |         |         |
+|         | mode    |         |         |
++---------+---------+---------+---------+
+| Ch      | Dry     | cm2/cm3 |         |
+| em_Aero | aerosol |         |         |
+| AreaSSA | area    |         |         |
+|         | for sea |         |         |
+|         | salt,   |         |         |
+|         | coarse  |         |         |
+|         | mode    |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm2/cm3 |         |
+| AeroAre | aerosol |         |         |
+| aBGSULF | area    |         |         |
+|         | for     |         |         |
+|         | bac     |         |         |
+|         | kground |         |         |
+|         | strato  |         |         |
+|         | spheric |         |         |
+|         | sulfate |         |         |
++---------+---------+---------+---------+
+| Che     | Dry     | cm2/cm3 |         |
+| m_AeroA | aerosol |         |         |
+| reaICEI | area    |         |         |
+|         | for     |         |         |
+|         | ir      |         |         |
+|         | regular |         |         |
+|         | ice     |         |         |
+|         | cloud   |         |         |
+|         | (Mis    |         |         |
+|         | chenko) |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm      |         |
+| AeroRad | aerosol |         |         |
+| iMDUST1 | radius  |         |         |
+|         | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.15  |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm      |         |
+| AeroRad | aerosol |         |         |
+| iMDUST2 | radius  |         |         |
+|         | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.25  |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm      |         |
+| AeroRad | aerosol |         |         |
+| iMDUST3 | radius  |         |         |
+|         | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.4   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm      |         |
+| AeroRad | aerosol |         |         |
+| iMDUST4 | radius  |         |         |
+|         | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.8   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm      |         |
+| AeroRad | aerosol |         |         |
+| iMDUST5 | radius  |         |         |
+|         | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 1.5   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm      |         |
+| AeroRad | aerosol |         |         |
+| iMDUST6 | radius  |         |         |
+|         | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 2.5   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm      |         |
+| AeroRad | aerosol |         |         |
+| iMDUST7 | radius  |         |         |
+|         | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 4.0   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Che     | Dry     | cm      |         |
+| m_AeroR | aerosol |         |         |
+| adiSULF | radius  |         |         |
+|         | for     |         |         |
+|         | sulfate |         |         |
++---------+---------+---------+---------+
+| C       | Dry     | cm      |         |
+| hem_Aer | aerosol |         |         |
+| oRadiBC | radius  |         |         |
+|         | for     |         |         |
+|         | black   |         |         |
+|         | carbon  |         |         |
++---------+---------+---------+---------+
+| C       | Dry     | cm      |         |
+| hem_Aer | aerosol |         |         |
+| oRadiOC | radius  |         |         |
+|         | for     |         |         |
+|         | organic |         |         |
+|         | carbon  |         |         |
++---------+---------+---------+---------+
+| Ch      | Dry     | cm      |         |
+| em_Aero | aerosol |         |         |
+| RadiSSA | radius  |         |         |
+|         | for sea |         |         |
+|         | salt,   |         |         |
+|         | accum   |         |         |
+|         | ulation |         |         |
+|         | mode    |         |         |
++---------+---------+---------+---------+
+| Chem    | Dry     | cm      |         |
+| _AeroRa | aerosol |         |         |
+| diusSSC | radius  |         |         |
+|         | for sea |         |         |
+|         | salt,   |         |         |
+|         | coarse  |         |         |
+|         | mode    |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm      |         |
+| AeroRad | aerosol |         |         |
+| iBGSULF | radius  |         |         |
+|         | for     |         |         |
+|         | bac     |         |         |
+|         | kground |         |         |
+|         | strato  |         |         |
+|         | spheric |         |         |
+|         | sulfate |         |         |
++---------+---------+---------+---------+
+| Chem_   | Dry     | cm      |         |
+| AeroRad | aerosol |         |         |
+| iusICEI | radius  |         |         |
+|         | for     |         |         |
+|         | ir      |         |         |
+|         | regular |         |         |
+|         | ice     |         |         |
+|         | cloud   |         |         |
+|         | (Mis    |         |         |
+|         | chenko) |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm2/cm3 |         |
+| hem_Wet | aerosol |         |         |
+| AeroAre | area    |         |         |
+| aMDUST1 | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.15  |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm2/cm3 |         |
+| hem_Wet | aerosol |         |         |
+| AeroAre | area    |         |         |
+| aMDUST2 | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.25  |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm2/cm3 |         |
+| hem_Wet | aerosol |         |         |
+| AeroAre | area    |         |         |
+| aMDUST3 | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.4   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm2/cm3 |         |
+| hem_Wet | aerosol |         |         |
+| AeroAre | area    |         |         |
+| aMDUST4 | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.8   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm2/cm3 |         |
+| hem_Wet | aerosol |         |         |
+| AeroAre | area    |         |         |
+| aMDUST5 | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 1.5   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm2/cm3 |         |
+| hem_Wet | aerosol |         |         |
+| AeroAre | area    |         |         |
+| aMDUST6 | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 2.5   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm2/cm3 |         |
+| hem_Wet | aerosol |         |         |
+| AeroAre | area    |         |         |
+| aMDUST7 | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 4.0   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Chem_W  | Wet     | cm2/cm3 |         |
+| etAeroA | aerosol |         |         |
+| reaSULF | area    |         |         |
+|         | for     |         |         |
+|         | sulfate |         |         |
++---------+---------+---------+---------+
+| Chem    | Wet     | cm2/cm3 |         |
+| _WetAer | aerosol |         |         |
+| oAreaBC | area    |         |         |
+|         | for     |         |         |
+|         | black   |         |         |
+|         | carbon  |         |         |
++---------+---------+---------+---------+
+| Chem    | Wet     | cm2/cm3 |         |
+| _WetAer | aerosol |         |         |
+| oAreaOC | area    |         |         |
+|         | for     |         |         |
+|         | organic |         |         |
+|         | carbon  |         |         |
++---------+---------+---------+---------+
+| Chem_   | Wet     | cm2/cm3 |         |
+| WetAero | aerosol |         |         |
+| AreaSSA | area    |         |         |
+|         | for sea |         |         |
+|         | salt,   |         |         |
+|         | accum   |         |         |
+|         | ulation |         |         |
+|         | mode    |         |         |
++---------+---------+---------+---------+
+| Chem_   | Wet     | cm2/cm3 |         |
+| WetAero | aerosol |         |         |
+| AreaSSA | area    |         |         |
+|         | for sea |         |         |
+|         | salt,   |         |         |
+|         | coarse  |         |         |
+|         | mode    |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm2/cm3 |         |
+| hem_Wet | aerosol |         |         |
+| AeroAre | area    |         |         |
+| aBGSULF | for     |         |         |
+|         | bac     |         |         |
+|         | kground |         |         |
+|         | strato  |         |         |
+|         | spheric |         |         |
+|         | sulfate |         |         |
++---------+---------+---------+---------+
+| Chem_W  | Wet     | cm2/cm3 |         |
+| etAeroA | aerosol |         |         |
+| reaICEI | area    |         |         |
+|         | for     |         |         |
+|         | ir      |         |         |
+|         | regular |         |         |
+|         | ice     |         |         |
+|         | cloud   |         |         |
+|         | (Mis    |         |         |
+|         | chenko) |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm      |         |
+| hem_Wet | aerosol |         |         |
+| AeroRad | radius  |         |         |
+| iMDUST1 | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.15  |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm      |         |
+| hem_Wet | aerosol |         |         |
+| AeroRad | radius  |         |         |
+| iMDUST2 | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.25  |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm      |         |
+| hem_Wet | aerosol |         |         |
+| AeroRad | radius  |         |         |
+| iMDUST3 | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.4   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm      |         |
+| hem_Wet | aerosol |         |         |
+| AeroRad | radius  |         |         |
+| iMDUST4 | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 0.8   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm      |         |
+| hem_Wet | aerosol |         |         |
+| AeroRad | radius  |         |         |
+| iMDUST5 | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 1.5   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm      |         |
+| hem_Wet | aerosol |         |         |
+| AeroRad | radius  |         |         |
+| iMDUST6 | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 2.5   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm      |         |
+| hem_Wet | aerosol |         |         |
+| AeroRad | radius  |         |         |
+| iMDUST7 | for     |         |         |
+|         | mineral |         |         |
+|         | dust    |         |         |
+|         | (bin    |         |         |
+|         | R\ :su  |         |         |
+|         | b:`eff` |         |         |
+|         | = 4.0   |         |         |
+|         | μm)     |         |         |
++---------+---------+---------+---------+
+| Chem_W  | Wet     | cm      |         |
+| etAeroR | aerosol |         |         |
+| adiSULF | radius  |         |         |
+|         | for     |         |         |
+|         | sulfate |         |         |
++---------+---------+---------+---------+
+| Chem    | Wet     | cm      |         |
+| _WetAer | aerosol |         |         |
+| oRadiBC | radius  |         |         |
+|         | for     |         |         |
+|         | black   |         |         |
+|         | carbon  |         |         |
++---------+---------+---------+---------+
+| Chem    | Wet     | cm      |         |
+| _WetAer | aerosol |         |         |
+| oRadiOC | radius  |         |         |
+|         | for     |         |         |
+|         | organic |         |         |
+|         | carbon  |         |         |
++---------+---------+---------+---------+
+| WetCh   | Wet     | cm      |         |
+| em_Aero | aerosol |         |         |
+| RadiSSA | radius  |         |         |
+|         | for sea |         |         |
+|         | salt,   |         |         |
+|         | accum   |         |         |
+|         | ulation |         |         |
+|         | mode    |         |         |
++---------+---------+---------+---------+
+| Chem_We | Wet     | cm      |         |
+| tAeroRa | aerosol |         |         |
+| diusSSC | radius  |         |         |
+|         | for sea |         |         |
+|         | salt,   |         |         |
+|         | coarse  |         |         |
+|         | mode    |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm      |         |
+| hem_Wet | aerosol |         |         |
+| AeroRad | radius  |         |         |
+| iBGSULF | for     |         |         |
+|         | bac     |         |         |
+|         | kground |         |         |
+|         | strato  |         |         |
+|         | spheric |         |         |
+|         | sulfate |         |         |
++---------+---------+---------+---------+
+| C       | Wet     | cm      |         |
+| hem_Wet | aerosol |         |         |
+| AeroRad | radius  |         |         |
+| iusICEI | for     |         |         |
+|         | ir      |         |         |
+|         | regular |         |         |
+|         | ice     |         |         |
+|         | cloud   |         |         |
+|         | (Mis    |         |         |
+|         | chenko) |         |         |
++---------+---------+---------+---------+
+| Chem_S  | Polar   | count   |         |
+| tatePSC | strato  |         |         |
+|         | spheric |         |         |
+|         | cloud   |         |         |
+|         | type    |         |         |
+|         | (cf     |         |         |
+|         | Kirner  |         |         |
+|         | et al,  |         |         |
+|         | 2011,   |         |         |
+|         | GMD)    |         |         |
++---------+---------+---------+---------+
+| Chem_K  | S       | 1       |         |
+| hetiSLA | ticking |         |         |
+| N2O5H2O | coeff.  |         |         |
+|         | for     |         |         |
+|         | N2O5 +  |         |         |
+|         | H2O rxn |         |         |
++---------+---------+---------+---------+
+| Chem_K  | S       | 1       |         |
+| hetiSLA | ticking |         |         |
+| N2O5HCl | coeff.  |         |         |
+|         | for     |         |         |
+|         | N2O5 +  |         |         |
+|         | HCl rxn |         |         |
++---------+---------+---------+---------+
+| Chem_Kh | S       | 1       |         |
+| etiSLAC | ticking |         |         |
+| lNO3H2O | coeff.  |         |         |
+|         | for     |         |         |
+|         | ClNO3 + |         |         |
+|         | H2O rxn |         |         |
++---------+---------+---------+---------+
+| Chem_Kh | S       | 1       |         |
+| etiSLAC | ticking |         |         |
+| lNO3HCl | coeff.  |         |         |
+|         | for     |         |         |
+|         | ClNO3 + |         |         |
+|         | HCl rxn |         |         |
++---------+---------+---------+---------+
+| Chem_Kh | S       | 1       |         |
+| etiSLAC | ticking |         |         |
+| lNO3HBr | coeff.  |         |         |
+|         | for     |         |         |
+|         | ClNO3 + |         |         |
+|         | HBr rxn |         |         |
++---------+---------+---------+---------+
+| Chem_Kh | S       | 1       |         |
+| etiSLAB | ticking |         |         |
+| rNO3H2O | coeff.  |         |         |
+|         | for     |         |         |
+|         | BrNO3 + |         |         |
+|         | H2O rxn |         |         |
++---------+---------+---------+---------+
+| Chem_Kh | S       | 1       |         |
+| etiSLAB | ticking |         |         |
+| rNO3HCl | coeff.  |         |         |
+|         | for     |         |         |
+|         | BrNO3 + |         |         |
+|         | HCl rxn |         |         |
++---------+---------+---------+---------+
+| Chem_K  | S       | 1       |         |
+| hetiSLA | ticking |         |         |
+| HOClHCl | coeff.  |         |         |
+|         | for     |         |         |
+|         | HOCl +  |         |         |
+|         | HCl rxn |         |         |
++---------+---------+---------+---------+
+| Chem_   | S       | 1       |         |
+| KhetiSL | ticking |         |         |
+| AHOClBr | coeff.  |         |         |
+|         | for     |         |         |
+|         | HOCl +  |         |         |
+|         | HBr rxn |         |         |
++---------+---------+---------+---------+
+| Chem_K  | S       | 1       |         |
+| hetiSLA | ticking |         |         |
+| HOBrHCl | coeff.  |         |         |
+|         | for     |         |         |
+|         | HOBr +  |         |         |
+|         | HCl rxn |         |         |
++---------+---------+---------+---------+
+| Chem_K  | S       | 1       |         |
+| hetiSLA | ticking |         |         |
+| HOBrHCl | coeff.  |         |         |
+|         | for     |         |         |
+|         | HOBr +  |         |         |
+|         | HBr rxn |         |         |
++---------+---------+---------+---------+
+
+
+.. _histguide-aerosolmass
 
 The AerosolMass collection
 --------------------------
@@ -619,7 +1559,7 @@ The AerosolMass collection
 The **AerosolMass** collection contains diagnostics for aerosol mass and
 particulate matter from full-chemistry simulations.
 
-Here is a sample definition section for this collection:
+**Sample definition section for HISTORY.rc**
 
 .. code-block:: none
 
@@ -652,1068 +1592,120 @@ Here is a sample definition section for this collection:
                                  'TotalOC                      ', 'GIGCchem',
    ::
 
-This table describes the diagnostic quantities belonging to the
-AerosolMass collection.
+**List of diagnostic quantities**
 
-+---------------+---------------+--------------------+
-| Diagnostic    | Description   | Units              |
-| name          |               |                    |
-+===============+===============+====================+
-| AerMassTSOA   | Aerosol       | :math:`{\mu}g/m^3` |
-|               | products of   |                    |
-|               | terpene       |                    |
-|               | oxidation     |                    |
-+---------------+---------------+--------------------+
-| AerMassISOA   | Aerosol       | :math:`{\mu}g/m^3` |
-|               | products of   |                    |
-|               | oxidation     |                    |
-|               |               |                    |
-|               |               |                    |
-|               |               |                    |
-+---------------+---------------+--------------------+
-| AerMassTSOA   | Aerosol       | :math:`{\mu}g/m^3` |
-|               | products of   |                    |
-|               | terpene       |                    |
-|               | oxidation     |                    |
-|               |               |                    |
-|               |               |                    |
-|               |               |                    |
-+---------------+---------------+--------------------+
-| AerMassASOA   | Aerosol       | :math:`{\mu}g/m^3` |
-|               | products of   |                    |
-|               | light         |                    |
-|               | aromatics +   |                    |
-|               | IVOC          |                    |
-|               | oxidation     |                    |
-|               |               |                    |
-+---------------+---------------+--------------------+
-| AerMassPOA    | Aerosols from | :math:`{\mu}g/m^3` |
-|               | SVOCs         |                    |
-+---------------+---------------+--------------------+
-| AerMassTSOA   | Aerosol       | :math:`{\mu}g/m^3` |
-|               | products of   |                    |
-|               | terpene       |                    |
-|               | oxidation     |                    |
-|               |               |                    |
-|               |               |                    |
-|               |               |                    |
-+---------------+---------------+--------------------+
-| AerMassOPOA   | Aerosol       | :math:`{\mu}g/m^3` |
-|               | products of   |                    |
-|               | POG oxidation |                    |
-|               |               |                    |
-|               |               |                    |
-+---------------+---------------+--------------------+
-| TotalOA       | Sum of all    | :math:`{\mu}g/m^3` |
-|               | organic       |                    |
-|               | aerosol       |                    |
-+---------------+---------------+--------------------+
-| TotalOC       | Sum of all    | :math:`{\mu}g/m^3` |
-|               | organic       |                    |
-|               | carbon        |                    |
-+---------------+---------------+--------------------+
-| BetaNO        | NO branching  | :math:`{\mu}g/m^3` |
-|               | ratio         |                    |
-|               |               |                    |
-|               |               |                    |
-|               |               |                    |
-|               |               |                    |
-|               |               |                    |
-+---------------+---------------+--------------------+
-| AerMassBC     | Black carbon  | :math:`{\mu}g/m^3` |
-|               | (BCPI + BCPO) |                    |
-+---------------+---------------+--------------------+
-| AerMassSO4    | Sulfate       | :math:`{\mu}g/m^3` |
-+---------------+---------------+--------------------+
-| AerMassNH4    | Ammonium      | :math:`{\mu}g/m^3` |
-+---------------+---------------+--------------------+
-| AerMassNIT    | Nitrate       | :math:`{\mu}g/m^3` |
-+---------------+---------------+--------------------+
-| AerMassSAL    | Sea salt      | :math:`{\mu}g/m^3` |
-|               | aerosol (SALA |                    |
-|               | + SALC)       |                    |
-+---------------+---------------+--------------------+
-| PM25          | Particulate   | :math:`{\mu}g/m^3` |
-|               | matter (d <   |                    |
-|               | 2.5 μm)       |                    |
-+---------------+---------------+--------------------+
-| AerMassSOAGX  | Aerosol-phase | :math:`{\mu}g/m^3` |
-|               | glyoxal       |                    |
-+---------------+---------------+--------------------+
-| AerMassSOAMG  | Aerosol-phase | :math:`{\mu}g/m^3` |
-|               | methylglyoxal |                    |
-+---------------+---------------+--------------------+
-| AerMassSOAIE  | Aerosol-phase | :math:`{\mu}g/m^3` |
-|               | IEPOX         |                    |
-|               |               |                    |
-|               |               |                    |
-|               |               |                    |
-|               |               |                    |
-|               |               |                    |
-+---------------+---------------+--------------------+
-| AerMassSOAME  | Aerosol-phase | :math:`{\mu}g/m^3` |
-|               | IMAE          |                    |
-|               |               |                    |
-|               |               |                    |
-|               |               |                    |
-|               |               |                    |
-|               |               |                    |
-+---------------+---------------+--------------------+
-| AerMassINDIOL | Generic       | :math:`{\mu}g/m^3` |
-|               | aerosol-phase |                    |
-|               | organonitrate |                    |
-|               | hydrolysis    |                    |
-|               | product       |                    |
-|               |               |                    |
-|               |               |                    |
-+---------------+---------------+--------------------+
-| AerMassLVOCOA | Aerosol-phase | :math:`{\mu}g/m^3` |
-|               | l             |                    |
-|               | ow-volatility |                    |
-|               | non-IEPOX     |                    |
-|               | product of    |                    |
-|               | ISOPOOH (RIP) |                    |
-|               | oxidation     |                    |
-+---------------+---------------+--------------------+
-| AerMassISN1OA | Aerosol-phase | :math:`{\mu}g/m^3` |
-|               | 2nd           |                    |
-|               | generation    |                    |
-|               | hy            |                    |
-|               | droxynitrates |                    |
-|               | formed from   |                    |
-|               | ISOP+NO3      |                    |
-|               | reaction      |                    |
-|               | pathway       |                    |
-+---------------+---------------+--------------------+
++-----------------------+-------------------------------+--------------------+
+| Diagnostic name       | Description                   | Units              |
++=======================+===============================+====================+
+| AerMassASOA\ [#f2]_   | Aerosol products of light     | :math:`{\mu}g/m^3` |
+|                       | aromatics + IVOC oxidation    |                    |
++-----------------------+-------------------------------+--------------------+
+| AerMassBC             | Aerosol products of light     | :math:`{\mu}g/m^3` |
+|                       | aromatics + IVOC oxidation    |                    |
++-----------------------+-------------------------------+--------------------+
+| AerMassINDIOL\ [#f2]_ | Generic aerosol-phase         | :math:`{\mu}g/m^3` |
+|                       | organonitrate hydrolysis      |                    |
+|                       | product                       |                    |
++-----------------------+-------------------------------+--------------------+
+| AerMassISN10A\ [#f2]_ | Aerosol phase 2nd generation  | :math:`{\mu}g/m^3` |
+|                       | hydroxynitrates formed from   |                    |
+|                       | ISOP + NO3 rxn pathway        |                    |
++-----------------------+-------------------------------+--------------------+
+| AerMassISOA\ [#f2]_   | Aerosol products of isoprene  | :math:`{\mu}g/m^3` |
+|                       | oxidation                     |                    |
++-----------------------+-------------------------------+--------------------+
+| AerMassLVOCOA\ [#f2]_ | Aerosol-phase low-volatility  | :math:`{\mu}g/m^3` |
+|                       | non-IEPOX product of ISOPOOH  |                    |
+|                       | (RIP) oxidation               |                    |
++-----------------------+-------------------------------+--------------------+
+| AerMassNH4            | Ammonium                      | :math:`{\mu}g/m^3` |
++-----------------------+-------------------------------+--------------------+
+| AerMassNIT            | Inorganic nitrate aerosol     | :math:`{\mu}g/m^3` |
++-----------------------+-------------------------------+--------------------+
+| AerMassPOA\ [#f2]_    | Aerosols from SVOCs           | :math:`{\mu}g/m^3` |
++-----------------------+-------------------------------+--------------------+
+| AerMassOPOA\ [#f2]_   | Aerosols products of POG      | :math:`{\mu}g/m^3` |
+|                       | oxidation                     |                    |
++-----------------------+-------------------------------+--------------------+
+| AerMassSAL            | Sea salt aerosol (SALA+SALC)  | :math:`{\mu}g/m^3` |
++-----------------------+-------------------------------+--------------------+
+| AerMassSO4            | Sulfate                       | :math:`{\mu}g/m^3` |
++-----------------------+-------------------------------+--------------------+
+| AerMassSOAGX\ [#f2]_  | Aerosol phase glyoxal         | :math:`{\mu}g/m^3` |
++-----------------------+-------------------------------+--------------------+
+| AerMassSOAIE\ [#f2]_  | Aerosol phase IEPOX           | :math:`{\mu}g/m^3` |
++-----------------------+-------------------------------+--------------------+
+| AerMassSOAME\ [#f2]_  | Aerosol phase IMAE            | :math:`{\mu}g/m^3` |
++-----------------------+-------------------------------+--------------------+
+| AerMassSOAMG\ [#f2]_  | Aerosol phase methylglyoxal   | :math:`{\mu}g/m^3` |
++-----------------------+-------------------------------+--------------------+
+| AerMassTSOA\ [#f2]_   | Aerosol products of terpene   | :math:`{\mu}g/m^3` |
+|                       | oxidation                     |                    |
++-----------------------+-------------------------------+--------------------+
+| BetaNO\ [#f2]_        | NO branching ratio            | :math:`{\mu}g/m^3` |
++-----------------------+-------------------------------+--------------------+
+| PM25                  | Particulate matter (d < 2.5   | :math:`{\mu}g/m^3` |
+|                       | :math:{\mu}m`)                |                    |
++-----------------------+-------------------------------+--------------------+
+| TotalBiogenicOA\      | Sum of all organic aerosol    | :math:`{\mu}g/m^3` |
+| [#f3]_                |                               |                    |
++-----------------------+-------------------------------+--------------------+
+| TotalOA\ [#f2]_       | Sum of all organic aerosol    | :math:`{\mu}g/m^3` |
++-----------------------+-------------------------------+--------------------+
+| TotalOC               | Sum of all organic carbon     | :math:`{\mu}g/m^3` |
++-----------------------+-------------------------------+--------------------+
 
-.. _the_aerosols_collection:
+.. rubric:: Footnotes
 
-The Aerosols collection
------------------------
+.. [#f2] Only defined for fullchem simulations with complex SOA
+ 	 species.
 
-The **Aerosols** collection contains diagnostics for aerosol optical
-depth and related quantities from full-chemistry simulations.
+.. [#f3] Defined for aerosol-only simulations or fullchem simulations.
 
-Here is a sample definition section for the Aerosols collection.
+.. _histguide-boundaryconditions:
 
--  If this collection is not already present in the HISTORY.rc file
-   in `the GEOS-Chem run directory for your selected
-   simulation <Creating_GEOS-Chem_run_directories>`__, you can copy and
-   paste this into your HISTORY.rc file and edit accordingly.
--  To prevent an individual field from being included in the diagnostic
-   output, place a comment character # in front of the field name.
--  Please see our `Legend for History
-   diagnostics <Legend_for_History_diagnostics>`__ page for more
-   information about each of the collection tags.
+The BoundaryConditions collection
+---------------------------------
 
-  Aerosols.template:          '%y4%m2%d2_%h2%n2z.nc4',
-  Aerosols.format:            'CFIO',
-  Aerosols.frequency:         00000100 000000
-  Aerosols.duration:          00000100 000000
-  Aerosols.mode:              'time-averaged'
-  Aerosols.fields:            'AODDust                       ', 'GIGCchem',
-                              'AODDustWL1_?DUSTBIN?          ', 'GIGCchem',
-                              'AODHygWL1_?HYG?               ', 'GIGCchem',
-                              'AODSOAfromAqIsopreneWL1       ', 'GIGCchem',
-                              'AODStratLiquidAerWL1          ', 'GIGCchem',
-                              'AODPolarStratCloudWL1         ', 'GIGCchem',
-                              'AerHygroscopicGrowth_?HYG?    ', 'GIGCchem',
-                              'AerNumDensityStratLiquid      ', 'GIGCchem',
-                              'AerNumDensityStratParticulate ', 'GIGCchem',
-                              'AerAqueousVolume              ', 'GIGCchem',
-                              'AerSurfAreaDust               ', 'GIGCchem',
-                              'AerSurfAreaHyg_?HYG?          ', 'GIGCchem',
-                              'AerSurfAreaStratLiquid        ', 'GIGCchem',
-                              'AerSurfAreaPolarStratCloud    ', 'GIGCchem',
-                              'Chem_AeroAreaMDUST1           ', 'GIGCchem',
-                              'Chem_AeroAreaMDUST2           ', 'GIGCchem',
-                              'Chem_AeroAreaMDUST3'          ', 'GIGCchem',
-                              'Chem_AeroAreaMDUST4           ', 'GIGCchem',
-                              'Chem_AeroAreaMDUST5           ', 'GIGCchem',
-                              'Chem_AeroAreaMDUST6           ', 'GIGCchem',
-                              'Chem_AeroAreaMDUST7           ', 'GIGCchem',
-                              'Chem_AeroAreaSULF             ', 'GIGCchem',
-                              'Chem_AeroAreaBC               ', 'GIGCchem',
-                              'Chem_AeroAreaOC               ', 'GIGCchem',
-                              'Chem_AeroAreaSSA              ', 'GIGCchem',
-                              'Chem_AeroAreaSSC              ', 'GIGCchem',
-                              'Chem_AeroAreaBGSULF           ', 'GIGCchem',
-                              'Chem_AeroAreaICEI             ', 'GIGCchem',
-                              'Chem_AeroRadiMDUST1           ', 'GIGCchem',
-                              'Chem_AeroRadiMDUST2           ', 'GIGCchem',
-                              'Chem_AeroRadiMDUST3           ', 'GIGCchem',
-                              'Chem_AeroRadiMDUST4           ', 'GIGCchem',
-                              'Chem_AeroRadiMDUST5           ', 'GIGCchem',
-                              'Chem_AeroRadiMDUST6           ', 'GIGCchem',
-                              'Chem_AeroRadiMDUST7           ', 'GIGCchem',
-                              'Chem_AeroRadiSULF             ', 'GIGCchem',
-                              'Chem_AeroRadiBC               ', 'GIGCchem',
-                              'Chem_AeroRadiOC               ', 'GIGCchem',
-                              'Chem_AeroRadiSSA              ', 'GIGCchem',
-                              'Chem_AeroRadiSSC              ', 'GIGCchem',
-                              'Chem_AeroRadiBGSULF           ', 'GIGCchem',
-                              'Chem_AeroRadiICEI             ', 'GIGCchem',
-                              'Chem_WetAeroAreaMDUST1        ', 'GIGCchem',
-                              'Chem_WetAeroAreaMDUST2        ', 'GIGCchem',
-                              'Chem_WetAeroAreaMDUST3        ', 'GIGCchem',
-                              'Chem_WetAeroAreaMDUST4        ', 'GIGCchem',
-                              'Chem_WetAeroAreaMDUST5        ', 'GIGCchem',
-                              'Chem_WetAeroAreaMDUST6        ', 'GIGCchem',
-                              'Chem_WetAeroAreaMDUST7        ', 'GIGCchem',
-                              'Chem_WetAeroAreaSULF          ', 'GIGCchem',
-                              'Chem_WetAeroAreaBC            ', 'GIGCchem',
-                              'Chem_WetAeroAreaOC            ', 'GIGCchem',
-                              'Chem_WetAeroAreaSSA           ', 'GIGCchem',
-                              'Chem_WetAeroAreaSSC           ', 'GIGCchem',
-                              'Chem_WetAeroAreaBGSULF        ', 'GIGCchem',
-                              'Chem_WetAeroAreaICEI          ', 'GIGCchem',
-                              'Chem_WetAeroRadiMDUST1        ', 'GIGCchem',
-                              'Chem_WetAeroRadiMDUST2        ', 'GIGCchem',
-                              'Chem_WetAeroRadiMDUST3        ', 'GIGCchem',
-                              'Chem_WetAeroRadiMDUST4        ', 'GIGCchem',
-                              'Chem_WetAeroRadiMDUST5        ', 'GIGCchem',
-                              'Chem_WetAeroRadiMDUST6        ', 'GIGCchem',
-                              'Chem_WetAeroRadiMDUST7        ', 'GIGCchem',
-                              'Chem_WetAeroRadiSULF          ', 'GIGCchem',
-                              'Chem_WetAeroRadiBC            ', 'GIGCchem',
-                              'Chem_WetAeroRadiOC            ', 'GIGCchem',
-                              'Chem_WetAeroRadiSSA           ', 'GIGCchem',
-                              'Chem_WetAeroRadiSSC           ', 'GIGCchem',
-                              'Chem_WetAeroRadiBGSULF        ', 'GIGCchem',
-                              'Chem_WetAeroRadiICEI          ', 'GIGCchem',
-                              'Chem_StatePSC                 ', 'GIGCchem',
-                              'Chem_KhetiSLAN2O5H2O          ', 'GIGCchem',
-                              'Chem_KhetiSLAN2O5HCl          ', 'GIGCchem',
-                              'Chem_KhetiSLAClNO3H2O         ', 'GIGCchem',
-                              'Chem_KhetiSLAClNO3HCl         ', 'GIGCchem',
-                              'Chem_KhetiSLAClNO3HBr         ', 'GIGCchem',
-                              'Chem_KhetiSLABrNO3H2O         ', 'GIGCchem',
-                              'Chem_KhetiSLABrNO3HCl         ', 'GIGCchem',
-                              'Chem_KhetiSLAHOClHCl          ', 'GIGCchem',
-                              'Chem_KhetiSLAHOClHBr          ', 'GIGCchem',
-                              'Chem_KhetiSLAHOBrHCl          ', 'GIGCchem',
-                              'Chem_KhetiSLAHOBrHBr          ', 'GIGCchem',
-::
+The **BoundaryConditions** diagnostic collection contains advected
+species concentrations (archived from a global simulation) that will
+be used by GEOS-Chen Classic nested-grid simulations as transport
+boundary conditions.
 
-This table describes the diagnostic quantities belonging to the Aerosols
-collection:
+**Sample definition section for HISTORY.rc**
 
-+---------+---------+---------+---------+---------+---------+---------+
-| Dia     | Desc    | Units   | Wi      | Simu    | Notes   | `Bpch   |
-| gnostic | ription |         | ldcards | lations |         | equiv.  |
-| name    |         |         |         |         |         |  <List_ |
-|         |         |         |         |         |         | of_diag |
-|         |         |         |         |         |         | nostics |
-|         |         |         |         |         |         | _archiv |
-|         |         |         |         |         |         | ed_to_b |
-|         |         |         |         |         |         | pch_for |
-|         |         |         |         |         |         | mat>`__ |
-+=========+=========+=========+=========+=========+=========+=========+
-| AODDust | Mineral | 1       |         | -  f    |         | -       |
-|         | dust    |         |         | ullchem |         |   `ND21 |
-|         | optical |         |         | -       |         |         |
-|         | depth   |         |         |   aeros |         |   #4 <L |
-|         | for 1st |         |         | ol-only |         | ist_of_ |
-|         | wav     |         |         |         |         | diagnos |
-|         | elength |         |         |         |         | tics_ar |
-|         | sp      |         |         |         |         | chived_ |
-|         | ecified |         |         |         |         | to_bpch |
-|         | in      |         |         |         |         | _format |
-|         | Ra      |         |         |         |         | #ND21:_ |
-|         | diation |         |         |         |         | Cloud_d |
-|         | Menu    |         |         |         |         | iagnost |
-|         |         |         |         |         |         | ics>`__ |
-+---------+---------+---------+---------+---------+---------+---------+
-| AODDust | AOD for | 1       | ?D      | -  f    |         |         |
-| _WL1_?D | 1st     |         | USTBIN? | ullchem |         |         |
-| USTBIN? | wav     |         |         |         |         |         |
-|         | elength |         |         |         |         |         |
-|         | sp      |         |         |         |         |         |
-|         | ecified |         |         |         |         |         |
-|         | in      |         |         |         |         |         |
-|         | Ra      |         |         |         |         |         |
-|         | diation |         |         |         |         |         |
-|         | Menu,   |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | each    |         |         |         |         |         |
-|         | dust    |         |         |         |         |         |
-|         | bin     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| AODH    | Optical | 1       | ?HYG?   | -  f    |         |         |
-| ygWL1\_ | depth   |         |         | ullchem |         |         |
-|         | for     |         |         | -       |         |         |
-|         | s       |         |         |   aeros |         |         |
-|         | elected |         |         | ol-only |         |         |
-|         | species |         |         |         |         |         |
-|         | (SO4,   |         |         |         |         |         |
-|         | BC, OC, |         |         |         |         |         |
-|         | SALA,   |         |         |         |         |         |
-|         | SALC)   |         |         |         |         |         |
-|         | at the  |         |         |         |         |         |
-|         | 1st     |         |         |         |         |         |
-|         | wav     |         |         |         |         |         |
-|         | elength |         |         |         |         |         |
-|         | sp      |         |         |         |         |         |
-|         | ecified |         |         |         |         |         |
-|         | in the  |         |         |         |         |         |
-|         | Ra      |         |         |         |         |         |
-|         | diation |         |         |         |         |         |
-|         | Menu    |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| AO      | Optical | 1       |         | -  f    | -  \    | -       |
-| DSOAfro | depth   |         |         | ullchem | **Added |   `ND21 |
-| mAqIsop | of SOA  |         |         |    w/   |    in   |         |
-| reneWL1 | from    |         |         |         |    12.  |  #58 <L |
-|         | aqueous |         |         |         | 0.0**\  | ist_of_ |
-|         | i       |         |         |   -  be |         | diagnos |
-|         | soprene |         |         | nchmark |         | tics_ar |
-|         | optical |         |         |    -    |         | chived_ |
-|         | depth   |         |         |   compl |         | to_bpch |
-|         |         |         |         | exSOA\* |         | _format |
-|         |         |         |         |         |         | #ND21:_ |
-|         |         |         |         |         |         | Cloud_d |
-|         |         |         |         |         |         | iagnost |
-|         |         |         |         |         |         | ics>`__ |
-+---------+---------+---------+---------+---------+---------+---------+
-| AODStr  | Strato  |         |         | -  f    |         |         |
-| atLiqui | spheric |         |         | ullchem |         |         |
-| dAerWL1 | liquid  |         |         |         |         |         |
-|         | aerosol |         |         |         |         |         |
-|         | optical |         |         |         |         |         |
-|         | depth   |         |         |         |         |         |
-|         | (600    |         |         |         |         |         |
-|         | nm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| AODPola | Polar   | 1       |         | -  f    |         | -       |
-| rStratC | strato  |         |         | ullchem |         |   `ND21 |
-| loudWL1 | spheric |         |         |         |         |         |
-|         | cloud   |         |         |         |         |  #56 <L |
-|         | type    |         |         |         |         | ist_of_ |
-|         | 1a/2    |         |         |         |         | diagnos |
-|         | optical |         |         |         |         | tics_ar |
-|         | depth   |         |         |         |         | chived_ |
-|         | (600    |         |         |         |         | to_bpch |
-|         | nm)     |         |         |         |         | _format |
-|         |         |         |         |         |         | #ND21:_ |
-|         |         |         |         |         |         | Cloud_d |
-|         |         |         |         |         |         | iagnost |
-|         |         |         |         |         |         | ics>`__ |
-+---------+---------+---------+---------+---------+---------+---------+
-| A       | Hygr    | 1       | ?HYG?   | -  f    |         |         |
-| erHygro | oscopic |         |         | ullchem |         |         |
-| scopicG | growth  |         |         | -       |         |         |
-| rowth\_ | of      |         |         |   aeros |         |         |
-|         | s       |         |         | ol-only |         |         |
-|         | elected |         |         |         |         |         |
-|         | species |         |         |         |         |         |
-|         | (SO4,   |         |         |         |         |         |
-|         | BC, OC, |         |         |         |         |         |
-|         | SALA,   |         |         |         |         |         |
-|         | SALC)   |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Aer     | Strato  | 1/cm3   |         | -  f    |         |         |
-| NumDens | spheric |         |         | ullchem |         |         |
-| ityStra | liquid  |         |         |         |         |         |
-| tLiquid | aerosol |         |         |         |         |         |
-|         | number  |         |         |         |         |         |
-|         | density |         |         |         |         |         |
-|         | (UCX    |         |         |         |         |         |
-|         | sim     |         |         |         |         |         |
-|         | ulation |         |         |         |         |         |
-|         | only)   |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| A       | Strato  | cm2/cm3 |         | -  f    |         |         |
-| erSurfA | spheric |         |         | ullchem |         |         |
-| reaStra | liquid  |         |         |         |         |         |
-| tLiquid | aerosol |         |         |         |         |         |
-|         | surface |         |         |         |         |         |
-|         | area    |         |         |         |         |         |
-|         | (UCX    |         |         |         |         |         |
-|         | sim     |         |         |         |         |         |
-|         | ulation |         |         |         |         |         |
-|         | only)   |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| AerSu   | Polar   | cm2/cm3 |         | -  f    |         |         |
-| rfAreaP | strato  |         |         | ullchem |         |         |
-| olarStr | spheric |         |         |         |         |         |
-| atCloud | cloud   |         |         |         |         |         |
-|         | type    |         |         |         |         |         |
-|         | 1a/2    |         |         |         |         |         |
-|         | surface |         |         |         |         |         |
-|         | area    |         |         |         |         |         |
-|         | (UCX    |         |         |         |         |         |
-|         | sim     |         |         |         |         |         |
-|         | ulation |         |         |         |         |         |
-|         | only)   |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm2/cm3 |         | -  f    |         |         |
-| AeroAre | aerosol |         |         | ullchem |         |         |
-| aMDUST1 | area    |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.15  |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm2/cm3 |         | -  f    |         |         |
-| AeroAre | aerosol |         |         | ullchem |         |         |
-| aMDUST2 | area    |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.25  |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm2/cm3 |         | -  f    |         |         |
-| AeroAre | aerosol |         |         | ullchem |         |         |
-| aMDUST3 | area    |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.4   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm2/cm3 |         | -  f    |         |         |
-| AeroAre | aerosol |         |         | ullchem |         |         |
-| aMDUST4 | area    |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.8   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm2/cm3 |         | -  f    |         |         |
-| AeroAre | aerosol |         |         | ullchem |         |         |
-| aMDUST5 | area    |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 1.5   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm2/cm3 |         | -  f    |         |         |
-| AeroAre | aerosol |         |         | ullchem |         |         |
-| aMDUST6 | area    |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 2.5   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm2/cm3 |         | -  f    |         |         |
-| AeroAre | aerosol |         |         | ullchem |         |         |
-| aMDUST7 | area    |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 4.0   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Che     | Dry     | cm2/cm3 |         | -  f    |         |         |
-| m_AeroA | aerosol |         |         | ullchem |         |         |
-| reaSULF | area    |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | sulfate |         |         | ol-only |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Dry     | cm2/cm3 |         | -  f    |         |         |
-| hem_Aer | aerosol |         |         | ullchem |         |         |
-| oAreaBC | area    |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | black   |         |         | ol-only |         |         |
-|         | carbon  |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Dry     | cm2/cm3 |         | -  f    |         |         |
-| hem_Aer | aerosol |         |         | ullchem |         |         |
-| oAreaOC | area    |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | organic |         |         | ol-only |         |         |
-|         | carbon  |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Ch      | Dry     | cm2/cm3 |         | -  f    |         |         |
-| em_Aero | aerosol |         |         | ullchem |         |         |
-| AreaSSA | area    |         |         | -       |         |         |
-|         | for sea |         |         |   aeros |         |         |
-|         | salt,   |         |         | ol-only |         |         |
-|         | accum   |         |         |         |         |         |
-|         | ulation |         |         |         |         |         |
-|         | mode    |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Ch      | Dry     | cm2/cm3 |         | -  f    |         |         |
-| em_Aero | aerosol |         |         | ullchem |         |         |
-| AreaSSA | area    |         |         | -       |         |         |
-|         | for sea |         |         |   aeros |         |         |
-|         | salt,   |         |         | ol-only |         |         |
-|         | coarse  |         |         |         |         |         |
-|         | mode    |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm2/cm3 |         | -  f    |         |         |
-| AeroAre | aerosol |         |         | ullchem |         |         |
-| aBGSULF | area    |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | bac     |         |         |         |         |         |
-|         | kground |         |         |         |         |         |
-|         | strato  |         |         |         |         |         |
-|         | spheric |         |         |         |         |         |
-|         | sulfate |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Che     | Dry     | cm2/cm3 |         | -  f    |         |         |
-| m_AeroA | aerosol |         |         | ullchem |         |         |
-| reaICEI | area    |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | ir      |         |         |         |         |         |
-|         | regular |         |         |         |         |         |
-|         | ice     |         |         |         |         |         |
-|         | cloud   |         |         |         |         |         |
-|         | (Mis    |         |         |         |         |         |
-|         | chenko) |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm      |         | -  f    |         |         |
-| AeroRad | aerosol |         |         | ullchem |         |         |
-| iMDUST1 | radius  |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.15  |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm      |         | -  f    |         |         |
-| AeroRad | aerosol |         |         | ullchem |         |         |
-| iMDUST2 | radius  |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.25  |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm      |         | -  f    |         |         |
-| AeroRad | aerosol |         |         | ullchem |         |         |
-| iMDUST3 | radius  |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.4   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm      |         | -  f    |         |         |
-| AeroRad | aerosol |         |         | ullchem |         |         |
-| iMDUST4 | radius  |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.8   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm      |         | -  f    |         |         |
-| AeroRad | aerosol |         |         | ullchem |         |         |
-| iMDUST5 | radius  |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 1.5   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm      |         | -  f    |         |         |
-| AeroRad | aerosol |         |         | ullchem |         |         |
-| iMDUST6 | radius  |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 2.5   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm      |         | -  f    |         |         |
-| AeroRad | aerosol |         |         | ullchem |         |         |
-| iMDUST7 | radius  |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 4.0   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Che     | Dry     | cm      |         | -  f    |         |         |
-| m_AeroR | aerosol |         |         | ullchem |         |         |
-| adiSULF | radius  |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | sulfate |         |         | ol-only |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Dry     | cm      |         | -  f    |         |         |
-| hem_Aer | aerosol |         |         | ullchem |         |         |
-| oRadiBC | radius  |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | black   |         |         | ol-only |         |         |
-|         | carbon  |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Dry     | cm      |         | -  f    |         |         |
-| hem_Aer | aerosol |         |         | ullchem |         |         |
-| oRadiOC | radius  |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | organic |         |         | ol-only |         |         |
-|         | carbon  |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Ch      | Dry     | cm      |         | -  f    |         |         |
-| em_Aero | aerosol |         |         | ullchem |         |         |
-| RadiSSA | radius  |         |         | -       |         |         |
-|         | for sea |         |         |   aeros |         |         |
-|         | salt,   |         |         | ol-only |         |         |
-|         | accum   |         |         |         |         |         |
-|         | ulation |         |         |         |         |         |
-|         | mode    |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem    | Dry     | cm      |         | -  f    |         |         |
-| _AeroRa | aerosol |         |         | ullchem |         |         |
-| diusSSC | radius  |         |         | -       |         |         |
-|         | for sea |         |         |   aeros |         |         |
-|         | salt,   |         |         | ol-only |         |         |
-|         | coarse  |         |         |         |         |         |
-|         | mode    |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm      |         | -  f    |         |         |
-| AeroRad | aerosol |         |         | ullchem |         |         |
-| iBGSULF | radius  |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | bac     |         |         |         |         |         |
-|         | kground |         |         |         |         |         |
-|         | strato  |         |         |         |         |         |
-|         | spheric |         |         |         |         |         |
-|         | sulfate |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Dry     | cm      |         | -  f    |         |         |
-| AeroRad | aerosol |         |         | ullchem |         |         |
-| iusICEI | radius  |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | ir      |         |         |         |         |         |
-|         | regular |         |         |         |         |         |
-|         | ice     |         |         |         |         |         |
-|         | cloud   |         |         |         |         |         |
-|         | (Mis    |         |         |         |         |         |
-|         | chenko) |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm2/cm3 |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroAre | area    |         |         | -       |         |         |
-| aMDUST1 | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.15  |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm2/cm3 |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroAre | area    |         |         | -       |         |         |
-| aMDUST2 | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.25  |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm2/cm3 |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroAre | area    |         |         | -       |         |         |
-| aMDUST3 | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.4   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm2/cm3 |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroAre | area    |         |         | -       |         |         |
-| aMDUST4 | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.8   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm2/cm3 |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroAre | area    |         |         | -       |         |         |
-| aMDUST5 | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 1.5   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm2/cm3 |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroAre | area    |         |         | -       |         |         |
-| aMDUST6 | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 2.5   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm2/cm3 |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroAre | area    |         |         | -       |         |         |
-| aMDUST7 | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 4.0   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_W  | Wet     | cm2/cm3 |         | -  f    |         |         |
-| etAeroA | aerosol |         |         | ullchem |         |         |
-| reaSULF | area    |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | sulfate |         |         | ol-only |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem    | Wet     | cm2/cm3 |         | -  f    |         |         |
-| _WetAer | aerosol |         |         | ullchem |         |         |
-| oAreaBC | area    |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | black   |         |         | ol-only |         |         |
-|         | carbon  |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem    | Wet     | cm2/cm3 |         | -  f    |         |         |
-| _WetAer | aerosol |         |         | ullchem |         |         |
-| oAreaOC | area    |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | organic |         |         | ol-only |         |         |
-|         | carbon  |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Wet     | cm2/cm3 |         | -  f    |         |         |
-| WetAero | aerosol |         |         | ullchem |         |         |
-| AreaSSA | area    |         |         | -       |         |         |
-|         | for sea |         |         |   aeros |         |         |
-|         | salt,   |         |         | ol-only |         |         |
-|         | accum   |         |         |         |         |         |
-|         | ulation |         |         |         |         |         |
-|         | mode    |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | Wet     | cm2/cm3 |         | -  f    |         |         |
-| WetAero | aerosol |         |         | ullchem |         |         |
-| AreaSSA | area    |         |         | -       |         |         |
-|         | for sea |         |         |   aeros |         |         |
-|         | salt,   |         |         | ol-only |         |         |
-|         | coarse  |         |         |         |         |         |
-|         | mode    |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm2/cm3 |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroAre | area    |         |         |         |         |         |
-| aBGSULF | for     |         |         |         |         |         |
-|         | bac     |         |         |         |         |         |
-|         | kground |         |         |         |         |         |
-|         | strato  |         |         |         |         |         |
-|         | spheric |         |         |         |         |         |
-|         | sulfate |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_W  | Wet     | cm2/cm3 |         | -  f    |         |         |
-| etAeroA | aerosol |         |         | ullchem |         |         |
-| reaICEI | area    |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | ir      |         |         |         |         |         |
-|         | regular |         |         |         |         |         |
-|         | ice     |         |         |         |         |         |
-|         | cloud   |         |         |         |         |         |
-|         | (Mis    |         |         |         |         |         |
-|         | chenko) |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm      |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroRad | radius  |         |         | -       |         |         |
-| iMDUST1 | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.15  |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm      |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroRad | radius  |         |         | -       |         |         |
-| iMDUST2 | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.25  |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm      |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroRad | radius  |         |         | -       |         |         |
-| iMDUST3 | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.4   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm      |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroRad | radius  |         |         | -       |         |         |
-| iMDUST4 | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 0.8   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm      |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroRad | radius  |         |         | -       |         |         |
-| iMDUST5 | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 1.5   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm      |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroRad | radius  |         |         | -       |         |         |
-| iMDUST6 | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 2.5   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm      |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroRad | radius  |         |         | -       |         |         |
-| iMDUST7 | for     |         |         |   aeros |         |         |
-|         | mineral |         |         | ol-only |         |         |
-|         | dust    |         |         |         |         |         |
-|         | (bin    |         |         |         |         |         |
-|         | R\ :su  |         |         |         |         |         |
-|         | b:`eff` |         |         |         |         |         |
-|         | = 4.0   |         |         |         |         |         |
-|         | μm)     |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_W  | Wet     | cm      |         | -  f    |         |         |
-| etAeroR | aerosol |         |         | ullchem |         |         |
-| adiSULF | radius  |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | sulfate |         |         | ol-only |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem    | Wet     | cm      |         | -  f    |         |         |
-| _WetAer | aerosol |         |         | ullchem |         |         |
-| oRadiBC | radius  |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | black   |         |         | ol-only |         |         |
-|         | carbon  |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem    | Wet     | cm      |         | -  f    |         |         |
-| _WetAer | aerosol |         |         | ullchem |         |         |
-| oRadiOC | radius  |         |         | -       |         |         |
-|         | for     |         |         |   aeros |         |         |
-|         | organic |         |         | ol-only |         |         |
-|         | carbon  |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| WetCh   | Wet     | cm      |         | -  f    |         |         |
-| em_Aero | aerosol |         |         | ullchem |         |         |
-| RadiSSA | radius  |         |         | -       |         |         |
-|         | for sea |         |         |   aeros |         |         |
-|         | salt,   |         |         | ol-only |         |         |
-|         | accum   |         |         |         |         |         |
-|         | ulation |         |         |         |         |         |
-|         | mode    |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_We | Wet     | cm      |         | -  f    |         |         |
-| tAeroRa | aerosol |         |         | ullchem |         |         |
-| diusSSC | radius  |         |         | -       |         |         |
-|         | for sea |         |         |   aeros |         |         |
-|         | salt,   |         |         | ol-only |         |         |
-|         | coarse  |         |         |         |         |         |
-|         | mode    |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm      |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroRad | radius  |         |         |         |         |         |
-| iBGSULF | for     |         |         |         |         |         |
-|         | bac     |         |         |         |         |         |
-|         | kground |         |         |         |         |         |
-|         | strato  |         |         |         |         |         |
-|         | spheric |         |         |         |         |         |
-|         | sulfate |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| C       | Wet     | cm      |         | -  f    |         |         |
-| hem_Wet | aerosol |         |         | ullchem |         |         |
-| AeroRad | radius  |         |         |         |         |         |
-| iusICEI | for     |         |         |         |         |         |
-|         | ir      |         |         |         |         |         |
-|         | regular |         |         |         |         |         |
-|         | ice     |         |         |         |         |         |
-|         | cloud   |         |         |         |         |         |
-|         | (Mis    |         |         |         |         |         |
-|         | chenko) |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_S  | Polar   | count   |         | -  f    |         |         |
-| tatePSC | strato  |         |         | ullchem |         |         |
-|         | spheric |         |         |         |         |         |
-|         | cloud   |         |         |         |         |         |
-|         | type    |         |         |         |         |         |
-|         | (cf     |         |         |         |         |         |
-|         | Kirner  |         |         |         |         |         |
-|         | et al,  |         |         |         |         |         |
-|         | 2011,   |         |         |         |         |         |
-|         | GMD)    |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_K  | S       | 1       |         | -  f    |         |         |
-| hetiSLA | ticking |         |         | ullchem |         |         |
-| N2O5H2O | coeff.  |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | N2O5 +  |         |         |         |         |         |
-|         | H2O rxn |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_K  | S       | 1       |         | -  f    |         |         |
-| hetiSLA | ticking |         |         | ullchem |         |         |
-| N2O5HCl | coeff.  |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | N2O5 +  |         |         |         |         |         |
-|         | HCl rxn |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_Kh | S       | 1       |         | -  f    |         |         |
-| etiSLAC | ticking |         |         | ullchem |         |         |
-| lNO3H2O | coeff.  |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | ClNO3 + |         |         |         |         |         |
-|         | H2O rxn |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_Kh | S       | 1       |         | -  f    |         |         |
-| etiSLAC | ticking |         |         | ullchem |         |         |
-| lNO3HCl | coeff.  |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | ClNO3 + |         |         |         |         |         |
-|         | HCl rxn |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_Kh | S       | 1       |         | -  f    |         |         |
-| etiSLAC | ticking |         |         | ullchem |         |         |
-| lNO3HBr | coeff.  |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | ClNO3 + |         |         |         |         |         |
-|         | HBr rxn |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_Kh | S       | 1       |         | -  f    |         |         |
-| etiSLAB | ticking |         |         | ullchem |         |         |
-| rNO3H2O | coeff.  |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | BrNO3 + |         |         |         |         |         |
-|         | H2O rxn |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_Kh | S       | 1       |         | -  f    |         |         |
-| etiSLAB | ticking |         |         | ullchem |         |         |
-| rNO3HCl | coeff.  |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | BrNO3 + |         |         |         |         |         |
-|         | HCl rxn |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_K  | S       | 1       |         | -  f    |         |         |
-| hetiSLA | ticking |         |         | ullchem |         |         |
-| HOClHCl | coeff.  |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | HOCl +  |         |         |         |         |         |
-|         | HCl rxn |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_   | S       | 1       |         | -  f    |         |         |
-| KhetiSL | ticking |         |         | ullchem |         |         |
-| AHOClBr | coeff.  |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | HOCl +  |         |         |         |         |         |
-|         | HBr rxn |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_K  | S       | 1       |         | -  f    |         |         |
-| hetiSLA | ticking |         |         | ullchem |         |         |
-| HOBrHCl | coeff.  |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | HOBr +  |         |         |         |         |         |
-|         | HCl rxn |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
-| Chem_K  | S       | 1       |         | -  f    |         |         |
-| hetiSLA | ticking |         |         | ullchem |         |         |
-| HOBrHCl | coeff.  |         |         |         |         |         |
-|         | for     |         |         |         |         |         |
-|         | HOBr +  |         |         |         |         |         |
-|         | HBr rxn |         |         |         |         |         |
-+---------+---------+---------+---------+---------+---------+---------+
+.. code-block:: none
 
-.. _the_budget_collection:
+     BoundaryConditions.template:   '%y4%m2%d2_%h2%n2z.nc4',
+     BoundaryConditions.format:     'CFIO',
+     BoundaryConditions.frequency:  00000000 030000
+     BoundaryConditions.duration:   00000100 000000
+     BoundaryConditions.mode:       'instantaneous'
+     BoundaryConditions.fields:     'SpeciesBC_?ADV?',
+   ::
+
+**List of diagnostic quantities**
+
++-------------------------------+-------------------------+-------------+-----------+
+| Diagnostic field              | Description             | Units       | Wildcard  |
++===============================+=========================+=============+===========+
+| SpeciesBC_<name|wc>\ [#f4]_   | Advected species        | mol/mol dry | ``?ADV?`` |
+|                               | concentrations used     | air         |           |
+|                               | as boundary conditions  |             |           |
+|                               | GEOS-Chem Classic       |             |           |
+|                               | nested-grid simulations |             |           |
++-------------------------------+-------------------------+-------------+-----------+
+
+.. rubric:: Footnotes
+
+.. [#f4] This diagnostic is only for use with GEOS-Chem Classic.
+
+.. _histguide-budget:
 
 The Budget collection
 ---------------------
 
-\ **This update was included in\ **\ `GEOS-Chem
-12.1.0 <GEOS-Chem_12#12.1.0>`__\ **\ , which was released on 26 Nov
-2018.**\
-
-The **Budget** diagnostic collection was introduced in `GEOS-Chem
-12.1.0 <GEOS-Chem_12#12.1.0>`__. It is a 2D diagnostic containing the
+The **Budget** diagnostic collection is a 2D diagnostic containing the
 mass tendencies per grid cell, in kg/s, for each species within a region
 of the column and across each GEOS-Chem component. The diagnostic is
 calculated by taking the difference in vertically summed column mass
@@ -1737,238 +1729,235 @@ emissions and dry deposition tendencies below the PBL are applied within
 mixing instead. When using full mixing, however, mixing and
 emissions/dry deposition budget diagnostics are fully separated.
 
-Here is a sample definition section for the Budget collection such that
-1-month averages are output per species.
+**Sample definition section for HISTORY.rc**
 
--  To prevent an individual field from being included in the diagnostic
-   output, place a comment character # in front of the field name.
-   This will prevent the diagnostic arrays from being initialized and
-   therefore reduce required memory.
--  You may also replace the species wildcards with individual species
-   names, e.g. BudgetChemistryFull_O3 for full column ozone.
--  Please see our `Legend for History
-   diagnostics <Legend_for_History_diagnostics>`__ page for more
-   information about each of the collection tags.
+.. code-block:: none
 
-#==============================================================================
-# %%%%% THE Budget COLLECTION %%%%%
-#
-# GEOS-Chem budget diagnostics defined as species kg/s in the column
-# (full, troposphere, or PBL) due to a single component (e.g. chemistry)
-# (default = advected species)
-#
-# Available for all simulations
-#==============================================================================
- Budget.template:     '%y4%m2%d2_%h2%n2z.nc4',
- Budget.format:       'CFIO',
- Budget.frequency:    00000100 000000
- Budget.duration:     00000100 000000
- Budget.mode:         'time-averaged'
- Budget.fields:       'BudgetChemistryFull_?ADV?            ', 'GIGCchem',
-                      'BudgetChemistryPBL_?ADV?             ', 'GIGCchem',
-                      'BudgetChemistryTrop_?ADV?            ', 'GIGCchem',
-                      'BudgetEmisDepFull_?ADV?              ', 'GIGCchem',
-                      'BudgetEmisDepTrop_?ADV?              ', 'GIGCchem',
-                      'BudgetEmisDepPBL_?ADV?               ', 'GIGCchem',
-                      'BudgetTransportFull_?ADV?            ', 'GIGCchem',
-                      'BudgetTransportTrop_?ADV?            ', 'GIGCchem',
-                      'BudgetTransportPBL_?ADV?             ', 'GIGCchem',
-                      'BudgetMixingFull_?ADV?               ', 'GIGCchem',
-                      'BudgetMixingTrop_?ADV?               ', 'GIGCchem',
-                      'BudgetMixingPBL_?ADV?                ', 'GIGCchem',
-                      'BudgetConvectionFull_?ADV?           ', 'GIGCchem',
-                      'BudgetConvectionTrop_?ADV?           ', 'GIGCchem',
-                      'BudgetConvectionPBL_?ADV?            ', 'GIGCchem',
-                      'BudgetWetDepFull_?WET?               ', 'GIGCchem',
-                      'BudgetWetDepTrop_?WET?               ', 'GIGCchem',
-                      'BudgetWetDepPBL_?WET?                ', 'GIGCchem',
+     Budget.template:     '%y4%m2%d2_%h2%n2z.nc4',
+     Budget.format:       'CFIO',
+     Budget.frequency:    00000100 000000
+     Budget.duration:     00000100 000000
+     Budget.mode:         'time-averaged'
+     Budget.fields:       'BudgetChemistryFull_?ADV? ',
+                          'BudgetChemistryPBL_?ADV?  ',
+                          'BudgetChemistryTrop_?ADV? ',
+                          'BudgetEmisDepFull_?ADV?   ',
+                          'BudgetEmisDepTrop_?ADV?   ',
+                          'BudgetEmisDepPBL_?ADV?    ',
+                          'BudgetTransportFull_?ADV? ',
+                          'BudgetTransportTrop_?ADV? ',
+                          'BudgetTransportPBL_?ADV?  ',
+                          'BudgetMixingFull_?ADV?    ',
+                          'BudgetMixingTrop_?ADV?    ',
+                          'BudgetMixingPBL_?ADV?     ',
+                          'BudgetConvectionFull_?ADV?',
+                          'BudgetConvectionTrop_?ADV?',
+                          'BudgetConvectionPBL_?ADV? ',
+                          'BudgetWetDepFull_?WET?    ',
+                          'BudgetWetDepTrop_?WET?    ',
+                          'BudgetWetDepPBL_?WET?     ',
+   ::
 
-This table describes the diagnostic quantities belonging to the Budget
-collection:
+**List of diagnostic quantities**
 
-+-----------+-----------+-------+-----------+-----------+-------+
-| D         | De        | Units | Wildcards | Si        | Notes |
-| iagnostic | scription |       |           | mulations |       |
-| name      |           |       |           |           |       |
-+===========+===========+=======+===========+===========+=======+
-| Budget\ * | Mass      | kg/s  | -  ?ADV?  | -  All    |       |
-| *XY**_ | tendency  |       | -  ?WET?  |    si     |       |
-|           | across    |       |           | mulations |       |
-|           | component |       |           |           |       |
-|           | **X** in  |       |           | C         |       |
-|           | column    |       |           | omponents |       |
-|           | region    |       |           | **X**     |       |
-|           | **Y**     |       |           | include:  |       |
-|           |           |       |           |           |       |
-|           |           |       |           | -         |       |
-|           |           |       |           | Chemistry |       |
-|           |           |       |           | -         |       |
-|           |           |       |           | Transport |       |
-|           |           |       |           |    (      |       |
-|           |           |       |           | GEOS-Chem |       |
-|           |           |       |           |           |       |
-|           |           |       |           |   Classic |       |
-|           |           |       |           |    only)  |       |
-|           |           |       |           | -         |       |
-|           |           |       |           |   Mixing\ |       |
-|           |           |       |           |  :sup:`1` |       |
-|           |           |       |           | -  C      |       |
-|           |           |       |           | onvection |       |
-|           |           |       |           | -  Wet    |       |
-|           |           |       |           |    d      |       |
-|           |           |       |           | eposition |       |
-|           |           |       |           | -         |       |
-|           |           |       |           | Emissions |       |
-|           |           |       |           |    and    |       |
-|           |           |       |           |    dry    |       |
-|           |           |       |           |    de     |       |
-|           |           |       |           | position\ |       |
-|           |           |       |           |  :sup:`2` |       |
-|           |           |       |           |           |       |
-|           |           |       |           | Column    |       |
-|           |           |       |           | regions   |       |
-|           |           |       |           | **Y**     |       |
-|           |           |       |           | include:  |       |
-|           |           |       |           |           |       |
-|           |           |       |           | -  Tr     |       |
-|           |           |       |           | oposphere |       |
-|           |           |       |           |    (Trop) |       |
-|           |           |       |           | -         |       |
-|           |           |       |           |  PBL-only |       |
-|           |           |       |           |    (PBL)  |       |
-|           |           |       |           | -  Full   |       |
-|           |           |       |           |    column |       |
-|           |           |       |           |    (Full) |       |
-+-----------+-----------+-------+-----------+-----------+-------+
++---------------------------------------+---------------------------------+----------+
+| Diagnostic field                      | Mass tendency (kg/s) across ... | Wildcard |
++=======================================+=================================+==========+
+| BudgetChemistryFull_<name|wc>         | Chemistry (full atmosphere)     | ?ADV?    |
++---------------------------------------+---------------------------------+----------+
+| BudgetChemistryLevs1to35_<name|wc>\   | Chemistry (fixed level range)   | ?ADV?    |
+| [#f5]_                                |                                 |          |
++---------------------------------------+---------------------------------+----------+
+| BudgetChemistryPBL_<name|wc>          | Chemistry (PBL only)            | ?ADV?    |
++---------------------------------------+---------------------------------+----------+
+| BudgetChemistryTrop_<name|wc>         | Chemistry (troposphere only)    | ?ADV?    |
++---------------------------------------+---------------------------------+----------+
+| BudgetEmisDepFull_<name|wc>\ [#f6]_   | Emissions & dry deposition      | ?ADV?    |
+|                                       | (full atmosphere)               |          |
++---------------------------------------+---------------------------------+----------+
+| BudgetEmisDepLevs1to35_<name|wc>\     | Emissions & dry deposition      | ?ADV?    |
+| [#f5]_ [#f6]_                         | (fixed level range)             |          |
++---------------------------------------+---------------------------------+----------+
+| BudgetEmisPBL_<name|wc>\ [#f6]_       | Emissions & dry deposition      | ?ADV?    |
+|                                       | (PBL only)                      |          |
++---------------------------------------+---------------------------------+----------+
+| BudgetEmisTrop_<name|wc>\ [#f6]_      | Emissions & dry deposition      | ?ADV?    |
+|                                       | (troposphere only)              |          |
++---------------------------------------+---------------------------------+----------+
+| BudgetTransportFull_<name|wc>         | Transport (full attmosphere)    | ?ADV?    |
++---------------------------------------+---------------------------------+----------+
+| BudgetTransportLevs1to35_<name|wc>\   | Transport (fixed level range)   | ?ADV?    |
+| [#f5]_                                |                                 |          |
++---------------------------------------+---------------------------------+----------+
+| BudgetTransportPBL_<name|wc>          | Transport (PBL only)            | ?ADV?    |
++---------------------------------------+---------------------------------+----------+
+| BudgetTransportTrop_<name|wc>         | Transport (troposphere only)    | ?ADV?    |
++---------------------------------------+---------------------------------+----------+
+| BudgetMixingFull_<name|wc> [#f7]_     | PBL mixing (full atmosphere)    | ?ADV?    |
++---------------------------------------+---------------------------------+----------+
+| BudgetMixingLevs1to35_<name|wc>\      | PBL mixing (full atmosphere)    | ?ADV?    |
+| [#f5]_  [#f7]_                        | (fixed level range)             |          |
++---------------------------------------+---------------------------------+----------+
+| BudgetMixingPBL_<name|wc>\ [#f7]_     | PBL mixing (PBL only)           | ?ADV?    |
++---------------------------------------+---------------------------------+----------+
+| BudgetMixingTrop_<name|wc>\ [#f7]_    | PBL mixing (troposphere only)   | ?ADV?    |
++---------------------------------------+---------------------------------+----------+
+| BudgetConvectionFull_<name|wc>        | Convection (full atmosphere)    | ?ADV?    |
++---------------------------------------+---------------------------------+----------+
+| BudgetConvectionLevs1to35_<name|wc>   | Convection (fixed level range)  | ?ADV?    |
+| [#f5]_                                |                                 |          |
++---------------------------------------+---------------------------------+----------+
+| BudgetConvectionPBL_<name|wc>         | Convection (PBL only)           | ?ADV?    |
++---------------------------------------+---------------------------------+----------+
+| BudgetConvectionTrop_<name|wc>        | Convection (troposphere only)   | ?ADV?    |
++---------------------------------------+---------------------------------+----------+
+| BudgetWetDepFull_<name|wc>            | Wet deposition                  | ?WET?    |
+|                                       | (full atmosphere)               |          |
++---------------------------------------+---------------------------------+----------+
+| BudgetWetDepLevs1to35_<name|wc>\      | Wet deposition (fixed level     | ?WET?    |
+| [#f5]_                                | range)                          |          |
++---------------------------------------+---------------------------------+----------+
+| BudgetWetDepPBL_<name|wc>             | Wet deposition (PBL only)       | ?WET     |
++---------------------------------------+---------------------------------+----------+
+| BudgetConvectionTrop_<name|wc>        | Wet deposition                  | ?WET     |
+|                                       | (troposphere only)              |          |
++---------------------------------------+---------------------------------+----------+
 
-| :sup:`1`\ The mixing budget diagnostics includes the application of
-  emissions and dry deposition below the PBL if using the non-local PBL
-  mixing scheme (vdiff).
-| :sup:`2`\ The emissions and dry deposition budget diagnostics will not
-  capture all fluxes if using the non-local PBL mixing scheme since
-  these tendencies are applied within mixing in vdiff_mod below the PBL.
-  When using full mixing, however, mixing and emissions/dry deposition
-  are fully separated.
+.. rubric:: Footnotes
 
-.. _the_concafterchem_collection:
+.. [#f5] These diagnostic quantities allow you to compute mass
+	 tendencies in a fixed level range.  The lower level and upper level of
+	 the range is specified in the diagnostic name
+	 (:literal:`LevsXtoY`).  Levels 1 to 35 (surface to
+	 approximately the tropopause) are the default settings.
+
+.. [#f6] The emissions and dry deposition budget diagnostics will not
+	 capture all fluxes if using the non-local PBL mixing scheme since
+	 these tendencies are applied within mixing in :file:`vdiff_mod.F90`
+	 below the  PBL. When using full mixing, however, mixing and emissions/dry
+	 deposition are fully separated.
+
+.. [#f7] The mixing budget diagnostics includes the application of
+	 emissions and dry deposition below the PBL if using the non-local PBL
+	 mixing scheme (vdiff).
+
+.. _histguide-ch4:
+
+The CH4 collection
+------------------
+
+The **CH4** collection contains diagnostics for loss of CH4 and OH
+concentration for the CH4 and carbon simulations.
+
+**Sample definition section for HISTORY.rc**
+
+.. code-block:: none
+
+     CH4.template:          '%y4%m2%d2_%h2%n2z.nc4',
+     CH4.format:            'CFIO',
+     CH4.frequency:         00000100 000000
+     CH4.duration:          00000100 000000
+     CH4.mode:              'time-averaged'
+     CH4.fields:            'OHconcAfterChem   ',
+                            'LossCH4byClinTrop ',
+                            'LossCH4byOHinTrop ',
+                            'LossCH4inStrat    ',
+   ::
+
+**List of diagnostic quantities**
+
++--------------------+------------------------------------------+--------+
+| Diagnostic field   | Description                              | Units  |
++====================+==========================================+========+
+| LossCH4byClinTrop  | Loss of CH4 by raction with Cl in the    | kg/s   |
+|                    | troposphere                              |        |
++--------------------+------------------------------------------+--------+
+| LossCH4byOHinTrop  | Loss of CH4 by raction with OH in the    | kg/s   |
+|                    | troposphere                              |        |
++--------------------+------------------------------------------+--------+
+| LossCH4inStrat     | Loss of CH4 in the stratosphere          | kg/s   |
++--------------------+------------------------------------------+--------+
+| OHconcAfterChem    | OH concentration after chemistry         | kg/s   |
++--------------------+------------------------------------------+--------+
+
+.. _histguide-cloudconvflux:
+
+The CloudConvFlux collection
+----------------------------
+
+The **CloudConvFlux** collection contains diagnostics for mass fluxes in
+cloud convection.
+
+**Sample definition section for HISTORY.rc**
+
+.. code-block:: none
+
+     CloudConvFlux.template:     '%y4%m2%d2_%h2%n2z.nc4',
+     CloudConvFlux.format:       'CFIO',
+     CloudConvFlux.frequency:    00000100 000000
+     CloudConvFlux.duration:     00000100 000000
+     CloudConvFlux.mode:         'time-averaged'
+     CloudConvFlux.fields:       'CloudConvFlux_?ADV?',
+   ::
+
+**List of diagnostic quantities**
+
++-------------------------+--------------------+----------+------------+
+| Diagnostic field        | Description        | Units    | Wildcards  |
++=========================+====================+==========+============+
+| CloudConvFlux_<name|wc> | Mass change due to | kg/s     | ?ADV? |br| |
+|                         | cloud convection   |          | ?GAS? |br| |
+|                         |                    |          | ?WET?      |
++-------------------------+--------------------+----------+------------+
+
+.. _histguide-concafterchem:
 
 The ConcAfterChem collection
 ----------------------------
 
 The **ConcAfterChem** collection contains diagnostics for OH, HO2, etc.
-species immediately upon exiting the `FlexChem <FlexChem>`__ solver.
+species immediately upon exiting the chemical solver.
 
-Here is a sample definition section for the ConcAfterChem collection.
+**Sample definition section for HISTORY.rc**
 
--  If this collection is not already present in the HISTORY.rc file
-   in `the GEOS-Chem run directory for your selected
-   simulation <Creating_GEOS-Chem_run_directories>`__, you can copy and
-   paste this into your HISTORY.rc file and edit accordingly.
--  To prevent an individual field from being included in the diagnostic
-   output, place a comment character # in front of the field name.
--  Please see our `Legend for History
-   diagnostics <Legend_for_History_diagnostics>`__ page for more
-   information about each of the collection tags.
+.. code-block:: none
 
-  ConcAfterChem.template:     '%y4%m2%d2_%h2%n2z.nc4',
-  ConcAfterChem.format:       'CFIO',
-  ConcAfterChem.frequency:    00000100 000000
-  ConcAfterChem.duration:     00000100 000000
-  ConcAfterChem.mode:         'time-averaged'
-  ConcAfterChem.fields:       'OHconcAfterChem                ', 'GIGCchem',
-                              'HO2concAfterChem               ', 'GIGCchem',
-                              'O1DconcAfterChem               ', 'GIGCchem',
-                              'O3PconcAfterChem               ', 'GIGCchem',
-                              'O3concAfterChem                ', 'GIGCchem',
-                              'RO2concAfterChem               ', 'GIGCchem',
-::
+     ConcAfterChem.template:     '%y4%m2%d2_%h2%n2z.nc4',
+     ConcAfterChem.format:       'CFIO',
+     ConcAfterChem.frequency:    00000100 000000
+     ConcAfterChem.duration:     00000100 000000
+     ConcAfterChem.mode:         'time-averaged'
+     ConcAfterChem.fields:       'OHconcAfterChem                ', 'GIGCchem',
+                                 'HO2concAfterChem               ', 'GIGCchem',
+                                 'O1DconcAfterChem               ', 'GIGCchem',
+                                 'O3PconcAfterChem               ', 'GIGCchem',
+                                 'O3concAfterChem                ', 'GIGCchem',
+                                 'RO2concAfterChem               ', 'GIGCchem',
+   ::
 
-This table describes the diagnostic quantities belonging to the
-ConcAfterChem collection:
+**List of diagnostic quantities**
 
-+---------+---------+---------+---------+---------+-------+---------+
-| Dia     | Desc    | Units   | Wi      | Simu    | Notes | `Bpch   |
-| gnostic | ription |         | ldcards | lations |       | equiv.  |
-| name    |         |         |         |         |       |  <List_ |
-|         |         |         |         |         |       | of_diag |
-|         |         |         |         |         |       | nostics |
-|         |         |         |         |         |       | _archiv |
-|         |         |         |         |         |       | ed_to_b |
-|         |         |         |         |         |       | pch_for |
-|         |         |         |         |         |       | mat>`__ |
-+=========+=========+=========+=========+=========+=======+=========+
-| O       | OH      | mo      |         | -  f    |       |         |
-| HconcAf | concen  | lec/cm3 |         | ullchem |       |         |
-| terChem | tration |         |         | -  CH4  |       |         |
-|         | imme    |         |         |         |       |         |
-|         | diately |         |         |         |       |         |
-|         | after   |         |         |         |       |         |
-|         | exiting |         |         |         |       |         |
-|         | the     |         |         |         |       |         |
-|         | F       |         |         |         |       |         |
-|         | lexChem |         |         |         |       |         |
-|         | solver  |         |         |         |       |         |
-+---------+---------+---------+---------+---------+-------+---------+
-| HO      | HO2     | v/v     |         | -  f    |       |         |
-| 2concAf | concen  |         |         | ullchem |       |         |
-| terChem | tration |         |         |         |       |         |
-|         | imme    |         |         |         |       |         |
-|         | diately |         |         |         |       |         |
-|         | after   |         |         |         |       |         |
-|         | exiting |         |         |         |       |         |
-|         | the     |         |         |         |       |         |
-|         | F       |         |         |         |       |         |
-|         | lexChem |         |         |         |       |         |
-|         | solver  |         |         |         |       |         |
-+---------+---------+---------+---------+---------+-------+---------+
-| O1      | O1D     | mo      |         | -  f    |       |         |
-| DconcAf | concen  | lec/cm3 |         | ullchem |       |         |
-| terChem | tration |         |         |         |       |         |
-|         | imme    |         |         |         |       |         |
-|         | diately |         |         |         |       |         |
-|         | after   |         |         |         |       |         |
-|         | exiting |         |         |         |       |         |
-|         | the     |         |         |         |       |         |
-|         | F       |         |         |         |       |         |
-|         | lexChem |         |         |         |       |         |
-|         | solver  |         |         |         |       |         |
-+---------+---------+---------+---------+---------+-------+---------+
-| O3      | O3P     | mo      |         | -  f    |       |         |
-| PconcAf | concen  | lec/cm3 |         | ullchem |       |         |
-| terChem | tration |         |         |         |       |         |
-|         | imme    |         |         |         |       |         |
-|         | diately |         |         |         |       |         |
-|         | after   |         |         |         |       |         |
-|         | exiting |         |         |         |       |         |
-|         | the     |         |         |         |       |         |
-|         | F       |         |         |         |       |         |
-|         | lexChem |         |         |         |       |         |
-|         | solver  |         |         |         |       |         |
-+---------+---------+---------+---------+---------+-------+---------+
-| O       | O3      | mo      |         | -  f    |       |         |
-| 3concAf | concen  | lec/cm3 |         | ullchem |       |         |
-| terChem | tration |         |         |         |       |         |
-|         | imme    |         |         |         |       |         |
-|         | diately |         |         |         |       |         |
-|         | after   |         |         |         |       |         |
-|         | exiting |         |         |         |       |         |
-|         | the     |         |         |         |       |         |
-|         | F       |         |         |         |       |         |
-|         | lexChem |         |         |         |       |         |
-|         | solver  |         |         |         |       |         |
-+---------+---------+---------+---------+---------+-------+---------+
-| RO      | RO2     | mo      |         | -  f    |       |         |
-| 2concAf | concen  | lec/cm3 |         | ullchem |       |         |
-| terChem | tration |         |         |         |       |         |
-|         | imme    |         |         |         |       |         |
-|         | diately |         |         |         |       |         |
-|         | after   |         |         |         |       |         |
-|         | exiting |         |         |         |       |         |
-|         | the     |         |         |         |       |         |
-|         | F       |         |         |         |       |         |
-|         | lexChem |         |         |         |       |         |
-|         | solver  |         |         |         |       |         |
-+---------+---------+---------+---------+---------+-------+---------+
++-------------------+-------------------------------+---------------+
+| Diagnostic field  | Description                   | Units         |
++===================+===============================+===============+
+| OHconcAfterChem   | OH immediately after exiting  | molec/cm3     |
+|                   | the chemical solver           |               |
++-------------------+-------------------------------+---------------+
+| HO2concAfterChem  | HO2 immediately after exiting | mol/mol       |
+|                   | the chemical solver           |               |
++-------------------+-------------------------------+---------------+
+| O1DconcAfterChem  | O1D immediately after exiting | molec/cm3     |
+|                   | the chemical solver           |               |
++-------------------+-------------------------------+---------------+
+| O3PconcAfterChem  | O3P immediately after exiting | molec/cm3     |
+|                   | the chemical solver           |               |
++-------------------+-------------------------------+---------------+
+| O3concAfterChem   | O3 immediately after exiting  | molec/cm3     |
+|                   | the chemical solver           |               |
++-------------------+-------------------------------+---------------+
+| RO2concAfterChem  | RO2 immediately after exiting | molec/cm3     |
+|                   | the chemical solver           |               |
++-------------------+-------------------------------+---------------+
 
 .. _the_jvalues_collection:
 
@@ -1976,222 +1965,133 @@ The JValues collection
 ----------------------
 
 The **JValues** collection contains diagnostics for photolysis rates for
-various chemical species, obtained from the FAST-JX photolysis
-mechanism.
+various chemical species, obtained from the photolysis mechanism.
 
-Here is a sample definition section for the JValues collection.
+**Sample definition section for HISTORY.rc**
 
--  If this collection is not already present in the HISTORY.rc file
-   in `the GEOS-Chem run directory for your selected
-   simulation <Creating_GEOS-Chem_run_directories>`__, you can copy and
-   paste this into your HISTORY.rc file and edit accordingly.
--  To prevent an individual field from being included in the diagnostic
-   output, place a comment character # in front of the field name.
--  Please see our `Legend for History
-   diagnostics <Legend_for_History_diagnostics>`__ page for more
-   information about each of the collection tags.
+.. code-block:: none
 
-  JValues.template:           '%y4%m2%d2_%h2%n2z.nc4',
-  JValues.format:             'CFIO',
-  JValues.frequency:          00000000 010000
-  JValues.duration:           00000000 010000
-  JValues.mode:               'instantaneous'
-  JValues.fields:             'Jval_?PHO?                    ', 'GIGCchem',
-::
+     JValues.template:           '%y4%m2%d2_%h2%n2z.nc4',
+     JValues.format:             'CFIO',
+     JValues.frequency:          00000000 010000
+     JValues.duration:           00000000 010000
+     JValues.mode:               'instantaneous'
+     JValues.fields:             'Jval_?PHO?',
+                                 'JvalO3O1D ',
+				 'JvalO3O3P ',
+   ::
 
-This table describes the diagnostic quantities belonging to the JValues
-collection:
+**List of diagnostic quantities**
 
-+---------+---------+-------+---------+---------+-------+---------+
-| Dia     | Desc    | Units | Wi      | Simu    | Notes | `Bpch   |
-| gnostic | ription |       | ldcards | lations |       | equiv.  |
-| name    |         |       |         |         |       |  <List_ |
-|         |         |       |         |         |       | of_diag |
-|         |         |       |         |         |       | nostics |
-|         |         |       |         |         |       | _archiv |
-|         |         |       |         |         |       | ed_to_b |
-|         |         |       |         |         |       | pch_for |
-|         |         |       |         |         |       | mat>`__ |
-+=========+=========+=======+=========+=========+=======+=========+
-| Jval\_  | Pho     | 1/s   | -       | -  f    |       |         |
-|         | tolysis |       |   ?PHO? | ullchem |       |         |
-|         | rates   |       |         |         |       |         |
-+---------+---------+-------+---------+---------+-------+---------+
-| Jv      | Pho     | 1/s   |         | -  f    |       |         |
-| alO3O1D | tolysis |       |         | ullchem |       |         |
-|         | rate of |       |         |         |       |         |
-|         | O3 ->   |       |         |         |       |         |
-|         | O1D     |       |         |         |       |         |
-+---------+---------+-------+---------+---------+-------+---------+
-| Jv      | Pho     | 1/s   |         | -  f    |       |         |
-| alO3O3P | tolysis |       |         | ullchem |       |         |
-|         | rate of |       |         |         |       |         |
-|         | O3 ->   |       |         |         |       |         |
-|         | O3P     |       |         |         |       |         |
-+---------+---------+-------+---------+---------+-------+---------+
++--------------------+-------------------------------+--------+----------+
+| Diagnostic field   | Description                   | Units  | Wildcard |
++====================+===============================+========+==========+
+| Jval_<name|wc>     | Photolysis rates              | 1/s    | ?PHO?    |
++--------------------+-------------------------------+--------+----------+
+| JvalO3O1D          | Photolysis rate of O3         | 1/s    |          |
+|                    | :math:`\rightarrow` O1D       |        |          |
++--------------------+-------------------------------+--------+----------+
+| JvalO3O3P          | Photolysis rate of O3         | 1/s    |          |
+|                    | :math:`\rightarrow` O3P       |        |          |
++--------------------+-------------------------------+--------+----------+
 
-.. _the_kppdiags_collection:
+.. _histguide-kppardiags:
+
+The KppARDiags collection
+-------------------------
+
+The **KppARDiags** collection contains diagnostics for the KPP
+Rosenbrock solver with mechanism  autoreduction. You may leave this
+collection disabled unless you are interested in assessing the
+performance of the mechanism auto-reduction in KPP.
+
+**Sample definition section for HISTORY.rc**
+
+.. code-block:: none
+
+     KppARDiags.template:        '%y4%m2%d2_%h2%n2z.nc4',
+     KppARDiags.frequency:       00000100 000000
+     KppARDiags.duration:        00000100 000000
+     KppARDiags.mode:            'time-averaged'
+     KppARDiags.fields:          'KppAutoReducerNVAR',
+                                 'KppAutoReduceThres',
+                                 'KppcNONZERO       ',
+   ::
+
+**List of diagnostic quantities**
+
++--------------------+-------------------------------------+-------------+
+| Diagnostic field   | Description                         | Units       |
++====================+=====================================+=============+
+| KppAutoReducerNVAR | Number of species (``rNVAR``) in    | count       |
+|                    | the auto-reduced mechanism          |             |
++--------------------+-------------------------------------+-------------+
+| KppAutoReduceThres | Auto-reduction threshold            | molec/cm3/s |
++--------------------+-------------------------------------+-------------+
+| KppcNONZERO        | Number of nonzero elements          | count       |
+|                    | (``cNONZERO``) in LU decomposition  |             |
+|                    | in the auto-reduced mechanism       |             |
++--------------------+-------------------------------------+-------------+
+
+.. _histguide-kppdiags:
 
 The KppDiags collection
 -----------------------
 
-The **KppDiags** collection contains KPP solver diagnostics. You can
+The **KppDiags** collection contains KPP solver diagnostics. You may
 leave this collection disabled unless you are interested in assessing
 the solver's performance.
 
-Here is a sample definition section for the KppDiags collection.
+**Sample definition section for HISTORY.rc**
 
--  If this collection is not already present in the HISTORY.rc file
-   in `the GEOS-Chem run directory for your selected
-   simulation <Creating_GEOS-Chem_run_directories>`__, you can copy and
-   paste this into your HISTORY.rc file and edit accordingly.
--  To prevent an individual field from being included in the diagnostic
-   output, place a comment character # in front of the field name.
--  Please see our `Legend for History
-   diagnostics <Legend_for_History_diagnostics>`__ page for more
-   information about each of the collection tags.
+.. code-block:: none
 
- KppDiags.template:          '%y4%m2%d2_%h2%n2z.nc4',
- KppDiags.format:            'CFIO',
- KppDiags.frequency:         010000
- KppDiags.duration:          010000
- KppDiags.mode:              'time-averaged'
- KppDiags.fields:            'KppIntCounts                  ', 'GIGCchem',
-                             'KppJacCounts                  ', 'GIGCchem',
-                             'KppTotSteps                   ', 'GIGCchem',
-                             'KppAccSteps                   ', 'GIGCchem',
-                             'KppRejSteps                   ', 'GIGCchem',
-                             'KppLuDecomps                  ', 'GIGCchem',
-                             'KppSubsts                     ', 'GIGCchem',
-                             'KppSmDecomps                  ', 'GIGCchem',
-::
+    KppDiags.template:          '%y4%m2%d2_%h2%n2z.nc4',
+    KppDiags.format:            'CFIO',
+    KppDiags.frequency:         00000100 000000
+    KppDiags.duration:          00000100 000000
+    KppDiags.mode:              'time-averaged'
+    KppDiags.fields:            'KppIntCounts',
+                                'KppJacCounts',
+                                'KppTotSteps ',
+                                'KppAccSteps ',
+                                'KppRejSteps ',
+                                'KppLuDecomps',
+                                'KppSubsts   ',
+                                'KppSmDecomps',
+   ::
 
-This table describes the diagnostic quantities belonging to the JValues
-collection:
+**List of diagnostic quantities**
 
--  *NOTE:*\ **fullchem**\ *refers to all simulations that use*\ `a
-   full-chemistry
-   mechanism <GEOS-Chem_chemistry_mechanisms#Mechanisms_for_GEOS-Chem_v11-02>`__\ *(i.e.
-   benchmark, complexSOA*, standard, tropchem. aciduptake, marinePOA,
-   RRTMG, TOMAS).*
++-------------------+-------------------------------------------+---------+
+| Diagnostic field  | Description                               | Units   |
++===================+===========================================+=========+
+| KppIntCounts      | Number of times the KPP integrator        | count   |
+|                   | was called                                |         |
++-------------------+-------------------------------------------+---------+
+| KppJacCounts      | Number of times the KPP Jacobian matrix   | count   |
+|                   | was constructed                           |         |
++-------------------+-------------------------------------------+---------+
+| KppTotSteps       | Total number of integration timesteps     | count   |
++-------------------+-------------------------------------------+---------+
+| KppAccSteps       | Number of accepted integration timesteps  | count   |
++-------------------+-------------------------------------------+---------+
+| KppRejSteps       | Number of rejected integration timesteps  | count   |
++-------------------+-------------------------------------------+---------+
+| KppLuDecomps      | Number of LU decompositions performed     | count   |
++-------------------+-------------------------------------------+---------+
+| KppSubsts         | Number of matrix substitutions performed  | count   |
+|                   | (both forward & backward substitutions)   |         |
++-------------------+-------------------------------------------+---------+
+| KppSmDecomps\     | Number of singular matrix decompositions  | count   |
+| [#f8]_            | performed                                 |         |
++-------------------+-------------------------------------------+---------+
 
-+---------+---------+-------+---------+---------+-------+---------+
-| Dia     | Desc    | Units | Wi      | Simu    | Notes | `Bpch   |
-| gnostic | ription |       | ldcards | lations |       | equiv.  |
-| name    |         |       |         |         |       |  <List_ |
-|         |         |       |         |         |       | of_diag |
-|         |         |       |         |         |       | nostics |
-|         |         |       |         |         |       | _archiv |
-|         |         |       |         |         |       | ed_to_b |
-|         |         |       |         |         |       | pch_for |
-|         |         |       |         |         |       | mat>`__ |
-+=========+=========+=======+=========+=========+=======+=========+
-| KppIn   | Number  | count |         | -  f    |       |         |
-| tCounts | of      |       |         | ullchem |       |         |
-|         | times   |       |         |         |       |         |
-|         | the KPP |       |         |         |       |         |
-|         | int     |       |         |         |       |         |
-|         | egrator |       |         |         |       |         |
-|         | was     |       |         |         |       |         |
-|         | called  |       |         |         |       |         |
-+---------+---------+-------+---------+---------+-------+---------+
-| KppJa   | Number  | count |         | -  f    |       |         |
-| cCounts | of      |       |         | ullchem |       |         |
-|         | times   |       |         |         |       |         |
-|         | the     |       |         |         |       |         |
-|         | J       |       |         |         |       |         |
-|         | acobian |       |         |         |       |         |
-|         | matrix  |       |         |         |       |         |
-|         | was     |       |         |         |       |         |
-|         | cons    |       |         |         |       |         |
-|         | tructed |       |         |         |       |         |
-+---------+---------+-------+---------+---------+-------+---------+
-| KppT    | Total   | count |         | -  f    |       |         |
-| otSteps | number  |       |         | ullchem |       |         |
-|         | of      |       |         |         |       |         |
-|         | inte    |       |         |         |       |         |
-|         | gration |       |         |         |       |         |
-|         | ti      |       |         |         |       |         |
-|         | mesteps |       |         |         |       |         |
-+---------+---------+-------+---------+---------+-------+---------+
-| KppA    | Number  | count |         | -  f    |       |         |
-| ccSteps | of      |       |         | ullchem |       |         |
-|         | a       |       |         |         |       |         |
-|         | ccepted |       |         |         |       |         |
-|         | inte    |       |         |         |       |         |
-|         | gration |       |         |         |       |         |
-|         | ti      |       |         |         |       |         |
-|         | mesteps |       |         |         |       |         |
-+---------+---------+-------+---------+---------+-------+---------+
-| KppR    | Number  | count |         |         |       |         |
-| ejSteps | of      |       |         |         |       |         |
-|         | r       |       |         |         |       |         |
-|         | ejected |       |         |         |       |         |
-|         | inte    |       |         |         |       |         |
-|         | gration |       |         |         |       |         |
-|         | ti      |       |         |         |       |         |
-|         | mesteps |       |         |         |       |         |
-+---------+---------+-------+---------+---------+-------+---------+
-| KppLu   | Number  | count |         | -  f    |       |         |
-| Decomps | of LU   |       |         | ullchem |       |         |
-|         | decompo |       |         |         |       |         |
-|         | sitions |       |         |         |       |         |
-|         | pe      |       |         |         |       |         |
-|         | rformed |       |         |         |       |         |
-+---------+---------+-------+---------+---------+-------+---------+
-| Kp      | Number  | count |         | -  f    |       |         |
-| pSubsts | of      |       |         | ullchem |       |         |
-|         | matrix  |       |         |         |       |         |
-|         | substi  |       |         |         |       |         |
-|         | tutions |       |         |         |       |         |
-|         | per     |       |         |         |       |         |
-|         | formed. |       |         |         |       |         |
-|         | I       |       |         |         |       |         |
-|         | ncludes |       |         |         |       |         |
-|         | forward |       |         |         |       |         |
-|         | and     |       |         |         |       |         |
-|         | b       |       |         |         |       |         |
-|         | ackward |       |         |         |       |         |
-|         | substit |       |         |         |       |         |
-|         | utions. |       |         |         |       |         |
-+---------+---------+-------+---------+---------+-------+---------+
-| KppSm   | Number  | count |         | -  f    |       |         |
-| Decomps | of      |       |         | ullchem |       |         |
-|         | s       |       |         |         |       |         |
-|         | ingular |       |         |         |       |         |
-|         | matrix  |       |         |         |       |         |
-|         | decopo  |       |         |         |       |         |
-|         | sitions |       |         |         |       |         |
-|         | per     |       |         |         |       |         |
-|         | formed. |       |         |         |       |         |
-|         |         |       |         |         |       |         |
-|         | -       |       |         |         |       |         |
-|         |   NOTE: |       |         |         |       |         |
-|         |    For  |       |         |         |       |         |
-|         |    Ros  |       |         |         |       |         |
-|         | enbrock |       |         |         |       |         |
-|         |    s    |       |         |         |       |         |
-|         | olvers, |       |         |         |       |         |
-|         |    this |       |         |         |       |         |
-|         |    will |       |         |         |       |         |
-|         |    be   |       |         |         |       |         |
-|         |    zero |       |         |         |       |         |
-|         |    ever |       |         |         |       |         |
-|         | ywhere, |       |         |         |       |         |
-|         |         |       |         |         |       |         |
-|         | because |       |         |         |       |         |
-|         |    the  |       |         |         |       |         |
-|         |    Ros  |       |         |         |       |         |
-|         | enbrock |       |         |         |       |         |
-|         |         |       |         |         |       |         |
-|         |  method |       |         |         |       |         |
-|         |    u    |       |         |         |       |         |
-|         | tilizes |       |         |         |       |         |
-|         |    LU   |       |         |         |       |         |
-|         |         |       |         |         |       |         |
-|         | decompo |       |         |         |       |         |
-|         | sition. |       |         |         |       |         |
-+---------+---------+-------+---------+---------+-------+---------+
+.. rubric:: Footnotes
+
+.. [#f8] For Rosenbrock solvers, KppSmDecomps will be zero everywhere,
+	 because the Rosenbrock method utilizes LU decomposition
+	 instead of singular matrix decomposition.
 
 .. _the_metrics_collection:
 
@@ -2202,18 +2102,6 @@ The **Metrics** collection contains diagnostics for computing OH metrics
 from a GEOS-Chem full chemistry simulation. To compute the OH metrics,
 you must run the Python script metrics.py that ships with each
 fullchem or CH4 run directory.
-
-Here is a sample definition section for the JValues collection.
-
--  If this collection is not already present in the HISTORY.rc file
-   in `the GEOS-Chem run directory for your selected
-   simulation <Creating_GEOS-Chem_run_directories>`__, you can copy and
-   paste this into your HISTORY.rc file and edit accordingly.
--  To prevent an individual field from being included in the diagnostic
-   output, place a comment character # in front of the field name.
--  Please see our `Legend for History
-   diagnostics <Legend_for_History_diagnostics>`__ page for more
-   information about each of the collection tags.
 
   Metrics.template:    '%y4%m2%d2_%h2%n2z.nc4',
   Metrics.format:      'CFIO',
@@ -2911,58 +2799,7 @@ StateChm collection.
 |         | by SO2  |       |         |         |       |         |
 +---------+---------+-------+---------+---------+-------+---------+
 
-.. _the_cloudconvflux_collection:
 
-The CloudConvFlux collection
-----------------------------
-
-The **CloudConvFlux** collection contains diagnostics for mass fluxes in
-cloud convection.
-
-Here is a sample definition section for the CH4 collection.
-
--  If this collection is not already present in the HISTORY.rc file
-   in `the GEOS-Chem run directory for your selected
-   simulation <Creating_GEOS-Chem_run_directories>`__, you can copy and
-   paste this into your HISTORY.rc file and edit accordingly.
--  To prevent an individual field from being included in the diagnostic
-   output, place a comment character # in front of the field name.
--  Please see our `Legend for History
-   diagnostics <Legend_for_History_diagnostics>`__ page for more
-   information about each of the collection tags.
-
-  CloudConvFlux.template:     '%y4%m2%d2_%h2%n2z.nc4',
-  CloudConvFlux.format:       'CFIO',
-  CloudConvFlux.frequency:    00000100 000000
-  CloudConvFlux.duration:     00000100 000000
-  CloudConvFlux.mode:         'time-averaged'
-  CloudConvFlux.fields:       'CloudConvFlux_?ADV?           ', 'GIGCchem',
-::
-
-This table describes the diagnostic quantities belonging to the
-CloudConvFlux collection:
-
-+---------+---------+-------+---------+---------+-------+---------+
-| Dia     | Desc    | Units | Wi      | Simu    | Notes | `Bpch   |
-| gnostic | ription |       | ldcards | lations |       | equiv.  |
-| name    |         |       |         |         |       |  <List_ |
-|         |         |       |         |         |       | of_diag |
-|         |         |       |         |         |       | nostics |
-|         |         |       |         |         |       | _archiv |
-|         |         |       |         |         |       | ed_to_b |
-|         |         |       |         |         |       | pch_for |
-|         |         |       |         |         |       | mat>`__ |
-+=========+=========+=======+=========+=========+=======+=========+
-| C       | Mass    | kg/s  | -       | -  all  |       | -       |
-| loudCon | change  |       |   ?ADV? |    simu |       |   `ND14 |
-| vFlux\_ | due to  |       | -       | lations |       |  <List_ |
-|         | cloud   |       |   ?GAS? |         |       | of_diag |
-|         | con     |       | -       |         |       | nostics |
-|         | vection |       |   ?WET? |         |       | _archiv |
-|         |         |       |         |         |       | ed_to_b |
-|         |         |       |         |         |       | pch_for |
-|         |         |       |         |         |       | mat>`__ |
-+---------+---------+-------+---------+---------+-------+---------+
 
 .. _the_wetlossconv_collection:
 
@@ -3967,138 +3804,11 @@ Here is a sample definition section for the **StateMet** collection.
 |                  | the troposphere           |                     |
 +------------------+---------------------------+---------------------+
 
-.. _the_ch4_collection:
 
-The CH4 collection
-------------------
-
-The **CH4** collection contains diagnostics for loss of CH4 and OH
-concentration for the `CH4 specialty simulation <CH4_simulation>`__.
-
-Here is a sample definition section for the CH4 collection.
-
--  If this collection is not already present in the HISTORY.rc file
-   in `the GEOS-Chem run directory for your selected
-   simulation <Creating_GEOS-Chem_run_directories>`__, you can copy and
-   paste this into your HISTORY.rc file and edit accordingly.
--  To prevent an individual field from being included in the diagnostic
-   output, place a comment character # in front of the field name.
--  Please see our `Legend for History
-   diagnostics <Legend_for_History_diagnostics>`__ page for more
-   information about each of the collection tags.
-
-  CH4.template:               '%y4%m2%d2_%h2%n2z.nc4',
-  CH4.format:                 'CFIO',
-  CH4.frequency:              00000100 000000
-  CH4.duration:               00000100 000000
-  CH4.mode:                   'time-averaged'
-  CH4.fields:                 'OHconcAfterChem               ', 'GIGCchem',
-                              'LossCH4byClinTrop             ', 'GIGCchem',
-                              'LossCH4byOHinTrop             ', 'GIGCchem',
-                              'LossCH4inStrat                ', 'GIGCchem',
-::
-
-This table describes the diagnostic quantities belonging to the CH4
-collection:
-
-+---------+---------+-------+---------+---------+-------+---------+
-| Dia     | Desc    | Units | Wi      | Simu    | Notes | `Bpch   |
-| gnostic | ription |       | ldcards | lations |       | equiv.  |
-| name    |         |       |         |         |       |  <List_ |
-|         |         |       |         |         |       | of_diag |
-|         |         |       |         |         |       | nostics |
-|         |         |       |         |         |       | _archiv |
-|         |         |       |         |         |       | ed_to_b |
-|         |         |       |         |         |       | pch_for |
-|         |         |       |         |         |       | mat>`__ |
-+=========+=========+=======+=========+=========+=======+=========+
-| Los     | Loss of | kg/s  |         |         |       |         |
-| sCH4byC | CH4 by  |       |         |         |       |         |
-| linTrop | r       |       |         |         |       |         |
-|         | eaction |       |         |         |       |         |
-|         | with Cl |       |         |         |       |         |
-|         | in the  |       |         |         |       |         |
-|         | trop    |       |         |         |       |         |
-|         | osphere |       |         |         |       |         |
-+---------+---------+-------+---------+---------+-------+---------+
-| Los     | Loss of | kg/s  |         |         |       |         |
-| sCH4byO | CH4 by  |       |         |         |       |         |
-| HinTrop | r       |       |         |         |       |         |
-|         | eaction |       |         |         |       |         |
-|         | with OH |       |         |         |       |         |
-|         | in the  |       |         |         |       |         |
-|         | trop    |       |         |         |       |         |
-|         | osphere |       |         |         |       |         |
-+---------+---------+-------+---------+---------+-------+---------+
-| LossCH4 | Loss of | kg/s  |         |         |       |         |
-| inStrat | CH4 in  |       |         |         |       |         |
-|         | the     |       |         |         |       |         |
-|         | strat   |       |         |         |       |         |
-|         | osphere |       |         |         |       |         |
-+---------+---------+-------+---------+---------+-------+---------+
-| O       | OH      | kg/s  |         |         |       |         |
-| HconcAf | concen  |       |         |         |       |         |
-| terChem | tration |       |         |         |       |         |
-|         | after   |       |         |         |       |         |
-|         | ch      |       |         |         |       |         |
-|         | emistry |       |         |         |       |         |
-+---------+---------+-------+---------+---------+-------+---------+
 
 .. _the_boundaryconditions_collection:
 
-The BoundaryConditions collection
----------------------------------
 
-*NOTE: If you are not setting up for a nested-grid simulation, then you
-can disable this collection.*
-
-The **BoundaryConditions** diagnostic collection contains advected
-species concentrations (archived from a global simulation) that will be
-used by nested-grid simulations as transport boundary conditions. Like
-SpeciesConc, it archives data with units of mol/mol dry air.
-
-Here is a sample definition section for the SpeciesConc collection.
-
--  If this collection is not already present in the HISTORY.rc file
-   in `the GEOS-Chem run directory for your selected
-   simulation <Creating_GEOS-Chem_run_directories>`__, you can copy and
-   paste this into your HISTORY.rc file and edit accordingly.
--  To prevent an individual field from being included in the diagnostic
-   output, place a comment character # in front of the field name.
--  Please see our `Legend for History
-   diagnostics <Legend_for_History_diagnostics>`__ page for more
-   information about each of the collection tags.
-
-  BoundaryConditions.template:   '%y4%m2%d2_%h2%n2z.nc4',
-  BoundaryConditions.format:     'CFIO',
-  BoundaryConditions.frequency:  00000000 030000
-  BoundaryConditions.duration:   00000100 000000
-  BoundaryConditions.mode:       'instantaneous'
-  BoundaryConditions.fields:     'SpeciesBC_?ADV?             ', 'GIGCchem',
-::
-
-This table describes the diagnostic quantities belonging to the
-BoundaryConditions collection:
-
-+----------+----------+----------+----------+----------+-------+
-| Di       | Des      | Units    | W        | Sim      | Notes |
-| agnostic | cription |          | ildcards | ulations |       |
-| name     |          |          |          |          |       |
-+==========+==========+==========+==========+==========+=======+
-| Spe      | Advected | mol/mol  | -  ?ADV? |          |       |
-| ciesBC\_ | species  | dry air  |          |          |       |
-|          | concen   |          |          |          |       |
-|          | trations |          |          |          |       |
-|          | used as  |          |          |          |       |
-|          | boundary |          |          |          |       |
-|          | co       |          |          |          |       |
-|          | nditions |          |          |          |       |
-|          | for      |          |          |          |       |
-|          | nes      |          |          |          |       |
-|          | ted-grid |          |          |          |       |
-|          | sim      |          |          |          |       |
-|          | ulations |          |          |          |       |
-+----------+----------+----------+----------+----------+-------+
 
 .. _the_restart_collection:
 

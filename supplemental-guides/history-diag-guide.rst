@@ -1284,26 +1284,26 @@ emissions/dry deposition budget diagnostics are fully separated.
 +---------------------------------------+---------------------------------+----------+
 | BudgetChemistryTrop_<name|wc>         | Chemistry (troposphere only)    | ?ADV?    |
 +---------------------------------------+---------------------------------+----------+
+| BudgetConvectionFull_<name|wc>        | Convection (full atmosphere)    | ?ADV?    |
++---------------------------------------+---------------------------------+----------+
+| BudgetConvectionLevs1to35_<name|wc>   | Convection (fixed level range)  | ?ADV?    |
+| [#E]_                                 |                                 |          |
++---------------------------------------+---------------------------------+----------+
+| BudgetConvectionPBL_<name|wc>         | Convection (PBL only)           | ?ADV?    |
++---------------------------------------+---------------------------------+----------+
+| BudgetConvectionTrop_<name|wc>        | Convection (troposphere only)   | ?ADV?    |
++---------------------------------------+---------------------------------+----------+
 | BudgetEmisDepFull_<name|wc>\ [#F]_    | Emissions & dry deposition      | ?ADV?    |
 |                                       | (full atmosphere)               |          |
 +---------------------------------------+---------------------------------+----------+
 | BudgetEmisDepLevs1to35_<name|wc>\     | Emissions & dry deposition      | ?ADV?    |
 | [#E]_  [#F]_                          | (fixed level range)             |          |
 +---------------------------------------+---------------------------------+----------+
-| BudgetEmisPBL_<name|wc>\ [#F]_        | Emissions & dry deposition      | ?ADV?    |
+| BudgetEmisDepPBL_<name|wc>\ [#F]_     | Emissions & dry deposition      | ?ADV?    |
 |                                       | (PBL only)                      |          |
 +---------------------------------------+---------------------------------+----------+
-| BudgetEmisTrop_<name|wc>\ [#F]_       | Emissions & dry deposition      | ?ADV?    |
+| BudgetEmisDepTrop_<name|wc>\ [#F]_    | Emissions & dry deposition      | ?ADV?    |
 |                                       | (troposphere only)              |          |
-+---------------------------------------+---------------------------------+----------+
-| BudgetTransportFull_<name|wc>         | Transport (full attmosphere)    | ?ADV?    |
-+---------------------------------------+---------------------------------+----------+
-| BudgetTransportLevs1to35_<name|wc>\   | Transport (fixed level range)   | ?ADV?    |
-| [#E]_                                 |                                 |          |
-+---------------------------------------+---------------------------------+----------+
-| BudgetTransportPBL_<name|wc>          | Transport (PBL only)            | ?ADV?    |
-+---------------------------------------+---------------------------------+----------+
-| BudgetTransportTrop_<name|wc>         | Transport (troposphere only)    | ?ADV?    |
 +---------------------------------------+---------------------------------+----------+
 | BudgetMixingFull_<name|wc> [#G]_      | PBL mixing (full atmosphere)    | ?ADV?    |
 +---------------------------------------+---------------------------------+----------+
@@ -1314,14 +1314,14 @@ emissions/dry deposition budget diagnostics are fully separated.
 +---------------------------------------+---------------------------------+----------+
 | BudgetMixingTrop_<name|wc>\ [#G]_     | PBL mixing (troposphere only)   | ?ADV?    |
 +---------------------------------------+---------------------------------+----------+
-| BudgetConvectionFull_<name|wc>        | Convection (full atmosphere)    | ?ADV?    |
+| BudgetTransportFull_<name|wc>         | Transport (full attmosphere)    | ?ADV?    |
 +---------------------------------------+---------------------------------+----------+
-| BudgetConvectionLevs1to35_<name|wc>   | Convection (fixed level range)  | ?ADV?    |
+| BudgetTransportLevs1to35_<name|wc>\   | Transport (fixed level range)   | ?ADV?    |
 | [#E]_                                 |                                 |          |
 +---------------------------------------+---------------------------------+----------+
-| BudgetConvectionPBL_<name|wc>         | Convection (PBL only)           | ?ADV?    |
+| BudgetTransportPBL_<name|wc>          | Transport (PBL only)            | ?ADV?    |
 +---------------------------------------+---------------------------------+----------+
-| BudgetConvectionTrop_<name|wc>        | Convection (troposphere only)   | ?ADV?    |
+| BudgetTransportTrop_<name|wc>         | Transport (troposphere only)    | ?ADV?    |
 +---------------------------------------+---------------------------------+----------+
 | BudgetWetDepFull_<name|wc>            | Wet deposition                  | ?WET?    |
 |                                       | (full atmosphere)               |          |
@@ -1330,9 +1330,6 @@ emissions/dry deposition budget diagnostics are fully separated.
 | [#E]_                                 | range)                          |          |
 +---------------------------------------+---------------------------------+----------+
 | BudgetWetDepPBL_<name|wc>             | Wet deposition (PBL only)       | ?WET     |
-+---------------------------------------+---------------------------------+----------+
-| BudgetConvectionTrop_<name|wc>        | Wet deposition                  | ?WET     |
-|                                       | (troposphere only)              |          |
 +---------------------------------------+---------------------------------+----------+
 
 .. rubric:: Notes for the Budget collection
@@ -1617,27 +1614,27 @@ species immediately upon exiting the chemical solver.
 
 **List of diagnostic fields in the ConcAfterChem collection**
 
-+-------------------+-------------------------------+---------------+
-| Diagnostic field  | Description                   | Units         |
-+===================+===============================+===============+
-| OHconcAfterChem   | OH immediately after exiting  | molec/cm3     |
-|                   | the chemical solver           |               |
-+-------------------+-------------------------------+---------------+
-| HO2concAfterChem  | HO2 immediately after exiting | mol/mol       |
-|                   | the chemical solver           |               |
-+-------------------+-------------------------------+---------------+
-| O1DconcAfterChem  | O1D immediately after exiting | molec/cm3     |
-|                   | the chemical solver           |               |
-+-------------------+-------------------------------+---------------+
-| O3PconcAfterChem  | O3P immediately after exiting | molec/cm3     |
-|                   | the chemical solver           |               |
-+-------------------+-------------------------------+---------------+
-| O3concAfterChem   | O3 immediately after exiting  | molec/cm3     |
-|                   | the chemical solver           |               |
-+-------------------+-------------------------------+---------------+
-| RO2concAfterChem  | RO2 immediately after exiting | molec/cm3     |
-|                   | the chemical solver           |               |
-+-------------------+-------------------------------+---------------+
++-------------------+-------------------------------+-----------+
+| Diagnostic field  | Description                   | Units     |
++===================+===============================+===========+
+| HO2concAfterChem  | HO2 immediately after exiting | mol/mol   |
+|                   | the chemical solver           |           |
++-------------------+-------------------------------+-----------+
+| O1DconcAfterChem  | O1D immediately after exiting | molec/cm3 |
+|                   | the chemical solver           |           |
++-------------------+-------------------------------+-----------+
+| O3concAfterChem   | O3 immediately after exiting  | molec/cm3 |
+|                   | the chemical solver           |           |
++-------------------+-------------------------------+-----------+
+| O3PconcAfterChem  | O3P immediately after exiting | molec/cm3 |
+|                   | the chemical solver           |           |
++-------------------+-------------------------------+-----------+
+| OHconcAfterChem   | OH immediately after exiting  | molec/cm3 |
+|                   | the chemical solver           |           |
++-------------------+-------------------------------+-----------+
+| RO2concAfterChem  | RO2 immediately after exiting | molec/cm3 |
+|                   | the chemical solver           |           |
++-------------------+-------------------------------+-----------+
 
 .. _histguide-drydep:
 
@@ -1779,29 +1776,29 @@ the solver's performance.
 
 **List of diagnostic fields in the KppDiags collection**
 
-+-------------------+-------------------------------------------+---------+
-| Diagnostic field  | Description                               | Units   |
-+===================+===========================================+=========+
-| KppIntCounts      | Number of times the KPP integrator        | count   |
-|                   | was called                                |         |
-+-------------------+-------------------------------------------+---------+
-| KppJacCounts      | Number of times the KPP Jacobian matrix   | count   |
-|                   | was constructed                           |         |
-+-------------------+-------------------------------------------+---------+
-| KppTotSteps       | Total number of integration timesteps     | count   |
-+-------------------+-------------------------------------------+---------+
-| KppAccSteps       | Number of accepted integration timesteps  | count   |
-+-------------------+-------------------------------------------+---------+
-| KppRejSteps       | Number of rejected integration timesteps  | count   |
-+-------------------+-------------------------------------------+---------+
-| KppLuDecomps      | Number of LU decompositions performed     | count   |
-+-------------------+-------------------------------------------+---------+
-| KppSubsts         | Number of matrix substitutions performed  | count   |
-|                   | (both forward & backward substitutions)   |         |
-+-------------------+-------------------------------------------+---------+
-| KppSmDecomps\     | Number of singular matrix decompositions  | count   |
-| [#J]_             | performed                                 |         |
-+-------------------+-------------------------------------------+---------+
++-------------------+-------------------------------------------+-------+
+| Diagnostic field  | Description                               | Units |
++===================+===========================================+=======+
+| KppAccSteps       | Number of accepted integration timesteps  | count |
++-------------------+-------------------------------------------+-------+
+| KppIntCounts      | Number of times the KPP integrator        | count |
+|                   | was called                                |       |
++-------------------+-------------------------------------------+-------+
+| KppJacCounts      | Number of times the KPP Jacobian matrix   | count |
+|                   | was constructed                           |       |
++-------------------+-------------------------------------------+-------+
+| KppLuDecomps      | Number of LU decompositions performed     | count |
++-------------------+-------------------------------------------+-------+
+| KppSmDecomps\     | Number of singular matrix decompositions  | count |
+| [#J]_             | performed                                 |       |
++-------------------+-------------------------------------------+-------+
+| KppSubsts         | Number of matrix substitutions performed  | count |
+|                   | (both forward & backward substitutions)   |       |
++-------------------+-------------------------------------------+-------+
+| KppRejSteps       | Number of rejected integration timesteps  | count |
++-------------------+-------------------------------------------+-------+
+| KppTotSteps       | Total number of integration timesteps     | count |
++-------------------+-------------------------------------------+-------+
 
 .. rubric:: Footnotes
 
@@ -1895,32 +1892,32 @@ diagnostic outputs for the GEOS-Chem mercury simulation.
 +------------------+---------------------------------+-------------+
 | Diagnostic field | Description                     | Units       |
 +==================+=================================+=============+
-| HgBrAfterChem    | HgBr concentration              | mol/mol     |
-|                  | immediately after chemistry     |             |
-+------------------+---------------------------------+-------------+
-| HgClAfterChem    | HgCl concentration              | mol/mol     |
-|                  | immediately after chemistry     |             |
-+------------------+---------------------------------+-------------+
-| HgOHAfterChem    | HgOH concentration              | mol/mol     |
-|                  | immediately after chemistry     |             |
-+------------------+---------------------------------+-------------+
-| HgBrOAfterChem   | HgBrO concentration             | mol/mol     |
-|                  | immediately after chemistry     |             |
-+------------------+---------------------------------+-------------+
-| HgClOAfterChem   | HgClO concentration             | mol/mol     |
-|                  | immediately after chemistry     |             |
-+------------------+---------------------------------+-------------+
-| HgOHOAfterChem   | HgOHO concentration             | mol/mol     |
-|                  | immediately after chemistry     |             |
-+------------------+---------------------------------+-------------+
 | Hg2GToHg2P       | Hg2 gas transferred to Hg2P     | molec/cm3/s |
-+------------------+---------------------------------+-------------+
-| Hg2PToHg2G       | Hg2P transferred to Hg2 gas     | molec/cm3/s |
 +------------------+---------------------------------+-------------+
 | Hg2GasToHg2StrP  | Hg2 gas transferred to Hg2StrP  | molec/cm3/s |
 +------------------+---------------------------------+-------------+
 | Hg2GasToSSA      | Hg2 gas transferred to sea      | molec/cm3/s |
 |                  | salt aerosol                    |             |
++------------------+---------------------------------+-------------+
+| Hg2PToHg2G       | Hg2P transferred to Hg2 gas     | molec/cm3/s |
++------------------+---------------------------------+-------------+
+| HgBrAfterChem    | HgBr concentration              | mol/mol     |
+|                  | immediately after chemistry     |             |
++------------------+---------------------------------+-------------+
+| HgBrOAfterChem   | HgBrO concentration             | mol/mol     |
+|                  | immediately after chemistry     |             |
++------------------+---------------------------------+-------------+
+| HgClAfterChem    | HgCl concentration              | mol/mol     |
+|                  | immediately after chemistry     |             |
++------------------+---------------------------------+-------------+
+| HgClOAfterChem   | HgClO concentration             | mol/mol     |
+|                  | immediately after chemistry     |             |
++------------------+---------------------------------+-------------+
+| HgOHAfterChem    | HgOH concentration              | mol/mol     |
+|                  | immediately after chemistry     |             |
++------------------+---------------------------------+-------------+
+| HgOHOAfterChem   | HgOHO concentration             | mol/mol     |
+|                  | immediately after chemistry     |             |
 +------------------+---------------------------------+-------------+
 
 .. _histguide-mercuryemis:
@@ -2227,15 +2224,6 @@ radionuclide species in the GEOS-Chem TransportTracers simulation.
 | PbFromRnDecay    | Pb\ :sup:`210` created from              | kg/s  |
 |                  | radioactive decay                        |       |
 +------------------+------------------------------------------+-------+
-| RadDecay_Rn222   | Loss of Rn\ :sup:`222`                   | kg/s  |
-|                  | due to readioactive decay                |       |
-+------------------+------------------------------------------+-------+
-| RadDecay_Pb210   | Loss of Pb\ :sup:`210`                   | kg/s  |
-|                  | due to radioactive decay                 |       |
-+------------------+------------------------------------------+-------+
-| RadDecay_Pb210s  | Loss of Pb\ :sup:`210` (produced in the  | kg/s  |
-|                  | stratosphere) due to radioactive decay   |       |
-+------------------+------------------------------------------+-------+
 | RadDecay_Be7     | Loss of Be\ :sup:`7`                     | kg/s  |
 |                  | due to radioactive decay                 |       |
 +------------------+------------------------------------------+-------+
@@ -2247,6 +2235,15 @@ radionuclide species in the GEOS-Chem TransportTracers simulation.
 +------------------+------------------------------------------+-------+
 | RadDecay_Be10s   | Loss of Be\ :sup:`10`  (produced in the  | kg/s  |
 |                  | stratosphere) due to radioactive decay   |       |
++------------------+------------------------------------------+-------+
+| RadDecay_Pb210   | Loss of Pb\ :sup:`210`                   | kg/s  |
+|                  | due to radioactive decay                 |       |
++------------------+------------------------------------------+-------+
+| RadDecay_Pb210s  | Loss of Pb\ :sup:`210` (produced in the  | kg/s  |
+|                  | stratosphere) due to radioactive decay   |       |
++------------------+------------------------------------------+-------+
+| RadDecay_Rn222   | Loss of Rn\ :sup:`222`                   | kg/s  |
+|                  | due to readioactive decay                |       |
 +------------------+------------------------------------------+-------+
 
 .. _histguide-restart:
@@ -2291,26 +2288,21 @@ directory.
 +--------------------+-----------------------------+-----------------+
 | Diagnostic field   | Description                 | Units           |
 +====================+=============================+=================+
-| SpeciesRst\_?ALL?  | Instantaneous chemical      | mol/mol dry air |
-|                    | species concentrations for  |                 |
-|                    | use in starting subsequent  |                 |
-|                    | GEOS-Chem simulations       |                 |
+| Chm_DryDepNitrogen | Dry deposited nitrogen      | molec/cm2/s     |
 +--------------------+-----------------------------+-----------------+
 | Chm_H2O2AfterChem  | Concentration of H2O2 after | v/v             |
 |                    | sulfate chemistry           |                 |
 +--------------------+-----------------------------+-----------------+
-| Chm_SO2AfterChem   | Concentration of SO2 after  | v/v             |
-|                    | sulfate chemistry           |                 |
-+--------------------+-----------------------------+-----------------+
-| Chm_DryDepNitrogen | Dry deposited nitrogen      | molec/cm2/s     |
-+--------------------+-----------------------------+-----------------+
-| Chm_WetDepNitrogen | Wet deposited nitrogen      | molec/cm2/s     |
-+--------------------+-----------------------------+-----------------+
 | Chm_KPPHvalue      | H-value for Rosenbrock      | unitless        |
 |                    | solver                      |                 |
 +--------------------+-----------------------------+-----------------+
+| Chm_SO2AfterChem   | Concentration of SO2 after  | v/v             |
+|                    | sulfate chemistry           |                 |
++--------------------+-----------------------------+-----------------+
 | Chm_StatePSC       | Polar stratospheric cloud   | count           |
 |                    | type                        |                 |
++--------------------+-----------------------------+-----------------+
+| Chm_WetDepNitrogen | Wet deposited nitrogen      | molec/cm2/s     |
 +--------------------+-----------------------------+-----------------+
 | Met_DELPDRY        | Delta-pressure across grid  | hPa             |
 |                    | box (dry air)               |                 |
@@ -2326,6 +2318,11 @@ directory.
 +--------------------+-----------------------------+-----------------+
 | Met_TMPU1          | Instantaneous temperature   | K               |
 |                    | at time=T                   |                 |
++--------------------+-----------------------------+-----------------+
+| SpeciesRst\_?ALL?  | Instantaneous chemical      | mol/mol dry air |
+|                    | species concentrations for  |                 |
+|                    | use in starting subsequent  |                 |
+|                    | GEOS-Chem simulations       |                 |
 +--------------------+-----------------------------+-----------------+
 
 .. _histguide-rrtmg:
@@ -2784,12 +2781,12 @@ The **SpeciesConc** diagnostic collection contains species concentrations.
 +---------------------------+-----------------------+-----------+--------------+
 | Diagnostic field          | Description           | Units     | Wildcards    |
 +===========================+=======================+===========+==============+
-| SpeciesConcVV_<name|wc>   | Species concentration | mol/mol   | can be used  |
-|                           |                       | dry air   | with all     |
-|                           |                       |           | wildcards    |
-+---------------------------+-----------------------+-----------+--------------+
 | SpeciesConcMND_<name|wc>  | Species concentration | molec/cm3 | can be used  |
 |                           |                       |           | with all     |
+|                           |                       |           | wildcards    |
++---------------------------+-----------------------+-----------+--------------+
+| SpeciesConcVV_<name|wc>   | Species concentration | mol/mol   | can be used  |
+|                           |                       | dry air   | with all     |
 |                           |                       |           | wildcards    |
 +---------------------------+-----------------------+-----------+--------------+
 
@@ -2829,32 +2826,32 @@ are stored in the SpeciesConc collection).
 +------------------+---------------------------------+---------------------+
 | Diagnostic field | Description                     | Units               |
 +==================+=================================+=====================+
-| Chm_phSav        | ISORROPIA aerosol pH            | 1                   |
-+------------------+---------------------------------+---------------------+
-| Chm_HplusSav     | ISORROPIA H+ concentration      | M                   |
-+------------------+---------------------------------+---------------------+
-| Chm_WaterSav     | ISORROPIA aerosol water         | :math:`{\mu}g/m3`   |
-+------------------+---------------------------------+---------------------+
-| Chm_SulRatSav    | ISORROPIA sulfate concentration | M                   |
-+------------------+---------------------------------+---------------------+
-| Chm_NaRatSav     | ISORROPIA Na+ concentration     | M                   |
-+------------------+---------------------------------+---------------------+
 | Chm_AcidPurSav   | ISORROPIA acidpur concentration | M                   |
 +------------------+---------------------------------+---------------------+
 | Chm_BiSulSav     | ISORROPIA bisulfate general     | M                   |
 |                  | acid concentration              |                     |
 +------------------+---------------------------------+---------------------+
-| Chm_phCloud      | Cloud pH                        | 1                   |
-+------------------+---------------------------------+---------------------+
-| Chm_SSalk        | Sea salt alkalinity             |                     |
-+------------------+---------------------------------+---------------------+
-| Chm_HSO3AQ       | Cloud bisulfite concentration   | mol/L               |
-+------------------+---------------------------------+---------------------+
-| Chm_SO3AQ        | Cloud sulfite concentration     | mol/L               |
-+------------------+---------------------------------+---------------------+
 | Chm_fupdateHOBr  | Correction factor for HOBr      | mol/L               |
 |                  | removal by SO2                  |                     |
 |                  | grid box (wet air)              |                     |
++------------------+---------------------------------+---------------------+
+| Chm_HplusSav     | ISORROPIA H+ concentration      | M                   |
++------------------+---------------------------------+---------------------+
+| Chm_HSO3AQ       | Cloud bisulfite concentration   | mol/L               |
++------------------+---------------------------------+---------------------+
+| Chm_NaRatSav     | ISORROPIA Na+ concentration     | M                   |
++------------------+---------------------------------+---------------------+
+| Chm_phCloud      | Cloud pH                        | 1                   |
++------------------+---------------------------------+---------------------+
+| Chm_phSav        | ISORROPIA aerosol pH            | 1                   |
++------------------+---------------------------------+---------------------+
+| Chm_SO3AQ        | Cloud sulfite concentration     | mol/L               |
++------------------+---------------------------------+---------------------+
+| Chm_SulRatSav    | ISORROPIA sulfate concentration | M                   |
++------------------+---------------------------------+---------------------+
+| Chm_SSalk        | Sea salt alkalinity             |                     |
++------------------+---------------------------------+---------------------+
+| Chm_WaterSav     | ISORROPIA aerosol water         | :math:`{\mu}g/m3`   |
 +------------------+---------------------------------+---------------------+
 
 .. _histguide-statemet:
@@ -3326,13 +3323,13 @@ The **TOMAS** collection contains diagnostic fields for fullchem simulations wit
 +----------------------------+-------------------------------+---------+----------+
 | Diagnostic field           | Description                   | Units   | Wildcard |
 +============================+===============================+=========+==========+
-| TomasH2SO4                 | Tomas condensation rate       | 1       | [#R]_    |
+| TomasAQOX                  | Tomas aqueous oxidation rate  | 1       | [#R]_    |
 |                            |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
-| TomasH2SO4mass\_\          | TomasH2SO4 mass rate          | kg/kg/s | [#R]_    |
+| TomasAQOXmass\_\           | TomasAQOX mass rate           | kg/kg/s | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
-| TomasH2SO4number\_\        | TomasH2SO4 number rate        | #/kg/s  | [#R]_    |
+| TomasAQOXnumber\_\         | TomasAQOX number rate         | #/kg/s  | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
 | TomasCOAG                  | Tomas coagulation rate        | 1       | [#R]_    |
@@ -3344,26 +3341,16 @@ The **TOMAS** collection contains diagnostic fields for fullchem simulations wit
 | TomasCOAGnumber\_\         | TomasCOAG number rate         | #/kg/s  | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
-| TomasNUCL                  | Tomas nucleation rate         | 1       | [#R]_    |
+| TomasH2SO4                 | Tomas condensation rate       | 1       | [#R]_    |
 |                            |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
-| TomasNUCLmass\_\           | TomasNUCL mass rate           | kg/kg/s | [#R]_    |
+| TomasH2SO4mass\_\          | TomasH2SO4 mass rate          | kg/kg/s | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
-| TomasNUCLnumber\_\         | TomasNUCL number rate         | #/kg/s  | [#R]_    |
-| <name|wc>                  |                               |         |          |
-+----------------------------+-------------------------------+---------+----------+
-| TomasAQOX                  | Tomas aqueous oxidation rate  | 1       | [#R]_    |
-|                            |                               |         |          |
-+----------------------------+-------------------------------+---------+----------+
-| TomasAQOXmass\_\           | TomasAQOX mass rate           | kg/kg/s | [#R]_    |
-| <name|wc>                  |                               |         |          |
-+----------------------------+-------------------------------+---------+----------+
-| TomasAQOXnumber\_\         | TomasAQOX number rate         | #/kg/s  | [#R]_    |
+| TomasH2SO4number\_\        | TomasH2SO4 number rate        | #/kg/s  | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
 | TomasMNFIX                 | Tomas error rate              | 1       | [#R]_    |
-|                            |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
 | TomasMNFIXmass\_\          | TomasMNFIX mass rate          | kg/kg/s | [#R]_    |
 | <name|wc>                  |                               |         |          |
@@ -3371,10 +3358,10 @@ The **TOMAS** collection contains diagnostic fields for fullchem simulations wit
 | TomasMNFIXnumber\_\        | TomasMNFIX number rate        | #/kg/s  | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
-| TomasMNFIXh2so4mass\_\     | TomasMNFIXH2SO4 mass rate     | kg/kg/s | [#R]_    |
+| TomasMNFIXaqoxmass\_\      | TOMASMNFIXAQOX mass rate      | kg/kg/s | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
-| TomasMNFIXh2so4number\_\   | TomasMNFIXH2SO4 number rate   | #/kg/s  | [#R]_    |
+| TomasMNFIXaqoxnumber\_     | TOMASMNFIXAQOX number rate    | #/kg/s  | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
 | TomasMNFIXcoagmass\_\      | TomasMNFIXCOAG mass rate      | kg/kg/s | [#R]_    |
@@ -3383,10 +3370,22 @@ The **TOMAS** collection contains diagnostic fields for fullchem simulations wit
 | TomasMNFIXcoagnumber\_\    | TomasMNFIXCOAG number rate    | #/kg/s  | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
-| TomasMNFIXaqoxmass\_\      | TOMASMNFIXAQOX mass rate      | kg/kg/s | [#R]_    |
+| TomasMNFIXcheck1mass\_\    | TOMASMNFIXCHECK1 mass rate    | kg/kg/s | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
-| TomasMNFIXaqoxnumber\_     | TOMASMNFIXAQOX number rate    | #/kg/s  | [#R]_    |
+| TomasMNFIXcheck1number\_\  | TOMASMNFIXCHECK1 number rate  | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXcheck2mass\_\    | TOMASMNFIXCHECK2 mass rate    | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXcheck2number\_\  | TOMASMNFIXCHECK2 number rate  | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXcheck3mass\_\    | TOMASMNFIXCHECK3 mass rate    | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXcheck3number\_\  | TOMASMNFIXCHECK3 number rate  | #/kg/s  | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
 | TomasMNFIXezwat1mass\_\    | TOMASMNFIXEZWAT1 mass rate    | kg/kg/s | [#R]_    |
@@ -3407,22 +3406,19 @@ The **TOMAS** collection contains diagnostic fields for fullchem simulations wit
 | TomasMNFIXezwat3number\_\  | TOMASMNFIXEZWAT3 number rate  | #/kg/s  | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
-| TomasMNFIXcheck1mass\_\    | TOMASMNFIXCHECK1 mass rate    | kg/kg/s | [#R]_    |
+| TomasMNFIXh2so4mass\_\     | TomasMNFIXH2SO4 mass rate     | kg/kg/s | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
-| TomasMNFIXcheck1number\_\  | TOMASMNFIXCHECK1 number rate  | #/kg/s  | [#R]_    |
+| TomasMNFIXh2so4number\_\   | TomasMNFIXH2SO4 number rate   | #/kg/s  | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
-| TomasMNFIXcheck2mass\_\    | TOMASMNFIXCHECK2 mass rate    | kg/kg/s | [#R]_    |
+| TomasNUCL                  | Tomas nucleation rate         | 1       | [#R]_    |
+|                            |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasNUCLmass\_\           | TomasNUCL mass rate           | kg/kg/s | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
-| TomasMNFIXcheck2number\_\  | TOMASMNFIXCHECK2 number rate  | #/kg/s  | [#R]_    |
-| <name|wc>                  |                               |         |          |
-+----------------------------+-------------------------------+---------+----------+
-| TomasMNFIXcheck3mass\_\    | TOMASMNFIXCHECK3 mass rate    | kg/kg/s | [#R]_    |
-| <name|wc>                  |                               |         |          |
-+----------------------------+-------------------------------+---------+----------+
-| TomasMNFIXcheck3number\_\  | TOMASMNFIXCHECK3 number rate  | #/kg/s  | [#R]_    |
+| TomasNUCLnumber\_\         | TomasNUCL number rate         | #/kg/s  | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
 | TomasSOA                   | TomasSOA rate                 | 1       | [#R]_    |

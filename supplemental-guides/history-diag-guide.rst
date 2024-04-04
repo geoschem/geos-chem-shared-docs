@@ -129,7 +129,7 @@ what is shown below.
 
 In this :file:`HISTORY.rc` file, we are requesting three collections, or
 types of netCDF file output. The table below explains in more detail
-parameters shown in the HISTORY.rc file above.
+parameters shown in the :file:`HISTORY.rc` file above.
 
 :option:`EXPID`
 
@@ -149,7 +149,7 @@ parameters shown in the HISTORY.rc file above.
 :option:`COLLECTIONS:`
 
    The :literal:`COLLECTIONS:` tag specifies all of the diagnostic
-   collections that you wish to activate during a GEOS-Chem
+   **collections** that you wish to activate during a GEOS-Chem
    simulation. Each collection represents a group of diagnostic
    quantities that will be written to disk in netCDF file format. The
    collection name will be automatically added to the netCDF file name
@@ -158,21 +158,22 @@ parameters shown in the HISTORY.rc file above.
    Each GEOS-Chem run directory will ship with its own customized
    :file:`HISTORY.rc` configuration file.  Only the diagnostic
    collections pertaining to a particular GEOS-Chem simulation will be
-   included in the corresponding HISTORY.rc file.
+   included in the corresponding :file:`HISTORY.rc` file.
 
    Each collection name must be bracketed by single quotes, and be
    followed by a comma.
 
    To disable an entire diagnostic collection, simply put a
    :literal:`#` comment character in front of the collection name in
-   the :literal:`COLLECTIONS:`  section.
+   the :literal:`COLLECTIONS:` section.
 
-   GEOS-Chem will expect to find a collection definition section for each
-   of the activated collections listed under the COLLECTIONS: section.
-   In other words, if you have SpeciesConc listed under
-   COLLECTIONS:, but there is no further information provided about the
-   SpeciesConc collection, then GEOS-Chem will halt with an error
-   message.
+   GEOS-Chem will expect to find a collection definition section for
+   each of the activated collections listed under the
+   :literal:`COLLECTIONS:` section.  In other words, if you have
+   :option:`SpeciesConc`  listed under :literal:`COLLECTIONS:`, but
+   there is no further information provided about the
+   :option:`SpeciesConc` collection, then GEOS-Chem will halt with an
+   error message.
 
    .. note::
 
@@ -183,9 +184,7 @@ parameters shown in the HISTORY.rc file above.
 
 :option:`SpeciesConc`
 
-   Name of the first collection in this :file:`HISTORY.rc` file. A
-   **collection** is a series of files containing similar GEOS-Chem
-   diagnostic quantities.
+   Name of the first collection in this :file:`HISTORY.rc` file.
 
 :option:`SpeciesConc.template`
 
@@ -201,21 +200,22 @@ parameters shown in the HISTORY.rc file above.
 
    .. note::
 
-      For example, the complete file path for the SpeciesConc
+      For example, the complete file path for the :option:`SpeciesConc`
       collection at 00:00 UTC on 2020/01/01 will be
-      :file:`./OutputDir/GEOSChem.SpeciesConc.20200101_0000z.nc4`, where:
+      :file:`./OutputDir/GEOSChem.SpeciesConc.20200101_0000z.nc4`,
+      where:
 
       - :option:`EXPID` specifies the filename prefix
         (:file:`./OutputDir/GEOSChem`)
 
-      - :option:`SpeciesConc.template` specifies the filename suffix
-        (:file:`.20200101_0000z.nc4`).
+      - :option:`SpeciesConc.template` specifies the format of the
+	filename suffix (:file:`.20200101_0000z.nc4`).
 
 :option:`SpeciesConc.frequency`
 
    Determines how often the diagnostic quantities belonging to
-   :option:`SpeciesConc` collection will be saved to a netCDF file.
-   This can be specified as either :literal:`hhmmss` or
+   the :option:`SpeciesConc` collection will be saved to a netCDF
+   file. This can be specified as either :literal:`hhmmss` or
    :literal:`YYYYMMDD hhmmss`.
 
    In the above example, data belonging to the collection will be
@@ -225,8 +225,8 @@ parameters shown in the HISTORY.rc file above.
 
 :option:`SpeciesConc.format`
 
-   For GCHP simulations only indicates the I/O library that will be
-   used. This can be omitted for GEOS-Chem "Classic"  simulations.
+   **For GCHP simulations only.** This tag indicates the I/O library that
+   will be used.
 
 :option:`SpeciesConc.duration`
 
@@ -442,9 +442,9 @@ often a new file will be written to disk, as we saw :ref:`above
    SpeciesConcSubset.duration:     00000001 000000     # Write a new file each day
    ConcAfterChem.duration:         00000100 000000     # Write a new file each month
 
-Therefore, based on all of these settings in our example HISTORY.rc
-file, GEOS-Chem will write the following netCDF files to disk in the
-current run directory:
+Therefore, based on all of these settings in our example
+:file:`HISTORY.rc` file, GEOS-Chem will write the following netCDF
+files to disk in the current run directory:
 
 .. code-block:: console
 
@@ -460,7 +460,7 @@ current run directory:
    GEOSChem.ConcAfterChem.20160401_0000z.nc4
    ... etc ...
 
-.. _histgude_vert_coords:
+.. _histgude-vertcoords:
 
 Vertical coordinates in netCDF files
 ------------------------------------
@@ -566,7 +566,7 @@ Diagnostic collections
 
 The diagnostic collections described in the sections below are used by
 default in GEOS-Chem simulations. You can create your own customized
-collections by modifying the HISTORY.rc file.
+collections by modifying the :file:`HISTORY.rc` file.
 
 The only restriction is that you cannot mix data that is placed on grid
 box layer edges in the same collection as data placed on grid box layer
@@ -592,7 +592,8 @@ AdvFluxVert
 The **AdvFluxVert** collection contains diagnostics for vertical
 transport in advection.  In practice, this collection is only used to
 obtain the vertical flux of O3 from GEOS-Chem fullchem benchmark
-simulations.
+simulations.  Most GEOS-Chem users will not need to activate this
+collection.
 
 **Sample definition section for HISTORY.rc**
 
@@ -736,6 +737,53 @@ Aerosols
 The **Aerosols** collection contains diagnostics for aerosol optical
 depth and related quantities from full-chemistry simulations.
 
+.. note::
+
+   Some diagnostic fields in the Aerosols collection may be computed
+   at up to 3 wavelengths (:literal:`WL1`, :literal:`WL2`,
+   :literal:`WL3`) as specified in this menu of the
+   :file:`geoschem_config.yml` file:
+
+   .. code-block:: yaml
+
+       rrtmg_rad_transfer_model:
+           ... etc ...
+	   aod_wavelengths_in_nm:
+           - 550
+
+   For GEOS-Chem simulations that do not use the RRTMG radiative
+   transfer model, you may specify only one wavelength :literal:`WL1`,
+   which is set to a default value of 550 nm.  For GEOS-Chem
+   simulations using RRTMG, you may specify up to 2 more additional
+   wavelengths (:literal:`WL2` and :literal:`WL3`).  GEOS-Chem will
+   replace the tokens :literal:`WL1`, :literal:`WL2`, :literal:`WL3`
+   in diagnostic field names with the corresponding wavelength.
+
+   For example, these diagnostic fields:
+
+   .. code-block::
+
+      AODHygWL1_BCPI
+      AODDustWL1_DST1
+      AODStratLiquidAerWL1
+      AODPolarStratCloudWL1
+      AODSOAfromAqIsopreneWL1
+      AODStratLiquidAerWL1
+      AODPolarStratCloudWL1
+
+   will be saved to the :file:`GEOSChem.Aerosols.YYYYMMDD_hhmmz.nc4`
+   file(s) under these names:
+
+   .. code-block::
+
+      AODHyg550nm_BCPI
+      AODDust550nm_DST1
+      AODStratLiquidAer550nm
+      AODPolarStratCloud550nm
+      AODSOAfromAqIsoprene550nm
+      AODStratLiquidAer550nm
+      AODPolarStratCloud550nm
+
 **Sample definition section for HISTORY.rc**
 
 .. code-block:: kconfig
@@ -760,7 +808,7 @@ depth and related quantities from full-chemistry simulations.
                            'AerSurfAreaPolarStratCloud   ',
                            'Chem_AeroAreaMDUST1          ',
                            'Chem_AeroAreaMDUST2          ',
-                           'Chem_AeroAreaMDUST3'         ',
+                           'Chem_AeroAreaMDUST3          ',
                            'Chem_AeroAreaMDUST4          ',
                            'Chem_AeroAreaMDUST5          ',
                            'Chem_AeroAreaMDUST6          ',
@@ -830,270 +878,303 @@ depth and related quantities from full-chemistry simulations.
 
 **List of diagnostic fields in the Aerosols collection**
 
++----------------------------------+-------------------------+---------+-----------+
+| Diagnostic field                 | Description             | Units   | Wildcard  |
++==================================+=========================+=========+===========+
+| AODDust\ [#X]_                   | Mineral dust optical    | 1       |           |
+|                                  | depth @ WL1             |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| AODDustWL1\_<name|wc>\ [#X]_     | AOD for each dust bin   | 1       | ?DUSTBIN? |
+|                                  | @ WL1                   |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| AODHygWL1\_<name|wc>\ [#X]_      | AOD @ WL1 for aerosol   | 1       | ?HYG?     |
+|                                  | species                 |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| AODSOAfromAqIsopreneWL1\ [#Y]_   | Optical depth of SOA    | 1       |           |
+|                                  | from aqueous isoprene   |         |           |
+|                                  | @ WL1                   |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| AODStratLiquidAerWL1             | Stratospheric liquid    | 1       |           |
+|                                  | optical depth @ WL1     |         |           |
+|                                  |                         |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| AODPolarStratCloudWL1            | Polar stratospheric     | 1       |           |
+|                                  | cloud type 1a/2 optical |         |           |
+|                                  | depth @ WL1             |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| AerHygroscopicGrowth\_<name|wc>\ | Hygroscopic growth      | 1       | ?HYG?     |
+| [#X]_                            | of aerosol species      |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| AerNumDensityStratLiquid         | Stratospheric liquid    | 1/cm3   |           |
+|                                  | aerosol number density  |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| AerNumDensityStratParticulate    | Stratospheric           | 1/cm3   |           |
+|                                  | particulate aerosol     |         |           |
+|                                  | number density          |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| AerAqueousVolume                 | Aqueous aerosol volume  | cm2/cm3 |           |
++----------------------------------+-------------------------+---------+-----------+
+| AerSurfAreaDust                  | Surface area of         | cm2/cm3 |           |
+|                                  | mineral dust            |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| AerSurfAreaHyg\_<name|wc>        | Surface area of         | cm2/cm3 | ?HYG?     |
+|                                  | aerosol species         |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| AerSurfAreaStratLiquid           | Stratospheric liquid    | cm2/cm3 |           |
+|                                  | surface area            |         |           |
+|                                  |                         |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| AerSurfaceAreaPolarStratCloud    | Polar stratospheric     | cm2/cm3 |           |
+|                                  | cloud type 1a/2         |         |           |
+|                                  | surface area            |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroAreaMDUST1\ [#X]_       | Dry aerosol area for    | cm2/cm3 |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.15 :math:`{\mu}m`)   |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroAreaMDUST2\ [#X]_       | Dry aerosol area for    | cm2/cm3 |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.25 :math:`{\mu}m`)   |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroAreaMDUST3\ [#X]_       | Dry aerosol area for    | cm2/cm3 |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.4 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroAreaMDUST4\ [#X]_       | Dry aerosol area for    | cm2/cm3 |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.8 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroAreaMDUST5\ [#X]_       | Dry aerosol area for    | cm2/cm3 |           |
+|                                  | mineral dust            |         |           |
+|                                  | (1.5 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroAreaMDUST6\ [#X]_       | Dry aerosol area for    | cm2/cm3 |           |
+|                                  | mineral dust            |         |           |
+|                                  | (2.5 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroAreaMDUST7\ [#X]_       | Dry aerosol area for    | cm2/cm3 |           |
+|                                  | mineral dust            |         |           |
+|                                  | (4.0 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroAreaSULF\ [#X]_         | Dry aerosol area for    | cm2/cm3 |           |
+|                                  | sulfate aerosol         |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroAreaBC\ [#X]_           | Dry aerosol area for    | cm2/cm3 |           |
+|                                  | black carbon            |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroAreaOC\ [#X]_           | Dry aerosol area for    | cm2/cm3 |           |
+|                                  | organic carbon          |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroAreaSSA\ [#X]_          | Dry aerosol area for    | cm2/cm3 |           |
+|                                  | sea salt aerosol,       |         |           |
+|                                  | accumulation mode       |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroAreaSSC\ [#X]_          | Dry aerosol area for    | cm2/cm3 |           |
+|                                  | sea salt aerosol,       |         |           |
+|                                  | coarse mode             |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroAreaBGSULF              | Dry aerosol area for    | cm2/cm3 |           |
+|                                  | background              |         |           |
+|                                  | stratospheric sulfate   |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroAreaICEI                | Dry aerosol area for    | cm2/cm3 |           |
+|                                  | irregular ice cloud     |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroRadiMDUST1\ [#X]_       | Dry aerosol radius for  | cm      |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.15 :math:`{\mu}m`)   |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroRadiMDUST2\ [#X]_       | Dry aerosol radius for  | cm      |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.25 :math:`{\mu}m`)   |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroRadiMDUST3\ [#X]_       | Dry aerosol radius for  | cm      |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.4 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroRadiMDUST4\ [#X]_       | Dry aerosol radius for  | cm      |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.8 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroRadiMDUST5\ [#X]_       | Dry aerosol radius for  | cm      |           |
+|                                  | mineral dust            |         |           |
+|                                  | (1.5 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroRAdiMDUST6\ [#X]_       | Dry aerosol radius for  | cm      |           |
+|                                  | mineral dust            |         |           |
+|                                  | (2.5 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroRadiMDUST7\ [#X]_       | Dry aerosol radius for  | cm      |           |
+|                                  | mineral dust            |         |           |
+|                                  | (4.0 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroRadiSULF\ [#X]_         | Dry aerosol radius for  | cm      |           |
+|                                  | sulfate aerosol         |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroRadiBC\ [#X]_           | Dry aerosol radius for  | cm      |           |
+|                                  | black carbon            |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroRadiOC\ [#X]_           | Dry aerosol radius for  | cm      |           |
+|                                  | organic carbon          |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroRadiSSA\ [#X]_          | Dry aerosol radius for  | cm      |           |
+|                                  | sea salt aerosol,       |         |           |
+|                                  | accumulation mode       |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroRadiSSC\ [#X]_          | Dry aerosol radius for  | cm      |           |
+|                                  | sea salt aerosol,       |         |           |
+|                                  | coarse mode             |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroRadiBGSULF              | Dry aerosol radius for  | cm      |           |
+|                                  | background              |         |           |
+|                                  | stratospheric sulfate   |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroRadiICEI                | Dry aerosol Radius for  | cm      |           |
+|                                  | irregular ice cloud     |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroAreaMDUST1\ [#X]_    | Wet aerosol area for    | cm2/cm3 |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.15 :math:`{\mu}m`)   |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroAreaMDUST2\ [#X]_    | Wet aerosol area for    | cm2/cm3 |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.25 :math:`{\mu}m`)   |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroAreaMDUST3\ [#X]_    | Wet aerosol area for    | cm2/cm3 |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.4 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroAreaMDUST4\ [#X]_    | Wet aerosol area for    | cm2/cm3 |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.8 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroAreaMDUST5\ [#X]_    | Wet aerosol area for    | cm2/cm3 |           |
+|                                  | mineral dust            |         |           |
+|                                  | (1.5 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroAreaMDUST6\ [#X]_    | Wet aerosol area for    | cm2/cm3 |           |
+|                                  | mineral dust            |         |           |
+|                                  | (2.5 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_AeroAreaMDUST7\ [#X]_       | Dry aerosol area for    | cm2/cm3 |           |
+|                                  | mineral dust            |         |           |
+|                                  | (4.0 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroAreaSULF\ [#X]_      | Wet aerosol area for    | cm2/cm3 |           |
+|                                  | sulfate aerosol         |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroAreaBC\ [#X]_        | Wet aerosol area for    | cm2/cm3 |           |
+|                                  | black carbon            |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroAreaOC\ [#X]_        | Wet aerosol area for    | cm2/cm3 |           |
+|                                  | organic carbon          |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroAreaSSA\ [#X]_       | Wet aerosol area for    | cm2/cm3 |           |
+|                                  | sea salt aerosol,       |         |           |
+|                                  | accumulation mode       |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroAreaSSC\ [#X]_       | Wet aerosol area for    | cm2/cm3 |           |
+|                                  | sea salt aerosol,       |         |           |
+|                                  | coarse mode             |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroAreaBGSULF           | Wet aerosol area for    | cm2/cm3 |           |
+|                                  | background              |         |           |
+|                                  | stratospheric sulfate   |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroAreaICEI             | Wet aerosol area for    | cm2/cm3 |           |
+|                                  | irregular ice cloud     |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroRadiMDUST1\ [#X]_    | Wet aerosol radius for  | cm      |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.15 :math:`{\mu}m`)   |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroRadiMDUST2\ [#X]_    | Wet aerosol radius for  | cm      |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.25 :math:`{\mu}m`)   |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroRadiMDUST3\ [#X]_    | Wet aerosol radius for  | cm      |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.4 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroRadiMDUST4\ [#X]_    | Wet aerosol radius for  | cm      |           |
+|                                  | mineral dust            |         |           |
+|                                  | (0.8 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroRadiMDUST5 \ [#X]_   | Wet aerosol radius for  | cm      |           |
+|                                  | mineral dust            |         |           |
+|                                  | (1.5 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroRAdiMDUST6\ [#X]_    | Wet aerosol radius for  | cm      |           |
+|                                  | mineral dust            |         |           |
+|                                  | (2.5 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroRadiMDUST7\ [#X]_    | Wet aerosol radius for  | cm      |           |
+|                                  | mineral dust            |         |           |
+|                                  | (4.0 :math:`{\mu}m`)    |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroRadiSULF\ [#X]_      | Wet aerosol radius for  | cm      |           |
+|                                  | sulfate aerosol         |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroRadiBC\ [#X]_        | Wet aerosol radius for  | cm      |           |
+|                                  | black carbon            |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroRadiOC\ [#X]_        | Wet aerosol radius for  | cm      |           |
+|                                  | organic carbon          |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroRadiSSA\ [#X]_       | Wet aerosol radius for  | cm      |           |
+|                                  | sea salt aerosol,       |         |           |
+|                                  | accumulation mode       |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroRadiSSC\ [#X]_       | Wet aerosol radius for  | cm      |           |
+|                                  | sea salt aerosol,       |         |           |
+|                                  | coarse mode             |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroRadiBGSULF           | Wet aerosol radius for  | cm      |           |
+|                                  | background              |         |           |
+|                                  | stratospheric sulfate   |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_WetAeroRadiICEI             | Wet aerosol Radius for  | cm      |           |
+|                                  | irregular ice cloud     |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_KhetiSLAN2O5H2O             | Sticking coefficient    | 1       |           |
+|                                  | for N2O5 + H2O rxn      |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_KhetiSLAN2O5HCl             | Sticking coefficient    | 1       |           |
+|                                  | for N2O5 + HCl rxn      |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_KhetiSLACLNO3H2O            | Sticking coefficient    | 1       |           |
+|                                  | for ClNO3 + H2O rxn     |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_KhetiSLACLNO3HCL            | Sticking coefficient    | 1       |           |
+|                                  | for ClNO3 + HCl rxn     |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_KhetiSLACLNO3HBR            | Sticking coefficient    | 1       |           |
+|                                  | for ClNO3 + HBr rxn     |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_KhetiSLABRNO3H2O            | Sticking coefficient    | 1       |           |
+|                                  | for BrNO3 + H2O rxn     |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_KhetiSLABRNO3HCL            | Sticking coefficient    | 1       |           |
+|                                  | for BrNO3 + HCl rxn     |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_KhetiSLAHOCLHCL             | Sticking coefficient    | 1       |           |
+|                                  | for HOCl + HCl rxn      |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_KhetiSLAHOCLHBR             | Sticking coefficient    | 1       |           |
+|                                  | for HOCl + HBr rxn      |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_KhetiSLAHOBRHCL             | Sticking coefficient    | 1       |           |
+|                                  | for HOBr + HCl rxn      |         |           |
++----------------------------------+-------------------------+---------+-----------+
+| Chem_KhetiSLAHOBRHBR             | Sticking coefficient    | 1       |           |
+|                                  | for HOBr + HBr rxn      |         |           |
++----------------------------------+-------------------------+---------+-----------+
 
+.. rubric:: Notes for the Aerosols colletion
 
+.. [#X] Defined for aerosol-only and fullchem simulations.
 
-+---------------------------------+-------------------------+---------+-----------+
-| Diagnostic field                | Description             | Units   | Wildcard  |
-+=================================+=========================+=========+===========+
-| AODDust                         | Mineral dust optical    | 1       |           |
-|                                 | depth @ WL1             |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| AODDustWL1\_<bin|wc>            | AOD for each dust bin   | 1       | ?DUSTBIN? |
-|                                 | @ WL1                   |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| AODHygWL1\_<name|wc>            | AOD @ WL1 for aerosol   | 1       | ?HYG?     |
-|                                 | species                 |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| AODSOAfromAqIsopreneWL1         | Optical depth of SOA    | 1       |           |
-|                                 | from aqueous isoprene   |         |           |
-|                                 | @ WL1                   |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| AODStratLiquidAerWL1            | Stratospheric liquid    | 1       |           |
-|                                 | optical depth @ WL1     |         |           |
-|                                 |                         |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| AODPolarStratCloudWL1           | Polar stratospheric     | 1       |           |
-|                                 | cloud type 1a/2 optical |         |           |
-|                                 | depth @ WL1             |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| AerHygroscopicGrowth\_<name|wc> | Hygroscopic growth      | 1       | ?HYG?     |
-|                                 | of aerosol species      |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| AerNumDensityStratLiquid        | Stratospheric liquid    | 1/cm3   |           |
-|                                 | aerosol number density  |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| AerNumDensityStratParticulate   | Stratospheric           | 1/cm3   |           |
-|                                 | particulate aerosol     |         |           |
-|                                 | number density          |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| AerAqueousVolume                | Aqueous aerosol volume  | cm2/cm3 |           |
-+---------------------------------+-------------------------+---------+-----------+
-| AerSurfAreaDust                 | Surface area of         | cm2/cm3 |           |
-|                                 | mineral dust            |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| AerSurfAreaHyg\_<name|wc>       | Surface area of         | cm2/cm3 | ?HYG?     |
-|                                 | aerosol species         |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| AerSurfAreaStratLiquid          | Stratospheric liquid    | cm2/cm3 |           |
-|                                 | surface area            |         |           |
-|                                 |                         |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| AerSurfaceAreaPolarStratCloud   | Polar stratospheric     | cm2/cm3 |           |
-|                                 | cloud type 1a/2         |         |           |
-|                                 | surface area            |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroAreaMDUST1             | Dry aerosol area for    | cm2/cm3 |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.15 :math:`{\mu}m`)   |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroAreaMDUST2             | Dry aerosol area for    | cm2/cm3 |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.25 :math:`{\mu}m`)   |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroAreaMDUST3             | Dry aerosol area for    | cm2/cm3 |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.4 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroAreaMDUST4             | Dry aerosol area for    | cm2/cm3 |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.8 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroAreaMDUST5             | Dry aerosol area for    | cm2/cm3 |           |
-|                                 | mineral dust            |         |           |
-|                                 | (1.5 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroAreaMDUST6             | Dry aerosol area for    | cm2/cm3 |           |
-|                                 | mineral dust            |         |           |
-|                                 | (2.5 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroAreaMDUST7             | Dry aerosol area for    | cm2/cm3 |           |
-|                                 | mineral dust            |         |           |
-|                                 | (4.0 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroAreaSULF               | Dry aerosol area for    | cm2/cm3 |           |
-|                                 | sulfate aerosol         |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroAreaBC                 | Dry aerosol area for    | cm2/cm3 |           |
-|                                 | black carbon            |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroAreaOC                 | Dry aerosol area for    | cm2/cm3 |           |
-|                                 | organic carbon          |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroAreaSSA                | Dry aerosol area for    | cm2/cm3 |           |
-|                                 | sea salt aerosol,       |         |           |
-|                                 | accumulation mode       |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroAreaSSC                | Dry aerosol area for    | cm2/cm3 |           |
-|                                 | sea salt aerosol,       |         |           |
-|                                 | coarse mode             |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroAreaBGSULF             | Dry aerosol area for    | cm2/cm3 |           |
-|                                 | background              |         |           |
-|                                 | stratospheric sulfate   |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroAreaICEI               | Dry aerosol area for    | cm2/cm3 |           |
-|                                 | irregular ice cloud     |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroRadiMDUST1             | Dry aerosol radius for  | cm      |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.15 :math:`{\mu}m`)   |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroRadiMDUST2             | Dry aerosol radius for  | cm      |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.25 :math:`{\mu}m`)   |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroRadiMDUST3             | Dry aerosol radius for  | cm      |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.4 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroRadiMDUST4             | Dry aerosol radius for  | cm      |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.8 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroRadiMDUST5             | Dry aerosol radius for  | cm      |           |
-|                                 | mineral dust            |         |           |
-|                                 | (1.5 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroRAdiMDUST6             | Dry aerosol radius for  | cm      |           |
-|                                 | mineral dust            |         |           |
-|                                 | (2.5 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroRadiMDUST7             | Dry aerosol radius for  | cm      |           |
-|                                 | mineral dust            |         |           |
-|                                 | (4.0 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroRadiSULF               | Dry aerosol radius for  | cm      |           |
-|                                 | sulfate aerosol         |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroRadiBC                 | Dry aerosol radius for  | cm      |           |
-|                                 | black carbon            |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroRadiOC                 | Dry aerosol radius for  | cm      |           |
-|                                 | organic carbon          |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroRadiSSA                | Dry aerosol radius for  | cm      |           |
-|                                 | sea salt aerosol,       |         |           |
-|                                 | accumulation mode       |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroRadiSSC                | Dry aerosol radius for  | cm      |           |
-|                                 | sea salt aerosol,       |         |           |
-|                                 | coarse mode             |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroRadiBGSULF             | Dry aerosol radius for  | cm      |           |
-|                                 | background              |         |           |
-|                                 | stratospheric sulfate   |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroRadiICEI               | Dry aerosol Radius for  | cm      |           |
-|                                 | irregular ice cloud     |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroAreaMDUST1          | Wet aerosol area for    | cm2/cm3 |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.15 :math:`{\mu}m`)   |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroAreaMDUST2          | Wet aerosol area for    | cm2/cm3 |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.25 :math:`{\mu}m`)   |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroAreaMDUST3          | Wet aerosol area for    | cm2/cm3 |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.4 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroAreaMDUST4          | Wet aerosol area for    | cm2/cm3 |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.8 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroAreaMDUST5          | Wet aerosol area for    | cm2/cm3 |           |
-|                                 | mineral dust            |         |           |
-|                                 | (1.5 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroAreaMDUST6          | Wet aerosol area for    | cm2/cm3 |           |
-|                                 | mineral dust            |         |           |
-|                                 | (2.5 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_AeroAreaMDUST7             | Dry aerosol area for    | cm2/cm3 |           |
-|                                 | mineral dust            |         |           |
-|                                 | (4.0 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroAreaSULF            | Wet aerosol area for    | cm2/cm3 |           |
-|                                 | sulfate aerosol         |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroAreaBC              | Wet aerosol area for    | cm2/cm3 |           |
-|                                 | black carbon            |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroAreaOC              | Wet aerosol area for    | cm2/cm3 |           |
-|                                 | organic carbon          |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroAreaSSA             | Wet aerosol area for    | cm2/cm3 |           |
-|                                 | sea salt aerosol,       |         |           |
-|                                 | accumulation mode       |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroAreaSSC             | Wet aerosol area for    | cm2/cm3 |           |
-|                                 | sea salt aerosol,       |         |           |
-|                                 | coarse mode             |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroAreaBGSULF          | Wet aerosol area for    | cm2/cm3 |           |
-|                                 | background              |         |           |
-|                                 | stratospheric sulfate   |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroAreaICEI            | Wet aerosol area for    | cm2/cm3 |           |
-|                                 | irregular ice cloud     |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroRadiMDUST1          | Wet aerosol radius for  | cm      |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.15 :math:`{\mu}m`)   |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroRadiMDUST2          | Wet aerosol radius for  | cm      |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.25 :math:`{\mu}m`)   |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroRadiMDUST3          | Wet aerosol radius for  | cm      |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.4 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroRadiMDUST4          | Wet aerosol radius for  | cm      |           |
-|                                 | mineral dust            |         |           |
-|                                 | (0.8 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroRadiMDUST5          | Wet aerosol radius for  | cm      |           |
-|                                 | mineral dust            |         |           |
-|                                 | (1.5 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroRAdiMDUST6          | Wet aerosol radius for  | cm      |           |
-|                                 | mineral dust            |         |           |
-|                                 | (2.5 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroRadiMDUST7          | Wet aerosol radius for  | cm      |           |
-|                                 | mineral dust            |         |           |
-|                                 | (4.0 :math:`{\mu}m`)    |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroRadiSULF            | Wet aerosol radius for  | cm      |           |
-|                                 | sulfate aerosol         |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroRadiBC              | Wet aerosol radius for  | cm      |           |
-|                                 | black carbon            |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroRadiOC              | Wet aerosol radius for  | cm      |           |
-|                                 | organic carbon          |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroRadiSSA             | Wet aerosol radius for  | cm      |           |
-|                                 | sea salt aerosol,       |         |           |
-|                                 | accumulation mode       |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroRadiSSC             | Wet aerosol radius for  | cm      |           |
-|                                 | sea salt aerosol,       |         |           |
-|                                 | coarse mode             |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroRadiBGSULF          | Wet aerosol radius for  | cm      |           |
-|                                 | background              |         |           |
-|                                 | stratospheric sulfate   |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-| Chem_WetAeroRadiICEI            | Wet aerosol Radius for  | cm      |           |
-|                                 | irregular ice cloud     |         |           |
-+---------------------------------+-------------------------+---------+-----------+
-
-
-
+.. [#Y] Only defined for fullchem simulation with complex SOA species.
 
 .. _histguide-boundaryconditions:
 
@@ -1272,13 +1353,55 @@ emissions/dry deposition budget diagnostics are fully separated.
 	 emissions and dry deposition below the PBL if using the non-local PBL
 	 mixing scheme (vdiff).
 
+.. _histguide-carbon:
+
+Carbon
+------
+
+The **Carbon** collection contains diagnostic fields specific to the
+GEOS-Chem carbon gases simulation.
+
+**Sample definition section for HISTORY.rc**
+
+.. code-block:: kconfig
+
+     Carbon.template:    '%y4%m2%d2_%h2%n2z.nc4',
+     Carbon.frequency:   00000100 000000
+     Carbon.duration:    00000100 000000
+     Carbon.mode:        'time-averaged'
+     Carbon.fields:      'OHconcAfterChem',
+                         'ProdCOfromCH4  ',
+                         'ProdCOfromNMVOC',
+                         'ProdCO2fromCO  ',
+   ::
+
+**List of diagnostic fields in the Carbon collection**
+
++--------------------+----------------------------------------------+-----------+
+| Diagnostic field   | Description                                  | Units     |
++====================+==============================================+===========+
+| OHconcAfterChem    | OH concentration immediately after chemistry | molec/cm3 |
++--------------------+----------------------------------------------+-----------+
+| ProdCOfromCH4      | Production of CO from CH4                    | molec/cm3 |
++--------------------+----------------------------------------------+-----------+
+| ProdCOfromNMVOC    | Production of CO from non-methane VOCs       | molec/cm3 |
++--------------------+----------------------------------------------+-----------+
+| ProdCO2fromCO      | Production of CO2 from CO oxidation          | molec/cm3 |
++--------------------+----------------------------------------------+-----------+
+
 .. _histguide-ch4:
 
 CH4
 ---
 
 The **CH4** collection contains diagnostics for loss of CH4 and OH
-concentration for the CH4 and carbon simulations.
+concentration for the CH4 simulation.
+
+.. attention::
+
+   This simulation is slated to be replaced by the GEOS-Chem carbon
+   gases simulation.  when this happens, the CH4 collection
+   will be replaced by the :ref:`histguide-carbon` collection.
 
 **Sample definition section for HISTORY.rc**
 
@@ -1339,6 +1462,41 @@ cloud convection.
 |                         |                    |          | ?WET?      |
 +-------------------------+--------------------+----------+------------+
 
+.. _histguide-co:
+
+CO
+---
+
+The **CO** collection contains diagnostic fields for the GEOS-Chem
+tagged CO simulation.
+
+.. attention::
+
+   The tagged CO simulation is slated to be replaced by the
+   GEOS-Chem carbon gases simulation.  When this happens, the CO
+   collection will be replaced with the :ref:`histguide-carbon`
+   collection.
+
+.. code-block::
+
+     CO.template:   '%y4%m2%d2_%h2%n2z.nc4',
+     CO.frequency:  00000100 000000
+     CO.duration:   00000100 000000
+     CO.mode:       'time-averaged'
+     CO.fields:     'ProdCOfromCH4  ',
+                    'ProdCOfromNMVOC',
+   ::
+
+**List of diagnostic fields in the CO collection**
+
++-------------------+----------------------------------------+-------+
+| Diagnostic field  | Description                            | Units |
++===================+========================================+=======+
+| ProdCOfromCH4     | Production of CO from CH4              | kg/s  |
++-------------------+----------------------------------------+-------+
+| ProdCOfromNMVOC   | Production of CO from non-methane VOCs | kg/s  |
++-------------------+----------------------------------------+-------+
+
 .. _histguide-co2:
 
 CO2
@@ -1346,6 +1504,12 @@ CO2
 
 The **CO2** collection contains diagnostic outputs from the GEOS-Chem
 CO2 simulation.
+
+.. attention::
+
+   The CO2 simulation is slated to be replaced by the new GEOS-Chem
+   carbon gases simulation.  When this happens, the CO2 collection
+   will be replaced with the :ref:`histguide-carbon` collection.
 
 .. note::
 
@@ -1504,13 +1668,13 @@ of each species lost to dry-deposition.
 +=======================+===============================+===============+==========+
 | DryDep_<name|wc>      | Total dry deposition flux     | molec/cm2/s   | ?DRY?    |
 +-----------------------+-------------------------------+---------------+----------+
+| DryDepChm_<name|wc>   | Dry deposition flux (computed | molec/cm2/s   | ?DRY?    |
+|                       | in chemistry)                 |               |          |
++-----------------------+-------------------------------+---------------+----------+
 | DryDepMix_<name|wc>   | Dry deposition flux (computed | molec/cm2/s   | ?DRY?    |
 |                       | in the PBL)                   |               |          |
 +-----------------------+-------------------------------+---------------+----------+
 | DryDepVel_<name|wc>   | Dry deposition velocity       | cm/s          | ?DRY?    |
-+-----------------------+-------------------------------+---------------+----------+
-| DryDepMix_<name|wc>   | Dry deposition flux (computed | molec/cm2/s   | ?DRY?    |
-|                       | in chemistry)                 |               |          |
 +-----------------------+-------------------------------+---------------+----------+
 
 .. _histguide-jvalues:
@@ -1526,9 +1690,9 @@ various chemical species, obtained from the photolysis mechanism.
 .. code-block:: kconfig
 
      JValues.template:           '%y4%m2%d2_%h2%n2z.nc4',
-     JValues.frequency:          00000000 010000
-     JValues.duration:           00000000 010000
-     JValues.mode:               'instantaneous'
+     JValues.frequency:          00000100 000000
+     JValues.duration:           00000100 000000
+     JValues.mode:               'time-averaged'
      JValues.fields:             'Jval_?PHO?',
                                  'JvalO3O1D ',
 				 'JvalO3O3P ',
@@ -1554,9 +1718,9 @@ KppARDiags
 ----------
 
 The **KppARDiags** collection contains diagnostics for the KPP
-Rosenbrock solver with mechanism  autoreduction. You may leave this
+Rosenbrock solver with mechanism auto-reduction. You may leave this
 collection disabled unless you are interested in assessing the
-performance of the mechanism auto-reduction in KPP.
+solver's performance.
 
 **Sample definition section for HISTORY.rc**
 
@@ -1730,7 +1894,7 @@ diagnostic outputs for the GEOS-Chem mercury simulation.
 
 +------------------+---------------------------------+-------------+
 | Diagnostic field | Description                     | Units       |
-+================== +=================================+=============+
++==================+=================================+=============+
 | HgBrAfterChem    | HgBr concentration              | mol/mol     |
 |                  | immediately after chemistry     |             |
 +------------------+---------------------------------+-------------+
@@ -1807,25 +1971,25 @@ MercuryOcean
 ------------
 
 The **MercuryOcean** collection contains diagnostics from the mercury
-ocean model, used in GEOS-Chem mercury simulation.
+ocean model, used in the GEOS-Chem mercury simulation.
 
 **Sample definition section for HISTORY.rc**
 
 .. code-block:: kconfig
 
-     MercuryOcean.template:      '%y4%m2%d2_%h2%n2z.nc4',
-     MercuryOcean.frequency:     00000000 040000
-     MercuryOcean.duration:      00000000 040000
-     MercuryOcean.mode:          'time-averaged'
-     MercuryOcean.fields:        'FluxHg0fromAirToOcean    ',
-                                 'FluxHg0fromOceanToAir    ',
-                                 'FluxHg2HgPfromAirToOcean ',
-                                 'FluxHg2toDeepOcean       ',
-                                 'FluxOCtoDeepOcean        ',
-                                 'MassHg0inOcean           ',
-                                 'MassHg2inOcean           ',
-                                 'MassHgPinOcean           ',
-                                 'MassHgTotalInOcean       ',
+     MercuryOcean.template:    '%y4%m2%d2_%h2%n2z.nc4',
+     MercuryOcean.frequency:   00000000 040000
+     MercuryOcean.duration:    00000000 040000
+     MercuryOcean.mode:        'time-averaged'
+     MercuryOcean.fields:      'FluxHg0fromAirToOcean   ',
+                               'FluxHg0fromOceanToAir   ',
+                               'FluxHg2HgPfromAirToOcean',
+                               'FluxHg2toDeepOcean      ',
+                               'FluxOCtoDeepOcean       ',
+                               'MassHg0inOcean          ',
+                               'MassHg2inOcean          ',
+                               'MassHgPinOcean          ',
+                               'MassHgTotalInOcean      ',
    ::
 
 **List of diagnostic fields in the MercuryOcean collection**
@@ -1836,13 +2000,13 @@ ocean model, used in GEOS-Chem mercury simulation.
 | FluxHg0fromAirToOcean    | Deposition flux of Hg0 from | kg/s  |
 |                          | the atmosphere to the ocean |       |
 +--------------------------+-----------------------------+-------+
-| FluxHg0fromOceanToAir    | Volatilizatoin flux of Hg0  | kg/s  |
+| FluxHg0fromOceanToAir    | Volatization flux of Hg0    | kg/s  |
 |                          | from the ocean to the       |       |
 |                          | atmosphere                  |       |
 +--------------------------+-----------------------------+-------+
 | FluxHg2HgPfromAirToOcean | Deposition flux of Hg2 +    | kg/s  |
-|                          | HgP from the atmosphere to  |       |
-|                          | the ocean                   |       |
+|                          | HgP from atmosphere to      |       |
+|                          | ocean                       |       |
 +--------------------------+-----------------------------+-------+
 | FluxHg2toDeepOcean       | Flux of Hg2 sunk to the     | kg/s  |
 |                          | deep ocean                  |       |
@@ -1851,54 +2015,55 @@ ocean model, used in GEOS-Chem mercury simulation.
 +--------------------------+-----------------------------+-------+
 | MassHg2inOcean           | Total mass of oceanic Hg2   | kg    |
 +--------------------------+-----------------------------+-------+
-| MassHgPinOcean           | Total mass of oceanic Hg2   | kg    |
+| MassHgPinOcean           | Total mass of oceanic HgP   | kg    |
 +--------------------------+-----------------------------+-------+
 | MassHgTotalInOcean       | Total mass of all organic   | kg    |
 |                          | mercury                     |       |
 +--------------------------+-----------------------------+-------+
 
-.. _the_metrics_collection:
+.. _histguide-metrics:
 
 Metrics
 -------
 
 The **Metrics** collection contains diagnostics for computing OH metrics
-from a GEOS-Chem full chemistry simulation. To compute the OH metrics,
-you must run the Python script metrics.py that ships with each
-fullchem or CH4 run directory.
+from a GEOS-Chem full chemistry simulation (needed for benchmarking).
+
+To compute the OH metrics, you must run the Python script
+:file:`metrics.py` that ships with each fullchem or CH4 run directory.
 
 **Sample definition section for HISTORY.rc**
 
 .. code-block:: kconfig
 
-     Metrics.template:           '%y4%m2%d2_%h2%n2z.nc4',
-     Metrics.frequency:          'End',
-     Metrics.duration:           'End',
-     Metrics.mode:               'time-averaged'
-     Metrics.fields:             'AirMassColumnFull       ',
-                                 'LossOHbyCH4columnTrop   ',
-                                 'LossOHbyMCFcolumnTrop   ',
-                                 'OHwgtByAirMassColumnFull',
+     Metrics.template:    '%y4%m2%d2_%h2%n2z.nc4',
+     Metrics.frequency:   'End',
+     Metrics.duration:    'End',
+     Metrics.mode:        'time-averaged'
+     Metrics.fields:      'AirMassColumnFull       ',
+                          'LossOHbyCH4columnTrop   ',
+                          'LossOHbyMCFcolumnTrop   ',
+                          'OHwgtByAirMassColumnFull',
    ::
 
 **List of diagnostic fields in the Metrics collection**
 
-+---------------------------+--------------------------------------+------------------+
-| Diagnostic field          | Description                          | Units            |
-+===========================+======================================+==================+
-| AirMassColumnFull         | Air mass column (full atmosphere)    | kg               |
-+---------------------------+--------------------------------------+------------------+
-| LossOHbyCH4columnTrop     | Loss rate of CH4 by OH (tropospheric | molec/cm3        |
-|                           | column sums)                         |                  |
-+---------------------------+--------------------------------------+------------------+
-| LossOHbyMCFcolumnTrop     | Loss rate of CH4 by CH3CCl3 aka MCF  | molec/cm3        |
-|                           | (tropospheric column sums)           |                  |
-+---------------------------+--------------------------------------+------------------+
-| OHwgtByAirMassColumnFull  | Airmass-weighted OH concentration    | kg air/kg OH /m3 |
-|                           | (full atmosphere column sums)        |                  |
-+---------------------------+--------------------------------------+------------------+
++--------------------------+--------------------------------------+-----------+
+| Diagnostic field         | Description                          | Units     |
++==========================+======================================+===========+
+| AirMassColumnFull        | Air mass column (full atmosphere)    | kg        |
++--------------------------+--------------------------------------+-----------+
+| LossOHbyCH4columnTrop    | Loss rate of CH4 by OH (tropospheric | molec/cm3 |
+|                          | column sums)                         |           |
++--------------------------+--------------------------------------+-----------+
+| LossOHbyMCFcolumnTrop    | Loss rate of CH4 by CH3CCl3 aka MCF  | molec/cm3 |
+|                          | (tropospheric column sums)           |           |
++--------------------------+--------------------------------------+-----------+
+| OHwgtByAirMassColumnFull | Airmass-weighted OH concentration    | kg air/\  |
+|                          | (full atmosphere column sums)        | kg OH/m3  |
++--------------------------+--------------------------------------+-----------+
 
-.. _the_prodloss_collection:
+.. _histguide-prodloss:
 
 ProdLoss
 --------
@@ -1935,85 +2100,80 @@ The **ProdLoss** collection contains chemical production and loss rates.
 
 **List of diagnostic fields in the ProdLoss collection**
 
-+---------------------------------+-----------------------------+-----------+
-| Diagnostic field                | Description                 | Units     |
-+=================================+=============================+===========+
-| ProdNITfromHNO3uptakeOnDust\    | P(NIT) from HNO3 uptake     | kg N/s    |
-| [#K]_                           | on dust aerosols            |           |
-+---------------------------------+-----------------------------+-----------+
-| ProdSO2fromOxidationOnDust\     | P(SO2) from DMS+OH          | kg S/s    |
-| [#K]_                           | on dust aerosols            |           |
-+---------------------------------+-----------------------------+-----------+
-| ProdSO4fromUptakeOfH2SO4g\      | P(SO4) from H2SO4 uptake    | kg S/s    |
-| [#K]_                           | on dust aerosols            |           |
-+---------------------------------+-----------------------------+-----------+
-| ProdSO2fromDMSandOH\            | P(SO2) from DMS + OH        | kg S/s    |
-| [#L]_                           |                             |           |
-+---------------------------------+-----------------------------+-----------+
-| ProdSO2fromDMSandNO3\           | P(SO2) from DMS + NO3       | kg S/s    |
-| [#L]_                           |                             |           |
-+---------------------------------+-----------------------------+-----------+
-| ProdSO2fromDMS\ [#L]_           | Total P(SO2) from DMS       | kg S/s    |
-+---------------------------------+-----------------------------+-----------+
-| ProdMSAfromDMS\ [#L]_           | P(MSA) from DMS             | kg S/s    |
-+---------------------------------+-----------------------------+-----------+
-| ProdSO4fromGasPhase\ [#L]_      | P(SO4) in gas phase         | kg S/s    |
-+---------------------------------+-----------------------------+-----------+
-| ProdBCPIfromBCPO\ [#M]_         | Production of hydrophilic   | kg        |
-|                                 | BC from hydrophobic BC      |           |
-+---------------------------------+-----------------------------+-----------+
-| ProdOCPIfromOCPO\ [#M]_         | Production of hydrophilic   | kg        |
-|                                 | OC from hydrophobic OC      |           |
-+---------------------------------+-----------------------------+-----------+
-| ProdSO4fromH2O2inCloud\ [#M]_   | P(SO4) from aqueous         | kg S/s    |
-|                                 | oxidation of H2O2           |           |
-|                                 | in clouds                   |           |
-+---------------------------------+-----------------------------+-----------+
-| ProdSO4fromO2inCloudMetal\      | P(SO4) from aqueous         | kg S/s    |
-| [#M]_                           | oxidation of O2 from        |           |
-|                                 | metals in cloud             |           |
-+---------------------------------+-----------------------------+-----------+
-| ProdSO4fromO3inCloud\ [#M]_     | P(SO4) from aqueous         | kg S/s    |
-|                                 | oxidation of O3 in clouds   |           |
-+---------------------------------+-----------------------------+-----------+
-| ProdSO4fromO3inSeaSalt\ [#M]_   | P(SO4) from O3 in sea salt  | kg S/s    |
-+---------------------------------+-----------------------------+-----------+
-| ProdSO4fromO3s\ [#M]_           | P(SO4) from aqueous phase   | kg S/s    |
-|                                 | SO3-- loss by OH            |           |
-+---------------------------------+-----------------------------+-----------+
-| ProdSO4fromO3s\ [#M]_           | P(SO4) from aqueous phase   | kg S/s    |
-|                                 | SO3-- loss by OH            |           |
-+---------------------------------+-----------------------------+-----------+
-| ProdSO4fromSRO3\ [#M]_          | P(SO4) from sulfur          | kg S/s    |
-|                                 | production rate of O3       |           |
-+---------------------------------+-----------------------------+-----------+
-| LossHNO3onSeaSalt\ [#M]_        | L(HNO3 on sea salt          | kg S/s    |
-|                                 | aerosols                    |           |
-+---------------------------------+-----------------------------+-----------+
-| ProdSO4fromHOBrinCloud\ [#N]_   | P(SO4) from aqueous         | kg S/s    |
-|                                 | oxidation of HOBr in clouds |           |
-+---------------------------------+-----------------------------+-----------+
-| ProdSO4fromSRHOBR\ [#N]_        | P(SO4) from sulfur          | kg S/s    |
-|                                 | production rate of          |           |
-|                                 | HOBr + O3                   |           |
-+---------------------------------+-----------------------------+-----------+
-| ProdCOfromCH4\ [#N]_            | P(CO) from CH4              | molec/cm3 |
-+---------------------------------+-----------------------------+-----------+
-| ProdCOfromNMVOC\ [#N]_          | P(CO) from NMVOCs           | molec/cm3 |
-|                                 | SO3-- loss by OH            |           |
-+---------------------------------+-----------------------------+-----------+
-
-and
-
-+-------------------+-----------------------------+-----------+-----------+
-| Diagnostic field  | Description                 | Units     | Wildcards |
-+===================+=============================+===========+===========+
-| Prod_<name|wc>    | Chemical production for a   | molec/cm3 | ?PRD?     |
-|                   | given species or family     |           |           |
-+-------------------+-----------------------------+-----------+-----------+
-| Loss_<name|wc>    | Chemical loss for a         | molec/cm3 | ?LOS?     |
-|                   | given species or family     |           |           |
-+-------------------+-----------------------------+-----------+-----------+
++------------------------------+-----------------------------+---------+----------+
+| Diagnostic field             | Description                 | Units   | Wildcard |
++==============================+=============================+=========+==========+
+| Loss_<name|wc>               | Chemical loss for a         | molec/\ | ?LOS?    |
+|                              | given species or family     | cm3     |          |
++------------------------------+-----------------------------+---------+----------+
+| LossHNO3onSeaSalt\           | L(HNO3) on sea salt         | kg S/s  |          |
+| [#M]_                        | aerosols                    |         |          |
++------------------------------+-----------------------------+---------+----------+
+| Prod_<name|wc>               | Chemical production for a   | molec/\ | ?PRD?    |
+|                              | given species or family     | cm3     |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdBCPIfromBCPO\            | Production of hydrophilic   | kg      |          |
+| [#M]_                        | BC from hydrophobic BC      |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdCOfromCH4\               | P(CO) from CH4              | molec/\ |          |
+| [#N]_                        |                             | cm3     |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdCOfromNMVOC\             | P(CO) from NMVOCs           | molec/\ |          |
+| [#N]_                        | SO3-- loss by OH            | cm3     |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdOCPIfromOCPO\            | Production of hydrophilic   | kg      |          |
+| [#M]_                        | OC from hydrophobic OC      |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdMSAfromDMS\              | P(MSA) from DMS             | kg S/s  |          |
+| [#L]_                        |                             |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdNITfromHNO3uptakeOnDust\ | P(NIT) from HNO3 uptake     | kg N/s  |          |
+| [#K]_                        | on dust aerosols            |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdSO2fromDMS\ [#L]_        | Total P(SO2) from DMS       | kg S/s  |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdSO2fromDMSandNO3\        | P(SO2) from DMS + NO3       | kg S/s  |          |
+| [#L]_                        |                             |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdSO2fromDMSandOH\         | P(SO2) from DMS + OH        | kg S/s  |          |
+| [#L]_                        |                             |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdSO2fromOxidationOnDust\  | P(SO2) from DMS+OH          | kg S/s  |          |
+| [#K]_                        | on dust aerosols            |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdSO4fromGasPhase\         | P(SO4) in gas phase         | kg S/s  |          |
+| [#L]_                        |                             |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdSO4fromH2O2inCloud\      | P(SO4) from aqueous         | kg S/s  |          |
+| [#M]_                        | oxidation of H2O2           |         |          |
+|                              | in clouds                   |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdSO4fromHOBrinCloud\      | P(SO4) from aqueous         | kg S/s  |          |
+| [#N]_                        | oxidation of HOBr in clouds |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdSO4fromO2inCloudMetal\   | P(SO4) from aqueous         | kg S/s  |          |
+| [#M]_                        | oxidation of O2 from        |         |          |
+|                              | metals in cloud             |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdSO4fromO3inCloud\        | P(SO4) from aqueous         | kg S/s  |          |
+| [#M]_                        | oxidation of O3 in clouds   |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdSO4fromO3inSeaSalt\      | P(SO4) from O3 in sea salt  | kg S/s  |          |
+| [#M]_                        |                             |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdSO4fromO3s\ [#M]_        | P(SO4) from aqueous phase   | kg S/s  |          |
+|                              | SO3-- loss by OH            |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdSO4fromSRHOBR\ [#N]_     | P(SO4) from sulfur          | kg S/s  |          |
+|                              | production rate of          |         |          |
+|                              | HOBr + O3                   |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdSO4fromSRO3\ [#M]_       | P(SO4) from sulfur          | kg S/s  |          |
+|                              | production rate of O3       |         |          |
++------------------------------+-----------------------------+---------+----------+
+| ProdSO4fromUptakeOfH2SO4g\   | P(SO4) from H2SO4 uptake    | kg S/s  |          |
+| [#K]_                        | on dust aerosols            |         |          |
++------------------------------+-----------------------------+---------+----------+
 
 .. rubric:: Notes for the ProdLoss collection
 
@@ -2097,7 +2257,8 @@ Restart
 The **Restart** diagnostic collection contains fields for saving out to
 the GEOS-Chem restart file. This type of diagnostic output is used in
 all GEOS-Chem simulations; therefore, we have listed Restart first in
-the HISTORY.rc files that ship with each GEOS-Chem run directory.
+the :file:`HISTORY.rc` files that ship with each GEOS-Chem run
+directory.
 
 .. note::
 
@@ -2167,16 +2328,215 @@ the HISTORY.rc files that ship with each GEOS-Chem run directory.
 |                    | at time=T                   |                 |
 +--------------------+-----------------------------+-----------------+
 
+.. _histguide-rrtmg:
+
+RRTMG
+-----
+
+The **RRTMG** collection contains radiative flux diagnostics computed
+by the RRTMG radiative transfer model.  You can leave this collection
+disabled unless your simulation uses RRTMG.
+
+.. note::
+
+   You may compute RRTMG diagnostic quantities at up to 3 wavelengths
+   (:literal:`WL1`, :literal:`WL2`, :literal:`WL3`). Specify the
+   wavelengths in this menu of the :file:`geoschem_config.yml` file:
+
+   .. code-block:: yaml
+
+       rrtmg_rad_transfer_model:
+           activate: true
+	   aod_wavelengths_in_nm:
+           - 550 700 1000
+	   ... etc ...
+
+   GEOS-Chem will replace the tokens :literal:`WL1`, :literal:`WL2`,
+   :literal:`WL3` in diagnostic field names with the corresponding
+   wavelength. For example:
+
+   .. code-block::
+
+      RadAODWL1_SU
+      RadAODWL2_SU
+      RadAODWL3_SU
+
+   will be saved to the :file:`GEOSChem.RRTMG.YYYYMMDD_hhmmz.nc4`
+   file(s) under these names:
+
+   .. code-block::
+
+      RadAOD550nm_SU
+      RadAOD700nm_SU
+      RadAOD1000nm_SU
+
+**Sample definition section for HISTORY.rc**
+
+.. code-block:: kconfig
+
+   #==============================================================================
+   # %%%%% THE RRTMG COLLECTION %%%%%
+   #
+   # Outputs for different species from the RRTMG radiative transfer model:
+   # (See http://wiki.geos-chem.org/Coupling_GEOS-Chem_with_RRTMG)
+   #
+   #    0=BA (Baseline    )  1=O3 (Ozone          )   2=ME (Methane   )
+   #    3=SU (Sulfate     )  4=NI (Nitrate        )   5=AM (Ammonium  )
+   #    6=BC (Black carbon)  7=OA (Organic aerosol)   8=SS (Sea Salt  )
+   #    9=DU (Mineral dust) 10=PM (All part. matter) 12=ST (Strat aer., UCX only)
+   #
+   # NOTES:
+   # (1) Only request diagnostics you need to reduce the overall run time.
+   # (2) The ?RRTMG? wildcard includes all output except ST (strat aerosols).
+   #     However, if ST is included explicitly for one diagnostic then it
+   #     will be included for all others that use the wildcard.
+   # (3) Only enable ST if running with UCX.
+   # (4) Optics diagnostics have a reduced set of output species (no BASE, O3, ME)
+   #==============================================================================
+     RRTMG.template:    %y4%m2%d2_%h2%n2z.nc4',
+     RRTMG.frequency:   00000100 000000
+     RRTMG.duration:    00000100 000000
+     RRTMG.mode:        time-averaged'
+     RRTMG.fields:      'RadClrSkyLWSurf_?RRTMG?',
+                        'RadAllSkyLWSurf_?RRTMG?',
+                        'RadClrSkySWSurf_?RRTMG?',
+                        'RadAllSkySWSurf_?RRTMG?',
+                        'RadClrSkyLWTOA_?RRTMG? ',
+                        'RadAllSkyLWTOA_?RRTMG? ',
+                        'RadClrSkySWTOA_?RRTMG? ',
+                        'RadAllSkySWTOA_?RRTMG? ',
+                        'RadAODWL1_?RRTMG?      ',
+                        'RadAsymWL1_?RRTMG?     ',
+   ::
+
+**List of diagnostic fields in the RRTMG collection**
+
++---------------------------+--------------------------------+-------+----------+
+| Diagnostic field          | Description                    | Units | Wildcard |
++===========================+================================+=======+==========+
+| DynHeating                | Dynamic heating rate in        | K/day | ?RRTMG?  |
+|                           | baseline simulation            |       |          |
++---------------------------+--------------------------------+-------+----------+
+| DtRad                     | Temperature change due to      | K     | ?RRTMG?  |
+|                           | radiative heating              |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadAODWL1_<name|wc>       | Aerosol optical depth          | 1     | ?RRTMG?  |
+|                           | computed @ WL1                 |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadAODWL2_<name|wc>       | Aerosol optical depth          | 1     | ?RRTMG?  |
+|                           | computed @ WL2                 |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadAODWL3_<name|wc>       | Aerosol optical depth          | 1     | ?RRTMG?  |
+|                           | computed @ WL3                 |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadAsymWL1_<name|wc>      | Asymmetry parameter            | 1     | ?RRTMG?  |
+|                           | computed @ WL1                 |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadAsymWL2_<name|wc>      | Asymmetry parameter            | 1     | ?RRTMG?  |
+|                           | computed @ WL2                 |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadAsymWL3_<name|wc>      | Asymmetry parameter            | 1     | ?RRTMG?  |
+|                           | computed @ WL3                 |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadAllSkyLWSurf_<name|wc> | All-sky longwave radiation     | W/m2  | ?RRTMG?  |
+|                           | at the surface                 |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadAllSkyLWTOA_<name|wc>  | All-sky longwave radiation     | W/m2  | ?RRTMG?  |
+|                           | at top-of-atmosphere           |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadAllSkyLWTrop_<name|wc> | All-sky longwave radiation     | W/m2  | ?RRTMG?  |
+|                           | at the tropopause              |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadAllSkySWSurf_<name|wc> | All-sky shortwave radiation    | W/m2  | ?RRTMG?  |
+|                           | at the surface                 |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadAllSkySWTOA_<name|wc>  | All-sky shortwave radiation    | W/m2  | ?RRTMG?  |
+|                           | at top-of-atmosphere           |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadAllSkySWTrop_<name|wc> | All-sky shortwave radiation    | W/m2  | ?RRTMG?  |
+|                           | at the tropopause              |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadClrSkyLWSurf_<name|wc> | Clear-sky longwave radiation   | W/m2  | ?RRTMG?  |
+|                           | at the surface                 |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadClrSkyLWTOA_<name|wc>  | Clear-sky longwave radiation   | W/m2  | ?RRTMG?  |
+|                           | at top-of-atmosphere           |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadClrSkyLWTrop_<name|wc> | Clear-sky longwave radiation   | W/m2  | ?RRTMG?  |
+|                           | at the tropopause              |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadClrSkySWSurf_<name|wc> | Clear-sky shortwave radiation  | W/m2  | ?RRTMG?  |
+|                           | at the surface                 |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadClrSkySWTOA_<name|wc>  | Clear-sky shortwave radiation  | W/m2  | ?RRTMG?  |
+|                           | at top-of-atmosphere           |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadClrSkySWTrop_<name|wc> | Clear-sky shortwave radiation  | W/m2  | ?RRTMG?  |
+|                           | at the tropopause              |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadSSAWL1_<name|wc>       | Single-scattering albedo       | 1     | ?RRTMG?  |
+|                           | computed @ WL1                 |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadSSAWL2_<name|wc>       | Single-scattering albedo       | 1     | ?RRTMG?  |
+|                           | computed @ WL2                 |       |          |
++---------------------------+--------------------------------+-------+----------+
+| RadSSAWL3_<name|wc>       | Single-scattering albedo       | 1     | ?RRTMG?  |
+|                           | computed @ WL3                 |       |          |
++---------------------------+--------------------------------+-------+----------+
+
+.. _histguide-rxnconst:
+
+RxnConst
+--------
+
+The **RxnConst** collection contains reaction rate constants from the
+KPP solver.
+
+.. code-block:: kconfig
+
+     # It is best to list individual reactions to avoid using too much memory.
+     # Reactions should be listed as "RxnConst_EQnnn", where nnn is the reaction
+     # index as listed in KPP/fullchem/gckpp_Monitor.F90 (pad zeroes as needed).
+     #
+     # The units of reaction rate constants vary according to the number of reactants
+     # in the reaction.
+     #
+     # Available for the fullchem simulations.
+     RxnConst.template:   '%y4%m2%d2_%h2%n2z.nc4',
+     RxnConst.frequency:  ${RUNDIR_HIST_TIME_AVG_FREQ}
+     RxnConst.duration:   ${RUNDIR_HIST_TIME_AVG_DUR}
+     RxnConst.mode:       'time-averaged'
+     RxnConst.fields:     'RxnConst_EQ001                          ',
+                          'RxnConst_EQ002                          ',
+   ::
+
+**List of diagnostic fields in the RxnRate collection**
+
+Units are
+
++------------------+-----------------------+-------+----------+
+| Diagnostic field | Description           | Units | Wildcard |
++==================+=======================+=======+==========+
+| RxnConst_EQnnn\  | Rate constant for KPP | [#P]_ | ?RXN?    |
+| [#O]_            | reaction ``nnn``      |       |          |
++------------------+-----------------------+-------+----------+
+
+.. rubric:: Notes for the RxnRates collection
+
+.. [#O] See the :file:`gckpp_Monitor.F90` file to get a numbered list of reactions.
+
+.. [#P] Units are :literal:`{ (cm3/molec)**(nreactants-1) }/s`
+
 .. _histguide-rxnrates:
 
 RxnRates
 --------
 
-The **RxnRates** collection contains reaction rates from the chemical
-mechanism (as computed by the KPP-generated solver code). For example,
-in the case of the NO + O\ :sub:`3` → NO\ :sub:`2` + O\ :sub:`2`
-reaction the returned quantity is k[NO][O\ :sub:`3`] in
-molec/cm\ :sup:`3`/s.
+The **RxnRates** collection contains reaction rates *aka equation
+rates) from the chemical mechanism (as computed by the KPP-generated
+solver code). For example, in the case of the NO + O\ :sub:`3` → NO\
+:sub:`2` + O\ :sub:`2` reaction the returned quantity is k[NO][O\
+:sub:`3`] in molec/cm\ :sup:`3`/s.
 
 Here is a sample definition section for the RxnRates collection.
 
@@ -2187,7 +2547,8 @@ Here is a sample definition section for the RxnRates collection.
      #
      # It is best to list individual reactions to avoid using too much memory.
      # Reactions should be listed as "RxnRate_EQnnn", where nnn is the reaction
-     # index as listed in KPP/fullchem/gckpp_Monitor.F90 or KPP/Hg/gckpp_monitor.F90
+     # index as listed in KPP/fullchem/gckpp_Monitor.F90,
+     # KPP/carbon/gckpp_Monitor.F90, and KPP/Hg/gckpp_monitor.F90
      # (pad zeroes as needed)
      #
      RxnRates.template:   '%y4%m2%d2_%h2%n2z.nc4',
@@ -2200,47 +2561,17 @@ Here is a sample definition section for the RxnRates collection.
 
 **List of diagnostic fields in the RxnRate collection**
 
-+---------+---------+---------+---------+---------+-------+---------+
-| Dia     | Desc    | Units   | Wi      | Simu    | Notes | `Bpch   |
-| gnostic | ription |         | ldcards | lations |       | equiv.  |
-| name    |         |         |         |         |       |  <List_ |
-|         |         |         |         |         |       | of_diag |
-|         |         |         |         |         |       | nostics |
-|         |         |         |         |         |       | _archiv |
-|         |         |         |         |         |       | ed_to_b |
-|         |         |         |         |         |       | pch_for |
-|         |         |         |         |         |       | mat>`__ |
-+=========+=========+=========+=========+=========+=======+=========+
-| Diag    |         |         |         |         |       |         |
-| nostics |         |         |         |         |       |         |
-| app     |         |         |         |         |       |         |
-| licable |         |         |         |         |       |         |
-| only to |         |         |         |         |       |         |
-| the     |         |         |         |         |       |         |
-| f       |         |         |         |         |       |         |
-| ullchem |         |         |         |         |       |         |
-| sim     |         |         |         |         |       |         |
-| ulation |         |         |         |         |       |         |
-| with    |         |         |         |         |       |         |
-| the     |         |         |         |         |       |         |
-| aci     |         |         |         |         |       |         |
-| duptake |         |         |         |         |       |         |
-| option  |         |         |         |         |       |         |
-+---------+---------+---------+---------+---------+-------+---------+
-| RxnRat  | Rate    | s\ :s   | -       | -  f    |       |         |
-| e_EQnnn | for     | up:`-1` |   ?RXN? | ullchem |       |         |
-|         | r       |         |         | -  Hg   |       |         |
-|         | eaction |         |         | -       |       |         |
-|         | nnn     |         |         |  carbon |       |         |
-|         | (see    |         |         |         |       |         |
-|         gckpp |         |         |         |       |         |
-|         | _Monito |         |         |         |       |         |
-|         | r.F90 |         |         |         |       |         |
-|         | for the |         |         |         |       |         |
-|         | r       |         |         |         |       |         |
-|         | eaction |         |         |         |       |         |
-|         | number. |         |         |         |       |         |
-+---------+---------+---------+---------+---------+-------+---------+
++-------------------+-------------------------------+-------------+----------+
+| Diagnostic field  | Description                   | Units       | Wildcard |
++===================+===============================+=============+==========+
+| RxnRate_EQnnn\    | Rate for KPP reaction ``nnn`` | molec/cm3/s | ?RXN?    |
+| [#Q]_             |                               |             |          |
+|                   |                               |             |          |
++-------------------+-------------------------------+-------------+----------+
+
+.. rubric:: Notes for the RxnRates collection
+
+.. [#Q] See the :file:`gckpp_Monitor.F90` file to get a numbered list of reactions.
 
 .. _histguide-satdiagn:
 
@@ -2250,6 +2581,14 @@ SatDiagn
 The **SatDiagn** collection contains diagnostic quantities that will
 be sampled within a specified local time range.  This is to mimic the
 overpass sampling times of sun-synchronus satellite instruments.
+
+.. tip::
+
+   Set the the hours (local time) for the averaging interval with:
+
+   .. code-block:: kconfig
+
+      SatDiagn.hrrange:    11.98 15.02
 
 **Sample definition section for HISTORY.rc**
 
@@ -2295,7 +2634,132 @@ overpass sampling times of sun-synchronus satellite instruments.
                           'SatDiagnRxnRate_EQnnn',
    ::
 
-.. _histguide_speciesconc:
+**List of diagnostic fields in the SatDiagn collection**
+
++-------------------------------+-----------------------------+-----------+-----------+
+| Diagnostic field              | Description                 | Units     | Wildcards |
++===============================+=============================+===========+===========+
+| SatDiagnAirDen                | Air density                 | molec/cm3 |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnBoxHeight             | Grid box height             | m         |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnColEmis_<name|wc>     | Column emissions            | kg/m2/s   | ?ADV?     |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnConc_<name|wc>        | Dry mixing ratio of species | mol/mol   | ?ADV?     |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnDryDep_<name|wc>      | Dry deposition flux         | molec/\   | ?DRY?     |
+|                               | of species                  | cm2/s     |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnDryDepVel_<name|wc>   | Dry deposition velocity     | cm/s      | ?DRY?     |
+|                               | of species                  |           |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnGWETROOT              | Root zone soil moisture     | 1         |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnGWETTOP               | Topsoil moisture (or        | 1         |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnJVal_<name|wc>        | Photolysis rate             | 1/s       | ?PHO?     |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnJvalO3O1D             | Photolysis rate for O3      | 1/s       |           |
+|                               | :math:`\rightarrow` O1D     |           |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnJvalO3O3P             | Photolysis rate for O3      | 1/s       |           |
+|                               | :math:`\rightarrow` O1D     |           |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnLoss_<name|wc>        | Chemical loss of species    | molec/\   | ?LOS?     |
+|                               | or families                 | cm3/s     |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnMODISLAI              | MODIS daily LAI             | m2/m2     |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnOH                    | OH number density           | molec/cm3 |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnOHreactivity          | OH reactivity               | 1/s       |           |
+|                               |                             |           |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnPARDF                 | Diffuse photosynthetically  | W/m2      |           |
+|                               | active radiation            |           |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnPARDR                 | Direct photosynthetically   | W/m2      |           |
+|                               | active radiation            |           |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnPBLHeight             | PBL Height                  | m         |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnPBLTop                | PBL Top                     | m         |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnPBLTOPL               | PBL top height              | level     |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnPRECTOT               | Total precipitation at      | mm/day    |           |
+|                               | surface                     |           |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnProd_<name|wc>        | Chemical production of      | molec/\   | ?PRD?     |
+|                               | species or families         | cm3/s     |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnRH                    | Relative humidity           | %         |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnRxnRate_EQnnn         | Rate for chemical reaction  | molec/\   | ?RXN?     |
+|                               | ```nnn```                   | cm3/s     |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnSLP                   | Sea level pressure          | hPa       |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnSPHU                  | Specific humidity           | g H2O/\   |           |
+|                               | interpolated to current     | kg air    |           |
+|                               | time                        |           |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnSurfFlux_<name|wc>    | Total surface fluxes        | kg/m2/s   | ?ADV?     |
+|                               | (emis - drydep) from        |           |           |
+|                               | surface to top of PBL       |           |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnTAir                  | Air temperature             | K         |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnTROPP                 | Tropopause pressure         | hPa       |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnTS                    | Surface temperature at 2m   | K         |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnWetLossConv_<name|wc> | Loss of soluble species in  | kg/s      | ?WET?     |
+|                               | convective updrafts         |           |           |
++-------------------------------+-----------------------------+-----------+-----------+
+| SatDiagnWetLossLS_<name|wc>   | Loss of soluble species in  | kg/s      | ?WET?     |
+|                               | large-scale precipitation   |           |           |
++-------------------------------+-----------------------------+-----------+-----------+
+
+.. histguide-satdiagnedge::
+
+SatDiagnEdge
+------------
+
+The **SatDiagn** collection contains diagnostic quantities (placed on
+level edges) that will be sampled within a specified local time range.
+This is to mimic the overpass sampling times of sun-synchronus
+satellite instruments.
+
+.. tip::
+
+   Set the the hours (local time) for the averaging interval with:
+
+   .. code-block:: kconfig
+
+      SatDiagn.hrrange:    11.98 15.02
+
+**Sample definition section for HISTORY.rc**
+
+.. code-block::
+
+     SatDiagnEdge.template:      '%y4%m2%d2_%h2%n2z.nc4',
+     SatDiagnEdge.frequency:     00000001 000000
+     SatDiagnEdge.duration:      00000100 000000
+     SatDiagnEdge.hrrange:       11.98 15.02
+     SatDiagnEdge.mode:          'time-averaged'
+     SatDiagnEdge.fields:        'SatDiagnConc_PEDGE',
+   ::
+
+**List of diagnostic fields in the SatDiagnEdge collection**
+
++-------------------------------+-----------------------------+-----------+
+| Diagnostic field              | Description                 | Units     |
++===============================+=============================+===========+
+| SatDiagnPEDGE                 | Pressure at grid box edges  | hPa       |
++-------------------------------+-----------------------------+-----------+
+
+.. _histguide-speciesconc:
 
 SpeciesConc
 -----------
@@ -2617,7 +3081,7 @@ quantities that are carried in the State_Met object.
 |                  | met field interval (wet   |                     |
 |                  | air)                      |                     |
 +------------------+---------------------------+---------------------+
-| Met_PS2WET       | Instantaneous surface     | hPa \\              |
+| Met_PS2WET       | Instantaneous surface     | hPa                 |
 |                  | pressure at end of 3-hr   |                     |
 |                  | met field interval (wet   |                     |
 |                  | air)                      |                     |
@@ -2730,6 +3194,284 @@ quantities that are carried in the State_Met object.
 |                  | the troposphere           |                     |
 +------------------+---------------------------+---------------------+
 
+.. _histguide-stratbm:
+
+StratBM
+-------
+
+The **StratBM** collection contains diagnostic fields for GEOS-Chem
+10-year stratospheric benchmark simulations.  Unless you are involved
+with benchmarking GEOS-Chem, you may leave this collection
+deactivated.
+
+**Sample definition section for the StratBM collection**
+
+.. code-block:: kconfig
+
+     StratBM.template:       '%y4%m2%d2_%h2%n2z.nc4',
+     StratBM.frequency:      00000000 010000
+     StratBM.duration:       00000001 000000
+     StratBM.mode:           'time-averaged'
+     StratBM.fields:         'SpeciesConcVV_NO2                 ',
+                             'SpeciesConcVV_O3                  ',
+                             'SpeciesConcVV_ClO                 ',
+                             'Met_PSC2WET                       ',
+                             'Met_BXHEIGHT                      ',
+                             'Met_AIRDEN                        ',
+                             'Met_AD                            ',
+   ::
+
+**List of diagnostic fields in the StateMet collection**
+
++-------------------+---------------------------+-----------------+
+| Diagnostic field  | Description               | Units           |
++===================+===========================+=================+
+| Met_AD            | Dry air mass              | kg              |
++-------------------+---------------------------+-----------------+
+| Met_AIRDEN        | Dry air density           | kg/m3           |
++-------------------+---------------------------+-----------------+
+| Met_BXHEIGHT      | Grid box height           | m               |
++-------------------+---------------------------+-----------------+
+| Met_PSC2WET       | Surface pressure          | hPa             |
+|                   | interpolated to current   |                 |
+|                   | time (wet air)            |                 |
++-------------------+---------------------------+-----------------+
+| SpeciesConcVV_ClO | ClO concentration         | mol/mol dry air |
++-------------------+---------------------------+-----------------+
+| SpeciesConcVV_NO2 | NO2 concentration         | mol/mol dry air |
++-------------------+---------------------------+-----------------+
+| SpeciesConcVV_O3  | O3 concentration          | mol/mol dry air |
++-------------------+---------------------------+-----------------+
+
+.. _histguide-tomas:
+
+Tomas
+-----
+
+The **TOMAS** collection contains diagnostic fields for fullchem simulations with TOMAS aerosol microphysics.
+
+.. note::
+
+.. code-block:: kconfig
+
+     Tomas.template:       '%y4%m2%d2_%h2%n2z.nc4',
+     Tomas.format:         'CFIO',
+     Tomas.timestampStart: .true.
+     Tomas.monthly:        0
+     Tomas.frequency:      010000
+     Tomas.duration:       010000
+     Tomas.mode:           'time-averaged'
+     Tomas.fields:         'TomasH2SO4                        ',
+                           'TomasH2SO4mass_?TOMASBIN?         ',
+                           #----------------------------------------------
+                           # NOTE: for GEOS-Chem Classic you can use the
+			   # ?TOMASBIN? wildcard.  For GCHP you will need
+			   # to list each diagnostic field individually
+			   # such as is shown below:
+                           #'TomasH2SO4mass_bin01             ',
+                           #'TomasH2SO4mass_bin02             ',
+                           #'TomasH2SO4mass_bin03             ',
+                           #'TomasH2SO4mass_bin04             ',
+                           #'TomasH2SO4mass_bin05             ',
+                           #'TomasH2SO4mass_bin06             ',
+                           #'TomasH2SO4mass_bin07             ',
+                           #'TomasH2SO4mass_bin08             ',
+                           #'TomasH2SO4mass_bin09             ',
+                           #'TomasH2SO4mass_bin10             ',
+                           #'TomasH2SO4mass_bin11             ',
+                           #'TomasH2SO4mass_bin12             ',
+                           #'TomasH2SO4mass_bin13             ',
+                           #'TomasH2SO4mass_bin14             ',
+                           #'TomasH2SO4mass_bin15             ',
+                           #----------------------------------------------
+                           'TomasH2SO4number_?TOMASBIN?      ',
+                           'TomasCOAG                        ',
+                           'TomasCOAGmass_?TOMASBIN          ',
+                           'TomasCOAGnumber_?TOMASBIN?       ',
+                           'TomasNUCL                        ',
+                           'TomasNUCRATEFN                   ',
+                           'TomasNUCLmass_?TOMASBIN?         ',
+                           'TomasNUCLnumber_?TOMASBIN?       ',
+                           'TomasNUCRATEnumber_?TOMASBIN?    ',
+                           'TomasAQOX                        ',
+                           'TomasAQOXmass_?TOMASBIN?         ',
+                           'TomasAQOXnumber_?TOMASBIN?       ',
+                           'TomasMNFIX                       ',
+                           'TomasMNFIXmass_?TOMASBIN?        ',
+                           'TomasMNFIXnumber_?TOMASBIN?      ',
+                           'TomasMNFIXh2so4mass_?TOMASBIN?   ',
+                           'TomasMNFIXh2so4number_?TOMASBIN? ',
+                           'TomasMNFIXcoagmass_?TOMASBIN?    ',
+                           'TomasMNFIXcoagnumber_?TOMASBIN?  ',
+                           'TomasMNFIXaqoxmass_?TOMASBIN?    ',
+                           'TomasMNFIXaqoxnumber_?TOMASBIN?  ',
+                           'TomasMNFIXezwat1number_?TOMASBIN?',
+                           'TomasMNFIXezwat2mass_?TOMASBIN?  ',
+                           'TomasMNFIXezwat2number_?TOMASBIN?',
+                           'TomasMNFIXezwat3mass_?TOMASBIN?  ',
+                           'TomasMNFIXezwat3number_?TOMASBIN?',
+                           'TomasMNFIXcheck1mass_?TOMASBIN?  ',
+                           'TomasMNFIXcheck1number_?TOMASBIN?',
+                           'TomasMNFIXcheck2mass_?TOMASBIN?  ',
+                           'TomasMNFIXcheck2number_?TOMASBIN?',
+                           'TomasMNFIXcheck3mass_?TOMASBIN?  ',
+                           'TomasMNFIXcheck3number_?TOMASBIN?',
+                           'TomasSOA                         ',
+                           'TomasSOAmass_?TOMASBIN?          ',
+                           'TomasSOAnumber_?TOMASBIN?        ',
+   ::
+
+**List of diagnostic fields for the Tomas collection**
+
++----------------------------+-------------------------------+---------+----------+
+| Diagnostic field           | Description                   | Units   | Wildcard |
++============================+===============================+=========+==========+
+| TomasH2SO4                 | Tomas condensation rate       | 1       | [#R]_    |
+|                            |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasH2SO4mass\_\          | TomasH2SO4 mass rate          | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasH2SO4number\_\        | TomasH2SO4 number rate        | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasCOAG                  | Tomas coagulation rate        | 1       | [#R]_    |
+|                            |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasCOAGmass\_\           | TOMASCOAG mass rate           | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasCOAGnumber\_\         | TomasCOAG number rate         | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasNUCL                  | Tomas nucleation rate         | 1       | [#R]_    |
+|                            |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasNUCLmass\_\           | TomasNUCL mass rate           | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasNUCLnumber\_\         | TomasNUCL number rate         | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasAQOX                  | Tomas aqueous oxidation rate  | 1       | [#R]_    |
+|                            |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasAQOXmass\_\           | TomasAQOX mass rate           | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasAQOXnumber\_\         | TomasAQOX number rate         | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIX                 | Tomas error rate              | 1       | [#R]_    |
+|                            |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXmass\_\          | TomasMNFIX mass rate          | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXnumber\_\        | TomasMNFIX number rate        | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXh2so4mass\_\     | TomasMNFIXH2SO4 mass rate     | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXh2so4number\_\   | TomasMNFIXH2SO4 number rate   | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXcoagmass\_\      | TomasMNFIXCOAG mass rate      | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXcoagnumber\_\    | TomasMNFIXCOAG number rate    | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXaqoxmass\_\      | TOMASMNFIXAQOX mass rate      | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXaqoxnumber\_     | TOMASMNFIXAQOX number rate    | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXezwat1mass\_\    | TOMASMNFIXEZWAT1 mass rate    | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXezwat1number\_\  | TOMASMNFIXEZWAT1 number rate  | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXezwat2mass\_\    | TOMASMNFIXEZWAT2 mass rate    | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXezwat2number\_\  | TOMASMNFIXEZWAT2 number rate  | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXezwat3mass\_\    | TOMASMNFIXEZWAT3 mass rate    | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXezwat3number\_\  | TOMASMNFIXEZWAT3 number rate  | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXcheck1mass\_\    | TOMASMNFIXCHECK1 mass rate    | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXcheck1number\_\  | TOMASMNFIXCHECK1 number rate  | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXcheck2mass\_\    | TOMASMNFIXCHECK2 mass rate    | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXcheck2number\_\  | TOMASMNFIXCHECK2 number rate  | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXcheck3mass\_\    | TOMASMNFIXCHECK3 mass rate    | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasMNFIXcheck3number\_\  | TOMASMNFIXCHECK3 number rate  | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasSOA                   | TomasSOA rate                 | 1       | [#R]_    |
+|                            |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasSOAmass\_\            | TomasSOA mass rate            | kg/kg/s | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+| TomasSOAnumber\_\          | TomasSOA number rate          | #/kg/s  | [#R]_    |
+| <name|wc>                  |                               |         |          |
++----------------------------+-------------------------------+---------+----------+
+
+.. rubric:: Notes for the Tomas collection
+
+.. [#R] This diagnostic field can use the ?TOMASBIN? wildcard (for GEOS-Chem Classic only).
+
+.. _histguide-uvflux:
+
+UVFlux
+------
+
+The **UVFlux** diagnostic contains diffuse, direct, and net UV fluxes
+at each of the photolysis wavelength bins.
+
+**Sample definition section for HISTORY.rc**
+
+.. code-block:: kconfig
+
+     UVFlux.template:    '%y4%m2%d2_%h2%n2z.nc4',
+     UVFlux.frequency:   00000100 000000
+     UVFlux.duration:    00000100 000000
+     UVFlux.mode:        'time-averaged'
+     UVFlux.template:    'UVFluxDiffuse_?UVFLX?',
+                         'UVFluxDirect_?UVFLX? ',
+                         'UVFluxNet_?UVFLX?    ',
+   ::
+
+**List of diagnostic fields in the UvFlux collection**
+
++--------------------------+-----------------------------------+-------+-----------+
+| Diagnostic field         | Description                       | Units | Wildcards |
++==========================+===================================+=======+===========+
+| UVFluxDiffuse_<name|wc>  | Diffuse UV flux in wavelength bin | W/m2  | ?UVFLX?   |
++--------------------------+-----------------------------------+-------+-----------+
+| UVFluxDirect_<name|wc>   | Direct UV flux in wavelength bin  | W/m2  | ?UVFLX?   |
++--------------------------+-----------------------------------+-------+-----------+
+| UVFluxNet_<name|wc>      | Net UV flux in wavelength bin     | W/m2  | ?UVFLX?   |
++--------------------------+-----------------------------------+-------+-----------+
+
 .. _histguide-wetlossconv:
 
 WetLossConv
@@ -2792,7 +3534,7 @@ species lost to rainout and washout in large-scale wet deposition.
 |                     | in large-scale precipitation |       |          |
 +---------------------+------------------------------+-------+----------+
 
-.. _histguide-adding-new-diags:
+.. _histguide-add-new-diags:
 
 ==============================
 Adding new History diagnostics

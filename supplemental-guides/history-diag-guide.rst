@@ -8,8 +8,6 @@
 Archive output with the History diagnostics
 ###########################################
 
-.. _histguide-example:
-
 ============
 Introduction
 ============
@@ -26,6 +24,8 @@ History.
    <https://hemco.readthedocs.io/en/latesthco-ref-guide/diagnostics.html>`_
    chapter of `The HEMCO User's Guide <https://hemco.readthedocs.io>`_
    more information.
+
+.. _histguide-configfile:
 
 The HISTORY.rc configuration file
 ---------------------------------
@@ -619,7 +619,7 @@ collection.
 
 .. [#A] Only defined for GEOS-Chem Classic simulations.
 
-.. _histguide-aerosolmass
+.. _histguide-aerosolmass:
 
 AerosolMass
 -----------
@@ -2718,7 +2718,7 @@ overpass sampling times of sun-synchronus satellite instruments.
 |                               | large-scale precipitation   |           |           |
 +-------------------------------+-----------------------------+-----------+-----------+
 
-.. histguide-satdiagnedge::
+.. _histguide-satdiagnedge:
 
 SatDiagnEdge
 ------------

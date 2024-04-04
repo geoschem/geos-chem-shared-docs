@@ -134,7 +134,7 @@ parameters shown in the :file:`HISTORY.rc` file above.
 :option:`EXPID`
 
    This parameter controls the filename prefix. :ref:`In this example,
-   <histguide-sample>`, :literal:`EXPID` is set to
+   <histguide-configfile>`, :literal:`EXPID` is set to
    :file:`./OutputDir/GEOSChem` by default.  This means that all
    diagnostic files will be written to the :file:`./OutputDir`
    subdirectory of the GEOS-Chem run directory, and will start with
@@ -434,7 +434,7 @@ e.g.
 
 The duration tag of each collection in :file:`HISTORY.rc` controls how
 often a new file will be written to disk, as we saw :ref:`above
-<histtguide-example>`:
+<histtguide-configfile>`:
 
 .. code-block:: none
 

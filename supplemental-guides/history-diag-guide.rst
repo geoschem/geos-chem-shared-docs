@@ -78,7 +78,7 @@ what is shown below.
    #==============================================================================
    SpeciesConc.template:           '%y4%m2%d2_%h2%n2z.nc4',
    SpeciesConc.frequency:          00000000 060000
-   SpeciesConc.frequency:          00000001 000000
+   SpeciesConc.duration :          00000001 000000
    SpeciesConc.format:             'CFIO',
    SpeciesConc.mode:               'instantaneous',
    SpeciesConc.fields:             'SpeciesConcVV_?ADV?',

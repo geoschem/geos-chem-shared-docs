@@ -21,9 +21,11 @@ History.
 
    HEMCO has its own diagnostic archiving capability.  Please see the
    `HEMCO diagnostics
-   <https://hemco.readthedocs.io/en/latesthco-ref-guide/diagnostics.html>`_
+   <https://hemco.readthedocs.io/en/latest/hco-ref-guide/diagnostics.html>`_
    chapter of `The HEMCO User's Guide <https://hemco.readthedocs.io>`_
-   more information.
+   more information. Note that HEMCO diagnostics are configured
+   from configuration file :file:`HEMCO_Diagn.rc` for both GCHP and GEOS-Chem Classic
+   but diagnostics are also specified in :file:`HISTORY.rc` for GCHP only.
 
 .. _histguide-configfile:
 
@@ -34,14 +36,15 @@ You can request GEOS-Chem diagnostics by editing the
 :file:`HISTORY.rc` configuration file.  This file lists the groups of
 diagnostic outputs (called **collections**), and the parameters for
 each collection (frequency of archival, mode of archiving, fields per
-collection, etc.). GEOS-Chem will write netCDF files for each
+collection, etc.). GEOS-Chem Classic will write netCDF files for each
 collection at the output intervals that you specify in
-:file:`HISTORY.rc`.
+:file:`HISTORY.rc`. If using GCHP this is done by the MAPL History component
+also using configuration file :file:`HISTORY.rc`.
 
 The following is a stripped-down :file:`HISTORY.rc` file example for
 illustration purposes.  The :file:`HISTORY.rc` file that you will find
 in your GEOS-Chem run directory will contain more collections than
-what is shown below.
+what is shown below. This example is for GEOS-Chem Classic.
 
 .. code-block:: kconfig
 
@@ -257,9 +260,13 @@ parameters shown in the :file:`HISTORY.rc` file above.
 
    .. note::
 
-      For GCHP, each diagnostic field must be followed by
-      :literal:`'GCHPchem',`.  This indicates the ESMF Gridded
-      Component to which the diagnostics belong.
+      For GCHP, each diagnostic field must be followed by the name of the
+      ESMF gridded component that it is associated with. For arrays in GEOS-Chem
+      objects State_Met, State_Chm, and State_Diag this is
+      :literal:`'GCHPchem',`. A few diagnostics may also be output from
+      the advection component of GCHP which has ESMF gridded component
+      name :literal:`DYNAMICS`.
+
 
    If you are using GEOS-Chem Classic,you may also use a
    :ref:`wildcard <histguide-wildcards>` to specify a given category
@@ -470,8 +477,8 @@ restart files) adhere to the :ref:`the COARDS netCDF convention
 <coards-guide>`. for the lon, lat, and time dimensions.
 
 For the vertical dimension, we have chosen to use the following
-coordinate variables, emulating the file format of the NCAR Community
-Earth System Model (CESM):
+coordinate variables to include in GEOS-Chem Classic output files,
+emulating the file format of the NCAR Community Earth System Model (CESM):
 
 .. code-block:: console
 
@@ -558,6 +565,14 @@ box (I,J,L), you will need to supply your own 2-D surface pressure field
    Pbot = ( hyai(L  ) * PS(I,J) ) + hybi(L  )
    Ptop = ( hyai(L+1) * PS(I,J) ) + hybi(L+1)
 
+GCHP history files contain simply the lev coordinate which is the level index of the model.
+Level 1 corresponds to surface for all diagnostics retrieved from GEOS-Chem
+arrays State_Met, State_Diag, and State_Chm. These include all diagnostics
+that have prefix :literal:`Met_` or :literal:`Chm_` as well as all other
+:literal:`GCHPchem` diagnostics that do not begin with :literal:`Emis`.
+Diagnostics that begin with :literal:`Emis` or that have gridded component
+name other than :literal:`GCHPchem` have Level 1 correspond to top-of-atmosphere.
+
 .. _histguide-collections:
 
 ======================
@@ -590,8 +605,8 @@ AdvFluxVert
 -----------
 
 The **AdvFluxVert** collection contains diagnostics for vertical
-transport in advection.  In practice, this collection is only used to
-obtain the vertical flux of O3 from GEOS-Chem fullchem benchmark
+transport in GEOS-Chem Classic advection.  In practice, this collection is only used to
+obtain the vertical flux of O3 from GEOS-Chem Classic fullchem benchmark
 simulations.  Most GEOS-Chem users will not need to activate this
 collection.
 
@@ -611,13 +626,9 @@ collection.
 +------------------------------+---------------------------+-------+-----------+
 | Diagnostic field             | Description               | Units | Wildcards |
 +==============================+===========================+=======+===========+
-| AdvFluxVert_<name|wc> [#A]_  | Vertical flux of species  | kg/s  |  ?ADV?    |
+| AdvFluxVert_<name|wc>        | Vertical flux of species  | kg/s  |  ?ADV?    |
 |                              | in advection              |       |           |
 +------------------------------+---------------------------+-------+-----------+
-
-.. rubric:: Footnotes
-
-.. [#A] Only defined for GEOS-Chem Classic simulations.
 
 .. _histguide-aerosolmass:
 
@@ -1233,14 +1244,19 @@ the mass change across a longer chunk of time by multiplying the
 time-averaged output by the number of seconds in the averaging period.
 
 While there are seven major components in GEOS-Chem, there are only six
-implemented for the budget diagnostics. Emissions and dry deposition
-components are combined together for this diagnostic because of the way
-they are applied at the same time. Furthermore, if using non-local PBL
-mixing then the emissions and dry deposition budget diagnostic will not
-capture all fluxes from these sources and sinks. This is because
-emissions and dry deposition tendencies below the PBL are applied within
-mixing instead. When using full mixing, however, mixing and
-emissions/dry deposition budget diagnostics are fully separated.
+implemented for the budget diagnostics: chemistry, mixing, convection,
+transport (GEOS-Chem Classic only), wet deposition, and combined emissions
+and dry deposition.
+
+.. attention::
+
+   Emissions and dry deposition components are combined together for this
+   diagnostic because of the way they are applied at the same time. Furthermore,
+   if using non-local PBL mixing then the emissions and dry deposition budget
+   diagnostic will not capture all fluxes from these sources and sinks. This is
+   because emissions and dry deposition tendencies below the PBL are applied within
+   mixing instead. When using full mixing, however, mixing and
+   emissions/dry deposition budget diagnostics are fully separated.
 
 **Sample definition section for HISTORY.rc**
 
@@ -1314,14 +1330,14 @@ emissions/dry deposition budget diagnostics are fully separated.
 +---------------------------------------+---------------------------------+----------+
 | BudgetMixingTrop_<name|wc>\ [#G]_     | PBL mixing (troposphere only)   | ?ADV?    |
 +---------------------------------------+---------------------------------+----------+
-| BudgetTransportFull_<name|wc>         | Transport (full attmosphere)    | ?ADV?    |
+| BudgetTransportFull_<name|wc>\ [#H]_  | Transport (full attmosphere)    | ?ADV?    |
 +---------------------------------------+---------------------------------+----------+
 | BudgetTransportLevs1to35_<name|wc>\   | Transport (fixed level range)   | ?ADV?    |
-| [#E]_                                 |                                 |          |
+| [#E]_  [#H]_                          |                                 |          |
 +---------------------------------------+---------------------------------+----------+
-| BudgetTransportPBL_<name|wc>          | Transport (PBL only)            | ?ADV?    |
+| BudgetTransportPBL_<name|wc>\ [#H]_   | Transport (PBL only)            | ?ADV?    |
 +---------------------------------------+---------------------------------+----------+
-| BudgetTransportTrop_<name|wc>         | Transport (troposphere only)    | ?ADV?    |
+| BudgetTransportTrop_<name|wc>\ [#H]_  | Transport (troposphere only)    | ?ADV?    |
 +---------------------------------------+---------------------------------+----------+
 | BudgetWetDepFull_<name|wc>            | Wet deposition                  | ?WET?    |
 |                                       | (full atmosphere)               |          |
@@ -1349,6 +1365,8 @@ emissions/dry deposition budget diagnostics are fully separated.
 .. [#G] The mixing budget diagnostics includes the application of
 	 emissions and dry deposition below the PBL if using the non-local PBL
 	 mixing scheme (vdiff).
+
+.. [#H] GEOS-Chem Classic only
 
 .. _histguide-carbon:
 
@@ -2252,10 +2270,11 @@ Restart
 -------
 
 The **Restart** diagnostic collection contains fields for saving out to
-the GEOS-Chem restart file. This type of diagnostic output is used in
-all GEOS-Chem simulations; therefore, we have listed Restart first in
-the :file:`HISTORY.rc` files that ship with each GEOS-Chem run
-directory.
+the GEOS-Chem Classic restart file. This type of diagnostic output is used in
+all GEOS-Chem Classic simulations; therefore, we have listed Restart first in
+the :file:`HISTORY.rc` files that ship with each GEOS-Chem run directory. Note
+that GCHP restart files are not handled by the MAPL History component and therefore
+do not appear in :file:`HISTORY.rc`.
 
 .. note::
 
@@ -3572,10 +3591,10 @@ all instances of code related to their implementation.
 Note that information about the dimensions and species collection the
 diagnostic will include must be specified when allocating the array in
 :code:`Init_State_Diag` and in :code:`Get_Metadata_State_Diag`. In the
-lattersubroutine the :code:`Rank` is the integer number of dimensions
+latter subroutine the :code:`Rank` is the integer number of dimensions
 of the diagnostic (not including species) and the :code:`TagID`
 string, if any, specifies the species collection to output the
-diagnostic per. :code:`TagID`\s are defined in subroutine
+diagnostic per. Each :code:`TagID` is defined in subroutine
 Get_TagInfo. Each TagID string can also be used as a wildcard within
 :file:`HISTORY.rc` to simplify diagnostic name specification (for
 GEOS-Chem Classic only).

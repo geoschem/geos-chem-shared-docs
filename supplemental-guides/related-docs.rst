@@ -26,7 +26,7 @@ View related documentation
    +--------------------------------+-------------------------------+--------------------------------------------+
    | Software                       | Maintained by                 |  Documentation and contact info            |
    +================================+===============================+============================================+
-   | GEOS-Chem Classic              | `GCST <htts://geos-chem.org/  | `geos-chem.readthedocs.io                  |
+   | GEOS-Chem Classic              | `GCST <http://geos-chem.org/  | `geos-chem.readthedocs.io                  |
    |                                | support-team.html>`_          | <https://geos-chem.readthedocs.io>`_       |
    +--------------------------------+-------------------------------+--------------------------------------------+
    | GCHP                           | GCST                          | `gchp.readthedocs.io                       |
@@ -34,9 +34,6 @@ View related documentation
    +--------------------------------+-------------------------------+--------------------------------------------+
    | HEMCO                          | GCST                          | `hemco.readthedocs.io                      |
    |                                |                               | <https://hemco.readthedocs.io>`_           |
-   +--------------------------------+-------------------------------+--------------------------------------------+
-   | GEOS-Chem on the cloud         | GCST                          | `geos-chem-cloud.readthedocs.io            |
-   |                                |                               | <https://geos-chem-cloud.readthedocs.io>`_ |
    +--------------------------------+-------------------------------+--------------------------------------------+
    | GCPy (Python toolkit)          | GCST                          | `gcpy.readthedocs.io                       |
    |                                |                               | <https://gcpy.readthedocs.io>`_            |
@@ -55,15 +52,18 @@ View related documentation
    +--------------------------------+-------------------------------+--------------------------------------------+
 
 
-.. table:: **User manual archives for unsupported legacy software**
+.. table:: **Legacy documentation archives**
    :align: center
 
-   +-------------------------------------+-----------------------------------------------------------+
-   | Legacy Software                     |  Documentation archive                                    |
-   +=====================================+===========================================================+
-   | Unsupported GEOS-Chem Classic       | `geoschem.github.io/gcclassic-manpage-archive             |
-   | versions (prior to 13.0.0)          | <https://geoschem.github.io/gcclassic-manpage-archive>`_  |
-   +-------------------------------------+-----------------------------------------------------------+
-   | GAMAP (superseded by GCPy)          | `geoschem.github.io/gamap-manual                          |
-   |                                     | <https://geoschem.github.io/gamap-manual>`_               |
-   +-------------------------------------+-----------------------------------------------------------+
+   +------------------------------+----------------------------------------------------------+
+   | Legacy Code or Documentation | Archives                                                 |
+   +==============================+==========================================================+
+   | Unsupported versions         | `geoschem.github.io/gcclassic-manpage-archive            |
+   | (prior to 13.0.0)            | <https://geoschem.github.io/gcclassic-manpage-archive>`_ |
+   +------------------------------+----------------------------------------------------------+
+   | GAMAP (superseded by GCPy)   | `geoschem.github.io/gamap-manual                         |
+   |                              | <https://geoschem.github.io/gamap-manual>`_              |
+   +------------------------------+----------------------------------------------------------+
+   | Deprecated GEOS-Chem         | `GEOS-Chem Wiki archives                                 |
+   | wiki content                 | <http://wiki.geos-chem.org/GEOS_Chem_Wiki_Archives>`_    |
+   +------------------------------+----------------------------------------------------------+

@@ -77,7 +77,7 @@ This command will copy the data to your current path.
 Using the data in GEOS-Chem
 =======================
 
-By following this tutorial, you can access and download the GEOS-Chem Input Data on AWS. Next, you can follow the normal `GEOS-Chem Classic <https://geos-chem.readthedocs.io/en/stable/getting-started/quick-start.html>`_ or `GCHP <https://gchp.readthedocs.io/en/stable/getting-started/quick-start.html>`_ user guide to use the data. 
+By following this tutorial, you can access and download the GEOS-Chem Input Data on AWS. Next, you can follow the normal `GEOS-Chem Classic <https://geos-chem.readthedocs.io/en/latest/getting-started/quick-start.html>`_ or `GCHP <https://gchp.readthedocs.io/en/latest/getting-started/quick-start.html>`_ user guide to use the data. 
 
 
 .. _gchp_on_aws:

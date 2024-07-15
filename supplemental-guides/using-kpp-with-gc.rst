@@ -526,7 +526,8 @@ the :code:`PHOTOL` array. This index can be determined by inspecting the file
 .. tip::
 
    See the photolysis section of :file:`geoschem_config.yml` to
-   determine the folder in which :file:`FJX_j2j.dat` is located.
+   determine the path to the :file:`cloudj_input_dir` folder in which
+   the :file:`FJX_j2j.dat` and :file:`FJX_spec.dat` files are stored.
 
 For example, one branch of the :math:`NO_3` photolysis reaction is specified in
 the :file:`custom.eqn` file as
@@ -546,8 +547,9 @@ If your reaction is not already in :file:`FJX_j2j.dat`, you may add it
 there. You may also need to modify :file:`FJX_spec.dat` (in the same
 folder ast :file:`FJX_j2j.dat`) to include cross-sections for your
 species. Note that if you add new reactions to :file:`FJX_j2j.dat` you
-will also need to set the parameter :code:`JVN_` in GEOS-Chem module
-:file:`Headers/CMN_FJX_MOD.F90` to match the total number of entries.
+will also need to set the parameter :code:`JVN_` in Cloud-J module
+:file:`Cloud-J/src/Core/cldj_cmn_mod.F90` to match the total number of
+entries.
 
 If your reaction involves new cross section data, you will need to
 follow an additional set of steps. Specifically, you will need to:

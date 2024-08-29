@@ -198,8 +198,8 @@ variable that you defined in the :ref:`previous step <spackguide-model>`.
    proven to work together.  You should not have to change any of
    the settings in :literal:`${scope_dir}/packages.yaml`.
 
-   As of this writing, the default compiler is `gcc 10.2.0
-   <https://gcc.gnu.org/onlinedocs/10.2.0/>`_ (includes C, C++, and
+   As of this writing, the default compiler is `gcc 12.2.0
+   <https://gcc.gnu.org/onlinedocs/12.2.0/>`_ (includes C, C++, and
    Fortran compilers).  We will upgrade to newer compiler and software
    package versions as necessary.
 
@@ -375,9 +375,9 @@ the HEMCO standalone.
 Please see the following links for sample environment files.
 
 - `Sample GEOS-Chem Classic environment file
-  <https://geos-chem.readthedocs.io/en/stable/gcc-guide/01-startup/login-env-files-gnu.html>`_
+  <https://geos-chem.readthedocs.io/en/stable/getting-started/login-env-files-gnu.html>`_
 - `Sample GCHP environment file
-  <https://github.com/geoschem/geos-chem/blob/main/run/GCHP/runScriptSamples/operational_examples/harvard_cannon/gchp.gfortran10.2_openmpi4_cannon.env>`_
+  <https://github.com/geoschem/geos-chem/blob/main/run/GCHP/runScriptSamples/operational_examples/harvard_cannon/gchp.gcc12_openmpi4_cannon_rocky.env>`_
 - `Sample HEMCO environment file
   <https://hemco.readthedocs.io/en/stable/hco-sa-guide/login-env.html>`_
 

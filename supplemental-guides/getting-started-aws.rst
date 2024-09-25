@@ -45,13 +45,13 @@ To view the available data in the GEOS-Chem Input Data S3 bucket, use the follow
 
 .. code-block:: sh
 
-   $ aws s3 ls s3://<resource_name>/
+   $ aws s3 ls s3://geos-chem/
 
 or without AWS account required
 
 .. code-block:: sh
 
-   $ aws s3 ls --no-sign-request s3://<resource_name>/
+   $ aws s3 ls --no-sign-request s3://geos-chem/
 
 Step 2: Navigate through the directories
 ----------------------------------------
@@ -59,7 +59,7 @@ You can navigate through the directories to find the specific data you need. For
 
 .. code-block:: sh
 
-   aws s3 ls s3://<resource_name>/ExtData/GEOS_0.5x0.625/MERRA2/2024/05
+   aws s3 ls s3://geos-chem/ExtData/GEOS_0.5x0.625/MERRA2/2024/05
 
 Step 3: Download the data
 -------------------------
@@ -67,7 +67,7 @@ Once you have located the data you need, you can download it to your local clust
 
 .. code-block:: sh
 
-   aws s3 cp s3://<resource_name>/ExtData/GEOS_0.5x0.625/MERRA2/2024/05 ./ --recursive
+   aws s3 cp s3://geos-chem/ExtData/GEOS_0.5x0.625/MERRA2/2024/05 ./ --recursive
 
 This command will copy the data to your current path. 
 

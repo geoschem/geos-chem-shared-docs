@@ -76,7 +76,7 @@ Users can access the GEOS-Chem Input Data in multiple ways:
 
      .. code-block:: sh
 
-        aws s3 ls s3://<resource name>/
+        aws s3 ls s3://geos-chem/
 
 .. option:: HTTP Download
    
@@ -93,7 +93,7 @@ Users can access the GEOS-Chem Input Data in multiple ways:
 =======================
 Example directory structure
 =======================
-.. s3://geos-chem-input-data/
+.. s3://geos-chem/
 .. http://geoschemdata.wustl.edu/
 
 .. code-block:: text

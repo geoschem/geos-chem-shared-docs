@@ -68,12 +68,13 @@ strings that serve to differentiate one build from another.
 
 .. code-block:: console
 
-   $ module load gcc/10.2.0-fasrc01             # gcc / g++ / gfortran
-   $ module load openmpi/4.1.0-fasrc01          # MPI
-   $ module load netcdf-c/4.8.0-fasrc01         # netcdf-c
-   $ module load netcdf-fortran/4.5.3-fasrc01   # netcdf-fortran
-   $ module load flex/2.6.4-fasrc01             # Flex lexer (needed for KPP)
-   $ module load cmake/3.25.2-fasrc01           # CMake (needed to compile)
+   module load gcc/12.2.0-fasrc01             # gcc / g++ / gfortran
+   module load openmpi/4.1.4-fasrc01          # MPI
+   module load netcdf-c/4.9.2-fasrc01         # netcdf-c
+   module load netcdf-fortran/4.6.0-fasrc02   # netcdf-fortran
+   module load flex/2.6.4-fasrc01             # Flex lexer (needed for KPP)
+   module load cmake/3.25.2-fasrc01           # CMake (needed to
+   compile)
 
 Note that it is often not necessary to load all modules.  For example,
 loading :program:`netcdf-fortran` will also cause its dependencies
@@ -148,19 +149,19 @@ commands such as:
 
 .. code-block:: console
 
-   $ spack load gcc@10.2.0
-   $ spack load netcdf-c%gcc@10.2.0
-   $ spack load netcdf-fortran%gcc@10.2.0
+   $ spack load gcc@12.2.0
+   $ spack load netcdf-c%gcc@12.2.0
+   $ spack load netcdf-fortran%gcc@12.2.0
    ... etc ...
 
 When loading a Spack-built library, you can specify its version
-number.  For example, :command:`spack load gcc@10.2.0` tells Spack to
-load the GNU Compiler Collection version 10.2.0.
+number.  For example, :command:`spack load gcc@12.2.0` tells Spack to
+load the GNU Compiler Collection version 12.2.0.
 
 You may also specify a library by the compiler it was built with.  For
-example, :command:`spack load netcdf-fortran%gcc@10.2.0` tells Spack
+example, :command:`spack load netcdf-fortran%gcc@12.2.0` tells Spack
 to load the version of netCDF-Fortran that was built with GNU Compiler
-Collection version 10.2.0.
+Collection version 12.2.0.
 
 These specification methods are often necessary to select a given
 library in case there are several available builds to choose from.

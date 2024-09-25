@@ -7,73 +7,77 @@
 #   2. Check for changes to the variants by running
 #      `spack info <package-name>@<version>`. Only the
 #      required extensions should be enabled.
-#   3. Verify install spec with updated geoschem-deps/package.yaml by running 
+#   3. Verify install spec with updated geoschem-deps/package.yaml by running
 #        spack -C ${model}/spack spec -I esmf^gcc^openmpi
 #      where ${model} is one of "GCClassic", "GCHP", "HEMCO".
 #      Check for duplicate installs (same package different hash)
 #      and unnecessary dependencies.
+#
+# DOCUMENTATION:
+#   https://geos-chem.readthedocs.io/en/latest/geos-chem-shared-docs/supplemental-guides/spack-guide.html
 
 packages:
   #
   # Preferred compiler
   #
   gcc:
-    version: [10.2.0]
-    variants: ^texinfo
+    version: ["12.2.0"]
   #
   # Core GEOS-Chem/GCHP/HEMCO dependencies
   #
   cmake:
-    version: [3.22.2]
-    variants: ~doc~ncurses+openssl+ownlibs~qt
-    compiler: [gcc@10.2.0]
+    version: ["3.30.2"]
+    variants: "~doc~ncurses+openssl+ownlibs~qt"
+
   esmf:
-    version: [8.1.1]
-    variants: ~pio~pnetcdf~xerces
-    compiler: [gcc@10.2.0]    
+    version: ["8.4.2"]
+    variants: "~pio~pnetcdf~xerces"
+
   hdf5:
-    version: [1.14.0]
-    variants: ~doc~mpi+hl+pic+shared+threadsafe
-    compiler: [gcc@10.2.0]
+    version: ["1.14.0"]
+    variants: "~doc+mpi+hl+pic+shared+threadsafe"
+
   netcdf-c:
-    version: [4.8.1]
-    variants: ^hdf5~doc~mpi+hl+pic+shared+threadsafe~dap~fsync~hdf4~jna~parallel-netcdf
-    compiler: [gcc@10.2.0]    
+    version: ["4.9.2"]
+    variants: "^hdf5~doc+mpi+hl+pic+shared+threadsafe~dap~fsync~hdf4~jna~parallel-netcdf"
+
   netcdf-fortran:
-    version: [4.5.3]
-    variants: ~doc+pic+shared
-    compiler: [gcc@10.2.0]    
+    version: ["4.6.0"]
+    variants: "~doc+pic+shared"
+
   openmpi:
-    version: [4.1.0]
-    variants: ~doc+auto+pmi
-    compiler: [gcc@10.2.0]    
+    version: ["4.1.0"]
+    variants: "~doc+auto+pmi"
   #
-  # Useful tools
+  # Specs for packages that will be built with Spack.
+  # These must be with gcc@12.2.0.
   #
   cdo:
-    version: [2.1.1]
-    variants: ^hdf5~doc~mpi+hl+pic+shared+threadsafe
-    compiler: [gcc@10.2.0]
+    version: ["2.1.0"]
+    variants: "~doc~proj"
+
   cgdb:
-    version: [0.7.1]
-    compiler: [gcc@10.2.0]
-  environment-modules:
-    version: [5.0.1]
-    compiler: [gcc@10.2.0]
-  flex:
-    compiler: [gcc@10.2.0]    
-  gdb:
-    version: [9.2]
-    variants: ~python~xz
-    compiler: [gcc@10.2.0]
+    version: ["0.7.1"]
+    require: "gdb"
+
   nco:
-    version: [5.1.4]
-    variants: ^hdf5~doc~mpi+hl+pic+shared+threadsafe
-    compiler: [gcc@10.2.0]
+    version: ["5.1.4"]
+    variants: "~doc"
+
+  ncview:
+    version: ["2.1.8"]
+
+  readline:
+    version: ["8.2"]
+
+  tau:
+    version: ["2.32"]
+    variants: "+openmp+ompt+pthread"
   #
   # Settings for all Spack-built packages
   #
   all:
-    target: [x86_64]
+    compiler: ["gcc@12.2.0"]
     providers:
-      mpi: [openmpi]
+      mpi: ["openmpi"]
+    target: ["x86_64"]

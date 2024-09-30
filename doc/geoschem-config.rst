@@ -380,7 +380,41 @@ Timesteps settings
      radiation_timestep_in_s: 10800
 
 The :literal:`timesteps` section specifies the frequency at which
-various GEOS-Chem operations occur:
+various GEOS-Chem operations occur.
+
+The table below contains our recommended GEOS-Chem Classic timestep
+settings.
+
++----------------------------------------------+-------------+--------------+
+| GEOS-Chem Classic Resolution                 | Transport   | Chemistry    |
++==============================================+=============+==============+
+| :math:`4^{\circ}{\times}5^{\circ}`           | 600s (10m)  | 1200s (20m)  |
++----------------------------------------------+-------------+--------------+
+| :math:`2^{\circ}{\times}2.5^{\circ}`         | 600s (10m)  | 1200s (20m)  |
++----------------------------------------------+-------------+--------------+
+| :math:`0.5^{\circ}{\times}0.625^{\circ}`     | 300s (5m)   | 600s (10m)   |
++----------------------------------------------+-------------+--------------+
+| :math:`0.25^{\circ}{\times}0.3125^{\circ}`   | 300s (5m)   | 600s (10m)   |
++----------------------------------------------+-------------+--------------+
+| :math:`0.125^{\circ}{\times}0.15625^{\circ}` | 150s (2.5m) | 300s (5m)    |
++----------------------------------------------+-------------+--------------+
+
+The `Courant limit
+<https://en.wikipedia.org/wiki/Courant%E2%80%93Friedrichs%E2%80%93Lewy_condition>`_
+on the latitude-longitude grid constrains the choice of transport
+timestep for a given horizontal resolution.  We choose a chemistry timestep that is
+double the transport timestep (i.e.
+`Strang operator splitting
+<https://hplgit.github.io/fdm-book/doc/pub/book/sphinx/._book018.html#strang-splitting-for-odes>`_).
+
+.. note::
+
+   GCHP, which uses the FVdycore advection scheme on the cubed-sphere grid,
+   does not have similar restrictions for timesteps.
+
+See :cite:t:`Philip_et_al._2016` for a comprehensive study on
+GEOS-Chem timesteps.  For some practical tips on speeding up your
+simulations, see our :ref:`run-speedup` chapter.
 
 .. option:: transport_timestep_in_s
 
@@ -388,23 +422,18 @@ various GEOS-Chem operations occur:
    the frequency at which transport, cloud convection, PBL mixing, and
    wet deposition will be done.
 
-   - Recommended value for global simulations: :literal:`600`
-   - Recommended value for nested simluations: :literal:`300` or smaller
-
 .. option:: chemistry_timestep_in_s
 
    Specifies the frequency at which chemistry and emissions will be
    done.
-
-   - Recommended value for global simulations :literal:`1200`
-   - Recommended value for nested simulations :literal:`600` or smaller
 
 .. option:: radiation_timestep_in_s
 
    Specifies the frequency at which the `RRTMG
    <http://wiki.geos-chem.org/Coupling_GEOS-Chem_with_RRTMG>`_ radiative
    transfer model will be called (valid for :option:`fullchem`
-   simulations only).
+   simulations only).  We recommend using a timestep of 10800s (3h),
+   as the RRTMG calculations are computationally intensive.
 
 .. _cfg-gc-yml-operations:
 
@@ -733,31 +762,31 @@ Photolysis
 
      # .. preceding sub-sections omitted ...
 
- photolysis:
-    activate: true
-    cloud-j:
-      num_levs_with_cloud: ${RUNDIR_PHOT_CLD_NLEV}
-      cloud_scheme_flag: 3
-      opt_depth_increase_factor: 1.050
-      min_top_inserted_cloud_OD: 0.005
-      cloud_overlap_correlation: 0.33
-      num_cloud_overlap_blocks: 6
-      sphere_correction: 1
-      num_wavelength_bins: 18
-      use_H2O_UV_absorption: true
-    input_directories:
-      fastjx_input_dir: /path/to/ExtData/CHEM_INPUTS/FAST_JX/v2024-05/
-      cloudj_input_dir: /path/to/ExtData/CHEM_INPUTS/CLOUD_J/v2024-09/
-    overhead_O3:
-      use_online_O3_from_model: true
-      use_column_O3_from_met: true
-      use_TOMS_SBUV_O3: false
-    photolyze_nitrate_aerosol:
-      activate: true
-      NITs_Jscale: 100.0
-      NIT_Jscale: 100.0
-      percent_channel_A_HONO: 66.667
-      percent_channel_B_NO2: 33.333
+     photolysis:
+       activate: true
+       cloud-j:
+         num_levs_with_cloud: 34
+         cloud_scheme_flag: 3
+         opt_depth_increase_factor: 1.050
+         min_top_inserted_cloud_OD: 0.005
+         cloud_overlap_correlation: 0.33
+         num_cloud_overlap_blocks: 6
+         sphere_correction: 1
+         num_wavelength_bins: 18
+         use_H2O_UV_absorption: true
+       input_directories:
+         fastjx_input_dir: /path/to/ExtData/CHEM_INPUTS/FAST_JX/v2024-05/
+         cloudj_input_dir: /path/to/ExtData/CHEM_INPUTS/CLOUD_J/v2024-09/
+       overhead_O3:
+         use_online_O3_from_model: true
+         use_column_O3_from_met: true
+         use_TOMS_SBUV_O3: false
+       photolyze_nitrate_aerosol:
+         activate: true
+         NITs_Jscale: 100.0
+         NIT_Jscale: 100.0
+         percent_channel_A_HONO: 66.667
+         percent_channel_B_NO2: 33.333
 
      # ... following sub-sections omitted ...
 
@@ -778,45 +807,118 @@ This section only applies to fullchem, Hg, and aerosol-only simulations.
 .. option:: cloud-j:
 
    Specifies various options for the Cloud-J photolysis package.
-      
+
+   .. note::
+
+      The Cloud-J settings have been preset to the recommended values.
+      You should not need to modify these settings (unless you are
+      investigating how aerosol and cloud interactions impact photolysis).
+
    .. option:: num_levs_with_cloud
 
       Specifies the number of levels that can contain clouds, which is a
       required input for the Cloud-J photolysis module.  This value is
-      saved to the :code:`Input_Opt%NLevs_Phot_Cloud` field.
+      pre-set to the proper value for the vertical grid that your
+      simulation will use.
 
-      .. attention::
-
-         The value of :option:`num_levs_with_cloud` will be set to the
-         proper value when you create a run directory.  Its value depends
-         on the meteorology that is used to drive your GEOS-Chem
-         simulation.  You should not change this value!
+      +--------------------------+------------------------------------+
+      | **GEOS-Chem variable:**  | ``Input_Opt%NLevs_Phot_Cloud``     |
+      +--------------------------+------------------------------------+
+      | **Cloud-J variable**     | ``LWEPAR``                         |
+      +--------------------------+------------------------------------+
 
    .. option:: cloud_scheme_flag
+
+      Specifies the `cloud option
+      <https://github.com/geoschem/Cloud-J/blob/f8a2b7f964bde1582fbc38c41d8872bc23a21735/src/Core/cldj_cmn_mod.F90#L71-L79>`_
+      used in the computation of photolyis rates.
+
+      +--------------------------+------------------------------------+
+      | **GEOS-Chem variable:**  | ``Input_Opt%CLDFLAG``              |
+      +--------------------------+------------------------------------+
+      | **Cloud-J variable**     | ``LWEPAR``                         |
+      +--------------------------+------------------------------------+
 
    .. option:: opt_depth_increase_factor
 
+      Specifies the factor increase in cloud optical depth from a
+      given layer to the layer below.
+
+      +--------------------------+------------------------------------+
+      | **GEOS-Chem variable:**  | ``Input_Opt%OD_Increase_Factor``   |
+      +--------------------------+------------------------------------+
+      | **Cloud-J variable**     | ``ATAU``                           |
+      +--------------------------+------------------------------------+
+
    .. option:: min_top_inserted_cloud_OD
+
+      Specifies the minimum cloud OD in the uppermost inserted layer.
+
+      +--------------------------+------------------------------------+
+      | **GEOS-Chem variable:**  | ``Input_Opt%Min_Cloud_OD``         |
+      +--------------------------+------------------------------------+
+      | **Cloud-J variable**     | ``ATAU0``                          |
+      +--------------------------+------------------------------------+
 
    .. option:: cloud_overlap_correlation
 
+      Specifies the cloud de-corellation between max-overlap blocks,
+      where 0.00 is random overlap.  This option is only used when
+      :option:`cloud_scheme_flag` is set to 5 or higher.
+
+      +--------------------------+------------------------------------+
+      | **GEOS-Chem variable:**  | ``Input_Opt%Cloud_Corr``           |
+      +--------------------------+------------------------------------+
+      | **Cloud-J variable**     | ``CLDCOR``                         |
+      +--------------------------+------------------------------------+
+
    .. option:: num_cloud_overlap_blocks
-	       
+
+      Specifies the number of `maximum-overlap blocks
+      <https://github.com/geoschem/Cloud-J/blob/f8a2b7f964bde1582fbc38c41d8872bc23a21735/src/Core/cldj_cmn_mod.F90#L97-L99>`_.
+
+      +--------------------------+------------------------------------+
+      | **GEOS-Chem variable:**  | ``Input_Opt%Num_Max_Overlap``      |
+      +--------------------------+------------------------------------+
+      | **Cloud-J variable**     | ``LNRG``                           |
+      +--------------------------+------------------------------------+
+
+
    .. option:: sphere_correction
 
-   .. option:: cloud_scheme_flag
+      Specifies the type of `spherical correction <https://github.com/geoschem/Cloud-J/blob/f8a2b7f964bde1582fbc38c41d8872bc23a21735/src/Core/cldj_cmn_mod.F90#L56-L60>`_ to be applied.
+
+      +--------------------------+------------------------------------+
+      | **GEOS-Chem variable:**  | ``Input_Opt%OD_Increase_Factor``   |
+      +--------------------------+------------------------------------+
+      | **Cloud-J variable**     | ``ATM0``                           |
+      +--------------------------+------------------------------------+
 
    .. option:: num_wavelength_bins
 
-      Specifies the number of wavelength bins to use when computin
+      Specifies the `number of wavelength bins
+      <https://github.com/geoschem/Cloud-J/blob/f8a2b7f964bde1582fbc38c41d8872bc23a21735/src/Core/cldj_cmn_mod.F90#L101-L104>`_
+      to use in the computation of photolysis reaction rates.
+
+      +--------------------------+------------------------------------+
+      | **GEOS-Chem variable:**  | ``Input_Opt%Num_WV_Bins``          |
+      +--------------------------+------------------------------------+
+      | **Cloud-J variable**     | ``ATM0``                           |
+      +--------------------------+------------------------------------+
 
    .. option:: use_H2O_UV_absorption
 
-	       
+      Specifies whether to enable (:literal:`true`) or disable
+      (:literal:`false`) UV absorption of water vapor in the
+      computations for photolysis rates.  Default value:
+      :literal:`true`.
 
-	       
+      +--------------------------+------------------------------------+
+      | **GEOS-Chem variable:**  | ``Input_Opt%Use_H2O_UV_Abs``       |
+      +--------------------------+------------------------------------+
+      | **Cloud-J variable**     | ``USEH2OUV``                       |
+      +--------------------------+------------------------------------+
 
-      
 .. option:: input_directories
 
    Specifies the location of directories containing photolysis
@@ -864,7 +966,7 @@ This section only applies to fullchem, Hg, and aerosol-only simulations.
 
      Recommended value: :literal:`false`.
 
-.. option:: photolyze_nitrate_aerosol:
+.. option:: photolyze_nitrate_aerosol
 
    This section contains settings that control options for nitrate
    aerosol photolysis.
@@ -1122,6 +1224,30 @@ This section of :file:`geoschem_config.yml` is included for
 
 There are several sub-sections under :literal:`aerosols`:
 
+.. _cfg-gc-yml-aerosol-optics:
+
+Optics
+------
+
+.. code-block:: YAML
+
+   #============================================================================
+   # Settings for GEOS-Chem aerosols
+   #============================================================================
+   aerosols:
+
+     optics:
+       input_dir: /path/to/ExtData/CHEM_INPUTS/Aerosol_Optics/v2024-08/
+
+     # .. following sub-sections omitted ...
+
+.. option:: optics
+
+   .. option:: input_dir
+
+      Specifies the path to files used containing aerosol optical
+      properties for computing aerosol optical depth.
+
 .. _cfg-gc-yml-aerosol-carbon:
 
 Carbon aerosols
@@ -1133,6 +1259,8 @@ Carbon aerosols
    # Settings for GEOS-Chem aerosols
    #============================================================================
    aerosols:
+
+     # ... preceding sub-sections omitted ...
 
      carbon:
        activate: true

@@ -1,3 +1,7 @@
+.. |br| raw:: html
+
+   <br />
+
 .. _cfg-gc-yml:
 
 ###################
@@ -10,13 +14,20 @@ file (plain text) has been replaced with by the
 <https://yaml.org>`_ format, which is a text-based markup syntax used
 for representing dictionary-like data structures.
 
+The :file:`geoschem_config.yml` file contains several sections.  Only
+The sections relevant to a given type of simulation are present.  For
+example, :option:`fullchem` simulation options (such as aerosol
+settings and photolysis settings) are omitted from the
+:file:`geoschem_config.yml` file for the :option:`CH4` simulation.
+
 .. note::
 
-   The :file:`geoschem_config.yml` file contains several sections.  Only
-   the sections relevant to a given type of simulation are present.
-   For example, :option:`fullchem` simulation options (such as aerosol
-   settings and photolysis settings) are omitted from the
-   :file:`geoschem_config.yml` file for the :option:`CH4` simulation.
+   Settings that are not relevant to GCHP will be excluded from the
+   :file:`geoschem_config.yml` file that ships with the GCHP run
+   directory.  We will note these excluded settings below.  All other
+   settings in :file:`geoschem_config.yml` will be treated in
+   in the same way as in `GEOS-Chem Classic
+   <https://geos-chem.readthedocs.io>`_.
 
 .. _gc-yml-simulation:
 
@@ -135,23 +146,45 @@ The :literal:`simulation` section contains general simulation options:
 
 .. option:: start_date
 
+   .. note::
+
+      This option is omitted for GCHP. The simulation start date
+      is specified in the :file:`CAP.rc` and :file:`cap_restart`
+      files.
+
    Specifies the starting date and time of the simulation in list
    notation :literal:`[YYYYMMDD, hhmmss]`.
 
 .. option:: end_date
+
+   .. note::
+
+      This option is omitted for GCHP. Duration is specified in the
+      :file:`cap_restart` file.
 
    Specifies the ending date and time of the simulation in list
    notation :literal:`[YYYYMMDD, hhmmss]`.
 
 .. option:: root_data_dir
 
+   .. note::
+
+      This option is omitted for GCHP. All data paths (with the
+      exception of the aerosol optics and photolysis paths) are
+      specified in the :ref:`ExtData.rc` file.
+
    Path to the root data directory.  All of the data that GEOS-Chem
    Classic reads must be located in subfolders of this directory.
 
 .. option:: met_field
 
+   .. note::
+
+      This option is omitted for GCHP. Met field source is described
+      in file paths of the in the :file:`ExtData.rc` file.
+
    Name of the meteorology product that will be used to drive
-   GEOS-Chem Classic.  Accepted values are:
+   GEOS-Chem.  Accepted values are:
 
    .. option:: MERRA2
 
@@ -217,6 +250,11 @@ The :literal:`simulation` section contains general simulation options:
 
 .. option:: use_gcclassic_timers
 
+   .. note::
+
+      This setting is omitted for GCHP, as the MAPL library provides
+      all timer functionality.
+
    Activates (:literal:`true`) or deactivates (:literal:`false`)
    the GEOS-Chem Classic timers.  If activated, information about how
    long each component of GEOS-Chem took to execute will be printed to
@@ -233,6 +271,11 @@ The :literal:`simulation` section contains general simulation options:
 =============
 Grid settings
 =============
+
+.. note::
+
+   Grid settings are omitted for GCHP.  Grid specifications are
+   contained in the :file:`GCHP.rc` file instead.
 
 .. code-block:: YAML
 
@@ -368,6 +411,11 @@ by GEOS-Chem Classic:
 ==================
 Timesteps settings
 ==================
+
+.. note::
+
+   Timesteps settings are omitted for GCHP.  Timesteps are specified
+   in the :file:`CAP.rc` file.
 
 .. code-block:: YAML
 
@@ -1144,6 +1192,11 @@ settings for `species transport
 
 .. option:: gcclassic_tpcore
 
+   .. note::
+
+      These settings are omitted for GCHP, which uses the FVdycore
+      advection package instead.
+
    Contains options that control species transport in GEOS-Chem
    Classic with the `TPCORE advection scheme
    <http://wiki.geos-chem.org/Advection_scheme_TPCORE>`_:
@@ -1583,6 +1636,11 @@ diagnostics that are not archived by :ref:`History
 Obspack diagnostic
 ------------------
 
+.. note::
+
+   These settings are omitted for GCHP, as ObsPack diagnostics can
+   only be used with GEOS-Chem Classic.
+
 The :literal:`extra_diagnostics:obspack` section contains settings for
 the `Obspack diagnostic <https://wiki.geos-chem.org/Obspack_diagnostic>`_:
 
@@ -1638,6 +1696,12 @@ the `Obspack diagnostic <https://wiki.geos-chem.org/Obspack_diagnostic>`_:
 
 Planeflight diagnostic
 -----------------------
+
+.. note::
+
+   These settings are omitted for GCHP, as the Planeflight diagnostics can
+   only be used with GEOS-Chem Classic.
+
 The :literal:`extra_diagnostics:planeflight` section contains settings for
 the `GEOS-Chem planeflight diagnostic
 <https://wiki.geos-chem.org/Planeflight_diagnostic>`_:

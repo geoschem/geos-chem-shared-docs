@@ -171,7 +171,7 @@ The :literal:`simulation` section contains general simulation options:
 
       This option is omitted for GCHP. All data paths (with the
       exception of the aerosol optics and photolysis paths) are
-      specified in the :ref:`ExtData.rc` file.
+      specified in the :file:`ExtData.rc` file.
 
    Path to the root data directory.  All of the data that GEOS-Chem
    Classic reads must be located in subfolders of this directory.

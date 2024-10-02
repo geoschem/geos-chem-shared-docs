@@ -10,6 +10,12 @@ In your run directory, you will find a copy of the `HEMCO diagnostic configurati
 :ref:`HEMCO_Config.rc <cfg-hco-cfg>` file.  You will only need to edit
 this file if you wish to change the default diagnostic output configuration.
 
+.. _cfg-hco-diagn-gchp-gcc:
+
+======
+Format
+======
+
 A snippet of the :file:`HEMCO_Diagn.rc` for the :option:`fullchem`
 simulation is shown below:
 
@@ -43,3 +49,25 @@ The prefix (e.g. :literal:`OutputDir/HEMCO_diagnostics`) for HEMCO diagnostics
 output files are specified in the
 `Settings section of the HEMCO_Config.rc file
 <https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html#section-settings>`_.
+
+.. _cfg-hco-diagn-gchp-gcc:
+
+====================================================
+Usage differences between GCHP and GEOS-Chem Classic
+====================================================
+
+Emissions diagnostics (beginning with :literal:`Emis` or
+:literal:`Inv`) listed in :file:`HEMCO_Diagn.rc` will not be archived
+to disk unless they are also included in the
+:literal:`Emissions` collection of the `GCHP HISTORY.rc file
+<https://gchp.readthedocs.io/en/latest/user-guide/config-files/HISTORY_rc.html>`_.
+This is because GCHP relies on the MAPL :program:`HISTORY` component
+for diagnostic archival, and thus all diagnostic ouptuts must be
+listed in the GCHP :file:`HISTORY.rc` file.
+
+Also note that the GCHP :literal:`Emissions` collection is archived
+such that level 1 corresponds to the top-of-atmosphere and level 72
+corresponds to the surface (aka :literal:`lev:positive = 'down'`).
+This is in contrast to all other GCHP diagnostic collections, where
+level 1 is the surface and level 72 is top-of-atmopshere (aka
+:literal:`lev:positive = 'up'`).

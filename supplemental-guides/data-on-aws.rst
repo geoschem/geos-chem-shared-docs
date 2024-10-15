@@ -6,9 +6,9 @@ GEOS-Chem input data
 Data organization
 =======================
 
-The GEOS-Chem Input Data is structured into the following main categories (For more information , see `Download input data <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/download-data.html>`_):
+The GEOS-Chem Input Data is structured into the following main categories (For more information, see `Download input data <https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/download-data.html>`_):
 
-1. :ref:`c1-init-cond` (aka `Restart files <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/restart-files.html#restart-files>`_)
+1. :ref:`c1-init-cond` (aka `Restart files <https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/restart-files.html#restart-files>`_)
 #. :ref:`c1-chem-inputs`
 #. :ref:`c1-emis-inputs`
 #. :ref:`c1-met`
@@ -17,7 +17,7 @@ The GEOS-Chem Input Data is structured into the following main categories (For m
 
 Initial conditions input data
 ------------------
-Initial conditions include initial species concentrations (aka `Restart files <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/restart-files.html#restart-files>`_) used to start a GEOS-Chem simulation.
+Initial conditions include initial species concentrations (aka `Restart files <https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/restart-files.html#restart-files>`_) used to start a GEOS-Chem simulation.
 
 .. _c1-chem-inputs:
 
@@ -71,12 +71,14 @@ Users can access the GEOS-Chem Input Data in multiple ways:
 .. option:: AWS S3 Bucket
 
    The data is stored in an AWS S3 bucket. Users can navigate these directories to find the specific datasets they need.
+
+   Users can browse the bucket from https://geos-chem.s3.amazonaws.com/index.html.
    
    Example commands for accessing data using AWS CLI:
 
      .. code-block:: sh
 
-        aws s3 ls s3://<resource name>/
+        aws s3 ls s3://geos-chem/
 
 .. option:: HTTP Download
    
@@ -93,7 +95,7 @@ Users can access the GEOS-Chem Input Data in multiple ways:
 =======================
 Example directory structure
 =======================
-.. s3://geos-chem-input-data/
+.. s3://geos-chem/
 .. http://geoschemdata.wustl.edu/
 
 .. code-block:: text

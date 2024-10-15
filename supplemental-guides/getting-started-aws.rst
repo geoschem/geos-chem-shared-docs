@@ -2,7 +2,9 @@
 Getting started
 ########
 
-This tutorial will guide you through the process of accessing and using the GEOS-Chem Input Data on AWS. The workflow is
+This tutorial will guide you through the process of accessing and using the GEOS-Chem Input Data with AWS CLI. Alternatively, you can access the data via `AWS S3 Explorer <https://geos-chem.s3.amazonaws.com/index.html>`_. 
+
+The workflow is
 
 #. :ref:`Install and configure AWS CLI <conf_aws_cli>`
 #. :ref:`Access and download data <access_data>`
@@ -45,13 +47,13 @@ To view the available data in the GEOS-Chem Input Data S3 bucket, use the follow
 
 .. code-block:: sh
 
-   $ aws s3 ls s3://<resource_name>/
+   $ aws s3 ls s3://geos-chem/
 
 or without AWS account required
 
 .. code-block:: sh
 
-   $ aws s3 ls --no-sign-request s3://<resource_name>/
+   $ aws s3 ls --no-sign-request s3://geos-chem/
 
 Step 2: Navigate through the directories
 ----------------------------------------
@@ -59,7 +61,7 @@ You can navigate through the directories to find the specific data you need. For
 
 .. code-block:: sh
 
-   aws s3 ls s3://<resource_name>/ExtData/GEOS_0.5x0.625/MERRA2/2024/05
+   aws s3 ls s3://geos-chem/GEOS_0.5x0.625/MERRA2/2024/05
 
 Step 3: Download the data
 -------------------------
@@ -67,7 +69,7 @@ Once you have located the data you need, you can download it to your local clust
 
 .. code-block:: sh
 
-   aws s3 cp s3://<resource_name>/ExtData/GEOS_0.5x0.625/MERRA2/2024/05 ./ --recursive
+   aws s3 cp s3://geos-chem/GEOS_0.5x0.625/MERRA2/2024/05 ./ --recursive
 
 This command will copy the data to your current path. 
 
@@ -77,7 +79,7 @@ This command will copy the data to your current path.
 Using the data in GEOS-Chem
 =======================
 
-By following this tutorial, you can access and download the GEOS-Chem Input Data on AWS. Next, you can follow the normal `GEOS-Chem Classic <https://geos-chem.readthedocs.io/en/stable/getting-started/quick-start.html>`_ or `GCHP <https://gchp.readthedocs.io/en/stable/getting-started/quick-start.html>`_ user guide to use the data. 
+By following this tutorial, you can access and download the GEOS-Chem Input Data on AWS. Next, you can follow the normal `GEOS-Chem Classic <https://geos-chem.readthedocs.io/en/latest/getting-started/quick-start.html>`_ or `GCHP <https://gchp.readthedocs.io/en/latest/getting-started/quick-start.html>`_ user guide to use the data. 
 
 
 .. _gchp_on_aws:

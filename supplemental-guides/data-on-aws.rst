@@ -71,6 +71,8 @@ Users can access the GEOS-Chem Input Data in multiple ways:
 .. option:: AWS S3 Bucket
 
    The data is stored in an AWS S3 bucket. Users can navigate these directories to find the specific datasets they need.
+
+   Users can browse the bucket from https://geos-chem.s3.amazonaws.com/index.html.
    
    Example commands for accessing data using AWS CLI:
 

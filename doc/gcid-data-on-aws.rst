@@ -4,21 +4,21 @@
 
 .. _gcid-data:
 
-###################################
-The GEOS-Chem Input Data repository
-###################################
+###############################
+The GEOS-Chem Input Data portal
+###############################
 
-The main `GEOS-Chem Input Data <https://aws.amazon.com/marketplace/pp/prodview-gsu7hiudejnxq#resources>`_
-repository is hosted at the AWS S3 bucket `s3://gcgrid
+The main `GEOS-Chem Input Data
+<https://aws.amazon.com/marketplace/pp/prodview-gsu7hiudejnxq#resources>`_
+portal is hosted at the AWS S3 bucket `s3://geos-chem
 <https://geos-chem.s3.amazonaws.com/index.html>`_.  From here you may
 download the data required to run :program:`GEOS-Chem Classic`,
 :program:`GCHP`, or :program:`HEMCO standalone` simulations.
 
 .. note::
 
-   We maintain additional repositories for special meteorology
-   products. Please see our :ref:`gcid-special-repos` chapter for
-   details.
+   We also maintain :ref:`additional portals for special meteorology
+   products <gcid-special-portals>`.
 
 .. _gcid-data-org:
 
@@ -26,10 +26,10 @@ download the data required to run :program:`GEOS-Chem Classic`,
 Data organization
 =================
 
-The GEOS-Chem Input Data repository is structured into the following
+The GEOS-Chem Input Data portal is structured into the following
 categories:
 
-1. :ref:`gcid-data-org-init-cond` (aka `Restart files <https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/restart-files.html#restart-files>`_)
+#. :ref:`gcid-data-org-init-cond` (aka `Restart files <https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/restart-files.html#restart-files>`_)
 #. :ref:`gcid-data-org-chem-inputs`
 #. :ref:`gcid-data-org-emis-inputs`
 #. :ref:`gcid-data-org-met`
@@ -53,7 +53,7 @@ Chemistry input data includes:
 
 - Tables of aerosol optical properties
 - Quantum yields and cross sections for photolysis using either
-  ``Cloud-J`` or legacy ``FAST-JX``
+  :program:`Cloud-J` or legacy :program:`FAST-JX`
 - Climatology data for :program:`Linoz` stratospheric ozone chemistry
 - Boundary conditions for :program:`UCX` stratospheric chemistry routines
 
@@ -65,8 +65,8 @@ Emissions input data
 Emissions input data includes the following data:
 
 - Emissions inventories
-- Input data for HEMCO Extensions
-- Input data for GEOS-Chem specialty simulations
+- Input data for :program:`HEMCO` Extensions
+- Input data for :program:`GEOS-Chem` specialty simulations
 - Scale factors
 - Mask definitions
 - Surface boundary conditions
@@ -82,10 +82,8 @@ GEOS-Chem Classic be driven by the following meteorology products:
 
 #. `MERRA-2 <http://wiki.geos-chem.org/MERRA-2>`_
 #. `GEOS-FP <http://wiki.geos-chem.org/GEOS_FP>`_
-#. `GCAP 2.0 <http://atmos.earth.rochester.edu/input/gc/ExtData>`_
-
-The GCAP meteorology is available via a :ref:`separate data repository
-<gcid-special-repos-gcap2>` maintained at the University of Rochester.
+#. `GEOS-IT <https://gmao.gsfc.nasa.gov/GMAO_products/GEOS-IT/>`_
+#. GCAP 2.0 (available at the `atmos.earth.rochester.edu data portal <http://atmos.earth.rochester.edu/input/gc/ExtData>`_)
 
 .. attention::
 
@@ -99,7 +97,7 @@ The GCAP meteorology is available via a :ref:`separate data repository
 Data access
 ===========
 
-You may access the GEOS-Chem Input Data repository in several ways, as
+You may access the GEOS-Chem Input Data portal in several ways, as
 described below.
 
 .. _gcid-data-access-we:
@@ -107,7 +105,7 @@ described below.
 AWS S3 Explorer
 ---------------
 
-You can browse the contents of the GEOS-Chem Input Data repository
+You can browse the contents of the GEOS-Chem Input Data portal
 with the :program:`AWS S3 Explorer` interface.  Simply point your web
 browser to the following link:
 
@@ -123,24 +121,23 @@ data directories.
 AWS CLI (command-line interface)
 --------------------------------
 
-You can also use the AWS command-line interface (aka AWS CLI) to
-browse and download data from the GEOS-Chem Input Data repository.
-For example, use this command to get a data listing:
-command
+You can also use the AWS command-line interface (aka :program:`AWS
+CLI`) to browse and download data from the GEOS-Chem Input Data
+portal. For example, use this command to get a data listing:
 
 .. code-block:: console
 
    $ aws s3 ls s3://geos-chem/   # Get a directory listing
 
-For detailed instructions about using AWS CLI, please see our
-:ref:`gcid-tut` chapter.
+For detailed instructions about using AWS CLI, please see:
+:ref:`gcid-tut`.
 
 .. _gcid-data-access-http:
 
 HTTP or wget download
 ---------------------
 
-You can also access the GEOS-Chem Input Data repository via the
+You can also access the GEOS-Chem Input Data portal via the
 alternate web link http://geoschemdata.wustl.edu.
 
 As with the AWS S3 Explorer, you can navigate through the web
@@ -183,8 +180,7 @@ which has much higher data download speeds than normal SSH or HTTP
 connections.
 
 If your institution uses Globus, you can download data from the
-:program:`GEOS-Chem Data (WashU)` endpoint to your institution's
-endpoint.  Ask your IT support staff for more information.
+:program:`GEOS-Chem Data (WashU)` endpoint to your computer system.
 
 .. _gcid-data-access-bashdatacatalog:
 
@@ -193,7 +189,7 @@ Bashdatacatalog
 
 We have created the :program:`bashdatacatalog` tool to
 facilitate downloading large amounts of data from the GEOS-Chem Input
-Data repository. Please see our :ref:`bashdatacatalog` guide for usage
+Data portal. Please see our :ref:`bashdatacatalog` guide for usage
 instructions.
 
 .. _gcid-data-dir-structure:
@@ -202,9 +198,9 @@ instructions.
 Example directory structure
 ===========================
 
-The directory structure of the GEOS-Chem Input Data repository adheres
+The directory structure of the GEOS-Chem Input Data portal adheres
 to the format listed below.  You can see easily browse through the
-repository using one of the following web links:
+portal using one of the following web links:
 
 - https://geos-chem.s3.amazonaws.com/index.html (Recommended)
 - http://geoschemdata.wustl.edu

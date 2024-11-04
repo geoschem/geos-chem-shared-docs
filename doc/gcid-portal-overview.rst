@@ -6,7 +6,7 @@ GEOS-Chem Input Data on AWS cloud
 
 The `GEOS-Chem Input Data
 <https://aws.amazon.com/marketplace/pp/prodview-gsu7hiudejnxq>`_
-repository provides essential datasets for `GEOS-Chem Classic
+portal provides essential datasets for `GEOS-Chem Classic
 <https://geos-chem.readthedocs.io/en/stable/>`_, `GCHP
 <https://gchp.readthedocs.io/en/stable/>`_, and
 `HEMCO  <https://hemco.readthedocs.io/en/stable>`_.
@@ -19,10 +19,11 @@ announce that we are now part of the `AWS Open Data Sponsorship
 Program
 <https://aws.amazon.com/opendata/open-data-sponsorship-program/>`_. We
 will continuously upload and maintain the data in an S3 Bucket
-(:file:`s3://geos-chem`) for convenient access.
+(`s3://geos-chem <https://geos-chem.s3.amazonaws.com/index.html>`_)
+for convenient access.
 
 In the following chapters, we will describe how the GEOS-Chem Input
-Data repository is organized and how to access the data stored there.
+Data portal is organized and how to access the data stored there.
 
 .. toctree::
    :maxdepth: 2

@@ -1,3 +1,7 @@
+.. |br| raw:: html
+
+   <br />
+
 .. _gcid-tut:
 
 ######################################################
@@ -5,7 +9,7 @@ Tutorial: Accessing GEOS-Chem Input Data using AWS CLI
 ######################################################
 
 This tutorial will guide you through the process of accessing and
-using the :ref:`gcid <GEOS-Chem Input Data>` with
+using the :ref:`GEOS-Chem Input Data <gcid>` with
 AWS CLI. Alternatively, you can access the data via `AWS S3 Explorer
 <https://geos-chem.s3.amazonaws.com/index.html>`_.
 
@@ -15,7 +19,7 @@ The workflow is
 
    - This step only has to be done once.
 
-#. :ref:`Download data from the GEOS-Chem Input Data repository
+#. :ref:`Download data from the GEOS-Chem Input Data portal
    <gcid-tut-access>`.
 
 #. :ref:`Run a GEOS-Chem Classic, GCHP, or HEMCO standalone simulation
@@ -27,7 +31,8 @@ The workflow is
 Install and configure AWS CLI
 =============================
 
-If you have already installed and configured the AWS CLI previously, continue to :ref:`access_data`.
+If you have already installed and configured the AWS CLI previously,
+continue to :ref:`gcid-data-access`.
 
 .. _gcid-tut-conf-install:
 
@@ -78,7 +83,8 @@ or without AWS account required
 Step 2: Navigate through the directories
 ----------------------------------------
 
-You can navigate through the directories to find the specific data you need. For example,
+You can navigate through the directories to find the specific data you
+need. For example,
 
 .. code-block:: sh
 
@@ -88,6 +94,15 @@ You can navigate through the directories to find the specific data you need. For
 
 Step 3: Download the data
 -------------------------
+
+.. tip::
+
+   If you are using :program:`GEOS-Chem Classic` or the
+   :program:`HEMCO standalone model`, you can `download data with a
+   dry-run simulation
+   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/dry-run.html>`_,
+   while still using the AWS CLI data transfer protocol.
+
 Once you have located the data you need, you can download it to your
 local cluster or an EC2 instance. For example,
 
@@ -97,13 +112,8 @@ local cluster or an EC2 instance. For example,
 
 This command will copy the data to your current path.
 
-.. note::
 
-   If you are using GEOS-Chem Classic in an AWS EC2 instance, you can
-   easily download the required data with a dry-run simulation.  See our
-   `Download data with a dry-run simulation
-   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/dry-run.html>`_
-   chapter for more information.
+
 
 .. _gcid-tut-using:
 
@@ -112,8 +122,8 @@ Run simulations using downloaded data
 =====================================
 
 Once you have :ref:`downloaded the data <gcid-tut-access>` from the
-GEOS-Chem Input Data repository to your computer system or EC2
-instance, you may run a :program:`GEOS-Chem Classic`, 
+GEOS-Chem Input Data portal to your computer system or EC2
+instance, you may run a :program:`GEOS-Chem Classic`,
 :program:`GCHP`, or :program:`HEMCO standalone` simulation.  Please
 refer to the relevant user guide listed below.
 

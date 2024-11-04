@@ -3266,8 +3266,6 @@ Tomas
 
 The **TOMAS** collection contains diagnostic fields for fullchem simulations with TOMAS aerosol microphysics.
 
-.. note::
-
 .. code-block:: kconfig
 
      Tomas.template:       '%y4%m2%d2_%h2%n2z.nc4',

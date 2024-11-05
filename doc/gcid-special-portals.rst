@@ -60,7 +60,7 @@ workflow.
 
 The data can be accessed by:
 
-- AWS S3 Explorer (https://s3.amazonaws.com/gcgrid/index.html)
+- AWS S3 Explorer (https://gcgrid.s3.amazonaws.com/index.html)
 - Direct HTTP or wget download
 - :ref:`Dry-run simulation <dry-run>`
 

@@ -582,7 +582,7 @@ simulation.  We will refer to these species as **tracers**.
 
 .. option:: Src_Value
 
-   Specifies a value for the tracer source term in :option:`Src_Units`.
+   Specifies a value for the tracer source term in :option:`Src_Unit`.
 
 .. option:: Src_Vert
 

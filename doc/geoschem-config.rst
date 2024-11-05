@@ -74,8 +74,15 @@ The :literal:`simulation` section contains general simulation options:
       Coupled carbon gases simulation (CH4-CO-CO2-OCS), implemented as
       a KPP mechanism (cf :cite:t:`Bukosa_et_al._2023`).
 
-      You must :ref:`configure your build <compile-cmake>` with
-      :literal:`-DMECH=carbon` in order to use this simulation.
+      You must configure your build with with
+      :literal:`-DMECH=carbon` in order to use this simulation. For
+      more information, please see:
+
+      - `GEOS-Chem Classic configuration instructions
+	<https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/compile-cmake.html>`_
+	or
+      - `GCHP configuration instructions
+	<https://gchp.readthedocs.io/en/stable/user-guide/configuration-files.html>`_
 
    .. option:: CH4
 
@@ -95,8 +102,15 @@ The :literal:`simulation` section contains general simulation options:
 
       `Mercury simulation <http://wiki.geos-chem.org/Mercury>`_.
 
-      You must :ref:`configure your build <compile-cmake>` with
-      :literal:`-DMECH=Hg` in order to use this simulation.
+      You must configure your build with with
+      :literal:`-DMECH=Hg` in order to use this simulation. For
+      more information, please see:
+
+      - `GEOS-Chem Classic configuration instructions
+	<https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/compile-cmake.html>`_
+	or
+      - `GCHP configuration instructions
+	<https://gchp.readthedocs.io/en/stable/user-guide/configuration-files.html>`_
 
    .. option:: POPs
 
@@ -257,11 +271,12 @@ The :literal:`simulation` section contains general simulation options:
 
    Activates (:literal:`true`) or deactivates (:literal:`false`)
    the GEOS-Chem Classic timers.  If activated, information about how
-   long each component of GEOS-Chem took to execute will be printed to
-   the screen and/or :ref:`GEOS-Chem log file
-   <outfiles-logs-gclog>`. The same information will also be written
-   in JSON format to a file named :ref:`gcclassic_timers.json
-   <outfiles-logs-timers>`.
+   long each component of GEOS-Chem Classic took to execute will be printed to
+   the screen and/or the `log file
+   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/log-files.html#geos-chem-and-hemco-log-file>`_
+   The same information will also be written in JSON format to a file
+   named `gcclassic_timers.json
+   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/log-files.html#timers-log-file>`_.
 
    You can set this option to :literal:`false` unless you are running
    benchmark or timing simulations.
@@ -462,7 +477,11 @@ double the transport timestep (i.e.
 
 See :cite:t:`Philip_et_al._2016` for a comprehensive study on
 GEOS-Chem timesteps.  For some practical tips on speeding up your
-simulations, see our :ref:`run-speedup` chapter.
+simulations, see:
+
+   - `Speeding up GEOS-Chem Classic simulations
+     <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/run-speedup.html>`_
+   -
 
 .. option:: transport_timestep_in_s
 
@@ -1628,8 +1647,9 @@ Extra diagnostics
 =================
 
 The :literal:`extra_diagnostics` section contains settings for GEOS-Chem Classic
-diagnostics that are not archived by :ref:`History
-<history-diagnostics>` or `HEMCO <https://hemco.readthedocs.io>`_:
+diagnostics that are not archived by `History diagnostics
+<https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/diag-outputs-hist.html#history-diagnostics-output>`_
+or `HEMCO <https://hemco.readthedocs.io>`_.
 
 .. _gc-yml-xdiag-obspack:
 

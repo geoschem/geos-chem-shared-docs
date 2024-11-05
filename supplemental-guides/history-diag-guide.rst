@@ -149,7 +149,7 @@ parameters shown in the :file:`HISTORY.rc` file above.
       of the run directory instead of :file:`./OutputDir`, which only
       contains diagnostic files.
 
-:option:`COLLECTIONS:`
+:option:`COLLECTIONS`
 
    The :literal:`COLLECTIONS:` tag specifies all of the diagnostic
    **collections** that you wish to activate during a GEOS-Chem
@@ -441,7 +441,7 @@ e.g.
 
 The duration tag of each collection in :file:`HISTORY.rc` controls how
 often a new file will be written to disk, as we saw :ref:`above
-<histtguide-configfile>`:
+<histguide-configfile>`:
 
 .. code-block:: none
 
@@ -1586,21 +1586,21 @@ above the canopy at approx. 10m height.
 | Diagnostic field            | Description                | Units   | Wildcard |
 +=============================+============================+=========+==========+
 | DryDepRaALT1\               | Dry deposition aerodynamic | s/cm    |          |
-| [#H]_                       | resistance at ALT1 meters  |         |          |
+| [#Z]_                       | resistance at ALT1 meters  |         |          |
 |                             | above the surface          |         |          |
 +-----------------------------+----------------------------+---------+----------+
 | DryDepVelForALT1_<name|wc>\ | Dry deposition velocity of | cm/s    | ?DRYALT? |
-| [#H]_  [#I]_                | species tagged with the    |         |          |
+| [#Z]_  [#I]_                | species tagged with the    |         |          |
 |                             | ?DRYALT?\wildcard          |         |          |
 +-----------------------------+----------------------------+---------+----------+
 | SpeciesConcALT1_<name|wc>\  | Concentration of species   | mol/mol | ?DRYALT? |
-| [#H]_  [#I]_                | tagged with the ?DRYALT?   | dry air |          |
+| [#Z]_  [#I]_                | tagged with the ?DRYALT?   | dry air |          |
 |                             | wildcard                   |         |          |
 +-----------------------------+----------------------------+---------+----------+
 
 .. rubric:: Notes about the ConcAboveSfc collection
 
-.. [#H] Replace :literal:`ALT1` with the altitude in meters above the
+.. [#Z] Replace :literal:`ALT1` with the altitude in meters above the
 	surface at which you would like these quantities computed.
 	For example: :literal:`DryDepVelFor10m_?DRYALT?`, etc.
 
@@ -2548,7 +2548,7 @@ Units are
 RxnRates
 --------
 
-The **RxnRates** collection contains reaction rates *aka equation
+The **RxnRates** collection contains reaction rates (aka equation
 rates) from the chemical mechanism (as computed by the KPP-generated
 solver code). For example, in the case of the NO + O\ :sub:`3` → NO\
 :sub:`2` + O\ :sub:`2` reaction the returned quantity is k[NO][O\
@@ -2560,19 +2560,19 @@ Here is a sample definition section for the RxnRates collection.
 
 .. code-block:: kconfig
 
-     #
-     # It is best to list individual reactions to avoid using too much memory.
-     # Reactions should be listed as "RxnRate_EQnnn", where nnn is the reaction
-     # index as listed in KPP/fullchem/gckpp_Monitor.F90,
-     # KPP/carbon/gckpp_Monitor.F90, and KPP/Hg/gckpp_monitor.F90
-     # (pad zeroes as needed)
-     #
-     RxnRates.template:   '%y4%m2%d2_%h2%n2z.nc4',
-     RxnRates.frequency:  00000000 010000
-     RxnRates.duration:   00000000 010000
-     RxnRates.mode:       'time-averaged'
-     RxnRates.fields:     'RxnRate_EQ001                           ',
-                          'RxnRate_EQ002                           ',
+   #
+   # It is best to list individual reactions to avoid using too much memory.
+   # Reactions should be listed as "RxnRate_EQnnn", where nnn is the reaction
+   # index as listed in KPP/fullchem/gckpp_Monitor.F90,
+   # KPP/carbon/gckpp_Monitor.F90, and KPP/Hg/gckpp_monitor.F90
+   # (pad zeroes as needed)
+   #
+   RxnRates.template:   '%y4%m2%d2_%h2%n2z.nc4',
+   RxnRates.frequency:  00000000 010000
+   RxnRates.duration:   00000000 010000
+   RxnRates.mode:       'time-averaged'
+   RxnRates.fields:     'RxnRate_EQ001                           ',
+                        'RxnRate_EQ002                           ',
    ::
 
 **List of diagnostic fields in the RxnRate collection**

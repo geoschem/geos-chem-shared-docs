@@ -33,10 +33,11 @@ GEOS-Chem Nested Input Data
 The `GEOS-Chem Nested Input data
 <https://registry.opendata.aws/geoschem-nested-input-data/>`_
 portal stores GEOS-FP and MERRA-2 meteorology fields that have
-been cropped to specific :ref:`nested-grid <nestgrid-guide>` domains.
-These data can be used to perform high-resolution inversions with the
-`Integrated Methane Inversion (IMI) <https://imi.readthedocs.io>`_
-workflow.
+been cropped to specific `nested-grid
+<https://geos-chem.readthedocs.io/en/latest/supplemental-guides/nested-grid-guide.html>`_
+domains. These data can be used to perform high-resolution inversions
+with the `Integrated Methane Inversion (IMI)
+<https://imi.readthedocs.io>`_ workflow.
 
 .. table:: Available nested-grid meteorology (2018 to present day)
    :align: center

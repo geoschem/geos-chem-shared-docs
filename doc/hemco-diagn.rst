@@ -10,7 +10,7 @@ In your run directory, you will find a copy of the `HEMCO diagnostic configurati
 :ref:`HEMCO_Config.rc <cfg-hco-cfg>` file.  You will only need to edit
 this file if you wish to change the default diagnostic output configuration.
 
-.. _cfg-hco-diagn-gchp-gcc:
+.. _cfg-hco-diagn-format:
 
 ======
 Format

@@ -166,9 +166,12 @@ simulation`.  The dry-run simulation workflow is as follows:
 #. Pass this list to a Python script, which will download the data to
    your computer system or AWS EC2 instance.
 
-For more information, please see the `geos-chem.readthedocs.io
-<https://geos-chem.readthedocs.io>`_ and `hemco.readthedocs.io
-<https://hemco.readthedocs.io>`_ online manuals.
+For more information, please see the following links:
+
+- `GEOS-Chem Classic dry-run instructions
+  <https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/dry-run.html>`_
+- `HEMCO standalone dry-run instructions
+  <https://hemco.readthedocs.io/en/latest/hco-sa-guide/hco-sa-dry-run.html>`_
 
 .. _gcid-data-access-globus:
 

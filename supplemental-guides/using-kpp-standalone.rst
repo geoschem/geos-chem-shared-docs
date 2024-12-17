@@ -161,34 +161,33 @@ Usage instructions
           - 1
           - 2
 	  # ... etc. other levels not shown ...
-      timestep: 15                         # Timestep (mins) for KPP standalone
 
       # ------------------------------------
       # Where to archive model state?
       # ------------------------------------
       active_cells:
-         - LosAngeles
-         - McMurdo
-         - Paris
-         - Beijing
-         # ... etc. other active_cells not shown ...
+        - Alert
+        - Amazon
+        - AtlanticOcean
+        - Beijing
+        # ... etc. other active_cells not shown ...
 
       # ------------------------------------
       # Active cell geographic coordinates
       # ------------------------------------
       locations:
-        LosAngeles:
-          longitude: -118.243
-          latitude: 34.0522
-        Paris:
-          longitude: 2.3522
-          latitude: 48.8566
+        Alert:
+          latitude: 82.5
+          longitude: -62.3
+        Amazon:
+          latitude: -3.4653
+          longitude: -62.2159
+        AtlanticOcean:
+          latitude: 34.707874
+          longitude: -41.574755
         Beijing:
-          longitude: 116.4074
           latitude: 39.9042
-        McMurdo:
-          longitude: 166.6698
-          latitude: -77.8455
+          longitude: 116.4074
         # ... etc. other locations not shown ...
 
 #. Edit the following entries under the :literal:`settings` section:
@@ -273,33 +272,33 @@ Usage instructions
 
    .. code-block:: console
 
+      Alert_L1_20190701_0000.txt
+      Alert_L1_20190701_0020.txt
+      Alert_L1_20190701_0040.txt
+      Alert_L2_20190701_0000.txt
+      Alert_L2_20190701_0020.txt
+      Alert_L2_20190701_0040.txt
+      ...
+      Amazon_L1_20190701_0000.txt
+      Amazon_L1_20190701_0020.txt
+      Amazon_L1_20190701_0040.txt
+      Amazon_L2_20190701_0000.txt
+      Amazon_L2_20190701_0020.txt
+      Amazon_L2_20190701_0040.txt
+      ...
+      AtlanticOcean_L1_20190701_0000.txt
+      AtlanticOcean_L1_20190701_0020.txt
+      AtlanticOcean_L1_20190701_0040.txt
+      AtlanticOcean_L2_20190701_0000.txt
+      AtlanticOcean_L2_20190701_0020.txt
+      AtlanticOcean_L2_20190701_0040.txt
+      ...
       Beijing_L1_20190701_0000.txt
       Beijing_L1_20190701_0020.txt
       Beijing_L1_20190701_0040.txt
       Beijing_L2_20190701_0000.txt
       Beijing_L2_20190701_0020.txt
       Beijing_L2_20190701_0040.txt
-      ...
-      LosAngeles_L1_20190701_0000.txt
-      LosAngeles_L1_20190701_0020.txt
-      LosAngeles_L1_20190701_0040.txt
-      LosAngeles_L2_20190701_0000.txt
-      LosAngeles_L2_20190701_0020.txt
-      LosAngeles_L2_20190701_0040.txt
-      ...
-      McMurdo_L1_20190701_0000.txt
-      McMurdo_L1_20190701_0020.txt
-      McMurdo_L1_20190701_0040.txt
-      McMurdo_L2_20190701_0000.txt
-      McMurdo_L2_20190701_0020.txt
-      McMurdo_L2_20190701_0040.txt
-      ...
-      Paris_L1_20190701_0000.txt
-      Paris_L1_20190701_0020.txt
-      Paris_L1_20190701_0040.txt
-      Paris_L2_20190701_0000.txt
-      Paris_L2_20190701_0020.txt
-      Paris_L2_20190701_0040.txt
       ...
       ... etc. for other sites & times ...
 

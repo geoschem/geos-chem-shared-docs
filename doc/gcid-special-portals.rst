@@ -24,10 +24,15 @@ We also maintain two additional data portals for special data sets.
 GEOS-Chem Nested Input Data
 ===========================
 
-.. attention::
+.. note::
+
+   Data stored at the GEOS-Chem Nested Input Data portal is covered
+   by the `AWS Open Data Sponsorship Program
+   <https://aws.amazon.com/opendata/open-data-sponsorship-program/>`_. and
+   may be downloaded without incurring any data egress fees.
 
    We are still adding data to the GEOS-Chem Nested Input Data
-   portal. As of this writing (November 2024), not all data may
+   portal. As of this writing (January 2025), not all data may
    have been uploaded yet.  We thank you for your patience.
 
 The `GEOS-Chem Nested Input data

@@ -17,6 +17,15 @@ download the data required to run :program:`GEOS-Chem Classic`,
 
 .. note::
 
+   We are pleased to announce that the GEOS-Chem Input Data portal is
+   part of the `AWS Open Data Sponsorship Program
+   <https://aws.amazon.com/opendata/open-data-sponsorship-program/>`_.
+   As a result, **the data is completely free to use**.  You will NOT
+   incur any data egress fees when downloading data from the
+   `s3://geos-chem <https://geos-chem.s3.amazonaws.com/index.html>`_
+   bucket.  This is now the recommended repository for GEOS-Chem data
+   download.
+
    We also maintain :ref:`additional portals for special meteorology
    products <gcid-special-portals>`.
 

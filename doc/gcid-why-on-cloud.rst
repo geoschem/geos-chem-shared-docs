@@ -23,7 +23,11 @@ Accessibility
 =============
 
 Data hosted on the cloud can be :ref:`accessed from anywhere in the
-world <gcid-data-access>`, facilitating collaboration among teams.
+world <gcid-data-access>`, facilitating collaboration among
+teams. Data stored at the GEOS-Chem Input Data portal is covered
+by the `AWS Open Data Sponsorship Program
+<https://aws.amazon.com/opendata/open-data-sponsorship-program/>`_.
+and may be downloaded without incurring any data egress fees.
 
 .. _gcid-why-perf:
 

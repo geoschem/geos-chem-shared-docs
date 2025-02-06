@@ -127,12 +127,39 @@ Usage instructions
    information. |br|
    |br|
 
-#. Navigate to the run directory and compile the `GEOS-Chem Classic
-   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/compile.html>`_
+#. During the run directory creation, you will be asked if you wish to
+   build KPP-Standalone.  Type :literal:`y` and hit return, as shown
+   below.
+
+   .. code-block:: console
+
+      -----------------------------------------------------------
+      Do you want to build the KPP-Standalone Box Model? (y/n)
+      -----------------------------------------------------------
+      >>> y
+
+      >>>> REMINDER: You must compile with options: -DKPPSA=y <<<<
+
+      Created /path/to/your/fullchem/run/directory
+
+#. Navigate to the run directory and configure the `GEOS-Chem Classic
+   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/compile-cmake.html>`_
    or `GCHP
    <https://gchp.readthedocs.io/en/stable/user-guide/compiling.html>`_
-   source code.  The KPP-Standalone Box Model code will be compiled to
-   an executable named :file:`kpp_standalone`. |br|
+   source code using CMake as you normally would.  Then navigate to
+   the build folder and apply option :literal:`-DKPPSA=y`:
+
+   .. code-block:: console
+
+      $ cd build
+      $ cmake . -DKPPSA=y
+      $ make -j
+      $ make install
+
+   The KPP-Standalone Box Model code will be compiled to
+   an executable named :file:`kpp_standalone`, which will be copied to
+   the run directory along with the GEOS-Chem Classic or GCHP
+   executable. |br|
    |br|
 
 #. Open the :file:`kpp_standalone_interface.yml` file (located in the

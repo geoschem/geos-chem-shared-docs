@@ -518,7 +518,8 @@ Usage instructions
    data begins. |br|
    |br|
 
-#. As of this writing (December 2024) we are working on Python
-   plotting codes to better visualize KPP-Standalone Box Model output.
-   These will ship as part of the `GCPy package
-   <https://github.com/geoschem/gcpy>`_.
+#. :program:`GCPy` (the GEOS-Chem Python Toolkit) contains scripts for
+   plotting KPP-Standalone Box Model output.  For usage instructions,
+   please see the `Visualizing KPP-Standalone box model output
+   <https://gcpy.readthedocs.io/en/stable/KPP-Standalone.html>`_
+   chapter of the GCPy documentation.

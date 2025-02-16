@@ -229,13 +229,13 @@ bounds or floating point math errors) that can give you more insight
 as to where your simulation is dying.
 
 Configure your code for debug mode with the
-:command:`-DCMAKE_RELEASE_TYPE=Debug` option.  From your run
+:command:`-DCMAKE_BUILD_TYPE=Debug` option.  From your run
 directory, type these commands:
 
 .. code-block:: console
 
    cd build
-   cmake ../CodeDir -DCMAKE_RELEASE_TYPE=Debug -DRUNDIR=..
+   cmake ../CodeDir -DCMAKE_BUILD_TYPE=Debug -DRUNDIR=..
    make -j
    make -j install
    cd ..

@@ -132,11 +132,23 @@ AWS CLI (command-line interface)
 
 You can also use the AWS command-line interface (aka :program:`AWS
 CLI`) to browse and download data from the GEOS-Chem Input Data
-portal. For example, use this command to get a data listing:
+portal.
+
+For example, if you have an AWS account and have installed AWS CLI on
+your system, you may use this command to get a data listing:
 
 .. code-block:: console
 
    $ aws s3 ls s3://geos-chem/   # Get a directory listing
+
+If you do not have an AWS account (or do not wish to open one), you
+may still use AWS CLI to access or download data via anonymous login,
+which is completely free.  Simply add the
+:literal:`--no-sign-request` flag after each AWS CLI command, such as:
+
+.. code-block:: console
+
+   $ aws s3 ls --no-sign-request s3://geos-chem/   # Get a directory listing via anonymous login
 
 For detailed instructions about using AWS CLI, please see:
 :ref:`gcid-tut`.

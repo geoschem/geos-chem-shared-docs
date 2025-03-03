@@ -13,11 +13,23 @@ using the :ref:`GEOS-Chem Input Data <gcid>` with
 AWS CLI. Alternatively, you can access the data via `AWS S3 Explorer
 <https://geos-chem.s3.amazonaws.com/index.html>`_.
 
-The workflow is
+.. note::
 
-#. :ref:`Install and configure AWS CLI <gcid-tut-conf>`
+   When you open an AWS account you will be asked for credit card
+   information.  But even if you don't have (or don't wish to open) an
+   AWS account, you may still access and download the GEOS-Chem Input
+   Data using AWS CLI with anonymous login, which is completely free.
+
+The workflow is:
+
+#. :ref:`Install AWS CLI <gcid-tut-install>`
 
    - This step only has to be done once.
+
+#. :ref:`Configure AWS CLI <gcid-tut-conf>`
+
+   - You may skip this step if you do not have (or do not wish to
+     open) an AWS account.
 
 #. :ref:`Download data from the GEOS-Chem Input Data portal
    <gcid-tut-access>`.
@@ -25,32 +37,33 @@ The workflow is
 #. :ref:`Run a GEOS-Chem Classic, GCHP, or HEMCO standalone simulation
    <gcid-tut-using>`.
 
+.. _gcid-tut-install:
+
+===============
+Install AWS CLI
+===============
+
+Follow the installation instructions from the `AWS CLI User Guide <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>`_.
+
 .. _gcid-tut-conf:
 
-=============================
-Install and configure AWS CLI
-=============================
+======================================================
+Configure AWS CLI (if you already have an AWS account)
+======================================================
 
-If you have already installed and configured the AWS CLI previously,
-continue to :ref:`gcid-data-access`.
+.. note::
 
-.. _gcid-tut-conf-install:
+   You may :ref:`skip ahead to the next section <gcid-tut-access>` if
+   you do not have (or do not wish to open) an AWS account but wish to
+   access the data via anonymous login.
 
-Step 1: Install AWS CLI
------------------------
-
-Follow the instructions to install the AWS CLI from the `AWS CLI User Guide <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>`_.
-
-.. _gcid-tut-conf-conf:
-
-Step 2: Configure AWS CLI
--------------------------
-
-Run the following command to configure AWS CLI with your credentials:
+Configure AWS CLI with this command:
 
 .. code-block:: sh
 
    $ aws configure
+
+and supply your credentials when prompted.
 
 For instructions on :literal:`aws configure`, refer to the `Configure the AWS CLI <https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html>`_ .
 
@@ -66,17 +79,24 @@ Step 1: List available data
 ---------------------------
 
 To view the available data in the GEOS-Chem Input Data S3 bucket, use
-the following command:
+one of the following commands:
 
-.. code-block:: sh
+**If you have an AWS account:**
+
+.. code-block:: console
 
    $ aws s3 ls s3://geos-chem/
 
-or without AWS account required
+**If you do not have an AWS account:**
 
-.. code-block:: sh
+.. code-block:: console
 
    $ aws s3 ls --no-sign-request s3://geos-chem/
+
+.. tip::
+
+   Adding the :literal:`--no-sign-request` flag to any AWS CLI command
+   will access or download data via anonymous login.
 
 .. _gcid-tut-access-nav:
 
@@ -86,9 +106,17 @@ Step 2: Navigate through the directories
 You can navigate through the directories to find the specific data you
 need. For example,
 
-.. code-block:: sh
+**If you have an AWS account:**
+
+.. code-block:: console
 
    $ aws s3 ls s3://geos-chem/GEOS_0.5x0.625/MERRA2/2024/05
+
+**If you do not have an AWS account:**
+
+.. code-block:: console
+
+   $ aws s3 ls --no-sign-request s3://geos-chem/GEOS_0.5x0.625/MERRA2/2024/05
 
 .. _gcid-tut-access-download:
 
@@ -106,14 +134,19 @@ Step 3: Download the data
 Once you have located the data you need, you can download it to your
 local cluster or an EC2 instance. For example,
 
-.. code-block:: sh
+**If you have an AWS account:**
+
+.. code-block:: console
 
    $ aws s3 cp s3://geos-chem/GEOS_0.5x0.625/MERRA2/2024/05 ./ --recursive
 
+**If you do not have an AWS account:**
+
+.. code-block:: console
+
+   $ aws s3 cp --no-sign-request s3://geos-chem/GEOS_0.5x0.625/MERRA2/2024/05 ./ --recursive
+
 This command will copy the data to your current path.
-
-
-
 
 .. _gcid-tut-using:
 

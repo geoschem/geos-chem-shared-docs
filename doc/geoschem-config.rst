@@ -832,6 +832,7 @@ Photolysis
      photolysis:
        activate: true
        cloud-j:
+         cloudj_input_dir: ${RUNDIR_DATA_ROOT}/CHEM_INPUTS/CLOUD_J/v2025-01/
          num_levs_with_cloud: 34
          cloud_scheme_flag: 3
          opt_depth_increase_factor: 1.050
@@ -841,9 +842,8 @@ Photolysis
          sphere_correction: 1
          num_wavelength_bins: 18
          use_H2O_UV_absorption: true
-       input_directories:
+       fast-jx:
          fastjx_input_dir: /path/to/ExtData/CHEM_INPUTS/FAST_JX/v2024-05/
-         cloudj_input_dir: /path/to/ExtData/CHEM_INPUTS/CLOUD_J/v2024-09/
        overhead_O3:
          use_online_O3_from_model: true
          use_column_O3_from_met: true
@@ -881,6 +881,11 @@ This section only applies to fullchem, Hg, and aerosol-only simulations.
       You should not need to modify these settings (unless you are
       investigating how aerosol and cloud interactions impact photolysis).
 
+   .. option:: cloudj_input_dir
+
+      Specifies the path to the Cloud-J configuration files containing
+      information about species cross sections and quantum yields.
+      
    .. option:: num_levs_with_cloud
 
       Specifies the number of levels that can contain clouds, which is a
@@ -986,10 +991,15 @@ This section only applies to fullchem, Hg, and aerosol-only simulations.
       | **Cloud-J variable**     | ``USEH2OUV``                       |
       +--------------------------+------------------------------------+
 
-.. option:: input_directories
+.. option:: fast-jx
 
-   Specifies the location of directories containing photolysis
-   configuration files.
+   Specifies various options for the FAST-JX photolysis package.
+
+   .. attention::
+
+      FAST-JX is currently used only by the Hg (mercury) simulation,
+      In the near future, the Hg simulation will be updated to use
+      Cloud-J, and FAST_JX will be retired from GEOS-Chem.
 
    .. option:: fastjx_input_dir
 
@@ -1001,11 +1011,6 @@ This section only applies to fullchem, Hg, and aerosol-only simulations.
       Note that FAST-JX is off by default and Cloud-J is used
       instead. You can use legacy FAST-JX instead of Cloud-J by
       configuring with  :literal:`-DFASTJX=y` during build.
-
-   .. option:: cloudj_input_dir
-
-      Specifies the path to the Cloud-J configuration files containing
-      information about species cross sections and quantum yields.
 
 .. option:: overhead_O3
 
@@ -1019,19 +1024,19 @@ This section only applies to fullchem, Hg, and aerosol-only simulations.
 
       Recommended value: :literal:`true`
 
-  .. option:: use_column_O3_from_met
+   .. option:: use_column_O3_from_met
 
-     Activates (:literal:`true`) or deactivates (:literal:`false`) using
-     ozone columns (e.g. TO3) from the meteorology fields.
+      Activates (:literal:`true`) or deactivates (:literal:`false`) using
+      ozone columns (e.g. TO3) from the meteorology fields.
 
-     Recommended value: :literal:`true`.
+      Recommended value: :literal:`true`.
 
-  .. option:: use_TOMS_SBUV_O3
+   .. option:: use_TOMS_SBUV_O3
 
-     Activates (:literal:`true`) or deactivates (:literal:`false`) using
-     ozone columns from the TOMS-SBUV archive  will be used.
+      Activates (:literal:`true`) or deactivates (:literal:`false`) using
+      ozone columns from the TOMS-SBUV archive  will be used.
 
-     Recommended value: :literal:`false`.
+      Recommended value: :literal:`false`.
 
 .. option:: photolyze_nitrate_aerosol
 
@@ -1309,7 +1314,7 @@ Optics
    aerosols:
 
      optics:
-       input_dir: /path/to/ExtData/CHEM_INPUTS/Aerosol_Optics/v2024-08/
+       input_dir: /path/to/ExtData/CHEM_INPUTS/Aerosol_Optics/v2025-03/
 
      # .. following sub-sections omitted ...
 

@@ -348,57 +348,69 @@ For GEOS-Chem Classic diagnostic output, you can use the following
 wildcards with diagnostic quantities that have a species/bin/reaction
 dimension:
 
-+--------------+---------------------------------+----------------------------+
-| Wildcard     | Description                     | Example                    |
-+==============+=================================+============================+
-| ?ADV?        | Advected species                | SpeciesConcVV\_?ADV?       |
-+--------------+---------------------------------+----------------------------+
-| ?AER?        | Aerosol species                 | SpeciesConcVV\_?AER?       |
-+--------------+---------------------------------+----------------------------+
-| ?ALL?        | All species                     | SpeciesConcVV\_?ALL?       |
-+--------------+---------------------------------+----------------------------+
-| ?DRY?        | Dry-deposited species           | SpeciesConcVV\_?DRY?       |
-+--------------+---------------------------------+----------------------------+
-| ?DRYALT?     | Species for the                 | SpeciesConcVV\_?DRYALT     |
-|              | :ref:`histguide-concabovechem`  |                            |
-|              | collection                      |                            |
-+--------------+---------------------------------+----------------------------+
-| ?DUSTBIN?    | Dust bin number                 | AODdust550nm\_?DUSTBIN?    |
-+--------------+---------------------------------+----------------------------+
-| ?FIX?        | Fixed species in the            | SpeciesConcVV\_?FIX?       |
-|              | KPP chemistry mechanism         |                            |
-+--------------+---------------------------------+----------------------------+
-| ?GAS?        | Gas-phase species               | SpeciesConcVV\_?GAS?       |
-+--------------+---------------------------------+----------------------------+
-| ?HYG?        | Aerosol species that            | AODhyg550nm\_?HYG?         |
-|              | undergo hygroscopic growth      |                            |
-|              | (e.g. black carbon)             |                            |
-+--------------+---------------------------------+----------------------------+
-| ?KPP?        | All species (fixed +            | SpeciesConcVV\_?KPP?       |
-|              | variable) in the KPP            |                            |
-|              | chemistry mechanism             |                            |
-+--------------+---------------------------------+----------------------------+
-| ?LOS?        | Chemical loss species           | SpeciesConcVV\_?LOS?       |
-|              | or families                     |                            |
-+--------------+---------------------------------+----------------------------+
-| ?PHO?        | Photolyzed species              | SpeciesConcVV\_?PHO?       |
-+--------------+---------------------------------+----------------------------+
-| ?PRD?        | Chemical production             | SpeciesConcVV\_?PRD?       |
-|              | species or families             |                            |
-+--------------+---------------------------------+----------------------------+
-| ?RRTMG?      | RRTMG-computed fluxes           | RadAllSkywSurf\_?RRTMG?    |
-+--------------+---------------------------------+----------------------------+
-| ?RXN?        | KPP reaction rates              | RxnRate\_?RXN?             |
-+--------------+---------------------------------+----------------------------+
-| ?TOMASBIN?   | TOMAS size bins                 | TomasH2SO4Mass\_?TOMASBIN? |
-+--------------+---------------------------------+----------------------------+
-| ?UVFLX?      | UV flux bins                    | UVFluxDiffuse\_?UVFLX?     |
-+--------------+---------------------------------+----------------------------+
-| ?VAR?        | Variable species in the         | SpeciesConcVV\_?VAR?       |
-|              | KPP mechanism                   |                            |
-+--------------+---------------------------------+----------------------------+
-| ?WET?        | Wet-deposited species           | SpeciesConcVV\_?WET        |
-+--------------+---------------------------------+----------------------------+
+.. list-table::
+   :header-rows: 1
+
+   * - Wildcard
+     - Description
+     - Example
+   * - :literal:`?ADV?`
+     - Advected species
+     - :literal:`SpeciesConcVV_?ADV?`
+   * - :literal:`?AER?`
+     - Aerosol species
+     - :literal:`SpeciesConcVV\_?AER?`
+   * - :literal:`?ALL?`
+     - All species
+     - :literal:`SpeciesConcVV_?ALL?`
+   * - :literal:`?DRY?`
+     - Dry-deposited species
+     - :literal:`SpeciesConcVV\_?DRY?`
+   * - :literal:`?DRYALT?`
+     - Species for the :ref:`histguide-concabovechem`  collection
+     - :literal:`SpeciesConcVV_?DRYALT`
+   * - :literal:`?DUSTBIN?`
+     - Dust bin number
+     - :literal:`AODdust550nm\_?DUSTBIN?`
+   * - :literal:`?FIX?`
+     - Fixed species in the KPP chemistry mechanism
+     - :literal:`SpeciesConcVV_?FIX?`
+   * - :literal:`?GAS?`
+     - Gas-phase species
+     - :literal:`SpeciesConcVV_?GAS?`
+   * - :literal:`?HYG?`
+     - Aerosol species that undergo hygroscopic growth - (e.g. black carbon)
+     - :literal:`AODhyg550nm_?HYG?`
+   * - :literal:`?KPP?`
+     - All species (fixed variable) in the KPP chemistry mechanism
+     - `SpeciesConcVV\_?KPP?`
+   * - :literal:`?LOS?`
+     - Chemical loss species or familes
+     - `SpeciesConcVV\_?LOS?`
+   * - :literal:`?PHO?`
+     - Photolyzed species
+     - `SpeciesConcVV_?PHO?`
+   * - :literal:`?PRD?`
+     - Chemical production species or families
+     - :literal:`SpeciesConcVV_?PRD?`
+   * - :literal:`?RRTMG?`
+     - RRTMG-computed fluxes
+     - :literal:`RadAllSkywSurf_?RRTMG?`
+   * - :literal:`?RXN?`
+     - KPP reaction rates
+     - :literal:`RxnRate_?RXN?`
+   * - :literal:`?TOMASBIN?`
+     - TOMAS size bins
+     - :literal:`TomasH2SO4Mass_?TOMASBIN?`
+   * - :literal:`?UVFLX?`
+     - UV flux bins
+     - :literal:`UVFluxDiffuse_?UVFLX?`
+   * - :literal:`?VAR?`
+     - Variable (i.e. active) species in the KPP mechanism
+     - :literal:`SpeciesConcVV_?VAR?`
+   * - :literal:`?WET?`
+     - Wet-deposited species
+     - :literal:`SpeciesConcVV_?WET`
 
 .. _histguide-prefixes:
 
@@ -409,17 +421,18 @@ You may add any field from the :code:`State_Met` and :code:`State_Chm`
 objects to any diagnostic collection as well.  These fields must be
 prefixed as described below:
 
-+-----------+-----------------------------+---------------+
-| Wildcard  | Description                 | Example       |
-+===========+=============================+===============+
-| Chem\_    | Request diagnostic output   | Chem\_pHCloud |
-|           | from the ``State_Chm``      |               |
-|           | object                      |               |
-+-----------+-----------------------------+---------------+
-| Met\_     | Request diagnostic output   | Met\_SPHU     |
-|           | from the ``State_Met``      |               |
-|           | object                      |               |
-+-----------+-----------------------------+---------------+
+.. list-table::
+   :header-rows: 1
+
+   * - Wildcard
+     - Description
+     - Example
+   * - :literal:`Chem_`
+     - Request diagnostic output from the :literal:`State_Chm` object
+     - :literal:`Chem_pHCloud`
+   * - :literal:`Met_`
+     - Request diagnostic output from the :literal:`State_Met` object
+     - :literal:`Met_SPHU`
 
 .. _histguide-filename:
 
@@ -3275,8 +3288,7 @@ The **TOMAS** collection contains diagnostic fields for fullchem simulations wit
      Tomas.frequency:      010000
      Tomas.duration:       010000
      Tomas.mode:           'time-averaged'
-     Tomas.fields:         'TomasH2SO4                        ',
-                           'TomasH2SO4mass_?TOMASBIN?         ',
+     Tomas.fields:         'TomasH2SO4mass_?TOMASBIN?         ',
                            #----------------------------------------------
                            # NOTE: for GEOS-Chem Classic you can use the
 			   # ?TOMASBIN? wildcard.  For GCHP you will need
@@ -3299,18 +3311,14 @@ The **TOMAS** collection contains diagnostic fields for fullchem simulations wit
                            #'TomasH2SO4mass_bin15             ',
                            #----------------------------------------------
                            'TomasH2SO4number_?TOMASBIN?      ',
-                           'TomasCOAG                        ',
                            'TomasCOAGmass_?TOMASBIN          ',
                            'TomasCOAGnumber_?TOMASBIN?       ',
-                           'TomasNUCL                        ',
                            'TomasNUCRATEFN                   ',
                            'TomasNUCLmass_?TOMASBIN?         ',
                            'TomasNUCLnumber_?TOMASBIN?       ',
                            'TomasNUCRATEnumber_?TOMASBIN?    ',
-                           'TomasAQOX                        ',
                            'TomasAQOXmass_?TOMASBIN?         ',
                            'TomasAQOXnumber_?TOMASBIN?       ',
-                           'TomasMNFIX                       ',
                            'TomasMNFIXmass_?TOMASBIN?        ',
                            'TomasMNFIXnumber_?TOMASBIN?      ',
                            'TomasMNFIXh2so4mass_?TOMASBIN?   ',
@@ -3330,7 +3338,6 @@ The **TOMAS** collection contains diagnostic fields for fullchem simulations wit
                            'TomasMNFIXcheck2number_?TOMASBIN?',
                            'TomasMNFIXcheck3mass_?TOMASBIN?  ',
                            'TomasMNFIXcheck3number_?TOMASBIN?',
-                           'TomasSOA                         ',
                            'TomasSOAmass_?TOMASBIN?          ',
                            'TomasSOAnumber_?TOMASBIN?        ',
    ::
@@ -3340,26 +3347,17 @@ The **TOMAS** collection contains diagnostic fields for fullchem simulations wit
 +----------------------------+-------------------------------+---------+----------+
 | Diagnostic field           | Description                   | Units   | Wildcard |
 +============================+===============================+=========+==========+
-| TomasAQOX                  | Tomas aqueous oxidation rate  | 1       | [#R]_    |
-|                            |                               |         |          |
-+----------------------------+-------------------------------+---------+----------+
 | TomasAQOXmass\_\           | TomasAQOX mass rate           | kg/kg/s | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
 | TomasAQOXnumber\_\         | TomasAQOX number rate         | #/kg/s  | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
-| TomasCOAG                  | Tomas coagulation rate        | 1       | [#R]_    |
-|                            |                               |         |          |
-+----------------------------+-------------------------------+---------+----------+
 | TomasCOAGmass\_\           | TOMASCOAG mass rate           | kg/kg/s | [#R]_    |
 | <name|wc>                  |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
 | TomasCOAGnumber\_\         | TomasCOAG number rate         | #/kg/s  | [#R]_    |
 | <name|wc>                  |                               |         |          |
-+----------------------------+-------------------------------+---------+----------+
-| TomasH2SO4                 | Tomas condensation rate       | 1       | [#R]_    |
-|                            |                               |         |          |
 +----------------------------+-------------------------------+---------+----------+
 | TomasH2SO4mass\_\          | TomasH2SO4 mass rate          | kg/kg/s | [#R]_    |
 | <name|wc>                  |                               |         |          |

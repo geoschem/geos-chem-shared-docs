@@ -11,8 +11,8 @@ Fortran90 code for use with GEOS-Chem:
 
 .. attention::
 
-   You must use at least `KPP 3.0.0
-   <https://kpp.readthedocs.io/en/stable/getting_started/00_revision_history.html#kpp-3-0-0>`_
+   You must use at least `KPP 3.2.0
+   <https://kpp.readthedocs.io/en/stable/getting_started/00_revision_history.html#kpp-3--0>`_
    with the current GEOS-Chem release series.
 
 .. _kppguide-quick-start:
@@ -722,7 +722,7 @@ Several global options for :program:`KPP` are listed at the top of the
 
 .. code-block:: none
 
-   #MINVERSION   3.0.0                  { Need this version of KPP or later          }
+   #MINVERSION   3.2.0                  { Need this version of KPP or later          }
    #INTEGRATOR   rosenbrock_autoreduce  { Use Rosenbrock integration method          }
    #AUTOREDUCE   on                     { ... with autoreduce enabled but optional   }
    #LANGUAGE     Fortran90              { Generate solver code in Fortran90 ...      }
@@ -737,20 +737,30 @@ The `#INTEGRATOR
 tag specifies the choice of numerical integrator that you wish to use
 with your chemical mechanism. The table below lists
 
-.. table:: Integrators used for each KPP-based GEOS-Chem mechanism
+.. list-table:: Integrators used for each KPP-based GEOS-Chem mechanism
    :align: center
-
-   +-------------+----------------------------+----------------------+
-   | Simulation  | **#INTEGRATOR**            | **#AUTOREDUCE**      |
-   +=============+============================+======================+
-   | carbon      | ``feuler``                 |                      |
-   +-------------+----------------------------+----------------------+
-   | custom      | ``rosenbrock_autoreduce``  | ``on``               |
-   +-------------+----------------------------+----------------------+
-   | fullchem    | ``rosenbrock_autoreduce``  | ``on``               |
-   +-------------+----------------------------+----------------------+
-   | Hg          | ``rosenbrock``             |                      |
-   +-------------+----------------------------+----------------------+
+   :header-rows: 1
+	   
+   * - Simulation
+     - #INTEGRATOR setting
+     - Integration method
+     - #AUTOREDUCE setting
+   * - carbon
+     - `feuler <https://kpp.readthedocs.io/en/stable/tech_info/07_numerical_methods.html#feuler>`_ 
+     - Forward Euler
+     - N/A
+   * - custom
+     - `rosenbrock_autoreduce <https://kpp.readthedocs.io/en/stable/tech_info/07_numerical_methods.html#rosenbrock-with-mechanism-auto-reduction>`_
+     - `RODAS3 <https://kpp.readthedocs.io/en/stable/tech_info/07_numerical_methods.html#rodas-3>`_
+     - on
+   * - fullchem
+     - rosenbrock_autoreduce
+     - RODAS3
+     - on
+   * - Hg
+     - `rosenbrock <https://kpp.readthedocs.io/en/stable/tech_info/07_numerical_methods.html#rosenbrock-methods>`_
+     - RODAS3
+     - N/A
 
 .. attention::
 
@@ -770,7 +780,7 @@ should be set to :command:`on`.
 
 The `#MINVERSION
 <https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#minversion>`_
-should be set to 3.0.0.  This is the minimum KPP version you should be
+should be set to 3.2.0.  This is the minimum KPP version you should be
 using with GEOS-Chem.
 
 The other options should be left as they are, as they are not relevant

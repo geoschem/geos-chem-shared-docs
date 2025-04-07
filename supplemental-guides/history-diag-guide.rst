@@ -41,6 +41,11 @@ collection at the output intervals that you specify in
 :file:`HISTORY.rc`. If using GCHP this is done by the MAPL History component
 also using configuration file :file:`HISTORY.rc`.
 
+.. _histguide-configfile-sample:
+
+Sample HISTORY.rc file
+~~~~~~~~~~~~~~~~~~~~~~~
+
 The following is a stripped-down :file:`HISTORY.rc` file example for
 illustration purposes.  The :file:`HISTORY.rc` file that you will find
 in your GEOS-Chem run directory will contain more collections than
@@ -134,14 +139,17 @@ In this :file:`HISTORY.rc` file, we are requesting three collections, or
 types of netCDF file output. The table below explains in more detail
 parameters shown in the :file:`HISTORY.rc` file above.
 
-:option:`EXPID`
+.. _histguide-configfile-sample-expid:
 
-   This parameter controls the filename prefix. :ref:`In this example,
-   <histguide-configfile>`, :literal:`EXPID` is set to
-   :file:`./OutputDir/GEOSChem` by default.  This means that all
-   diagnostic files will be written to the :file:`./OutputDir`
-   subdirectory of the GEOS-Chem run directory, and will start with
-   the prefix :file:`GEOSChem`.
+EXPID
+^^^^^
+
+
+Thi :literal:`EXPID` parameter controls the filename prefix, which is
+set to :file:`./OutputDir/GEOSChem` by default. This means that
+diagnostic files will be written to the :file:`./OutputDir` directory
+of the GEOS-Chem run directory, and will start with the prefix
+:file:`GEOSChem`.
 
    .. note::
 
@@ -149,195 +157,220 @@ parameters shown in the :file:`HISTORY.rc` file above.
       of the run directory instead of :file:`./OutputDir`, which only
       contains diagnostic files.
 
-:option:`COLLECTIONS`
+.. _histguide-configfile-sample-coll:
 
-   The :literal:`COLLECTIONS:` tag specifies all of the diagnostic
-   **collections** that you wish to activate during a GEOS-Chem
-   simulation. Each collection represents a group of diagnostic
-   quantities that will be written to disk in netCDF file format. The
-   collection name will be automatically added to the netCDF file name
-   along with the date/or time.
+COLLECTIONS
+^^^^^^^^^^^
 
-   Each GEOS-Chem run directory will ship with its own customized
-   :file:`HISTORY.rc` configuration file.  Only the diagnostic
-   collections pertaining to a particular GEOS-Chem simulation will be
-   included in the corresponding :file:`HISTORY.rc` file.
+The :literal:`COLLECTIONS:` tag specifies all of the diagnostic
+**collections** that you wish to activate during a GEOS-Chem
+simulation. Each collection represents a group of diagnostic
+quantities that will be written to disk in netCDF file format. The
+collection name will be automatically added to the netCDF file name
+along with the date/or time.
 
-   Each collection name must be bracketed by single quotes, and be
-   followed by a comma.
+Each GEOS-Chem run directory will ship with its own customized
+:file:`HISTORY.rc` configuration file.  Only the diagnostic
+collections pertaining to a particular GEOS-Chem simulation will be
+included in the corresponding :file:`HISTORY.rc` file.
 
-   To disable an entire diagnostic collection, simply put a
-   :literal:`#` comment character in front of the collection name in
-   the :literal:`COLLECTIONS:` section.
+Each collection name must be bracketed by single quotes, and be
+followed by a comma.
 
-   GEOS-Chem will expect to find a collection definition section for
-   each of the activated collections listed under the
-   :literal:`COLLECTIONS:` section.  In other words, if you have
-   :option:`SpeciesConc`  listed under :literal:`COLLECTIONS:`, but
-   there is no further information provided about the
-   :option:`SpeciesConc` collection, then GEOS-Chem will halt with an
-   error message.
+To disable an entire diagnostic collection, simply put a
+:literal:`#` comment character in front of the collection name in
+the :literal:`COLLECTIONS:` section.
 
-   .. note::
+GEOS-Chem will expect to find a collection definition section for
+each of the activated collections listed under the
+:literal:`COLLECTIONS:` section.  In other words, if you have
+:option:`SpeciesConc`  listed under :literal:`COLLECTIONS:`, but
+there is no further information provided about the
+:option:`SpeciesConc` collection, then GEOS-Chem will halt with an
+error message.
 
-      You are not limited to the collections that are pre-defined in
-      the :file:`HISTORY.rc` configuration file.  You may create
-      additional diagnostic collections to suit your research
-      purposes.
+.. note::
 
-:option:`SpeciesConc`
+   You are not limited to the collections that are pre-defined in
+   the :file:`HISTORY.rc` configuration file.  You may create
+   additional diagnostic collections to suit your research
+   purposes.
 
-   Name of the first collection in this :file:`HISTORY.rc` file.
+.. _histguide-configfile-sample-sc:
 
-:option:`SpeciesConc.template`
+SpeciesConc
+^^^^^^^^^^^
 
-   Determines the date and time format for the :option:`SpeciesConc`
-   collection filename suffix, as described below:
+Name of the first collection in this :file:`HISTORY.rc` file.
 
-   - :literal:`%y4%m2%d2_%h2%n2z.nc4` prints
-     :literal:`YYYYMMDD_hhmmz.nc4` to the end of each netCDF filename.
-   - :literal:`YYYYMMDD` is the date in year/month/day format;
-   - :literal:`hhmm` is the time in :literal:`hour:minutes` format.
-   - :literal:`z` denotes "Zulu", which is an abbreviation for UTC time.
-   - :literal:`.nc4` denotes that the data file is in the netCDF-4 format.
+.. _histguide-configfile-sample-sc-tmpl:
 
-   .. note::
+SpeciesConc.template
+^^^^^^^^^^^^^^^^^^^^
+Determines the date and time format for the
+:ref:`histguide-configfile-sample-sc` collection filename suffix, as
+described below: 
 
-      For example, the complete file path for the :option:`SpeciesConc`
-      collection at 00:00 UTC on 2020/01/01 will be
-      :file:`./OutputDir/GEOSChem.SpeciesConc.20200101_0000z.nc4`,
-      where:
+- :literal:`%y4%m2%d2_%h2%n2z.nc4` prints
+  :literal:`YYYYMMDD_hhmmz.nc4` to the end of each netCDF filename.
+- :literal:`YYYYMMDD` is the date in year/month/day format;
+- :literal:`hhmm` is the time in :literal:`hour:minutes` format.
+- :literal:`z` denotes "Zulu", which is an abbreviation for UTC time.
+- :literal:`.nc4` denotes that the data file is in the netCDF-4 format.
 
-      - :option:`EXPID` specifies the filename prefix
-        (:file:`./OutputDir/GEOSChem`)
+.. note::
 
-      - :option:`SpeciesConc.template` specifies the format of the
-	filename suffix (:file:`.20200101_0000z.nc4`).
+   For example, the complete file path for the
+   :ref:`histguide-configfile-sample-sc` collection at 00:00 UTC on
+   2020/01/01 will be
+   :file:`./OutputDir/GEOSChem.SpeciesConc.20200101_0000z.nc4`,
+   where:
 
-:option:`SpeciesConc.frequency`
+   - :ref:`histguide-configfile-sample-expid` specifies the filename prefix
+     (:file:`./OutputDir/GEOSChem`).
 
-   Determines how often the diagnostic quantities belonging to
-   the :option:`SpeciesConc` collection will be saved to a netCDF
-   file. This can be specified as either :literal:`hhmmss` or
-   :literal:`YYYYMMDD hhmmss`.
+   - :ref:`histguide-configfile-sample-sc-tmpl` specifies the format
+     of the filename suffix (:file:`.20200101_0000z.nc4`).
 
-   In the above example, data belonging to the collection will be
-   written to  the file every 6 hours.  Because :option:`SpeciesConc`
-   is an instantaneous collection, no time-averaging will be
-   performed.
+.. _histguide-configfile-sample-sc-freq:
+      
+SpeciesConc.frequency
+^^^^^^^^^^^^^^^^^^^^^
 
-:option:`SpeciesConc.format`
+Determines how often the diagnostic quantities belonging to
+the  :ref:`histguide-configfile-sample-sc` collection will be saved to
+a netCDF file. This can be specified as either :literal:`hhmmss` or
+:literal:`YYYYMMDD hhmmss`.
 
-   **For GCHP simulations only.** This tag indicates the I/O library that
-   will be used.
+In the above example, data belonging to the collection will be
+written to  the file every 6 hours.  Because :option:`SpeciesConc`
+is an instantaneous collection, no time-averaging will be
+performed.
 
-:option:`SpeciesConc.duration`
+SpeciesConc.format
+^^^^^^^^^^^^^^^^^^
 
-   Determines how often a new :option:`SpeciesConc` netCDF file will
-   be created.  Uses the same format as :option:`SpeciesConc.frequency`.
+**For GCHP simulations only.** This tag indicates the I/O library that
+will be used.
 
-:option:`SpeciesConc.mode`
+SpeciesConc.duration
+^^^^^^^^^^^^^^^^^^^^
 
-   Determines the averaging method for the :option:`SpeciesConc`
-   collection.  Allowable values are:
+Determines how often a new :option:`SpeciesConc` netCDF file will
+be created.  Uses the same format as
+:ref:`histguide-configfile-sample-sc-freq:`.
 
-   - :literal:`instantaneous`: Archives instantaneous values at the
-     interval specified by :option:`SpeciesConc.frequency`.
-   - :literal:`time-averaged`: Archives values averaged over the
-     interval specified by :option:`SpeciesConc.frequency`.
+SpeciesConc.mode
+^^^^^^^^^^^^^^^^
 
-:option:`SpeciesConc.fields`
+Determines the averaging method for the :option:`SpeciesConc`
+collection.  Allowable values are:
 
-   Lists the diagnostic quantities to be archived in the
-   :option:`SpeciesConc` collection.  Some diagnostic quantities
-   (e.g. concentrations, fluxes, masses) may also have an extra
-   dimension, which represents species, size bins, reaction numbers, etc.
+- :literal:`instantaneous`: Archives instantaneous values at the
+  interval specified by :ref:`histguide-configfile-sample-sc-freq:`.
+- :literal:`time-averaged`: Archives values averaged over the
+  interval specified by :ref:`histguide-configfile-sample-sc-freq:`.
 
-   For example, to request the ozone species concentration (in mixing
-   ratio units) you may use the field name
-   :literal:`SpeciesConcVV_O3`.  The species name is separated from
-   the quantity name by a single underscore.
+SpeciesConc.fields
+^^^^^^^^^^^^^^^^^^
 
-   .. note::
+Lists the diagnostic quantities to be archived in the
+:ref:`histguide-configfile-sample-sc` collection.  Some diagnostic
+quantities (e.g. concentrations, fluxes, masses) may also have an
+extra dimension, which represents species, size bins, reaction
+numbers, etc.
 
-      For GCHP, each diagnostic field must be followed by the name of the
-      ESMF gridded component that it is associated with. For arrays in GEOS-Chem
-      objects State_Met, State_Chm, and State_Diag this is
-      :literal:`'GCHPchem',`. A few diagnostics may also be output from
-      the advection component of GCHP which has ESMF gridded component
-      name :literal:`DYNAMICS`.
+For example, to request the ozone species concentration (in mixing
+ratio units) you may use the field name
+:literal:`SpeciesConcVV_O3`.  The species name is separated from
+the quantity name by a single underscore.
+
+.. note::
+
+   For GCHP, each diagnostic field must be followed by the name of the
+   ESMF gridded component that it is associated with. For arrays in GEOS-Chem
+   objects State_Met, State_Chm, and State_Diag this is
+   :literal:`'GCHPchem',`. A few diagnostics may also be output from
+   the advection component of GCHP which has ESMF gridded component
+   name :literal:`DYNAMICS`.
 
 
-   If you are using GEOS-Chem Classic,you may also use a
-   :ref:`wildcard <histguide-wildcards>` to specify a given category
-   of species. In the above example :literal:`SpeciesConcVV_?ADV?`
-   refers to all advected species and :literal:`SpeciesConcVV_?ALL?`
-   refers to all species (both advected and non-advected).
+If you are using GEOS-Chem Classic,you may also use a
+:ref:`wildcard <histguide-wildcards>` to specify a given category
+of species. In the above example :literal:`SpeciesConcVV_?ADV?`
+refers to all advected species and :literal:`SpeciesConcVV_?ALL?`
+refers to all species (both advected and non-advected).
 
-   .. note::
+.. note::
 
-      GCHP does not allow the use of wildcards.  Each diagnostic
-      quantity must be listed individually.
+   GCHP does not allow the use of wildcards.  Each diagnostic
+   quantity must be listed individually.
 
-:option:`::`
+:literal:`::` separator
+^^^^^^^^^^^^^^^^^^^^^^^
 
-   Signifies the end of the `SpeciesConc` definition section.
-   :option:`::` may be placed at any column.
+Signifies the end of the :ref:`histguide-configfile-sample-sc`
+definition section. The :literal:`::` may be placed at any column.
 
-:option:`SpeciesConc.subset`
+SpeciesConc.subset
+^^^^^^^^^^^^^^^^^^
 
-   Name of the second diagnostic collection specified in this sample
-   :file:`HISTORY.rc` configuration file.  In this collection we
-   will request output to be restricted to a subset of the horizontal
-   grid.
+Name of the second diagnostic collection specified in this sample
+:file:`HISTORY.rc` configuration file.  In this collection we
+will request output to be restricted to a subset of the horizontal
+grid.
 
-   The :literal:`.template`, :literal:`.frequency`,
-   :literal:`.duration`,  :literal:`:mode`, and :literal:`.fields`
-   are described for the :option:`SpeciesConc` collection above, so we
-   will not repeat them here.
+The :literal:`.template`, :literal:`.frequency`,
+:literal:`.duration`,  :literal:`:mode`, and :literal:`.fields`
+are described for the :ref:`histguide-configfile-sample-sc` collection
+above, so we will not repeat them here. 
 
-:option:`SpeciesConcSubset.LON_RANGE`
+SpeciesConcSubset.LON_RANGE
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   Defines the longitude range (:literal:`min max`) where diagnostic
-   data will be archived.  Data outside of this range will be
-   ignored.  If this option is omitted, values at all longitudes
-   (:literal:`-180 180`) will be included.
+Defines the longitude range (:literal:`min max`) where diagnostic
+data will be archived.  Data outside of this range will be
+ignored.  If this option is omitted, values at all longitudes
+(:literal:`-180 180`) will be included.
 
-:option:`SpeciesConcSubset.LAT_RANGE`
+SpeciesConcSubset.LAT_RANGE
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	
+Defines the latitude range (:literal:`min max`) where diagnostic
+data will be archived.  Data outside of this range will be ignored.
+If this option is omitted, values at all latitudes
+(:literal:`-90 90`) will be included.
 
-   Defines the latitude range (:literal:`min max`) where diagnostic
-   data will be archived.  Data outside of this range will be ignored.
-   If this option is omitted, values at all latitudes
-   (:literal:`-90 90`) will be included.
+SpeciesConcSubset.levels
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-:option:`SpeciesConcSubset.levels`
+Specifies the levels that you wish to be included in the diagnostic
+archiving.  If omitted, data at all levels will be included.
 
-   Specifies the levels that you wish to be included in the diagnostic
-   archiving.  If omitted, data at all levels will be included.
+.. note::
 
-   .. note::
+   In GEOS-Chem Classic, all levels between the minimum and
+   maximum level specified will be included in the diagnostic
+   archival.  This differs from the behavior in GCHP, which
+   archives only the specified levels.
 
-      In GEOS-Chem Classic, all levels between the minimum and
-      maximum level specified will be included in the diagnostic
-      archival.  This differs from the behavior in GCHP, which
-      archives only the specified levels.
+ConcAfterChem
+^^^^^^^^^^^^^
 
-:option:`ConcAfterChem`
+Name of the third collection specified in this sample
+:file:`HISTORY.rc` configuration file.
 
-   Name of the third collection specified in this sample
-   :file:`HISTORY.rc` configuration file.
+The :literal:`.template`, :literal:`.frequency`,
+:literal:`.duration`,  :literal:`:mode`, and :literal:`.fields`
+are described for the :ref:`histguide-configfile-sample-sc` collection
+above, so we will not repeat them here.
 
-   The :literal:`.template`, :literal:`.frequency`,
-   :literal:`.duration`,  :literal:`:mode`, and :literal:`.fields`
-   are described for the :option:`SpeciesConc` collection above,
-   so we will not repeat them here.
+ConcAftercChem.mode
 
-:option:`ConcAftercChem.mode`
-
-   In this example, the :literal:`ConcAfterChem.mode` setting
-   indicates that the :literal:`ConcAfterChem` collection will contain
-   time-averaged data.  The averaging interval is set in the
-
+In this example, the :literal:`ConcAfterChem.mode` setting
+indicates that the :literal:`ConcAfterChem` collection will contain
+ime-averaged data.  The averaging interval is set in the
+:literal:`frequency` field.
 
 .. _histguide-wildcards:
 
@@ -359,19 +392,19 @@ dimension:
      - :literal:`SpeciesConcVV_?ADV?`
    * - :literal:`?AER?`
      - Aerosol species
-     - :literal:`SpeciesConcVV\_?AER?`
+     - :literal:`SpeciesConcVV_?AER?`
    * - :literal:`?ALL?`
      - All species
      - :literal:`SpeciesConcVV_?ALL?`
    * - :literal:`?DRY?`
      - Dry-deposited species
-     - :literal:`SpeciesConcVV\_?DRY?`
+     - :literal:`SpeciesConcVV_?DRY?`
    * - :literal:`?DRYALT?`
      - Species for the :ref:`histguide-concabovechem`  collection
      - :literal:`SpeciesConcVV_?DRYALT`
    * - :literal:`?DUSTBIN?`
      - Dust bin number
-     - :literal:`AODdust550nm\_?DUSTBIN?`
+     - :literal:`AODdust550nm_?DUSTBIN?`
    * - :literal:`?FIX?`
      - Fixed species in the KPP chemistry mechanism
      - :literal:`SpeciesConcVV_?FIX?`
@@ -383,10 +416,10 @@ dimension:
      - :literal:`AODhyg550nm_?HYG?`
    * - :literal:`?KPP?`
      - All species (fixed variable) in the KPP chemistry mechanism
-     - `SpeciesConcVV\_?KPP?`
+     - `SpeciesConcVV_?KPP?`
    * - :literal:`?LOS?`
      - Chemical loss species or familes
-     - `SpeciesConcVV\_?LOS?`
+     - `SpeciesConcVV_?LOS?`
    * - :literal:`?PHO?`
      - Photolyzed species
      - `SpeciesConcVV_?PHO?`
@@ -1804,32 +1837,50 @@ the solver's performance.
                          'KppSubsts   ',
                          'KppSmDecomps',
    ::
-
+      
 **List of diagnostic fields in the KppDiags collection**
 
-+-------------------+-------------------------------------------+-------+
-| Diagnostic field  | Description                               | Units |
-+===================+===========================================+=======+
-| KppAccSteps       | Number of accepted integration timesteps  | count |
-+-------------------+-------------------------------------------+-------+
-| KppIntCounts      | Number of times the KPP integrator        | count |
-|                   | was called                                |       |
-+-------------------+-------------------------------------------+-------+
-| KppJacCounts      | Number of times the KPP Jacobian matrix   | count |
-|                   | was constructed                           |       |
-+-------------------+-------------------------------------------+-------+
-| KppLuDecomps      | Number of LU decompositions performed     | count |
-+-------------------+-------------------------------------------+-------+
-| KppSmDecomps\     | Number of singular matrix decompositions  | count |
-| [#J]_             | performed                                 |       |
-+-------------------+-------------------------------------------+-------+
-| KppSubsts         | Number of matrix substitutions performed  | count |
-|                   | (both forward & backward substitutions)   |       |
-+-------------------+-------------------------------------------+-------+
-| KppRejSteps       | Number of rejected integration timesteps  | count |
-+-------------------+-------------------------------------------+-------+
-| KppTotSteps       | Total number of integration timesteps     | count |
-+-------------------+-------------------------------------------+-------+
+.. list-table::
+   :header-rows: 1
+		 
+   * - Diagnostic field
+     - Description
+     - Units
+   * - KppAccSteps
+     - Number of accepted integration timesteps
+     - count
+   * - KppIntCounts
+     - Number of times the function to be evaluated was called from
+       within the integrator
+     - count
+   * - KppJacCounts
+     - Number of times the Jacobian matrix was constructed
+     - count
+   * - KppLuDecomps
+     - Number of LU decompositions performed
+     - count
+   * - KppNegatives
+     - Number of negative values
+     - count
+   * - KppNegatives0
+     - Number of negative values except on the first timestep
+     - count
+   * - KppSmDecomps [#J]_
+     - Number of singular matrix decompositions performed
+     - count
+   * - KppSubsts
+     - Number of matrix substitutions performed (both forward &
+       backward substitutions)
+     - count
+   * - KppRejSteps
+     - Number of rejected integration timesteps
+     - count
+   * - KppTime [#JJ]_
+     - Time spent within the integrator
+     - s
+   * - KppTotSteps
+     - Total number of integration timesteps
+     - count
 
 .. rubric:: Footnotes
 
@@ -1837,6 +1888,10 @@ the solver's performance.
 	because the Rosenbrock method utilizes LU decomposition
 	instead of singular matrix decomposition.
 
+.. [#JJ] KppTime will likely not be identical between two successive
+  	 simulations, as the time spent in the integrator will depend
+	 on local cluster conditions.
+	
 .. _histguide-leveledgediags:
 
 LevelEdgeDiags

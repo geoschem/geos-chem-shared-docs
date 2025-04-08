@@ -21,26 +21,10 @@ modified so that species names and definitions are now consistent with
 GMAO's tracer gridded component (aka TR_GridComp). This will
 facilitate comparison of transport within GEOS-Chem, GCHP, and GEOS.
 
-References
-----------
-
-#. Liu, H., D. Jacob, I. Bey, and R.M. Yantosca, `Constraints from
-   210Pb and 7Be on wet deposition and transport in a global
-   three-dimensional chemical tracer model driven by assimilated
-   meteorological fields`, J. Geophys. Res, 106, D11,
-   12109-12128, 2001.
-#. Jacob et al., `Evaluation and intercomparison of global atmospheric
-   transport models using 222Rn and other short-lived
-   tracers`, J. Geophys. Res, 102, 5953-5970, 1997.
-#. Koch, D.M., D.J. Jacob, and W.C. Graustein, `Vertical transport of
-   tropospheric aerosols as indicated by 7Be and 210Pb in a chemical
-   tracer model`, J. Geophys. Res, 101, D13, 18651-18666, 1996.
-#. Koch, D., and D. Rind, `Beryllium 10/beryllium 7 as a tracer of
-   stratospheric transport`, J. Geophys. Res., 103, D4,
-   3907-3917, 1998.
-#. Lal, D., and B. Peters, `Cosmic ray produced radioactivity on the
-   Earth. Handbuch der Physik`, 46/2, 551-612, edited by K. Sitte,
-   Springer-Verlag, New York, 1967.
+**Reference** Liu, H., D. Jacob, I. Bey, and R.M. Yantosca,
+`Constraints from 210Pb and 7Be on wet deposition and transport in a
+global three-dimensional chemical tracer model driven by assimilated
+meteorological fields`, J. Geophys. Res, 106, D11, 12109-12128, 2001.
 
 .. _transport-sim-species:
 
@@ -48,7 +32,7 @@ References
 List of species
 ===============
 
-.. list-table::
+.. list-table:: Transported species
    :header-rows: 1
    :align: left
 

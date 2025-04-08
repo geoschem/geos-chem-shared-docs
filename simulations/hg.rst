@@ -47,7 +47,7 @@ DOI: `10.1021/acs.est.1c03160
 List of species
 ===============
 
-.. list-table::
+.. list-table:: Transported species
    :header-rows: 1
    :align: left
 

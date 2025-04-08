@@ -31,7 +31,7 @@ Modelling. Atmosphere, 14:764, 2023, DOI: `10.3390/atmos14050764
 List of species
 ===============
 
-.. list-table:: Advected species
+.. list-table:: Transported species
    :header-rows: 1
    :align: center
 
@@ -56,7 +56,7 @@ List of species
      - OCS
      - 60.07
 
-.. list-table:: Non-advected species
+.. list-table:: Non-transported species
    :header-rows: 1
    :align: center
 

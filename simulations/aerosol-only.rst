@@ -35,7 +35,7 @@ NOTES:
 List of species
 ===============
 
-.. list-table::
+.. list-table:: Transported species
    :header-rows: 1
    :align: left
 

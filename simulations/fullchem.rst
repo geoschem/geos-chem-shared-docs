@@ -29,11 +29,13 @@ creation time <rundir>`.
        simulation, but also carries complex SOA species for diagnostic
        purposes.
    * - :ref:`Complex SOA <fullchem-sim-csoa>`
+     - Replaces the simple SOA species and precursor with the `Pye et
+       al. [2010]
+       <https://acp.copernicus.org/articles/10/11261/2010/acp-10-11261-2010.html>`_
+       complex SOA scheme.
+   * - :ref:`Complex SOA plus semi-volatile POA <fullchem-sim-svpoa>`
      - Replaces the simple SOA species and precursor with the Pye et
-       al. 2010 complex SOA scheme.
-   * - :ref:`Complex SOA with semi-volatile POA <fullchem-sim-svpoa>`
-     - Replaces the simple SOA species and precursor with the Pye et
-       al. 2010 complex SOA scheme, plus semi-volatile POA.
+       al. 2010 complex SOA scheme, plus semi-volatile POA species.
    * - :ref:`Marine POA <fullchem-sim-mpoa>`
      - Adds species MOPI (hydrophilic marine POA) and MOPO
        (hydrophobic marine POA).
@@ -65,7 +67,7 @@ Standard
 
 The :program:`Standard` fullchem option uses the following species:
 
-.. list-table::
+.. list-table:: Transported species (Standard option)
    :header-rows: 1
    :align: left
 
@@ -73,22 +75,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Description
      - Formula
      - MW (g)
-   * - A3O2
-     - Primary peroxy radical from C3H8
-     - CH3CH2CH2OO
-     - 75.1
-   * - ACR
-     - Acrolein
-     - C3H4O
-     - 56.06
-   * - ACRO2
-     - Peroxy radical from ACR
-     - C3H5O4
-     - 105.07
-   * - ACO3
-     - Peroxyacetyl radical for APAN
-     - C3H3O3
-     - 87.054
    * - ACET
      - Acetone
      - CH3C(O)CH3
@@ -97,6 +83,10 @@ The :program:`Standard` fullchem option uses the following species:
      - Acetic acid
      - CH3C(O)OH
      - 60.06
+   * - ACR
+     - Acrolein
+     - C3H4O
+     - 56.06
    * - AERI
      - Iodine on aerosol
      - I
@@ -109,18 +99,10 @@ The :program:`Standard` fullchem option uses the following species:
      - Lumped C4+C5 Alkanes
      - not listed
      - 58.12
-   * - ALK4N1
-     - Peroxy radical from ALK4N2
-     - C4H8NO5
-     - 150.13
    * - ALK4N2
      - Lumped alkyl nitrate from ALK4
      - RO2NO
      - 119.1
-   * - ALK4O2
-     - Peroxy radical from ALK4
-     - C4H9O2
-     - 89.13
    * - ALK4P
      - Peroxide from ALK4O2
      - CH3CH2CH2CH2OOH
@@ -137,14 +119,18 @@ The :program:`Standard` fullchem option uses the following species:
      - Peroxyacryloyl nitrate
      - C3H3NO5
      - 133.06
+   * - APINP
+     - Hydroperoxide from APIN
+     - C10H18O3
+     - 186.28
+   * - APINN
+     - 1st gen organic nitrate from APIN
+     - C10H17NO4
+     - 215.28
    * - AROMCHO
      - ACCOMECHO from MCM
      - C5H6O4
      - 130.1
-   * - AROMRO2
-     - hydroxy-peroxy radical from aromatics
-     - C6H7O3
-     - 127.0
    * - AROMP4
      - Generic C4 product of aromatics
      - C4H4O2
@@ -157,42 +143,50 @@ The :program:`Standard` fullchem option uses the following species:
      - Lumped PN from aromatics
      - C5H5NO8
      - 207.1
-   * - AROMCO3
-     - Lumped aromatic peroxyacetyl radical
-     - C5H5O6
-     - 161.09
-   * - ATO2
-     - Peroxy radical from acetone
-     - CH3C(O)CH2O2
-     - 89.08
    * - ATOOH
      - ATO2 peroxide
      - CH3C(O)CH2OOH
      - 90.09
-   * - B3O2
-     - B3O2
-     - CH3CH(OO)CH3
-     - 75.1
    * - BALD
      - Benzaldehyde
      - C7H6O
      - 106.12
+   * - BCPI
+     - Hydrophilic black carbon aerosol
+     - C
+     - 12.01
+   * - BCPO
+     - Hydrophobic black carbon aerosol
+     - C
+     - 12.01
    * - BENZ
      - Benzene
      - C6H6
      - 78.12
-   * - BENZO
-     - alkoxy radical from aromatics
-     - C6H5O
-     - 93.0
-   * - BENZO2
-     - peroxy radical from aromatics
-     - C6H5O2
-     - 109.0
    * - BENZP
      - Phenyl hydroperoxide
      - C6H6O2
      - 110.11
+   * - BPINO
+     - Ketone from BPIN
+     - C9H14O
+     - 186.28
+   * - BPINN
+     - Saturated 1st gen BPIN organic nitrate
+     - C10H17NO4
+     - 215.28
+   * - BPINP
+     - Peroxide from BPIN
+     - C10H18O3
+     - 186.28
+   * - BPINOOH
+     - 2nd-gen peroxide from BPIN
+     - C9H14O3
+     - 186.28
+   * - BPINON
+     - Saturated 2nd gen BPIN organic nitrate
+     - C9H13NO4
+     - 215.28
    * - Br
      - Atomic bromine
      - Br
@@ -217,10 +211,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Bromine monoxide
      - BrO
      - 95.9
-   * - BRO2
-     - Peroxy radical from BENZ oxidation
-     - C6H7O5
-     - 159.13
    * - BrSALA
      - Fine sea salt bromine
      - Br
@@ -237,14 +227,6 @@ The :program:`Standard` fullchem option uses the following species:
      - C4H6 alkyl nitrate
      - C4H7NO4
      - 133.1
-   * - BUTO2
-     - peroxy radical from C4H6
-     - C4H7O3
-     - 103.097
-   * - BZCO3
-     - Acyl peroxy radical from benzaldehyde
-     - C7H5O3
-     - 137.0
    * - BZCO3H
      - Perbenzoic acid
      - C6H5CO3H
@@ -253,6 +235,14 @@ The :program:`Standard` fullchem option uses the following species:
      - Peroxybenzoylnitrate
      - C7H5O5N
      - 183.12
+   * - C96O2H
+     - Peroxide from APIN 2nd gen
+     - C9H16O3
+     - 186.28
+   * - C96N
+     - Saturated 2nd gen monoterpene organic nitrate
+     - C9H15NO4
+     - 215.28
    * - C2H2
      - Acetylene (aka Ethyne)
      - C2H2
@@ -273,14 +263,6 @@ The :program:`Standard` fullchem option uses the following species:
      - 1,3-butadiene
      - C4H6
      - 54.09
-   * - C4HVP1
-     - C4 hydroxy-vinyl peroxy radicals from HPALDS
-     - C4H7O3
-     - 103.11
-   * - C4HVP2
-     - C4 hydroxy-vinyl peroxy radicals from HPALDS
-     - C4H7O3
-     - 103.11
    * - CCl4
      - Carbon tetrachloride
      - CCl4
@@ -289,10 +271,6 @@ The :program:`Standard` fullchem option uses the following species:
      - CFC-11
      - CCl3F
      - 137.37
-   * - CFC12
-     - CFC-12
-     - CCl2F2
-     - 120.91
    * - CFC113
      - CFC-113
      - C2Cl3F3
@@ -305,6 +283,10 @@ The :program:`Standard` fullchem option uses the following species:
      - CFC-115
      - C2ClF5
      - 154.47
+   * - CFC12
+     - CFC-12
+     - CCl2F2
+     - 120.91
    * - CH2Br2
      - Dibromomethane
      - CH2Br2
@@ -329,10 +311,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Formaldehyde
      - CH2O
      - 30.03
-   * - CH2OO
-     - Criegee intermediate
-     - CH2OO
-     - 46.03
    * - CH3Br
      - Methyl bromide
      - CH3Br
@@ -341,10 +319,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Methyl chloroform
      - CH3CCl3
      - 133.35
-   * - CH3CHOO
-     - Criegee intermediate
-     - CH3CHOO
-     - 60.06
    * - CH3Cl
      - Chloromethane
      - CH3Cl
@@ -393,14 +367,14 @@ The :program:`Standard` fullchem option uses the following species:
      - Chlorine dioxide
      - ClOO
      - 67.45
+   * - CLOCK
+     - Clock tracer for diagnosing age of air
+     - not listed
+     - 1.0
    * - CO
      - not listed
      - CO
      - 28.01
-   * - CO2
-     - Carbon dioxide
-     - CO2
-     - 44.01
    * - CSL
      - Cresols
      - C7H8O
@@ -409,6 +383,22 @@ The :program:`Standard` fullchem option uses the following species:
      - Dimethyl sulfide
      - (CH3)2S
      - 62.13
+   * - DST1
+     - Dust aerosol, Reff = 0.7 microns
+     - not listed
+     - 29.0
+   * - DST2
+     - Dust aerosol, Reff = 1.4 microns
+     - not listed
+     - 29.0
+   * - DST3
+     - Dust aerosol, Reff = 2.4 microns
+     - not listed
+     - 29.0
+   * - DST4
+     - Dust aerosol, Reff = 4.5 microns
+     - not listed
+     - 29.0
    * - EBZ
      - Ethylbenzene
      - C8H10
@@ -433,18 +423,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Ethyl nitrate
      - C2H5ONO2
      - 91.08
-   * - ETO
-     - alkoxy radical from ETOO
-     - HOCH2CH2O
-     - 61.06
-   * - ETOO
-     - peroxy radical from ethene
-     - HOCH2CH2OO
-     - 77.06
-   * - ETO2
-     - ETO2
-     - CH3CH2OO
-     - 61.07
    * - ETP
      - Ethylhydroperoxide
      - CH3CH2OOH
@@ -453,10 +431,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Furan
      - C4H4O
      - 68.07
-   * - GCO3
-     - Peroxyacetyl radical for PHAN
-     - HOCH2CO3
-     - 91.0428
    * - GLYC
      - Glycoaldehyde
      - HOCH2CHO
@@ -465,10 +439,10 @@ The :program:`Standard` fullchem option uses the following species:
      - Glyoxal
      - CHOCHO
      - 58.04
-   * - H
-     - Atomic hydrogen
-     - H
-     - 1.01
+   * - HACTA
+     - Hydroxyacetic/glycolic acid
+     - HOCH2CO2H
+     - 76.0514
    * - H1211
      - Halon 1211, Freon 12B1
      - CBrClF2
@@ -493,10 +467,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Hydroxyacetone
      - HOCH2C(O)CH3
      - 74.08
-   * - HACTA
-     - Hydroxyacetic/glycolic acid
-     - HOCH2CO2H
-     - 76.0514
    * - HBr
      - Hypobromic acid
      - HBr
@@ -557,10 +527,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Peroxynitric acid
      - HNO4
      - 79.01
-   * - HO2
-     - Hydroperoxyl radical
-     - HO2
-     - 33.01
    * - HOBr
      - Hypobromous acid
      - HOBr
@@ -581,18 +547,10 @@ The :program:`Standard` fullchem option uses the following species:
      - d-4,1-C5-hydroperoxyaldehyde
      - C5H8O3
      - 116.13
-   * - HPALD1OO
-     - HPALD1OO
-     - C5H7O5
-     - 147.12
    * - HPALD2
      - d-1,4-C5-hydroperoxyaldehyde
      - C5H8O3
      - 116.13
-   * - HPALD2OO
-     - HPALD2OO
-     - C5H7O5
-     - 147.12
    * - HPALD3
      - b-2,1-C5-hydroperoxyaldehyde
      - C5H8O3
@@ -633,10 +591,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Isoprene hydroxy-carbonyl-epoxides
      - C5H8O3
      - 116.13
-   * - ICHOO
-     - Peroxy radical from IEPOXD
-     - C5H9O5
-     - 149.14
    * - ICl
      - Iodine monochloride
      - ICl
@@ -645,10 +599,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Lumped isoprene carbonyl-nitrates
      - C5H7NO4
      - 145.13
-   * - ICNOO
-     - Peroxy radicals from ICN
-     - C5H8NO7
-     - 194.14
    * - ICPDH
      - Isoprene dihydroxy hydroperoxycarbonyl
      - C5H10O5
@@ -665,18 +615,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Isoprene dihydroxy dihydroperoxide
      - C5H12O6
      - 168.17
-   * - IDHNBOO
-     - Peroxy radicals from INPB
-     - C5H10NO7
-     - 196.16
-   * - IDHNDOO1
-     - Peroxy radicals from INPD
-     - C5H10NO7
-     - 196.16
-   * - IDHNDOO2
-     - Peroxy radicals from INPD
-     - C5H10NO7
-     - 196.16
    * - IDHPE
      - Isoprene dihydroxy hydroperoxy epoxide
      - C5H10O5
@@ -685,26 +623,14 @@ The :program:`Standard` fullchem option uses the following species:
      - Lumped isoprene dinitrates
      - C5H8N2O6
      - 192.15
-   * - IDNOO
-     - IDNOO
-     - C5H9N2O6
-     - 241.14
    * - IEPOXA
      - trans-Beta isoprene epoxydiol
      - C4H10O3
      - 106.14
-   * - IEPOXAOO
-     - Peroxy radical from trans-Beta isoprene epoxydiol
-     - C5H8O5
-     - 149.14
    * - IEPOXB
      - cis-Beta isoprene epoxydiol
      - C4H10O3
      - 106.14
-   * - IEPOXBOO
-     - peroxy radical from cis-Beta isoprene epoxydiol
-     - C5H9O5
-     - 149.14
    * - IEPOXD
      - Delta isoprene epoxydiol
      - C4H10O3
@@ -725,38 +651,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Isoprene-d-4,1-hydroxynitrate
      - C5H9NO4
      - 147.15
-   * - IHOO1
-     - Peroxy radical from OH addition to isoprene at C1
-     - C5H9O3
-     - 117.14
-   * - IHOO4
-     - Peroxy radical from OH addition to isoprene at C4
-     - C5H9O3
-     - 117.14
-   * - IHPNBOO
-     - Peroxy radicals from INPB
-     - C5H10NO8
-     - 212.16
-   * - IHPNDOO
-     - Peroxy radicals from INPD
-     - C5H10NO8
-     - 212.16
-   * - IHPOO1
-     - Peroxy radical from ISOPOOH
-     - C5H11O6
-     - 167.16
-   * - IHPOO2
-     - Peroxy radical from ISOPOOH
-     - C5H11O6
-     - 167.16
-   * - IHPOO3
-     - Peroxy radical from ISOPOOH
-     - C5H11O6
-     - 167.16
-   * - INA
-     - Alkoxy radical from INO2D
-     - C5H8NO4
-     - 146.14
    * - INDIOL
      - Generic aerosol-phase organonitrate hydrolysis product
      - not listed
@@ -765,14 +659,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Nitrosyl iodide
      - INO
      - 156.91
-   * - INO2B
-     - beta-peroxy radicals from isoprene + NO3
-     - C5H8NO5
-     - 162.14
-   * - INO2D
-     - delta-peroxy radicals from isoprene + NO3
-     - C5H8NO5
-     - 162.14
    * - INPB
      - Lumped b-hydroperoxy isoprene nitrates
      - C5H9NO5
@@ -813,14 +699,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Isoprene
      - CH2=C(CH3)CH=CH2
      - 68.13
-   * - ISOPNOO1
-     - Peroxy radicals from IHN2
-     - C5H10NO7
-     - 196.16
-   * - ISOPNOO2
-     - Peroxy radicals from IHN3
-     - C5H10NO7
-     - 196.16
    * - ITCN
      - lumped isoprene tetrafunctional carbonylnitrates
      - C5H9NO7
@@ -829,102 +707,30 @@ The :program:`Standard` fullchem option uses the following species:
      - Lumped isoprene tetrafunctional hydroxynitrates
      - C5H11NO7
      - 197.17
-   * - KO2
-     - Peroxy radical from >3 ketones
-     - C4H5O3
-     - 101.09
-   * - LBRO2H
-     - Dummy species to track oxidation of BRO2 by HO2
-     - not listed
-     - 159.13
-   * - LBRO2N
-     - Dummy species to track oxidation of BRO2 by NO
-     - not listed
-     - 159.13
-   * - LIMO
-     - Limonene
-     - C10H16
-     - 136.26
-   * - LIMO2
-     - Peroxy radical from LIMO
-     - C10H17O3
-     - 185.27
-   * - APINP
-     - Hydroperoxide from APIN
-     - C10H18O3
-     - 186.28
-   * - APINN
-     - 1st gen organic nitrate from APIN
-     - C10H17NO4
-     - 215.28
-   * - PINAL
-     - Pinonaldehyde
-     - C10H16O2
-     - 186.28
-   * - PINPAN
-     - PAN from pinonaldehyde
-     - C10H17NO4
-     - 215.28
-   * - PINONIC
-     - Pinonic acid
-     - C10H18O3
-     - 186.28
-   * - PINO3H
-     - Pinonic peracid
-     - C10H18O4
-     - 186.28
-   * - C96O2H
-     - Peroxide from APIN 2nd gen
-     - C9H16O3
-     - 186.28
-   * - C96N
-     - Saturated 2nd gen monoterpene organic nitrate
-     - C9H15NO4
-     - 215.28
-   * - BPINO
-     - Ketone from BPIN
-     - C9H14O
-     - 186.28
-   * - BPINN
-     - Saturated 1st gen BPIN organic nitrate
-     - C10H17NO4
-     - 215.28
-   * - BPINP
-     - Peroxide from BPIN
-     - C10H18O3
-     - 186.28
-   * - BPINOOH
-     - 2nd-gen peroxide from BPIN
-     - C9H14O3
-     - 186.28
-   * - BPINON
-     - Saturated 2nd gen BPIN organic nitrate
-     - C9H13NO4
-     - 215.28
    * - LIMAL
      - Aldehyde from limonene
-     - C10H16O2
-     - 186.28
-   * - LIMN
-     - Saturated 1st gen limonene organic nitrate
-     - C10H17NO4
-     - 215.28
-   * - LIMKET
-     - Ketone from limonene
      - C10H16O2
      - 186.28
    * - LIMKB
      - 2nd gen ketone from limonene
      - C10H16O3
      - 186.28
+   * - LIMKET
+     - Ketone from limonene
+     - C10H16O2
+     - 186.28
+   * - LIMN
+     - Saturated 1st gen limonene organic nitrate
+     - C10H17NO4
+     - 215.28
    * - LIMNB
      - Saturated 1st gen LIMO organic nitrate
      - C10H15NO4
      - 215.28
-   * - LIMPAN
-     - PAN from LIMO
-     - C10H17NO4
-     - 215.28
+   * - LIMO
+     - Limonene
+     - C10H16
+     - 136.26
    * - LIMO2H
      - Acid from LIMO
      - C10H18O3
@@ -933,66 +739,10 @@ The :program:`Standard` fullchem option uses the following species:
      - Peracid from LIMO
      - C10H18O4
      - 186.28
-   * - MYRCO
-     - Aldehyde or ketone from myrcene
-     - C10H18O3
-     - 186.28
-   * - PIN
-     - Saturated 1st gen monoterpene organic nitrate
+   * - LIMPAN
+     - PAN from LIMO
      - C10H17NO4
      - 215.28
-   * - APINO2
-     - Peroxy radical from APIN
-     - C10H17O3
-     - 185.27
-   * - PINO3
-     - Acylperoxy radical from APIN
-     - C10H17O3
-     - 185.27
-   * - C96O2
-     - 2nd-gen peroxy radical from APIN
-     - C10H17O3
-     - 185.27
-   * - BPINO2
-     - Peroxy radical from BPIN
-     - C10H17O3
-     - 185.27
-   * - BPINOO2
-     - 2nd-gen peroxy radical from BPIN
-     - C10H17O3
-     - 185.27
-   * - LIMKO2
-     - 2nd-gen peroxy radical from LIMO
-     - C10H17O3
-     - 185.27
-   * - LIMO3
-     - Acylperoxy radical from LIMO
-     - C10H17O3
-     - 185.27
-   * - LISOPOH
-     - Dummy species to track oxidation of ISOP by OH
-     - not listed
-     - 68.13
-   * - LISOPNO3
-     - Dummy species to track oxidation of ISOP by NO3
-     - not listed
-     - 68.13
-   * - LNRO2H
-     - Dummy species to track oxidation of NRO2 by HO2
-     - not listed
-     - 159.17
-   * - LNRO2N
-     - Dummy species to track oxidation of NRO2 by NO
-     - not listed
-     - 159.17
-   * - LTRO2H
-     - Dummy species to track oxidation of TRO2 by HO2
-     - not listed
-     - 173.16
-   * - LTRO2N
-     - Dummy species to track oxidation of TRO2 by NO
-     - not listed
-     - 173.16
    * - LVOC
      - Gas-phase low-volatility non-IEPOX product of RIP ox
      - C5H14O5
@@ -1001,38 +751,18 @@ The :program:`Standard` fullchem option uses the following species:
      - Aer-phase low-volatility non-IEPOX product of RIP ox
      - C5H14O5
      - 154.19
-   * - LXRO2H
-     - Dummy species to track oxidation of XRO2 by HO2
-     - not listed
-     - 187.19
-   * - LXRO2N
-     - Dummy species to track oxidation of XRO2 by NO
-     - not listed
-     - 187.19
    * - MACR
      - Methacrolein
      - CH2=C(CH3)CHO
      - 70.1
-   * - MACR1OO
-     - Peroxyacyl radical from MACR + OH
-     - CH2=C(CH3)C(O)OO
-     - 101.09
    * - MACR1OOH
      - Peracid from MACR
      - CH2=C(CH3)C(O)OOH
      - 102.1
-   * - MACRNO2
-     - Product of MCRHN + OH
-     - C4H6NO7
-     - 180.1
    * - MAP
      - Peroxyacetic acid
      - CH3C(O)OOH
      - 76.06
-   * - MCO3
-     - Peroxyacetyl radical
-     - CH3C(O)OO
-     - 75.05
    * - MCRDH
      - Dihydroxy-methacrolein
      - C4H8O3
@@ -1053,18 +783,10 @@ The :program:`Standard` fullchem option uses the following species:
      - Hydroxy-hydroperoxy-methacrolein
      - HOCH2C(OOH)(CH3)CHO
      - 120.12
-   * - MCROHOO
-     - Peroxy radical from MACR + OH
-     - C4H7O4
-     - 119.11
    * - MCT
      - Catechols and methyl catechols
      - C7H8O2
      - 124.0
-   * - MEKCO3
-     - not listed
-     - C3H5O4
-     - 105.07
    * - MEK
      - Methyl Ethyl Ketone
      - RC(O)R
@@ -1081,10 +803,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Methylglyoxal
      - CH3COCHO
      - 72.07
-   * - MO2
-     - Methylperoxy radical
-     - CH3O2
-     - 47.04
    * - MOH
      - Methanol
      - CH3OH
@@ -1149,18 +867,14 @@ The :program:`Standard` fullchem option uses the following species:
      - Nitrate from MVK
      - HOCH2CH(ONO2)C(=O)CH3
      - 149.12
-   * - MVKOHOO
-     - Peroxy radical from MVK + OH
-     - C4H7O4
-     - 119.11
    * - MVKPC
      - MVK hydroperoxy-carbonyl
      - OCHCH(OOH)C(O)CH3
      - 118.1
-   * - N
-     - Atomic nitrogen
-     - N
-     - 14.01
+   * - MYRCO
+     - Aldehyde or ketone from myrcene
+     - C10H18O3
+     - 186.28
    * - N2O
      - Nitrous oxide
      - N2O
@@ -1169,10 +883,14 @@ The :program:`Standard` fullchem option uses the following species:
      - Dinitrogen pentoxide
      - N2O5
      - 108.02
-   * - NAP
-     - Naphtalene/IVOC surrogate
-     - C10H8
-     - 128.18
+   * - NH3
+     - Ammonia
+     - NH3
+     - 17.04
+   * - NH4
+     - Ammonium
+     - NH4
+     - 18.05
    * - NIT
      - Inorganic nitrates
      - not listed
@@ -1201,18 +919,6 @@ The :program:`Standard` fullchem option uses the following species:
      - n-propyl nitrate
      - C3H7ONO2
      - 105.11
-   * - NRO2
-     - Peroxy radical from NAP oxidation
-     - C10H7O2
-     - 159.17
-   * - O
-     - Ground state atomic oxygen
-     - O(3P)
-     - 16.0
-   * - O1D
-     - Excited atomic oxygen (1D)
-     - O(1D)
-     - 16.0
    * - O3
      - Ozone
      - O3
@@ -1221,34 +927,30 @@ The :program:`Standard` fullchem option uses the following species:
      - Chlorine dioxide
      - OClO
      - 67.45
+   * - OCPI
+     - Hydrophilic organic carbon aerosol
+     - not listed
+     - 12.01
+   * - OCPO
+     - Hydrophobic organic carbon aerosol
+     - not listed
+     - 12.01
    * - OCS
      - Carbonyl sulfide
      - COS
      - 60.07
-   * - OH
-     - Hydroxyl radical
-     - OH
-     - 17.01
    * - OIO
      - Iodine dioxide
      - OIO
      - 158.9
-   * - OLND
-     - Monoterpene-derived NO3-alkene adduct
-     - C10H16NO5
-     - 230.27
-   * - OLNN
-     - Monoterpene-derived NO3 adduct
-     - C10H16NO5
-     - 230.27
-   * - OTHRO2
-     - Other C2 RO2 not from C2H6 oxidation
-     - CH3CH2OO
-     - 61.07
    * - PAN
      - Peroxyacetyl nitrate
      - CH3C(O)OONO2
      - 121.06
+   * - pFe
+     - Anthropogenic iron
+     - Fe
+     - 55.85
    * - PHAN
      - Peroxyhydroxyacetic nitric anhydride
      - C2H3NO6
@@ -1257,18 +959,30 @@ The :program:`Standard` fullchem option uses the following species:
      - Phenol
      - C6H6O
      - 94.11
-   * - PIO2
-     - Peroxy radical from MTPA
-     - C10H17O3
-     - 185.27
+   * - PIN
+     - Saturated 1st gen monoterpene organic nitrate
+     - C10H17NO4
+     - 215.28
+   * - PINAL
+     - Pinonaldehyde
+     - C10H16O2
+     - 186.28
+   * - PINONIC
+     - Pinonic acid
+     - C10H18O3
+     - 186.28
+   * - PINO3H
+     - Pinonic peracid
+     - C10H18O4
+     - 186.28
+   * - PINPAN
+     - PAN from pinonaldehyde
+     - C10H17NO4
+     - 215.28
    * - PIP
      - Peroxide from MTPA
      - C10H18O3
      - 186.28
-   * - PO2
-     - Peroxy radical from propene
-     - HOCH2CH(OO)CH3
-     - 91.1
    * - PP
      - Peroxide from PO2
      - HOCH2CH(OOH)CH3
@@ -1277,10 +991,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Lumped peroxypropionyl nitrate
      - CH3CH2C(O)OONO2
      - 135.08
-   * - PRN1
-     - Peroxy radical from propene + NO3
-     - O2NOCH2CH(OO)CH3
-     - 136.09
    * - PROPNN
      - Propanone nitrate
      - CH3C(=O)CH2ONO2
@@ -1297,38 +1007,22 @@ The :program:`Standard` fullchem option uses the following species:
      - Pyruvic acid
      - C3H4O3
      - 88.07
-   * - R4N1
-     - Peroxy radical from R4N2
-     - C4H8NO5
-     - 150.13
    * - R4N2
      - Lumped alkyl nitrate
      - RO2NO
      - 119.1
-   * - R4O2
-     - Peroxy radical from isoprene and MTPA alkyl generation
-     - C4H9O2
-     - 89.13
    * - R4P
      - Peroxide from R4O2
      - CH3CH2CH2CH2OOH
      - 90.14
-   * - R7O2
-     - Peroxy radical from ALK6
-     - C7H15O2
-     - 131.19
-   * - R7N1
-     - Peroxy radical from R7N2
-     - C7H15NO5
+   * - R7N2
+     - C7 Lumped alkyl nitrate
+     - RO2NO
      - 161.2
    * - R7P
      - Peroxide from R7O2
      - C7H16O2
      - 132.2
-   * - R7N2
-     - C7 Lumped alkyl nitrate
-     - RO2NO
-     - 161.2
    * - RA3P
      - Peroxide from A3O2
      - CH3CH2CH2OOH
@@ -1341,10 +1035,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Lumped aldehyde >= C3
      - CH3CH2CHO
      - 58.09
-   * - RCO3
-     - Peroxypropionyl radical
-     - CH3CH2C(O)OO
-     - 89.08
    * - RCOOH
      - > C2 organic acids
      - C2H5C(O)OH
@@ -1369,26 +1059,30 @@ The :program:`Standard` fullchem option uses the following species:
      - Lumped aromatic nitrate
      - RO2NO
      - 203.15
-   * - ROH
-     - > C2 alcohols
-     - C3H7OH
-     - 60.11
    * - RP
      - Peroxide from RCO3
      - CH3CH2C(O)OOH
      - 90.09
-   * - SALAAL
-     - Accumulation mode sea salt alkalinity
+   * - SALA
+     - Fine (0.01-0.05 microns) sea salt aerosol
      - not listed
      - 31.4
-   * - SALCAL
-     - Coarse mode sea salt alkalinity
+   * - SALAAL
+     - Accumulation mode sea salt alkalinity
      - not listed
      - 31.4
    * - SALACL
      - Chloride in Accumulation mode sea salt aerosol
      - not listed
      - 35.45
+   * - SALC
+     - Coarse (0.5-8 microns) sea salt aerosol
+     - not listed
+     - 31.4
+   * - SALCAL
+     - Coarse mode sea salt alkalinity
+     - not listed
+     - 31.4
    * - SALCCL
      - Chloride in Coarse mode sea salt aerosol
      - not listed
@@ -1413,6 +1107,14 @@ The :program:`Standard` fullchem option uses the following species:
      - Aerosol-phase IEPOX
      - C5H10O3
      - 118.15
+   * - SOAP
+     - SOA Precursor - lumped species for simplified SOA parameterization
+     - not listed
+     - 150.0
+   * - SOAS
+     - SOA Simple - simplified non-volatile SOA parameterization
+     - not listed
+     - 150.0
    * - STYR
      - Styrene
      - C8H8
@@ -1421,10 +1123,6 @@ The :program:`Standard` fullchem option uses the following species:
      - Aromatic furanones
      - C5H6O2
      - 98.1
-   * - TLFUO2
-     - not listed
-     - C5H7O5
-     - 147.1
    * - TMB
      - Trimethylbenzenes
      - C8H10
@@ -1433,14 +1131,391 @@ The :program:`Standard` fullchem option uses the following species:
      - Toluene
      - C7H8
      - 92.15
-   * - TRO2
-     - Peroxy radical from TOLU oxidation
-     - C7H9O5
-     - 173.16
    * - XYLE
      - Xylene
      - C8H10
      - 106.18
+
+.. list-table:: Non-transported species (Standard option)
+   :header-rows: 1
+   :align: left
+
+   * - Species
+     - Description
+     - Formula
+     - MW (g)
+   * - A3O2
+     - Primary peroxy radical from C3H8
+     - CH3CH2CH2OO
+     - 75.1
+   * - ACRO2
+     - Peroxy radical from ACR
+     - C3H5O4
+     - 105.07
+   * - ACO3
+     - Peroxyacetyl radical for APAN
+     - C3H3O3
+     - 87.054
+   * - ALK4N1
+     - Peroxy radical from ALK4N2
+     - C4H8NO5
+     - 150.13
+   * - ALK4O2
+     - Peroxy radical from ALK4
+     - C4H9O2
+     - 89.13
+   * - AROMRO2
+     - hydroxy-peroxy radical from aromatics
+     - C6H7O3
+     - 127.0
+   * - AROMCO3
+     - Lumped aromatic peroxyacetyl radical
+     - C5H5O6
+     - 161.09
+   * - ATO2
+     - Peroxy radical from acetone
+     - CH3C(O)CH2O2
+     - 89.08
+   * - B3O2
+     - B3O2
+     - CH3CH(OO)CH3
+     - 75.1
+   * - BENZO
+     - alkoxy radical from aromatics
+     - C6H5O
+     - 93.0
+   * - BENZO2
+     - peroxy radical from aromatics
+     - C6H5O2
+     - 109.0
+   * - BRO2
+     - Peroxy radical from BENZ oxidation
+     - C6H7O5
+     - 159.13
+   * - BUTO2
+     - peroxy radical from C4H6
+     - C4H7O3
+     - 103.097
+   * - BZCO3
+     - Acyl peroxy radical from benzaldehyde
+     - C7H5O3
+     - 137.0
+   * - C4HVP1
+     - C4 hydroxy-vinyl peroxy radicals from HPALDS
+     - C4H7O3
+     - 103.11
+   * - C4HVP2
+     - C4 hydroxy-vinyl peroxy radicals from HPALDS
+     - C4H7O3
+     - 103.11
+   * - CH2OO
+     - Criegee intermediate
+     - CH2OO
+     - 46.03
+   * - CH3CHOO
+     - Criegee intermediate
+     - CH3CHOO
+     - 60.06
+   * - CO2
+     - Carbon dioxide
+     - CO2
+     - 44.01
+   * - ETO
+     - alkoxy radical from ETOO
+     - HOCH2CH2O
+     - 61.06
+   * - ETOO
+     - peroxy radical from ethene
+     - HOCH2CH2OO
+     - 77.06
+   * - ETO2
+     - ETO2
+     - CH3CH2OO
+     - 61.07
+   * - GCO3
+     - Peroxyacetyl radical for PHAN
+     - HOCH2CO3
+     - 91.0428
+   * - H
+     - Atomic hydrogen
+     - H
+     - 1.01
+   * - HO2
+     - Hydroperoxyl radical
+     - HO2
+     - 33.01
+   * - HPALD1OO
+     - HPALD1OO
+     - C5H7O5
+     - 147.12
+   * - HPALD2OO
+     - HPALD2OO
+     - C5H7O5
+     - 147.12
+   * - ICHOO
+     - Peroxy radical from IEPOXD
+     - C5H9O5
+     - 149.14
+   * - ICNOO
+     - Peroxy radicals from ICN
+     - C5H8NO7
+     - 194.14
+   * - IDHNBOO
+     - Peroxy radicals from INPB
+     - C5H10NO7
+     - 196.16
+   * - IDHNDOO1
+     - Peroxy radicals from INPD
+     - C5H10NO7
+     - 196.16
+   * - IDHNDOO2
+     - Peroxy radicals from INPD
+     - C5H10NO7
+     - 196.16
+   * - IDNOO
+     - IDNOO
+     - C5H9N2O6
+     - 241.14
+   * - IEPOXAOO
+     - Peroxy radical from trans-Beta isoprene epoxydiol
+     - C5H8O5
+     - 149.14
+   * - IEPOXBOO
+     - peroxy radical from cis-Beta isoprene epoxydiol
+     - C5H9O5
+     - 149.14
+   * - IHOO1
+     - Peroxy radical from OH addition to isoprene at C1
+     - C5H9O3
+     - 117.14
+   * - IHOO4
+     - Peroxy radical from OH addition to isoprene at C4
+     - C5H9O3
+     - 117.14
+   * - IHPNBOO
+     - Peroxy radicals from INPB
+     - C5H10NO8
+     - 212.16
+   * - IHPNDOO
+     - Peroxy radicals from INPD
+     - C5H10NO8
+     - 212.16
+   * - IHPOO1
+     - Peroxy radical from ISOPOOH
+     - C5H11O6
+     - 167.16
+   * - IHPOO2
+     - Peroxy radical from ISOPOOH
+     - C5H11O6
+     - 167.16
+   * - IHPOO3
+     - Peroxy radical from ISOPOOH
+     - C5H11O6
+     - 167.16
+   * - INA
+     - Alkoxy radical from INO2D
+     - C5H8NO4
+     - 146.14
+   * - INO2B
+     - beta-peroxy radicals from isoprene + NO3
+     - C5H8NO5
+     - 162.14
+   * - INO2D
+     - delta-peroxy radicals from isoprene + NO3
+     - C5H8NO5
+     - 162.14
+   * - ISOPNOO1
+     - Peroxy radicals from IHN2
+     - C5H10NO7
+     - 196.16
+   * - ISOPNOO2
+     - Peroxy radicals from IHN3
+     - C5H10NO7
+     - 196.16
+   * - KO2
+     - Peroxy radical from >3 ketones
+     - C4H5O3
+     - 101.09
+   * - LBRO2H
+     - Dummy species to track oxidation of BRO2 by HO2
+     - not listed
+     - 159.13
+   * - LBRO2N
+     - Dummy species to track oxidation of BRO2 by NO
+     - not listed
+     - 159.13
+   * - LIMO2
+     - Peroxy radical from LIMO
+     - C10H17O3
+     - 185.27
+   * - APINO2
+     - Peroxy radical from APIN
+     - C10H17O3
+     - 185.27
+   * - PINO3
+     - Acylperoxy radical from APIN
+     - C10H17O3
+     - 185.27
+   * - C96O2
+     - 2nd-gen peroxy radical from APIN
+     - C10H17O3
+     - 185.27
+   * - BPINO2
+     - Peroxy radical from BPIN
+     - C10H17O3
+     - 185.27
+   * - BPINOO2
+     - 2nd-gen peroxy radical from BPIN
+     - C10H17O3
+     - 185.27
+   * - LIMKO2
+     - 2nd-gen peroxy radical from LIMO
+     - C10H17O3
+     - 185.27
+   * - LIMO3
+     - Acylperoxy radical from LIMO
+     - C10H17O3
+     - 185.27
+   * - LISOPOH
+     - Dummy species to track oxidation of ISOP by OH
+     - not listed
+     - 68.13
+   * - LISOPNO3
+     - Dummy species to track oxidation of ISOP by NO3
+     - not listed
+     - 68.13
+   * - LNRO2H
+     - Dummy species to track oxidation of NRO2 by HO2
+     - not listed
+     - 159.17
+   * - LNRO2N
+     - Dummy species to track oxidation of NRO2 by NO
+     - not listed
+     - 159.17
+   * - LTRO2H
+     - Dummy species to track oxidation of TRO2 by HO2
+     - not listed
+     - 173.16
+   * - LTRO2N
+     - Dummy species to track oxidation of TRO2 by NO
+     - not listed
+     - 173.16
+   * - LXRO2H
+     - Dummy species to track oxidation of XRO2 by HO2
+     - not listed
+     - 187.19
+   * - LXRO2N
+     - Dummy species to track oxidation of XRO2 by NO
+     - not listed
+     - 187.19
+   * - MACR1OO
+     - Peroxyacyl radical from MACR + OH
+     - CH2=C(CH3)C(O)OO
+     - 101.09
+   * - MACRNO2
+     - Product of MCRHN + OH
+     - C4H6NO7
+     - 180.1
+   * - MCO3
+     - Peroxyacetyl radical
+     - CH3C(O)OO
+     - 75.05
+   * - MCROHOO
+     - Peroxy radical from MACR + OH
+     - C4H7O4
+     - 119.11
+   * - MEKCO3
+     - not listed
+     - C3H5O4
+     - 105.07
+   * - MO2
+     - Methylperoxy radical
+     - CH3O2
+     - 47.04
+   * - MVKOHOO
+     - Peroxy radical from MVK + OH
+     - C4H7O4
+     - 119.11
+   * - N
+     - Atomic nitrogen
+     - N
+     - 14.01
+   * - NAP
+     - Naphtalene/IVOC surrogate
+     - C10H8
+     - 128.18
+   * - NRO2
+     - Peroxy radical from NAP oxidation
+     - C10H7O2
+     - 159.17
+   * - O
+     - Ground state atomic oxygen
+     - O(3P)
+     - 16.0
+   * - O1D
+     - Excited atomic oxygen (1D)
+     - O(1D)
+     - 16.0
+   * - OH
+     - Hydroxyl radical
+     - OH
+     - 17.01
+   * - OLND
+     - Monoterpene-derived NO3-alkene adduct
+     - C10H16NO5
+     - 230.27
+   * - OLNN
+     - Monoterpene-derived NO3 adduct
+     - C10H16NO5
+     - 230.27
+   * - OTHRO2
+     - Other C2 RO2 not from C2H6 oxidation
+     - CH3CH2OO
+     - 61.07
+   * - PIO2
+     - Peroxy radical from MTPA
+     - C10H17O3
+     - 185.27
+   * - PO2
+     - Peroxy radical from propene
+     - HOCH2CH(OO)CH3
+     - 91.1
+   * - PRN1
+     - Peroxy radical from propene + NO3
+     - O2NOCH2CH(OO)CH3
+     - 136.09
+   * - R4N1
+     - Peroxy radical from R4N2
+     - C4H8NO5
+     - 150.13
+   * - R4O2
+     - Peroxy radical from isoprene and MTPA alkyl generation
+     - C4H9O2
+     - 89.13
+   * - R7O2
+     - Peroxy radical from ALK6
+     - C7H15O2
+     - 131.19
+   * - R7N1
+     - Peroxy radical from R7N2
+     - C7H15NO5
+     - 161.2
+   * - RCO3
+     - Peroxypropionyl radical
+     - CH3CH2C(O)OO
+     - 89.08
+   * - ROH
+     - > C2 alcohols
+     - C3H7OH
+     - 60.11
+   * - TLFUO2
+     - not listed
+     - C5H7O5
+     - 147.1
+   * - TRO2
+     - Peroxy radical from TOLU oxidation
+     - C7H9O5
+     - 173.16
    * - XRO2
      - Peroxy radical from TOLU oxidation
      - C8H11O5
@@ -1475,9 +1550,11 @@ The :program:`Standard` fullchem option uses the following species:
 Benchmark
 ---------
 
-The :program:`Benchmark` fullchem simulation option allows the
-GEOS-Chem Support Team to perform benchmark simulations, which
-document the performance and evolution of GEOS-Chem over time.
+Fullchem simulations with the :program:`Benchmark` option allow the
+`GEOS-Chem Support Team
+<https://geoschem.github.io/support-team.html`_ `to perform
+simulations that document the performance and evolution of GEOS-Chem 
+over time.  
 
 Benchmark simulations use all of the :ref:`Standard species
 <fullchem-sim-standard>`, as well as the :ref:`Complex SOA species
@@ -1489,7 +1566,11 @@ SOA species are carried solely for diagnostic purposes.
 Complex SOA
 -----------
 
-.. list-table::
+Fullchem simulations with :program:`Complex SOA` option use all of
+the :ref:`Standard species <fullchem-sim-standard>`, plus 15
+additional transported species.
+
+.. list-table:: Additional transported species (Complex SOA)
    :header-rows: 1
    :align: left
 
@@ -1550,18 +1631,20 @@ Complex SOA
        sesquiterpene oxidation
      - 150.0
 
+You may archive several complex SOA diagnostic quantities to the
+:ref:`AerosolMass History collection <histguide-aerosolmass>`.
+
 .. _fullchem-sim-svpoa:
 
-Complex SOA with semi-volatile POA
+Complex SOA plus semi-volatile POA
 ----------------------------------
 
-Fullchem simulations with the :program:`Complex SOA with semi-volatile
-POA option` use all of the :ref:`Standard species
-<fullchem-sim-standard>` and  :ref:`Complex SOA species
-<fullchem-sim-csoa>`, plus these additional primary organic aerosol
-species:
+Fullchem simulations with :program:`Complex SOA plus semi-volatile
+POA` use all of the :ref:`Standard species <fullchem-sim-standard>`
+and  :ref:`Complex SOA species <fullchem-sim-csoa>`, plus several
+additional transported primary organic aerosol species.
 
-.. list-table::
+.. list-table:: Additional transported species (Complex SOA with SVPOA)
    :header-rows: 1
    :align: left
 
@@ -1598,11 +1681,11 @@ species:
 Marine POA
 ----------
 
-Fullchem simulations with the :program:`Marine POA` use all of the
+Fullchem simulations with :program:`Marine POA` use all of the
 :ref:`Standard species <fullchem-sim-standard>`, plus two additional
-species.
+transported aerosol species.
 
-.. list-table::
+.. list-table:: Additional transported species (Marine POA)
    :header-rows: 1
    :align: left
 
@@ -1624,11 +1707,11 @@ species.
 Acid uptake on dust
 -------------------
 
-The :program:`Acid uptake on dust` simulation uses all of the
-:ref:`Standard species <fullchem-sim-standard>` species, plus 12
-additional transported species:
+Fullchem simulations with :program:`Acid uptake on dust` use all of
+the :ref:`Standard species <fullchem-sim-standard>`, plus 12
+additional transported species.
 
-.. list-table::
+.. list-table:: Additional transported species (Acid uptake on dust)
    :header-rows: 1
    :align: left
 
@@ -1677,12 +1760,13 @@ additional transported species:
 TOMAS aerosol microphysics
 --------------------------
 
-Fullchem simulations with :program:`TOMAS aerosol microphysics` use all
-species listed in the :ref:`fullchem-sim-standard`, plus the species
-listed below.  Note that the bulk dust species (DST1, DST2, DST3,
-DST4) species are replaced with size-resolved dust species (DUST1 .. DUST40).
+Fullchem simulations with :program:`TOMAS aerosol microphysics` use
+all of the :ref:`Standard species <fullchem-sim-standard>`, plus
+several additional size-resolved aerosol species.  Note that the bulk
+dust species (DST1, DST2, DST3, DST4) species are replaced with
+size-resolved dust species (DUST1 .. DUST40).
 
-.. list-table::
+.. list-table:: Additional transported species (TOMAS)
    :header-rows: 1
    :align: left
 
@@ -1723,7 +1807,11 @@ DST4) species are replaced with size-resolved dust species (DUST1 .. DUST40).
 You must request TOMAS aerosol microphysics at configuration time.
 You may select either TOMAS with 15 size-resolved bins or with 40
 size-resolved bins.  Please see :ref:`this section
-<customguide-aer-mp>` for configuration and compilation instructions.
+<customguide-aer-mp-tomas>` for configuration and compilation
+instructions.
+
+You may archive several TOMAS diagnostic quantities to the :ref:`TOMAS
+History collection <histguide-tomas>`.
 
 .. _fullchem-sim-apm:
 
@@ -1734,7 +1822,7 @@ Fullchem simulations with :program:`APM aerosol microphysics` use all
 species listed in the :ref:`fullchem-sim-standard`, as well as the
 following species:
 
-.. list-table::
+.. list-table:: Additional transported species (APM)
    :header-rows: 1
    :align: left
 
@@ -1800,8 +1888,8 @@ following species:
      - 96.0
 
 You must request APM aerosol microphysics at configuration time.
-Please see :ref:`this section <customguide-aer-mp>` for configuration
-and compilation instructions.
+Please see :ref:`this section <customguide-aer-mp-apm>` for
+configuration and compilation instructions.
 
 .. _fullchem-sim-rrtmg:
 
@@ -1810,5 +1898,5 @@ RRTMG radiative transfer model
 
 Fullchem simulations with the :program:`RRTMG radiative transfer
 model` use the :ref:`Standard species <fullchem-sim-standard>`.  No
-additional species are added.  Radiative forcing diagnostics can be
-archived to the:ref:`RRTMG History collection <histguide-rrtmg>`.
+additional species are included.  Radiative forcing diagnostics can be
+archived to the :ref:`RRTMG History collection <histguide-rrtmg>`.

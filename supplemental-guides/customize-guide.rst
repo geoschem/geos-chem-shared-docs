@@ -33,6 +33,8 @@ microphysics schemes require.
 Follow the steps below to activate either APM or TOMAS microphysics in
 your full-chemistry simulation.
 
+.. _customguide-aer-mp-apm:
+
 APM
 ~~~
 
@@ -47,6 +49,8 @@ APM
       $ make -j
       $ make install
 
+.. _customguide-aer-mp-tomas:
+      
 TOMAS
 ~~~~~
 

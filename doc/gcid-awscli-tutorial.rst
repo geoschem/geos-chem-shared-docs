@@ -93,6 +93,10 @@ one of the following commands:
 
    $ aws s3 ls --no-sign-request s3://geos-chem/
 
+Make sure that the S3 bucket name ends with a trailing slash
+(:literal:`/`) character; that is, use :literal:`s3://geos-chem/`
+instead of :literal:`s3://geos-chem`.
+
 .. tip::
 
    Adding the :literal:`--no-sign-request` flag to any AWS CLI command
@@ -110,13 +114,13 @@ need. For example,
 
 .. code-block:: console
 
-   $ aws s3 ls s3://geos-chem/GEOS_0.5x0.625/MERRA2/2024/05
+   $ aws s3 ls s3://geos-chem/GEOS_0.5x0.625/MERRA2/2024/05/
 
 **If you do not have an AWS account:**
 
 .. code-block:: console
 
-   $ aws s3 ls --no-sign-request s3://geos-chem/GEOS_0.5x0.625/MERRA2/2024/05
+   $ aws s3 ls --no-sign-request s3://geos-chem/GEOS_0.5x0.625/MERRA2/2024/05/
 
 .. _gcid-tut-access-download:
 
@@ -138,13 +142,13 @@ local cluster or an EC2 instance. For example,
 
 .. code-block:: console
 
-   $ aws s3 cp s3://geos-chem/GEOS_0.5x0.625/MERRA2/2024/05 ./ --recursive
+   $ aws s3 cp --recursive s3://geos-chem/GEOS_0.5x0.625/MERRA2/2024/05 ./
 
 **If you do not have an AWS account:**
 
 .. code-block:: console
 
-   $ aws s3 cp --no-sign-request s3://geos-chem/GEOS_0.5x0.625/MERRA2/2024/05 ./ --recursive
+   $ aws s3 cp --recursive --no-sign-request s3://geos-chem/GEOS_0.5x0.625/MERRA2/2024/05 ./
 
 This command will copy the data to your current path.
 

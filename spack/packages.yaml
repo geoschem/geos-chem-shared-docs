@@ -30,7 +30,7 @@ packages:
     variants: "~doc~ncurses+openssl+ownlibs~qt"
 
   esmf:
-    version: ["8.4.2"]
+    version: ["8.6.1"]
     variants: "~pio~pnetcdf~xerces"
 
   hdf5:

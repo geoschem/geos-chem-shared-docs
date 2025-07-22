@@ -65,6 +65,16 @@ You will be using this workflow:
 Install Spack and do first-time setup
 =====================================
 
+.. attention::
+
+   We will use the `Spack v0.23.1 release
+   <https://github.com/spack/spack/releases/tag/v0.23.1>`_ in the
+   installation workflow described below.  This will allow us to use
+   the GCC 12.2.0 compilers, which have since been :ref:`deprecated in
+   Spack  v1.0.0 and later versions <gc-known-bugs-gcc12>`.  We hope
+   to be able to incorporate a newer Spack version into this
+   installation workflow in the near future.
+
 Decide where you want to install Spack (aka the **Spack root
 directory**).  A few details you should consider are:
 
@@ -101,15 +111,20 @@ require modification.
 
 .. code-block:: console
 
-   $ cd ${HOME}                             # (modifiable) cd to the install location you chose
+   # (modifiable) Navigate to the install location you chose
+   $ cd ${HOME}
 
-   $ git clone -c feature.manyFiles=true https://github.com/spack/spack.git  # download Spack
+   # Download Spack v0.23.1 (only get the latest commit, it downloads faster)
+   $ git clone -c feature.manyFiles=true -b releases/v0.23 --depth=1 https://github.com/spack/spack.git
 
-   $ source spack/share/spack/setup-env.sh  # Load Spack
+   # Initialize Spack
+   $ source spack/share/spack/setup-env.sh
 
-   $ spack external find                    # Tell Spack to look for existing software
+   # Tell Spack to look for existing software
+   $ spack external find
 
-   $ spack compiler find                    # Tell Spack to look for existing complilers
+   # Tell Spack to look for existing complilers
+   $ spack compiler find
 
 .. note::
 

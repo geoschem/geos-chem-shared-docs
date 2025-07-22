@@ -1552,7 +1552,7 @@ Benchmark
 
 Fullchem simulations with the :program:`Benchmark` option allow the
 `GEOS-Chem Support Team
-<https://geoschem.github.io/support-team.html`_ `to perform
+<https://geoschem.github.io/support-team.html>`_ to perform
 simulations that document the performance and evolution of GEOS-Chem 
 over time.  
 

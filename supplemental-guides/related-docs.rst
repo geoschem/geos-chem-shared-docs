@@ -23,8 +23,7 @@ View related documentation
    * - GEOS-Chem video tutorials on BiliBili [#B]_
      - `space.bilibili.com/675454446 <https://space.bilibili.com/675454446>`_
 
-
-.. rubric::
+.. rubric:: NOTES
 
 .. [#A] YouTube is currently not available in China.
 

@@ -181,13 +181,14 @@ To disable an entire diagnostic collection, simply put a
 :literal:`#` comment character in front of the collection name in
 the :literal:`COLLECTIONS:` section.
 
-GEOS-Chem will expect to find a collection definition section for
-each of the activated collections listed under the
+GEOS-Chem will expect to find a collection definition section for each
+of the activated collections listed under the
 :literal:`COLLECTIONS:` section.  In other words, if you have
-:option:`SpeciesConc`  listed under :literal:`COLLECTIONS:`, but
-there is no further information provided about the
-:option:`SpeciesConc` collection, then GEOS-Chem will halt with an
-error message.
+:ref:`histguide-configfile-sample-sc` listed under
+:literal:`COLLECTIONS:`, but there is no further information provided
+about the
+:ref:`histguide-configfile-sample-sc` collection, then
+GEOS-Chem will halt with an error message.
 
 .. note::
 
@@ -209,7 +210,7 @@ SpeciesConc.template
 ^^^^^^^^^^^^^^^^^^^^
 Determines the date and time format for the
 :ref:`histguide-configfile-sample-sc` collection filename suffix, as
-described below: 
+described below:
 
 - :literal:`%y4%m2%d2_%h2%n2z.nc4` prints
   :literal:`YYYYMMDD_hhmmz.nc4` to the end of each netCDF filename.
@@ -233,7 +234,7 @@ described below:
      of the filename suffix (:file:`.20200101_0000z.nc4`).
 
 .. _histguide-configfile-sample-sc-freq:
-      
+
 SpeciesConc.frequency
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -243,33 +244,28 @@ a netCDF file. This can be specified as either :literal:`hhmmss` or
 :literal:`YYYYMMDD hhmmss`.
 
 In the above example, data belonging to the collection will be
-written to  the file every 6 hours.  Because :option:`SpeciesConc`
-is an instantaneous collection, no time-averaging will be
-performed.
-
-SpeciesConc.format
-^^^^^^^^^^^^^^^^^^
-
-**For GCHP simulations only.** This tag indicates the I/O library that
+written to  the file every 6 hours.  Because
+:ref:`histguide-configfile-sample-sc` is an instantaneous collection,
+that
 will be used.
 
 SpeciesConc.duration
 ^^^^^^^^^^^^^^^^^^^^
 
-Determines how often a new :option:`SpeciesConc` netCDF file will
-be created.  Uses the same format as
-:ref:`histguide-configfile-sample-sc-freq:`.
+Determines how often a new :ref:`histguide-configfile-sample-sc`
+netCDF file will be created.  Uses the same format as
+:ref:`histguide-configfile-sample-sc-freq`.
 
 SpeciesConc.mode
 ^^^^^^^^^^^^^^^^
 
-Determines the averaging method for the :option:`SpeciesConc`
-collection.  Allowable values are:
+Determines the averaging method for the  :ref:`SpeciesConc
+<histguide-configfile-sample-sc>` collection.  Allowed values are:
 
 - :literal:`instantaneous`: Archives instantaneous values at the
-  interval specified by :ref:`histguide-configfile-sample-sc-freq:`.
+  interval specified by :ref:`histguide-configfile-sample-sc-freq`.
 - :literal:`time-averaged`: Archives values averaged over the
-  interval specified by :ref:`histguide-configfile-sample-sc-freq:`.
+  interval specified by :ref:`histguide-configfile-sample-sc-freq`.
 
 SpeciesConc.fields
 ^^^^^^^^^^^^^^^^^^
@@ -323,7 +319,7 @@ grid.
 The :literal:`.template`, :literal:`.frequency`,
 :literal:`.duration`,  :literal:`:mode`, and :literal:`.fields`
 are described for the :ref:`histguide-configfile-sample-sc` collection
-above, so we will not repeat them here. 
+above, so we will not repeat them here.
 
 SpeciesConcSubset.LON_RANGE
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -335,7 +331,7 @@ ignored.  If this option is omitted, values at all longitudes
 
 SpeciesConcSubset.LAT_RANGE
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-	
+
 Defines the latitude range (:literal:`min max`) where diagnostic
 data will be archived.  Data outside of this range will be ignored.
 If this option is omitted, values at all latitudes
@@ -400,7 +396,7 @@ dimension:
      - Dry-deposited species
      - :literal:`SpeciesConcVV_?DRY?`
    * - :literal:`?DRYALT?`
-     - Species for the :ref:`histguide-concabovechem`  collection
+     - Species for the :ref:`histguide-concafterchem` collection
      - :literal:`SpeciesConcVV_?DRYALT`
    * - :literal:`?DUSTBIN?`
      - Dust bin number
@@ -472,8 +468,8 @@ prefixed as described below:
 File naming convention
 ----------------------
 
-As mentioned above, :option:`SpeciesConc.template`, GEOS-Chem History
-files adhere to the following naming convention:
+As mentioned above, :ref:`histguide-configfile-sample-sc-tmpl`,
+GEOS-Chem History files adhere to the following naming convention:
 
 .. code-block:: none
 
@@ -669,12 +665,36 @@ collection.
 
 **List of diagnostic fields in the AdvFluxVert collection**
 
-+------------------------------+---------------------------+-------+-----------+
-| Diagnostic field             | Description               | Units | Wildcards |
-+==============================+===========================+=======+===========+
-| AdvFluxVert_<name|wc>        | Vertical flux of species  | kg/s  |  ?ADV?    |
-|                              | in advection              |       |           |
-+------------------------------+---------------------------+-------+-----------+
+.. list-table::
+   :header-rows: 1
+
+   * - Diagnostic field
+     - Description
+     - Units
+     - Wildcards
+   * - AdvFluxVert_<name|wc>
+     - Vertical flux of species in advection
+     - kg/s
+     - ?ADV?
+
+The following diagnostics are also available to be used, but are not
+currently part of any collection:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Diagnostic field
+     - Description
+     - Units
+     - Wildcards
+   * - AdvFluxMerid_<name|wc>
+     - Meridional (N/S) flux of species in advection
+     - kg/s
+     - ?ADV?
+   * - AdvFluxZonal_<name|wc>
+     - Zonal (E/W) flux of species in advection
+     - kg/s
+     - ?ADV?
 
 .. _histguide-aerosolmass:
 
@@ -1837,12 +1857,12 @@ the solver's performance.
                          'KppSubsts   ',
                          'KppSmDecomps',
    ::
-      
+
 **List of diagnostic fields in the KppDiags collection**
 
 .. list-table::
    :header-rows: 1
-		 
+
    * - Diagnostic field
      - Description
      - Units
@@ -1891,7 +1911,7 @@ the solver's performance.
 .. [#JJ] KppTime will likely not be identical between two successive
   	 simulations, as the time spent in the integrator will depend
 	 on local cluster conditions.
-	
+
 .. _histguide-leveledgediags:
 
 LevelEdgeDiags

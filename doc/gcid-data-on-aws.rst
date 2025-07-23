@@ -91,7 +91,7 @@ GEOS-Chem Classic be driven by the following meteorology products:
 
 #. `MERRA-2 <http://wiki.geos-chem.org/MERRA-2>`_
 #. `GEOS-FP <http://wiki.geos-chem.org/GEOS_FP>`_
-#. `GEOS-IT <https://gmao.gsfc.nasa.gov/GMAO_products/GEOS-IT/>`_
+#. `GEOS-IT <https://gmao.gsfc.nasa.gov/gmao-products/geos-it/>`_
 #. GCAP 2.0 (available at the `atmos.earth.rochester.edu data portal <http://atmos.earth.rochester.edu/input/gc/ExtData>`_)
 
 .. _gcid-data-access:

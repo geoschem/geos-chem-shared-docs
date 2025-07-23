@@ -94,12 +94,6 @@ GEOS-Chem Classic be driven by the following meteorology products:
 #. `GEOS-IT <https://gmao.gsfc.nasa.gov/GMAO_products/GEOS-IT/>`_
 #. GCAP 2.0 (available at the `atmos.earth.rochester.edu data portal <http://atmos.earth.rochester.edu/input/gc/ExtData>`_)
 
-.. attention::
-
-   We are still evaluating GEOS-Chem with the new NASA GEOS-IT
-   meterorology product.  For the time being, you should use one of
-   the other meteorology options.
-
 .. _gcid-data-access:
 
 ===========

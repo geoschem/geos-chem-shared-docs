@@ -51,7 +51,7 @@ View related documentation
      - `gcpy.readthedocs.io <https://gcpy.readthedocs.io>`_
    * - WRF-GC (GEOS-Chem in WRF)
      - WRF-GC developers
-     - `wrf.geos-chem.org <http://wrf.geos-chem.org>`_
+     - `wrfgc.readthedocs.org <https://wrfgc.readthedocs.io/en/latest/>`_
    * - KPP (The Kinetic PreProcessor)
      - KPP developers
      - `kpp.readthedocs.io <https://kpp.readthedocs.io>`_

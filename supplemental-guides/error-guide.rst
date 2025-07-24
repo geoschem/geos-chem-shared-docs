@@ -956,8 +956,9 @@ is printed to stdout.
    :file:`geoschem_config.yml` configuration file.
 
 **Solution:** Increase the amount of stack memory available to
-GEOS-Chem and HEMCO. `Please follow this link
-<https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/login-env-parallel.html>`__
+GEOS-Chem and HEMCO. Please see `Set environment variables for
+parallelization
+<https://geos-chem.readthedocs.io/en/latest/getting-started/login-env-parallel.html>`__
 for detailed instructions.
 
 .. _errguide-fileio-invalid:
@@ -1002,7 +1003,7 @@ of the memory structure where short-lived variables are stored, such as:
 
 **Solution:** Max out the amount of stack memory that is available to
 GEOS-Chem and HEMCO.  `See this section
-<http://geos-chem.readthedocs.io/en/latest/getting-started/login-env-parallel.html>`_
+<https://geos-chem.readthedocs.io/en/latest/getting-started/login-env-parallel.html>`_
 for instructions.
 
 .. _errguide-lesscommon:
@@ -1165,8 +1166,6 @@ at some previous point in time, you may be in for some painful
 debugging (it may not be too painful if the project is small enough
 that you can tackle it piece by piece).
 
-`See this post on StackOverFlow <http://stackoverflow.com/question/error-free-invalid-next-size-fast>`_ for more information.
-
 .. _errguide-lesscommon-munmap:
 
 Munmap_chunk: invalid pointer
@@ -1183,7 +1182,7 @@ already been deallocated or modified.
 **Solution:** Use a debugger (like :program:`gdb`) to see where in
 GEOS-Chem or HEMCO the error occurs.  You will likely have to remove a
 duplicate :code:`DEALLOCATE` or :code:`=> NULL()` statement.  `See
-this link
+this article on Stack Overflow
 <http://stackoverflow.com/questions/6199729/how-to-solve-munmap-ch unk-invalid-pointer-error-in-c>`_
 for more information.
 
@@ -1197,10 +1196,7 @@ Out of memory asking for NNNNN
     Fatal compilation error: Out of memory asking for 36864.
 
 **Problem:** This error may be caused by the :literal:`datasize` limit
-not being maxed out in your Linux login environment.  `For more
-informatin, see this link
-<http://software.intel.com/en-us/forums/topic/268149>`_ for more
-information.
+not being maxed out in your Linux login environment.
 
 **Solution:** Use this command to check the status of the
 :literal:`datasize` limit:

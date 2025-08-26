@@ -1,3 +1,7 @@
+.. |br| raw:: html
+
+   <br />
+
 .. _aerosol-sim:
 
 #######################
@@ -17,17 +21,33 @@ full-chemistry simulation (more on that below), as well as production
 and loss rates for H2O2. This simulation does not provide "tagged"
 capabilities, but reduces the suite of tracers from full chemistry.
 
-NOTES:
+**NOTES:**
 
-#. The aerosol-only simuation is currently functional in GEOS-Chem Classic.
+#. The aerosol-only simuation is currently functional in GEOS-Chem
+   Classic. |br|
+   |br|
+   
 #. There is currently no aerosol-only run directory for
    GCHP. Interested users are encouraged to make this modification on
-   their own.
+   their own. |br|
+   |br|
+   
 #. OH concentrations are archived from the most recent 10-year
-   benchmark simulation.
+   benchmark simulation. |br|
+   |br|
+   
 #. O3, NO3 and total nitrate (HNO3+NIT) concentrations, as well as
    production rates and photolysis rates for H2O2 are archived from
-   the most recent 10-year benchmark simulation.
+   the most recent 10-year benchmark simulation. |br|
+   |br|
+   
+#. As reported in `GEOS-Chem issue #2961 on GitHub
+   <https://github.com/geoschem/geos-chem/issues/2961#issuecomment-3221292606>`_,
+   the current aerosol-only simulation is not capable of accurately
+   representing NH4-NO3-SO4 aerosols.  For the time being, please use
+   one of the :ref:`fullchem simulations <fullchem-sim>` to compute total
+   PM2.5 or the NH4, NIT, or sulfate components.  We look to
+   interested GEOS-Chem users to provide a fix for this issue.
 
 .. _aerosol-sim-species:
 

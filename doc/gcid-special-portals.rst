@@ -44,25 +44,79 @@ domains. These data can be used to perform high-resolution inversions
 with the `Integrated Methane Inversion (IMI)
 <https://imi.readthedocs.io>`_ workflow.
 
-.. table:: Available nested-grid meteorology (2018 to present day)
+.. list-table:: Available nested-grid meteorology (2018 to present day)
+   :header-rows: 1
+   :widths: 25 20 55
    :align: center
 
-   +---------+--------------------------+-------------------------------+
-   | Product | Horizontal resolution    | Nested-grid domains           |
-   +=========+==========================+===============================+
-   | GEOS-FP | :math:`0.125^{\circ}     | AF (Africa) |br|              |
-   |         | {\times}0.15625^{\circ}` | AS (Asia) |br|                |
-   |         |                          | EU (Europe) |br|              |
-   |         |                          | ME (Middle East) |br|         |
-   |         |                          | NA (North America) |br|       |
-   |         |                          | OC (Oceania) |br|             |
-   |         |                          | RU (Russia) |br|              |
-   |         |                          | SA (South America)            |
-   +---------+--------------------------+-------------------------------+
-   | MERRA-2 | :math:`0.5^{\circ}       | AS (Asia) |br|                |
-   |         | {\times}0.625^{\circ}`   | EU (Europe) |br|              |
-   |         |                          | NA (North America) |br|       |
-   +---------+--------------------------+-------------------------------+
+   * - Nested domain
+     - Meteorology
+     - Grid
+   * - Africa
+     - GEOS-FP
+     - :ref:`gcc-hgrids-nested-0125-af` [#A]_
+   * - Africa
+     - GEOS-FP
+     - :ref:`gcc-hgrids-nested-025-af`
+   * - Asia
+     - GEOS-FP
+     - :ref:`gcc-hgrids-nested-0125-as` [#B]_
+   * - Asia
+     - GEOS-FP
+     - :ref:`gcc-hgrids-nested-025-as`
+   * - Asia
+     - MERRA-2
+     - :ref:`gcc-hgrids-nested-05-as`
+   * - Europe
+     - GEOS-FP
+     - :ref:`gcc-hgrids-nested-025-eu`
+   * - Europe
+     - MERRA-2
+     - :ref:`gcc-hgrids-nested-05-eu`
+   * - Middle East
+     - GEOS-FP
+     - :ref:`gcc-hgrids-nested-025-me`
+   * - North America
+     - GEOS-FP
+     - :ref:`gcc-hgrids-nested-0125-na` [#C]_
+   * - North America
+     - GEOS-FP
+     - :ref:`gcc-hgrids-nested-025-na`
+   * - North America
+     - MERRA-2
+     - :ref:`gcc-hgrids-nested-05-na`
+   * - Oceania
+     - GEOS-FP
+     - :ref:`gcc-hgrids-nested-025-oc`
+   * - Russia
+     - GEOS-FP
+     - :ref:`gcc-hgrids-nested-025-ru`
+   * - South America
+     - GEOS-FP
+     - :ref:`gcc-hgrids-nested-0125-sa` [#D]_
+   * - South America
+     - GEOS-FP
+     - :ref:`gcc-hgrids-nested-025-sa`
+
+.. rubric:: Notes
+
+.. [#A] Winds, pressures, and specific humidity are read at 0.125° x
+        0.15625° over the nested Africa domain.  Other met fields are
+        taken from the GEOS-FP  :ref:`gcc-hgrids-nested-025-af` archive.
+
+.. [#B] Winds, pressures, and specific humidity are read at 0.125° x
+        0.15625° over the nested Asia domain.  Other met fields are
+        taken from the GEOS-FP :ref:`gcc-hgrids-nested-025-as` archive.
+
+.. [#C] Winds, pressures, and specific humidity are read at 0.125° x
+        0.15625° over the nested North America domain.  Other met
+        fields are taken from the GEOS-FP
+        :ref:`gcc-hgrids-nested-025-na` archive.
+
+.. [#D] Winds, pressures, and specific humidity are read at 0.125° x
+        0.15625° over the nested South America domain.  Other met
+        fields are taken from the GEOS-FP
+        :ref:`gcc-hgrids-nested-025-sa` archive.
 
 The data can be accessed by:
 

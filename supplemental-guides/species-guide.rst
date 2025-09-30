@@ -73,11 +73,6 @@ Identification
    Indicates that the species is an aerosol (:literal:`true`), or isn't
    (:literal:`false`).
 
-.. option:: Is_Advected
-
-   Indicates that the species is advected (:literal:`true`), or isn't
-   (:literal:`false`).
-
 .. option:: Is_DryAlt
 
    Indicates that dry deposition diagnostic quantities for the species can

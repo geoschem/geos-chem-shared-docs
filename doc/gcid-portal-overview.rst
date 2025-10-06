@@ -1,13 +1,15 @@
+.. |br| raw:: html
+
+   <br />
+
 .. _gcid:
 
 #################################
 GEOS-Chem Input Data on AWS cloud
 #################################
 
-The `GEOS-Chem Input Data
-<https://aws.amazon.com/marketplace/pp/prodview-gsu7hiudejnxq>`_
-portal provides essential datasets for `GEOS-Chem Classic
-<https://geos-chem.readthedocs.io/en/stable/>`_, `GCHP
+:ref:`gcid-data` provides essential datasets for `GEOS-Chem
+Classic <https://geos-chem.readthedocs.io/en/stable/>`_, `GCHP
 <https://gchp.readthedocs.io/en/stable/>`_, and
 `HEMCO  <https://hemco.readthedocs.io/en/stable>`_.
 This includes NASA/GMAO MERRA-2 and GEOS-FP :ref:`meteorological
@@ -19,16 +21,30 @@ continuously upload and maintain the data in an S3 Bucket
 (`s3://geos-chem <https://geos-chem.s3.amazonaws.com/index.html>`_)
 for convenient access.
 
+We are pleased to announce that the GEOS-Chem Input Data portal is
+part of the `AWS Open Data Sponsorship Program
+<https://aws.amazon.com/opendata/open-data-sponsorship-program/>`_.
+As a result, **the data is completely free to use**.  You will NOT
+incur any data egress fees when downloading data from the
+`s3://geos-chem <https://geos-chem.s3.amazonaws.com/index.html>`_
+bucket.  This is now the recommended repository for GEOS-Chem data
+download.
+
 .. note::
 
-   We are pleased to announce that the GEOS-Chem Input Data portal is
-   part of the `AWS Open Data Sponsorship Program
-   <https://aws.amazon.com/opendata/open-data-sponsorship-program/>`_.
-   As a result, **the data is completely free to use**.  You will NOT
-   incur any data egress fees when downloading data from the
-   `s3://geos-chem <https://geos-chem.s3.amazonaws.com/index.html>`_
-   bucket.  This is now the recommended repository for GEOS-Chem data
-   download.
+   Certain data are stored separately from the main :ref:`GEOS-Chem
+   Input Data portal <gcid-data>`:
+
+   - NASA/GMAO meteorology fields that have been cropped to the
+     various :ref:`nested grid domains <gcc-hgrids-nested>` may be
+     downloaded from our :ref:`gcid-special-portals-nested`
+     portal (aka `s3://gcgrid
+     <https://gcgrid.s3.amazonaws.com/index.html>`_). |br|
+     |br|
+
+   - GCAP 2.0 meteorology fields for present & future scenarios may be
+     downloaded from our :ref:`GCAP 2.0 meteorology portal hosted
+     at U. Rochester <gcid-special-portals-gcap2>`.
 
 In the following chapters, we will describe how the GEOS-Chem Input
 Data portal is organized and how to access the data stored there.

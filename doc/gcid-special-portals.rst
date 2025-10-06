@@ -24,25 +24,19 @@ We also maintain two additional data portals for special data sets.
 GEOS-Chem Nested Input Data
 ===========================
 
-.. note::
-
-   Data stored at the GEOS-Chem Nested Input Data portal is covered
-   by the `AWS Open Data Sponsorship Program
-   <https://aws.amazon.com/opendata/open-data-sponsorship-program/>`_. and
-   may be downloaded without incurring any data egress fees.
-
-   We are still adding data to the GEOS-Chem Nested Input Data
-   portal. As of this writing (January 2025), not all data may
-   have been uploaded yet.  We thank you for your patience.
-
 The `GEOS-Chem Nested Input data
 <https://registry.opendata.aws/geoschem-nested-input-data/>`_
-portal stores GEOS-FP and MERRA-2 meteorology fields that have
-been cropped to specific `nested-grid
+portal (aka :file:`s3://gcgrid`) stores GEOS-FP and MERRA-2
+meteorology fields that have been cropped to specific `nested-grid
 <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/nested-grid-guide.html>`_
 domains. These data can be used to perform high-resolution inversions
 with the `Integrated Methane Inversion (IMI)
 <https://imi.readthedocs.io>`_ workflow.
+
+Data stored at the GEOS-Chem Nested Input Data portal is covered
+by the `AWS Open Data Sponsorship Program
+<https://aws.amazon.com/opendata/open-data-sponsorship-program/>`_. and
+may be downloaded without incurring any data egress fees.
 
 .. list-table:: Available nested-grid meteorology (2018 to present day)
    :header-rows: 1
@@ -123,10 +117,6 @@ The data can be accessed by:
 - AWS S3 Explorer (https://gcgrid.s3.amazonaws.com/index.html)
 - Direct HTTP or wget download
 - :ref:`Dry-run simulation <dry-run>`
-
-The GEOS-Chem Nested Input Data portal is also part of the `AWS
-Open Data Sponsorship Program
-<https://aws.amazon.com/opendata/open-data-sponsorship-program/>`_.
 
 .. _gcid-special-portals-gcap2:
 

@@ -32,7 +32,6 @@ is shown below.
      FullName: Acetone
      Henry_CR: 5500.0
      Henry_K0: 2.74e+1
-     Is_Advected: true
      Is_DryDep: true
      Is_Gas: true
      Is_Photolysis: true
@@ -47,7 +46,6 @@ is shown below.
      DD_Hstar: 0.0
      Formula: I
      FullName: Iodine on aerosol
-     Is_Advected: true
      Is_Aerosol: true
      Is_DryDep: true
      Is_WetDep: true

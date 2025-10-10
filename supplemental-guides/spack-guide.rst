@@ -203,7 +203,7 @@ variable that you defined in the :ref:`previous step <spackguide-model>`.
 
 .. code-block:: console
 
-   $ spack ${scope_args} install gcc     # Install GNU Compiler Collection
+   $ spack ${scope_args} install gcc@12.2.0 target=x86_64   # Install GNU Compiler Collection
 
 .. note::
 
@@ -227,23 +227,19 @@ packages.  Use this command:
 
 .. code-block:: console
 
-   $ spack compiler add $(spack location -i gcc)     # Register GNU Compiler Collection
+   $ spack compiler add $(spack location -i gcc@12.2.0)   # Register GNU Compiler Collection
 
 You will then see output similar to this:
 
 .. code-block:: console
 
    ==> Added 1 new compiler to /path/to/home/.spack/linux/compilers.yaml
-       gcc@X.Y.Z
+       gcc@12.2.0
    ==> Compilers are defined in the following files:
        /path/to/home/.spack/linux/compilers.yaml
 
-where
-
-- :file:`/path/to/home` indicates the absolute path of your home
-  directory (aka :literal:`${HOME}`)
-- :literal:`X.Y.Z` indicates the version of the GCC compiler that you
-  just built with Spack.
+where :file:`/path/to/home` indicates the absolute path of your home
+directory (aka :literal:`${HOME}`).
 
 .. tip::
 
@@ -275,7 +271,7 @@ The Spack installation commands that you will use take the form:
 
 .. code-block:: console
 
-   $ spack ${scope_args} install <package-name>%gcc^openmpi
+   $ spack ${scope_args} install <package-name>%gcc@12.2.0^openmpi@4.1.0 target=x86_64
 
 where
 
@@ -287,11 +283,11 @@ where
   software package that you wish to install; |br|
   |br|
 
-- :literal:`%gcc` tells Spack that it should use the GNU Compiler
+- :literal:`%gcc@12.2.0` tells Spack that it should use the GNU Compiler
   Collection version that you just built; |br|
   |br|
 
-- :literal:`^openmpi` tells Spack to use OpenMPI when building
+- :literal:`^openmpi@4.1.0` tells Spack to use OpenMPI when building
   software packages.  You may omit this setting for packages that do
   not require it.
 
@@ -320,7 +316,7 @@ with GEOS-Chem data:
 
    .. code-block:: console
 
-      $ spack ${scope_args} install esmf%gcc^openmpi
+      $ spack ${scope_args} install esmf@8.6.1%gcc@12.2.0^openmpi@4.1.0 target=x86_64
 
    The above command will build all of the above-mentioned packages in
    a single step.
@@ -339,18 +335,9 @@ with GEOS-Chem data:
 
    .. code-block:: console
 
-      $ spack ${scope_args} install cdo%gcc^openmpi
+      $ spack ${scope_args} install cdo%gcc@12.2.0^openmpi@4.1.0 target=x86_64
 
-      $ spack ${scope_args} install nco%gcc^openmpi
-
-   |br|
-
-#. Build the :program:`ncview` package, which is a quick-and-dirty
-   netCDF file viewer.
-
-   .. code-block:: console
-
-      $ spack ${scope_args} install ncview%gcc^openmpi
+      $ spack ${scope_args} install nco%gcc@12.2.0^openmpi@4.1.0 target=x86_64
 
    |br|
 
@@ -361,7 +348,7 @@ with GEOS-Chem data:
 
    .. code-block:: console
 
-      $ spack ${scope_args} install flex%gcc
+      $ spack ${scope_args} install flex%gcc@12.2.0 target=x86_64
 
    .. note::
 
@@ -404,26 +391,25 @@ commands with the following code:
 .. code-block:: bash
 
    #=========================================================================
-   # Load Spackguide-built modules
+   # Load Spack-built modules
    #=========================================================================
 
    # Setup Spack if it hasn't already been done
    # ${SPACK_ROOT} will be blank if the setup-env.sh script hasn't been called.
    # (modifiable) Replace "/path/to/spack" with the path to your Spack root directory
-   if [[ "x${SPACK_ROOT}" == "x" ]]; fi
-      source /path/to/spack/source/spack/setup-env.sh
+   if [[ "x${SPACK_ROOT}" == "x" ]]; then
+      source ${SPACK_ROOT}/source/spack/setup-env.sh
    fi
 
    # Load esmf, hdf5, netcdf-c, netcdf-fortran, openmpi
-   spack load esmf%gcc^openmpi
+   spack load esmf%gcc@12.2.0^openmpi@4.1.0
 
    # Load netCDF packages (cdo, nco, ncview)
-   spack load cdo%gcc^openmpi
-   spack load nco%gcc^openmpi
-   spack load ncview
+   spack load cdo%gcc@12.2.0^openmpi@4.1.0
+   spack load nco%gcc@12.2.0^openmpi@4.1.0
 
-   # Load flex
-   spack load flex
+   # Load Flex (Needed for KPP)
+   spack load flex%gcc@12.2.0
 
    #=========================================================================
    # Set environment variables for compilers
@@ -438,27 +424,27 @@ commands with the following code:
    #=========================================================================
 
    # openmpi (needed for GCHP)
-   export MPI_ROOT=$(spack-location -i openmpi%gcc)
+   export MPI_ROOT=$(spack location -i openmpi)
 
    # esmf (needed for GCHP)
-   export ESMF_DIR=$(spack location -i esmf%gcc^openmpi)
+   export ESMF_DIR=$(spack location -i esmf)
    export ESMF_LIB=${ESMF_DIR}/lib
    export ESMF_COMPILER=gfortran
    export ESMF_COMM=openmpi
-   export ESMF_INSTALL_PREFIX=${ESMF_DIR}/INSTALL_gfortran10_openmpi4
+   export ESMF_INSTALL_PREFIX=${ESMF_DIR}
 
    # netcdf-c
-   export NETCDF_HOME=$(spack location -i netcdf-c%gcc^openmpi)
+   export NETCDF_HOME=$(spack location -i netcdf-c)
    export NETCDF_LIB=$NETCDF_HOME/lib
 
    # netcdf-fortran
-   export NETCDF_FORTRAN_HOME=$(spack location -i netcdf-fortran%gcc^openmpi)
+   export NETCDF_FORTRAN_HOME=$(spack location -i netcdf-fortran)
    export NETCDF_FORTRAN_LIB=$NETCDF_FORTRAN_HOME/lib
 
-   # flex
-   export FLEX_HOME=$(spack location -i flex%gcc^openmpi)
-   export FLEX_LIB=$NETCDF_FORTRAN_HOME/lib
-   export KPP_FLEX_LIB_DIR=${FLEX_LIB}       # OPTIONAL: Needed for KPP
+   # flex (needed for KPP)
+   export FLEX_HOME=$(spack location -i flex)
+   export FLEX_LIB=$FLEX_HOME/lib
+   export KPP_FLEX_LIB_DIR=${FLEX_LIB}
 
 To apply these settings into your login environment, type
 

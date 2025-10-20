@@ -119,7 +119,11 @@ Base emissions
 .. note::
 
    You do not have to edit this section if you just wish to run
-   GEOS-Chem Classic with its default emissions configuration.
+   GEOS-Chem Classic with its default emissions configuration.  But if
+   your simulation start date does not match the date of the :ref:`restart
+   file <restart-files-gc>`, or if you simulation contains species not
+   found in the restart file, then you must edit the restart file
+   entry :ref:`as described below <cfg-hco-base-gcc-rst>`.
 
 Specify how emissions and other data sets will be read from disk in
 the `Base Emissions section
@@ -150,6 +154,43 @@ of :file:`HEMCO_Config.rc`.
    ... etc ...
 
    ### END SECTION BASE EMISSIONS ###
+
+.. code-block:: kconfig
+
+   * SPC_           ./Restarts/GEOSChem.Restart.$YYYY$MM$DD_$HH$MNz.nc4 SpeciesRst_?ALL?    $YYYY/$MM/$DD/$HH EFYO xyz 1 * - 1 1
+
+.. _cfg-hco-base-gcc-rst:
+
+GEOS-Chem Classic restart input via HEMCO
+-----------------------------------------
+
+If your GEOS-Chem Classic simulation is configured to `read the
+restart file via HEMCO
+<https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/restart-files-gc.html#using-hemco-to-read-restart-file>`_,
+then your simulation will stop by default if:
+
+#. The start date of your simulation does not match the restart file's
+   internal timestamp (as specified by the :literal:`time:units` netCDF
+   attribute).
+#. The restart file does not contain all of the species used by your simulation.
+
+But you may force the simulation to proceed as follows.  First,
+for the :literal:`SPC_` entry in your :file:`HEMCO_Config.rc` file.
+This may be found in the NON-EMISSIONS DATA subsection under the BASE
+EMISSIONS section:
+
+.. code-block:: kconfig
+
+   * SPC_           ./Restarts/GEOSChem.Restart.$YYYY$MM$DD_$HH$MNz.nc4 SpeciesRst_?ALL?    $YYYY/$MM/$DD/$HH EFYO xyz 1 * - 1 1
+
+Next, change the :literal:`EFYO` to either :literal:`CYS` or
+:literal:`EY` (both will work).
+
+.. code-block:: kconfig
+
+   * SPC_           ./Restarts/GEOSChem.Restart.$YYYY$MM$DD_$HH$MNz.nc4 SpeciesRst_?ALL?    $YYYY/$MM/$DD/$HH CYS xyz 1 * - 1 1
+
+This will allow your simulation to proceed without stopping.
 
 .. _cfg-hco-scalefac:
 
@@ -233,7 +274,7 @@ Usage differences between GCHP and GEOS-Chem Classic
 :file:`HEMCO_Config.rc` is used in GCHP for masking and scaling within
 HEMCO. The input file and read frequency information is not used
 because MAPL ExtData handles file input rather than HEMCO in
-GCHP. Items at the top of the file that are ignored include: 
+GCHP. Items at the top of the file that are ignored include:
 
 * :literal:`ROOT` data directory path
 * :literal:`METDIR` path
@@ -263,7 +304,7 @@ ignored include:
 Because GCHP uses NASA MAPL code to read and regrid input files the
 file path, variable name, and data frequency are specified in GCHP
 config file :file:`ExtData.rc`. Input data dimensions and units are
-not needed since they are taken directly from the file during read. 
+not needed since they are taken directly from the file during read.
 
 Note that some GEOS-Chem simulations require that all species be
 present in the restart file. For GEOS-Chem Classic you can get around
@@ -273,15 +314,15 @@ is not used. To configure your run to allow missing species in the
 restart file you instead need to flip a switch in config file
 :file:`setCommonRunSettings.sh`. Search for string
 :literal:`Require_Species_in_Restart` in the file. If set to 1
-it will require species, and if set to 0 it will not.  
+it will require species, and if set to 0 it will not.
 
 Also beware that one entry in :file:`HEMCO_Config.rc` is changed when
 script :file:`setCommonRunSettings.sh` is executed in the run script
 prior to running GCHP. The online dust mass tuning factor gets
-replaced by a value specific to your configured grid resolution. 
- 
+replaced by a value specific to your configured grid resolution.
+
 One entry also gets propagated to another configuration file by
 :file:`setCommonRunSettings.sh`. Lightning entries in
 :file:`ExtData.rc` get commented or uncommented depending on
 whether lightning climatology is turned on in
-:file:`HEMCO_Config.rc`. 
+:file:`HEMCO_Config.rc`.

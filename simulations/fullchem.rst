@@ -383,20 +383,32 @@ The :program:`Standard` fullchem option uses the following species:
      - Dimethyl sulfide
      - (CH3)2S
      - 62.13
-   * - DST1
-     - Dust aerosol, Reff = 0.7 microns
+   * - DSTbin1
+     - Dust aerosol, Reff = 0.151 microns
      - not listed
      - 29.0
-   * - DST2
-     - Dust aerosol, Reff = 1.4 microns
+   * - DSTbin2
+     - Dust aerosol, Reff = 0.253 microns
      - not listed
      - 29.0
-   * - DST3
-     - Dust aerosol, Reff = 2.4 microns
+   * - DSTbin3
+     - Dust aerosol, Reff = 0.402 microns
      - not listed
      - 29.0
-   * - DST4
-     - Dust aerosol, Reff = 4.5 microns
+   * - DSTbin4
+     - Dust aerosol, Reff = 0.818 microns
+     - not listed
+     - 29.0
+   * - DSTbin5
+     - Dust aerosol, Reff = 1.491 microns
+     - not listed
+     - 29.0
+   * - DSTbin6
+     - Dust aerosol, Reff = 2.417 microns
+     - not listed
+     - 29.0
+   * - DSTbin7
+     - Dust aerosol, Reff = 3.721 microns
      - not listed
      - 29.0
    * - EBZ
@@ -1508,6 +1520,10 @@ The :program:`Standard` fullchem option uses the following species:
      - > C2 alcohols
      - C3H7OH
      - 60.11
+   * - TDST
+     - Total dust aerosol
+     - not listed
+     - 29.0
    * - TLFUO2
      - not listed
      - C5H7O5

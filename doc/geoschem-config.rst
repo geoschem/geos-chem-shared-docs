@@ -86,20 +86,6 @@ values are
    - `GCHP configuration instructions
      <https://gchp.readthedocs.io/en/stable/user-guide/configuration-files.html>`_
 
-.. option:: CH4
-
-   `Methane simulation <http://wiki.geos-chem.org/CH4_simulation>`_.
-
-   This simulation will eventually be superseded by the
-   :ref:carbon-sim`.
-
-.. option:: CO2
-
-   `Carbon dioxide simulation <http://wiki.geos-chem.org/CO2_simulation>`_.
-
-   This simulation will eventually be superseded by the
-   :ref:`carbon-sim`.
-
 .. option:: Hg
 
    :ref:`hg-sim`.
@@ -121,26 +107,9 @@ values are
 
    .. attention::
 
-	 The POPs simulation is currently stale.  We look to members
-	 of the GEOS-Chem user community take the lead on updating
-	 this simulation.
-
-.. option:: tagCH4
-
-   `Methane simulation
-   <http://wiki.geos-chem.org/CH4_simulation>`_ with species
-   tagged by geographic region or other criteria.
-
-   This simulation will eventually be superseded by the
-   :option:`carbon` simulation.
-
-.. option:: tagCO
-
-   Carbon dioxide simulation, with species
-   tagged by geographic region and other criteria.
-
-   This simulation will eventually be superseded by the
-   :ref:`carbon-sim`.
+      The POPs simulation is currently stale.  We look to members
+      of the GEOS-Chem user community take the lead on updating
+      this simulation.
 
 .. option:: tagO3
 
@@ -2240,7 +2209,7 @@ CH4 observational operators
    #============================================================================
    # Settings specific to the CH4 simulation / Integrated Methane Inversion
    #============================================================================
-   CH4_simulation_options:
+   CH4_options:
 
      use_observational_operators:
        AIRS: false
@@ -2303,7 +2272,7 @@ CH4 analytical inversion options
    #============================================================================
    # Settings specific to the CH4 simulation / Integrated Methane Inversion
    #============================================================================
-   CH4_simulation_options:
+   CH4_options:
 
      # ... preceding sub-sections omitted ...
 
@@ -2354,7 +2323,7 @@ CO2 Sources
    #============================================================================
    # Settings specific to the CO2 simulation
    #============================================================================
-   CO2_simulation_options:
+   CO2_options:
 
      sources:
        3D_chemical_oxidation_source: true
@@ -2388,7 +2357,7 @@ CO2 tagged species
    #============================================================================
    # Settings specific to the CO2 simulation
    #============================================================================
-   CO2_simulation_options:
+   CO2_options:
 
      # ... preceding sub-sections omitted ...
 
@@ -2445,7 +2414,7 @@ CO chemical sources
    # Settings specific to the tagged CO simulation
    #============================================================================
 
-   tagged_CO_simulation_options:
+   CO_options:
      use_fullchem_PCO_from_CH4: true
      use_fullchem_PCO_from_NMVOC: true
 

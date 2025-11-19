@@ -140,24 +140,27 @@ of :file:`HEMCO_Config.rc`.
 
    (((EMISSIONS
 
+   ... etc ...
+
    #==============================================================================
-   # --- APEI (Canada) ---
+   # --- CEDS_01x01 ---
+   #
+   # %%% This is the default global inventory.                            %%%
+   # %%% You may select either CEDS, EDGAR, HTAP or CMIP6_SFC_LAND_ANTHRO %%%
+   # %%% for the global base emissions.                                   %%%
    #==============================================================================
-   (((APEI
-   0 APEI_NO   $ROOT/APEI/v2016-11/APEI.0.1x0.1.nc NOx 1989-2014/1/1/0 RF xy kg/m2/s NO   25/1002/115    1 30
-   0 APEI_CO   $ROOT/APEI/v2016-11/APEI.0.1x0.1.nc CO  1989-2014/1/1/0 RF xy kg/m2/s CO   26/52/1002     1 30
-   0 APEI_SOAP -                                   -   -               -  -  -       SOAP 26/52/1002/280 1 30
-   0 APEI_SO2  $ROOT/APEI/v2016-11/APEI.0.1x0.1.nc SOx 1989-2014/1/1/0 RF xy kg/m2/s SO2  60/1002        1 30
-   0 APEI_SO4  -                                   -   -               -  -  -       SO4  60/65/1002     1 30
-   0 APEI_pFe  -
+   (((CEDS_01x01
+   0 CEDS_NO_AGR  $ROOT/CEDS/v2024-06/$YYYY/CEDS_NO_0.1x0.1_$YYYY.nc  NO_agr  1980-2019/1-12/1/0 C xy   kg/m2/s NO  2401          1 5
+   0 CEDS_NO_ENE  $ROOT/CEDS/v2024-06/$YYYY/CEDS_NO_0.1x0.1_$YYYY.nc  NO_ene  1980-2019/1-12/1/0 C xyL* kg/m2/s NO  2401/706/315  1 5
+   0 CEDS_NO_IND  $ROOT/CEDS/v2024-06/$YYYY/CEDS_NO_0.1x0.1_$YYYY.nc  NO_ind  1980-2019/1-12/1/0 C xyL* kg/m2/s NO  2407/707/316  1 5
+   0 CEDS_NO_TRA  $ROOT/CEDS/v2024-06/$YYYY/CEDS_NO_0.1x0.1_$YYYY.nc  NO_tra  1980-2019/1-12/1/0 C xy   kg/m2/s NO  2411/711      1 5
+   0 CEDS_NO_RCO  $ROOT/CEDS/v2024-06/$YYYY/CEDS_NO_0.1x0.1_$YYYY.nc  NO_rco  1980-2019/1-12/1/0 C xy   kg/m2/s NO  2409/709      1 5
+   0 CEDS_NO_SLV  $ROOT/CEDS/v2024-06/$YYYY/CEDS_NO_0.1x0.1_$YYYY.nc  NO_slv  1980-2019/1-12/1/0 C xy   kg/m2/s NO  2407/707      1 5
+   0 CEDS_NO_WST  $ROOT/CEDS/v2024-06/$YYYY/CEDS_NO_0.1x0.1_$YYYY.nc  NO_wst  1980-2019/1-12/1/0 C xy   kg/m2/s NO  25            1 5
 
    ... etc ...
 
    ### END SECTION BASE EMISSIONS ###
-
-.. code-block:: kconfig
-
-   * SPC_           ./Restarts/GEOSChem.Restart.$YYYY$MM$DD_$HH$MNz.nc4 SpeciesRst_?ALL?    $YYYY/$MM/$DD/$HH EFYO xyz 1 * - 1 1
 
 .. _cfg-hco-base-gcc-rst:
 

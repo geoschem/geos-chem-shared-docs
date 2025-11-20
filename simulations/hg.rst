@@ -47,12 +47,16 @@ DOI: `10.1021/acs.est.1c03160
 List of species
 ===============
 
+NOTE: Mercury species are given the molecular weight of elemental mercury
+(200.59 g/mol).
+
 .. list-table:: Transported species
    :header-rows: 1
-   :align: left
+   :align: center
+   :widths: 20 50 15 15
 
    * - Species
-     - Description
+     - Description (IUPAC name)
      - Formula
      - MW (g)
    * - Hg0
@@ -60,109 +64,133 @@ List of species
      - Hg
      - 200.59
    * - HgBr
-     - not listed
+     - Bromidomercury(I)
      - HgBr
      - 200.59
    * - HgBrNO2
-     - not listed
+     - syn-Bromido(nitrito-O)mercury(II)
      - BrHgONO
      - 200.59
    * - HgBrHO2
-     - not listed
+     - Bromido(hydroperoxo)mercury(II)
      - BrHgOOH
      - 200.59
-   * - HgBrClO
-     - not listed
-     - BrHgOCl
-     - 200.59
    * - HgBrBrO
-     - not listed
+     - Bromido(hypobromito-O)mercury(II)
      - BrHgOBr
      - 200.59
-   * - HgBr2
-     - not listed
-     - HgBr2
+   * - HgBrClO
+     - Bromido(hypochlorito-O)mercury(II)
+     - BrHgOCl
      - 200.59
    * - HgBrOH
-     - not listed
+     - Bromido(hydroxido)mercury(II)
      - BrHgOH
-     - None
-   * - HgBrO
-     - HgBrO
-     - HgBrO
+     - 200.59
+   * - HgBr2
+     - Dibromidomercury(II)
+     - HgBr2
+     - 200.59
+   * - HgCl
+     - Chloridomercury(I)
+     - HgCl
      - 200.59
    * - HgClNO2
-     - not listed
+     - syn-Chlorido(nitrito-kO)mercury(II)
      - ClHgONO
      - 200.59
    * - HgClHO2
-     - not listed
+     - Chlorido(hydroperoxido)mercury(II)
      - ClHgOOH
      - 200.59
    * - HgClClO
-     - not listed
+     - Chlorido(hypochlorito-kO)mercury(II)
      - ClHgOCl
      - 200.59
    * - HgClBrO
-     - not listed
+     - Chlorido(hypobromito-kO)mercury(II)
      - ClHgOBr
      - 200.59
    * - HgClBr
-     - not listed
+     - Bromidochloridomercury(II)
      - HgBrCl
      - 200.59
    * - HgClOH
-     - not listed
+     - Chlorido(hydroxido)mercury(II)
      - ClHgOH
-     - None
-   * - HgCl
-     - not listed
-     - HgCl
      - 200.59
-   * - HgClO
-     - not listed
-     - ClHgO
+   * - HgOH
+     - Hydroxidomercury(I)
+     - HgOH
      - 200.59
    * - HgOHNO2
-     - not listed
+     - syn-Hydroperoxido(hydroxido)mercury(II)
      - HOHgONO
      - 200.59
    * - HgOHHO2
-     - not listed
+     - Hydroperoxo(hydroxido)mercury(II)
      - HOHgOOH
      - 200.59
    * - HgOHClO
-     - not listed
+     - Hydroxido(hypochlorito-O)mercury(II)
      - HOHgOCl
-     - None
+     - 200.59
    * - HgOHBrO
-     - not listed
+     - Hydroxido(hypobromito-O)mercury(II)
      - HOHgOBr
      - 200.59
    * - HgOHOH
-     - not listed
+     - Dihydroxidomercury(II)
      - HOHgOH
      - 200.59
-   * - HgOH
-     - not listed
-     - HgOH
-     - 200.59
-   * - HgOHO
-     - not listed
-     - HgOHO
-     - 200.59
    * - HgCl2
-     - not listed
+     - Dichloridomercury(II)
      - HgCl2
      - 200.59
    * - Hg2ClP
-     - not listed
+     - Hg(II) chloride salts on sea-salt aerosols
      - HgCln
      - 200.59
    * - Hg2ORGP
-     - not listed
+     - Hg(II) organic complex in aerosols
      - R-Hg
      - 200.59
+   * - Hg2STRP
+     - Hg(II) in stratospheric aerosols
+     - Hg2+
+     - 200.59
+
+.. list-table:: Non-transported species
+   :header-rows: 1
+   :align: left
+   :widths: 20 40 20 20
+
+   * - Species
+     - Description (IUPAC name)
+     - Formula
+     - MW (g)
+   * - HgBrO
+     - Hypobromitomercury(I)
+     - HgBrO
+     - 200.59
+   * - HgClO
+     - Hypochloritomercury(I)
+     - ClHgO
+     - 200.59
+   * - HgOHO
+     - Hydroperoxomercury(I)
+     - HgOHO
+     - 200.59
+
+.. list-table:: Fixed species (external inputs)
+   :header-rows: 1
+   :align: left
+   :widths: 20 40 20 20
+
+   * - Species
+     - Description
+     - Formula
+     - MW (g)
    * - Br
      - Atomic bromine
      - Br
@@ -200,10 +228,10 @@ List of species
      - ClO
      - 51.45
    * - CO
-     - not listed
+     - Carbon monoxide
      - CO
      - 28.01
    * - CH4
-     - not listed
+     - Methane
      - CH4
      - 16.04

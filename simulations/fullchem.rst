@@ -1520,10 +1520,6 @@ The :program:`Standard` fullchem option uses the following species:
      - > C2 alcohols
      - C3H7OH
      - 60.11
-   * - TDST
-     - Total dust aerosol
-     - not listed
-     - 29.0
    * - TLFUO2
      - not listed
      - C5H7O5

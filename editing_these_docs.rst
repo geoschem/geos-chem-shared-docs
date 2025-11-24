@@ -23,6 +23,9 @@ source code (and its subdirectories).
 Quick start
 ===========
 
+First-time setup: Install Sphinx
+--------------------------------
+
 To build this user guide on your local machine, you need to install
 Sphinx and its dependencies, which are listed in the table below.
 
@@ -57,37 +60,82 @@ Sphinx and its dependencies, which are listed in the table below.
      - Replaces tokenized strings with text
      - 3.1.6
 
-These packages may be downloaded from the `Python Package Index (PyPI)
-<https://pypi.org>`_.  Use the :command:`pip` package manager to
-install them as described below.
+We recommend that you create a standalone :program:`Conda` environment
+to install Sphinx and its dependencies.  The YAML file
+:file:`docs/read_the_docs_environment.yaml` contains the proper package
+specifications.  Use these commands:
 
 .. code-block:: console
 
    $ cd docs
-   $ pip install -r requirements.txt
+   $ conda env create -n rtd_env --file=read_the_docs_environment.yml
 
 This step only needs to be done once.
 
-Next, run :command:`sphinx-autobuild` in a terminal window.  This will
-parse the documentation files in :literal:`docs/source` and
-generate HTML documentation in :literal:`docs/build/html`.
+Build the documentation
+-----------------------
 
-.. code-block:: console
+#. Activate the :program:`Conda` environment containing
+   :program:`Sphinx` and its dependencies.
 
-   $ sphinx-autobuild source build/html
+   .. code-block:: console
 
-You may view the generated documentation by opening a web browser and
-typing :literal:`localhost:8000` in the navigation bar.  As long as
-sphinx-autobuild is left running, the documentation will be
-regenerated automatically whenever edits to the documentation files
-are saved.  Typing Control-C will quit quit sphinx-autobuild.
+      $ conda activate rtd_env
 
-To remove the generated documentation files in the `docs/build/html`
-folder, type:
+#. Navigate to the :file:`docs/` folder.
 
-.. code-block:: console
+   .. code-block:: console
 
-   $ make clean
+      (rtd_env) $ cd docs     # Skip if you are already in the docs folder
+
+#. Clean out any leftover HTML files (in :file:`docs/build/html`) that
+   might be leftover from a previous build:
+
+   .. code-block:: console
+
+      (rtd_env) $ make clean
+
+#. Start the :command:`sphinx-autobuild` server:
+
+   .. code-block:: console
+
+      (rtd_env) $ sphinx-autobuild source build/html
+
+   This will parse the reST-format files in the :file:`docs/source/`
+   directory tree and generate new HTML files in
+   :file:`docs/build/html`. |br|
+   |br|
+
+#. Open a web browser and navigate to :file:`localhost:8000`. |br|
+   |br|
+
+#. Open your favorite text editor and start making changes to the
+   reST-format documentation files in the :file:`docs/source`
+   directory tree.  While :program:`sphinx-autobuild` is running,
+   you will see your updates rendered in the web browser as soon as you
+   soon as you save your changes to disk. |br|
+   |br|
+
+#. Once you are satisfied with your edits, commit your changes to Git
+   and push the documentation to the :file:`docs/dev` branch of this
+   repository, |br|
+   |br|
+
+#. Remove the HTML generated documentation files:
+
+   .. code-block:: console
+
+      (rtd_env) $ make clean
+
+#. Halt the :program:`sphinx-autobuild` server by typing
+   :program:`CTRL-C`. |br|
+   |br|
+
+#. Deactivate the :program:`Conda` environment.
+
+   .. code-block:: console
+
+      (rtd_env) $ conda deactivate
 
 .. _editing_this_user_guide_rest:
 
@@ -115,14 +163,20 @@ long-run. Below are some good resources for learning reST.
 
 - `reStructuredText primer
   <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_:
-  (single best resource; however, it's better read than skimmed)
+  (single best resource; however, it's better read than skimmed) |br|
+  |br|
+
 - Official `reStructuredText reference
   <https://docutils.sourceforge.io/docs/user/rst/quickref.html>`_
-  (there is *a lot* of information here)
+  (there is *a lot* of information here) |br|
+  |br|
+
 - `Presentation by Eric Holscher
   <https://www.youtube.com/watch?v=eWNiwMwMcr4>`_ (co-founder of Read
   The Docs) at DjangoCon US 2015 (the entire presentation is good, but
-  reST is described from 9:03 to 21:04)
+  reST is described from 9:03 to 21:04) |br|
+  |br|
+
 - `YouTube tutorial by Audrey Tavares
   <https://www.youtube.com/watch?v=DSIuLnoKLd8>`_
 
@@ -135,14 +189,12 @@ by the reStructuredText primer.
 Style guidelines
 ================
 
-.. important::
-
-   This user guide is written in semantic markup. This is important so
-   that the user guide remains maintainable. Before contributing to
-   this documentation, please review our style guidelines
-   (below). When editing the source, please refrain from using
-   elements with the wrong semantic meaning for aesthetic
-   reasons. Aesthetic issues can be addressed by changes to the theme.
+This user guide is written in semantic markup. This is important so
+that the user guide remains maintainable. Before contributing to
+this documentation, please review our style guidelines
+(below). When editing the source, please refrain from using
+elements with the wrong semantic meaning for aesthetic
+reasons. Aesthetic issues can be addressed by changes to the theme.
 
 Titles and headers
 ------------------
@@ -159,16 +211,10 @@ Titles and headers
      - Overline by :literal:`=` and underline by :literal:`=`
    * - Sub-sub-section header |br| (aka "Heading 3")
      - Underline by :literal:`-`
-   * - Sub-sub-sub-section header |br| (aka "Heading 4") [#A]_
+   * - Sub-sub-sub-section header |br| (aka "Heading 4")
      - Underline by :literal:`~`
-   * - Sub-sub-sub-sub-section header |br| (aka "Heading 5") [#A]_
+   * - Sub-sub-sub-sub-section header |br| (aka "Heading 5")
      - Underline by :literal:`^`
-
-.. rubric:: Notes
-
-.. [#A] It is good practice to try to avoid using sub-sub-sub-sections
-	(Heading 4) or sub-sub-sub-sub-sections (Heading 5), as this
-	reduces the complexity of the table of contents.
 
 References and links
 --------------------
@@ -248,7 +294,7 @@ Renders as:
 Fortran
 ~~~~~~~
 
-.. code-block:: None
+.. code-block:: none
 
    .. code-block:: Fortran
 

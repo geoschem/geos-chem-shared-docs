@@ -96,13 +96,6 @@ Build the documentation
 
       (rtd_env) $ git checkout docs/dev   # Skip if you are already on the docs/dev branch
 
-#. Remove any HTML files (in :file:`docs/build/html`) that might be
-   left behind from a previous build:
-
-   .. code-block:: console
-
-      (rtd_env) $ make clean
-
 #. Start the :command:`sphinx-autobuild` server:
 
    .. code-block:: console
@@ -113,6 +106,13 @@ Build the documentation
    directory tree and generate new HTML files in
    :file:`docs/build/html`. |br|
    |br|
+
+#. Remove any HTML files (in :file:`docs/build/html`) that might be
+   left behind from a previous build:
+
+   .. code-block:: console
+
+      (rtd_env) $ make clean
 
 #. Open a web browser and navigate to :file:`localhost:8000`. |br|
    |br|
@@ -129,15 +129,15 @@ Build the documentation
    this repository, |br|
    |br|
 
-#. Halt the :program:`sphinx-autobuild` server by typing
-   :program:`CTRL-C`. |br|
-   |br|
-
 #. Remove the generated HTML documentation files:
 
    .. code-block:: console
 
       (rtd_env) $ make clean
+
+#. Halt the :program:`sphinx-autobuild` server by typing
+   :program:`CTRL-C`. |br|
+   |br|
 
 #. Deactivate the :program:`Conda` environment:
 

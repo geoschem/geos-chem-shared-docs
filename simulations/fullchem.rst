@@ -384,31 +384,31 @@ The :program:`Standard` fullchem option uses the following species:
      - (CH3)2S
      - 62.13
    * - DSTbin1
-     - Dust aerosol, Reff = 0.151 microns
+     - Dust aerosol, Reff = 0.151 :math:`\mu\text{m}`
      - not listed
      - 29.0
    * - DSTbin2
-     - Dust aerosol, Reff = 0.253 microns
+     - Dust aerosol, Reff = 0.253 :math:`\mu\text{m}`
      - not listed
      - 29.0
    * - DSTbin3
-     - Dust aerosol, Reff = 0.402 microns
+     - Dust aerosol, Reff = 0.402 :math:`\mu\text{m}`
      - not listed
      - 29.0
    * - DSTbin4
-     - Dust aerosol, Reff = 0.818 microns
+     - Dust aerosol, Reff = 0.818 :math:`\mu\text{m}`
      - not listed
      - 29.0
    * - DSTbin5
-     - Dust aerosol, Reff = 1.491 microns
+     - Dust aerosol, Reff = 1.491 :math:`\mu\text{m}`
      - not listed
      - 29.0
    * - DSTbin6
-     - Dust aerosol, Reff = 2.417 microns
+     - Dust aerosol, Reff = 2.417 :math:`\mu\text{m}`
      - not listed
      - 29.0
    * - DSTbin7
-     - Dust aerosol, Reff = 3.721 microns
+     - Dust aerosol, Reff = 3.721 :math:`\mu\text{m}`
      - not listed
      - 29.0
    * - EBZ
@@ -1076,7 +1076,7 @@ The :program:`Standard` fullchem option uses the following species:
      - CH3CH2C(O)OOH
      - 90.09
    * - SALA
-     - Fine (0.01-0.05 microns) sea salt aerosol
+     - Fine (0.01-0.05 :math:`\mu\text{m}`) sea salt aerosol
      - not listed
      - 31.4
    * - SALAAL
@@ -1088,7 +1088,7 @@ The :program:`Standard` fullchem option uses the following species:
      - not listed
      - 35.45
    * - SALC
-     - Coarse (0.5-8 microns) sea salt aerosol
+     - Coarse (0.5-8 :math:`\mu\text{m}`) sea salt aerosol
      - not listed
      - 31.4
    * - SALCAL
@@ -1730,42 +1730,69 @@ additional transported species.
    * - Species
      - Description
      - MW (g)
-   * - DSTAL1
-     - Dust alkalinity, Reff = 0.7 :math:`\mu\text{m}`
+   * - DSTALbin1
+     - Dust alkalinity, Reff = 0.151 :math:`\mu\text{m}`
      - 29.0
-   * - DSTAL2
-     - Dust alkalinity, Reff = 1.4 :math:`\mu\text{m}`
+   * - DSTALbin2
+     - Dust alkalinity, Reff = 0.253 :math:`\mu\text{m}`
      - 29.0
-   * - DSTAL3
-     - Dust alkalinity, Reff = 2.4 :math:`\mu\text{m}`
+   * - DSTALbin3
+     - Dust alkalinity, Reff = 0.402 :math:`\mu\text{m}`
      - 29.0
-   * - DSTAL4
-     - Dust alkalinity, Reff = 4.5 :math:`\mu\text{m}`
+   * - DSTALbin4
+     - Dust alkalinity, Reff = 0.818 :math:`\mu\text{m}`
      - 29.0
-   * - NITD1
-     - Nitrate on dust, Reff = 0.7 :math:`\mu\text{m}`
+   * - DSTALbin5
+     - Dust alkalinity, Reff = 1.491 :math:`\mu\text{m}`
      - 29.0
-   * - NITD2
-     - Nitrate on dust, Reff = 1.4 :math:`\mu\text{m}`
+   * - DSTALbin6
+     - Dust alkalinity, Reff = 2.417 :math:`\mu\text{m}`
      - 29.0
-   * - NITD3
-     - Nitrate on dust, Reff = 2.4 :math:`\mu\text{m}`
+   * - DSTALbin7
+     - Dust alkalinity, Reff = 3.721 :math:`\mu\text{m}`
      - 29.0
-   * - NITD4
-     - Nitrate on dust, Reff = 4.5 :math:`\mu\text{m}`
-     - 29.0
-   * - SO4D1
-     - Sulfate on dust, Reff = 0.7 :math:`\mu\text{m}`
-     - 29.0
-   * - SO4D2
-     - Sulfate on dust, Reff = 1.4 :math:`\mu\text{m}`
-     - 29.0
-   * - SO4D3
-     - Sulfate on dust, Reff = 2.4 :math:`\mu\text{m}`
-     - 29.0
-   * - SO4D4
-     - Sulfate on dust, Reff = 4.5 :math:`\mu\text{m}`
-     - 29.0
+   * - NITDbin1
+     - Nitrate on dust,, Reff = 0.151 :math:`\mu\text{m}`
+     - 62.01
+   * - NITDbin2
+     - Nitrate on dust, Reff = 0.253 :math:`\mu\text{m}`
+     - 62.01
+   * - NITDbin3
+     - Nitrate on dust, Reff = 0.402 :math:`\mu\text{m}`
+     - 62.01
+   * - NITDbin4
+     - Nitrate on dust, Reff = 0.818 :math:`\mu\text{m}`
+     - 62.01
+   * - NITDbin5
+     - Nitrate on dust, Reff = 1.491 :math:`\mu\text{m}`
+     - 62.01
+   * - NITDbin6
+     - Nitrate on dust, Reff = 2.417 :math:`\mu\text{m}`
+     - 62.01
+   * - NITDbin7
+     - Nitrate on dust, Reff = 3.721 :math:`\mu\text{m}`
+     - 62.01
+   * - SO4Dbin1
+     - Sulfate on dust,, Reff = 0.151 :math:`\mu\text{m}`
+     - 96.06
+   * - SO4Dbin2
+     - Sulfate on dust, Reff = 0.253 :math:`\mu\text{m}`
+     - 96.06
+   * - SO4Dbin3
+     - Sulfate on dust, Reff = 0.402 :math:`\mu\text{m}`
+     - 96.06
+   * - SO4Dbin4
+     - Sulfate on dust, Reff = 0.818 :math:`\mu\text{m}`
+     - 96.06
+   * - SO4Dbin5
+     - Sulfate on dust, Reff = 1.491 :math:`\mu\text{m}`
+     - 96.06
+   * - SO4Dbin6
+     - Sulfate on dust, Reff = 2.417 :math:`\mu\text{m}`
+     - 96.06
+   * - SO4Dbin7
+     - Sulfate on dust, Reff = 3.721 :math:`\mu\text{m}`
+     - 96.06
 
 .. _fullchem-sim-tomas:
 

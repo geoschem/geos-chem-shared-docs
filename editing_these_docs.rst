@@ -76,20 +76,28 @@ Build the documentation
 -----------------------
 
 #. Activate the :program:`Conda` environment containing
-   :program:`Sphinx` and its dependencies.
+   :program:`Sphinx` and its dependencies:
 
    .. code-block:: console
 
       $ conda activate rtd_env
 
-#. Navigate to the :file:`docs/` folder.
+#. Navigate to the :file:`docs/` folder:
 
    .. code-block:: console
 
       (rtd_env) $ cd docs     # Skip if you are already in the docs folder
 
-#. Clean out any leftover HTML files (in :file:`docs/build/html`) that
-   might be leftover from a previous build:
+#. Check out the :file:`docs/dev` branch of this repository, as this
+   is the branch from which the :program:`latest` ReadTheDocs version
+   will be built:
+
+   .. code-block:: console
+
+      (rtd_env) $ git checkout docs/dev   # Skip if you are already on the docs/dev branch
+
+#. Remove any HTML files (in :file:`docs/build/html`) that might be
+   left behind from a previous build:
 
    .. code-block:: console
 
@@ -111,27 +119,27 @@ Build the documentation
 
 #. Open your favorite text editor and start making changes to the
    reST-format documentation files in the :file:`docs/source`
-   directory tree.  While :program:`sphinx-autobuild` is running,
-   you will see your updates rendered in the web browser as soon as you
+   directory tree.  While :program:`sphinx-autobuild` is running, you
+   will see your updates rendered in the web browser as soon as you
    soon as you save your changes to disk. |br|
    |br|
 
 #. Once you are satisfied with your edits, commit your changes to Git
-   and push the documentation to the :file:`docs/dev` branch of this
-   repository, |br|
+   and push the documentation to the :file:`docs/dev` remote branch of
+   this repository, |br|
    |br|
-
-#. Remove the HTML generated documentation files:
-
-   .. code-block:: console
-
-      (rtd_env) $ make clean
 
 #. Halt the :program:`sphinx-autobuild` server by typing
    :program:`CTRL-C`. |br|
    |br|
 
-#. Deactivate the :program:`Conda` environment.
+#. Remove the generated HTML documentation files:
+
+   .. code-block:: console
+
+      (rtd_env) $ make clean
+
+#. Deactivate the :program:`Conda` environment:
 
    .. code-block:: console
 

@@ -2221,8 +2221,7 @@ CH4 observational operators
 The :command:`CH4_simulation_options:use_observational_operators` section
 contains options for using satellite observational operators for CH4.
 This section only applies to simulations with carbon gases
-(:option:`carbon`, :option:`CH4`, :option:`CO2`, :option:`tagCO`,
-:option:`tagCH4`).
+(:option:`carbon`).
 
 AIRS
 ----

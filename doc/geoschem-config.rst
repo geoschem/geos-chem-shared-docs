@@ -18,7 +18,7 @@ The :file:`geoschem_config.yml` file contains several sections.  Only
 The sections relevant to a given type of simulation are present.  For
 example, :option:`fullchem` simulation options (such as aerosol
 settings and photolysis settings) are omitted from the
-:file:`geoschem_config.yml` file for the :option:`CH4` simulation.
+:file:`geoschem_config.yml` file for the :ref:`carbon-sim`.
 
 .. note::
 
@@ -2023,6 +2023,8 @@ quiet_logfile_output
    :literal:`stdout` (i.e. the screen or log file).  This is the
    default setting.
 
+.. _gc-yml-xdiag-obspack-input-file:
+
 input_file
 ----------
 
@@ -2033,7 +2035,7 @@ output_file
 
 Specifies the path to the ObsPack diagnostic output file.  This
 will be a file that contains data at the same locations as
-specified in :option:`input_file`.
+specified in :ref:`gc-yml-xdiag-obspack-input-file`.
 
 output_species
 --------------
@@ -2084,6 +2086,8 @@ activate
    Deactivates (:literal:`false`) the Planeflight diagnostic output in
    GEOS-Chem Classic.  This is the default setting.
 
+.. _gc-yml-xdiag-plane-flight-track-file:
+
 flight_track_file
 -----------------
 
@@ -2096,7 +2100,7 @@ output_file
 
 Specifies the path to the Planeflight output file.  Requested
 quantities will be archived from GEOS-Chem along the flight track
-specified in :option:`flight_track_file`.
+specified in :ref:`gc-yml-xdiag-plane-flight-track-file`.
 
 .. _cfg-gc-yml-hg-src:
 
@@ -2285,8 +2289,9 @@ Methane Inversion workflow (aka IMI) <https://imi.readthedocs.io>`_.
 The IMI will automatically modify several of these options based on
 the inversion parameters that you specify.
 
-This section only applies to simulations with methane
-(:option:`carbon` and :option:`CH4`).
+This section only applies to the :ref:`carbon-sim`.
+
+.. _gc-yml-ch4_anopt-perturb:
 
 perturb_CH4_boundary_conditions
 -------------------------------
@@ -2306,8 +2311,7 @@ CH4_boundary_condition_ppb_increase_NSEW
 
 Specifies the perturbation amount (in ppbv) to apply to the north,
 south, east and west CH4 nested-grid boundary conditions.  Used in
-conjunction with the :option:`perturb_CH4_boundary_conditions`
-option.
+conjunction with the :ref:`gc-yml-ch4_anopt-perturb` option.
 
 Default value: :literal:`[0.0, 0.0, 0.0, 0.0]` (no perturbation)
 
@@ -2331,7 +2335,7 @@ CO2 Sources
 
 The :command:`CO2_simulation_options:sources` section contains toggles
 for activating sources of :math:`CO_2`.  This section only applies to
-simulations with CO2 (:option:`carbon` and :option:`CO2`).
+simulations the :ref:`carbon-sim`.
 
 3D_chemical_oxidation_source
 ----------------------------
@@ -2368,7 +2372,7 @@ CO2 tagged species
 
 The :literal:`CO2_simulation_options:tagged_species` section contains toggles
 for activating tagged :math:`CO_2` species.  This section only applies to
-simulations with CO2 (:option:`carbon` and :option:`CO2`).
+the :ref:`carbon-sim`.
 
 .. attention::
 
@@ -2418,8 +2422,7 @@ CO chemical sources
      use_fullchem_PCO_from_NMVOC: true
 
 The :literal:`tagged_CO_simulation_options` section contains settings
-for the :option:`carbon` simulation and `tagged CO simulation
-<https://wiki.geos-chem.org/Tagged_CO_simulation>`_.
+for sources of CO used in the :ref:`carbon-sim`.
 
 use_fullchem_PCO_from_CH4
 -------------------------
@@ -2442,8 +2445,9 @@ use_fullchem_PCO_from_NMVOC
 
     Activates applying the production of :math:`CO` from non-methane
     volatile organic compounds (NMVOCs). This field is archived from a
-    1-year or 10-year :option:`fullchem` benchmark simulation and is
-    read from disk via  HEMCO.  This is the default setting.
+    1-year or 10-year :ref:`full-chemistry <fullchem-sim>` benchmark
+    simulation and is read from disk via  HEMCO.  This is the default
+    setting.
 
 .. option:: false
 

@@ -12,7 +12,7 @@ In this Guide we explain how particulate matter is computed in GEOS-Chem.
 PM2.5 definition
 ================
 
-PM2.5 refers to particulate matter having a diameter of :math:`2.5 \mu
+PM2.5 refers to particulate matter having a diameter of :math:`2.5 \ \mu
 m` or less.  We use the following PM2.5 definition in GEOS-Chem, as
 approved by the `Aerosols Working Group
 <http://wiki.seas.harvard.edu/geos-chem/index.php/Aerosols_Working_Group>`_.
@@ -27,7 +27,7 @@ approved by the `Aerosols Working Group
      - Value at 35% RH
      - Value at 50% RH
    * - SIA_GROWTH
-     - SO4, NIT, NH4
+     - SO4, NIT, NH4, HMS
      - 1.10
      - 1.35
    * - ORG_GROWTH
@@ -72,29 +72,30 @@ where:
 - :math:`\rho_{d}` is the dry aerosol density
 
 Emissions from the Anthropogenic Fugitive, Combustion and Industrial
-Dust (AFCID) (cf `Philip et al. [2017]
-<https://iopscience.iop.org/article/10.1088/1748-9326/aa65a4>`_)
-are automatically added to the DST1 bin in most GEOS-Chem simulations.
-AFCID is activated by default but can be disabled by the user if so
-desired.
+Dust (AFCID) (cf :cite:t:`Philip_et_al._2017`) are automatically added
+to DSTbin1, DSTbin2, DSTbin3, and DSTbin4 in most GEOS-Chem
+simulations. AFCID is activated by default but can be disabled by the
+user if so desired.
 
-The DST2 bin includes aerosols with diameter both smaller and larger
-than :math:`2.5 \mu m`. Fangqun Yu has determined that  `30% of DST2
-should be included in PM2.5
-<https://wiki.seas.harvard.edu/geos-chem/index.php?title=APM_aerosol_microphysics#Dust_Particle_Size_Distribution>`_.
+The DSTbin4 size bin includes mineral dust aerosols with diameter both
+smaller and larger than :math:`2.5 \ \mu m`.  Dandan Zhang has
+determined that 54.6% of DSTbin4 should be included in PM2.5
+(cf. :cite:t:`Zhang_et_al._2025`).
 
 In summary, PM2.5 in GEOS-Chem is computed as:
 
 .. code-block:: text
 
-   PM2.5 = ( NH4 + NIT  + SO4 ) * SIA_GROWTH
+   PM2.5 = ( NH4 + NIT + SO4 + HMS ) * SIA_GROWTH
          + BCPI
          + BCPO
          + ( OCPO + ( OCPI * ORG_GROWTH ) ) * ( OM/OC ratio )
-         + DST1
-         + DST2 * 0.30
-         + SALA * SSA_GROWTH
-         + SOA  * ORG_GROWTH
+         + DSTbin1
+	 + DSTbin2
+	 + DSTbin3
+         + ( DSTbin4 * 0.546      )
+         + ( SALA    * SSA_GROWTH )
+         + ( SOA     * ORG_GROWTH )
 
 .. note::
 
@@ -106,34 +107,37 @@ For 35% RH this evaluates to:
 
 .. code-block:: text
 
-   PM2.5 = ( NH4 + NIT  + SO4 ) * 1.10
+   PM2.5 = ( NH4 + NIT + SO4 + HMS ) * 1.10
          + BCPI
          + BCPO
          + ( OCPO + ( OCPI * 1.05 ) ) * ( OM/OC ratio )
-         + DST1
-         + DST2 * 0.30
-         + SALA * 1.86
-         + SOA  * 1.05
+         + DSTbin1
+         + DSTbin2
+	 + DSTbin3
+	 + ( DSTbin4 * 0.546 )
+         + ( SALA    * 1.86  )
+         + ( SOA     * 1.05  )
 
 For 50% RH, this evaluates to:
 
 .. code-block:: text
 
-   PM2.5 = ( NH4 + NIT  + SO4 ) * 1.35
+   PM2.5 = ( NH4 + NIT + SO4 + HMS ) * 1.35
          + BCPI
          + BCPO
          + ( OCPO + ( OCPI * 1.07 ) ) * ( OM/OC ratio )
-         + DST1
-         + DST2 * 0.30
-         + SALA * 1.86
-         + SOA  * 1.07
+         + DSTbin1
+         + DSTbin2
+	 + DSTbin3
+	 + ( DSTbin4 * 0.546 )
+         + ( SALA    * 1.86  )
+         + ( SOA     * 1.07  )
 
 By default, the OM/OC ratio is set to a constant value of 1.4. For
 users who seek more information on the seasonal and spatial variation
 of OM/OC in the lower troposphere, we provide the option to use the
-seasonal gridded dataset developed by `Philip et al., [2014]
-<http://www.sciencedirect.com/science/article/pii/S1352231013009151>`_. This
-dataset has some uncertainty, but offers more information than a
+seasonal gridded dataset developed by :cite:t:`Philip_et_al._2014`.
+This dataset has some uncertainty, but offers more information than a
 global-mean OM/OC ratio in regions where primary organic aerosols have
 a large fossil fuel source.
 
@@ -150,41 +154,46 @@ GEOS-Chem according to the ideal gas law:
 PM10 definition
 ===============
 
-PM10 refers to particulate matter with a diameter of :math:`10 \mu m` or
+PM10 refers to particulate matter with a diameter of :math:`10 \ \mu m` or
 less.  We compute PM10 in GEOS-Chem as follows:
 
 .. code-block:: text
 
    PM10 = PM2.5
-        + ( DST2 * 0.7        )
-        + DST3
-        + ( DST4 * 0.9        )
-        + ( SALC * SSA_GROWTH )
+        + ( DSTbin4 * 0.454      )
+        + DSTbin5
+        + DSTbin6
+        + ( DSTbin7 * 0.156      )
+        + ( SALC    * SSA_GROWTH )
 
 For 35% RH, this evaluates to:
 
 .. code-block:: text
 
    PM10 = PM2.5
-        + ( DST2 * 0.7  )
-        + DST3
-        + ( DST4 * 0.9  )
-        + ( SALC * 1.86 )
+        + ( DSTbin4 * 0.454 )
+        + DSTbin5
+	+ DSTbin6
+	+ ( DSTbin7 * 0.156 )
+        + ( SALC    * 1.86  )
 
 For 50% RH, this evaluates to:
 
 .. code-block:: text
 
    PM10 = PM2.5
-        + ( DST2 * 0.7  )
-        + DST3
-        + ( DST4 * 0.9  )
-        + ( SALC * 1.86 )
+        + ( DSTbin4 * 0.454 )
+        + DSTbin5
+	+ DSTbin6
+        + ( DSTbin7 * 0.156 )
+        + ( SALC    * 1.86  )
 
-The constant scale factors for DST2 (70%) and DST4 (90%) were
-determined by Fanqun Yu from `APM aerosol microphysics
-<https://wiki.seas.harvard.edu/geos-chem/index.php?title=APM_aerosol_microphysics>`_
-simulations.  For more information, `please see this figure <https://wiki.seas.harvard.edu/geos-chem/index.php?title=APM_aerosol_microphysics#Dust_Particle_Size_Distribution>`_.
+DSTbin4 cont
+
+The constant scale factors for DSTbin4 (0.454) and DSTbin7 (0.156) are
+taken from :cite:t:`Zhang_et_al._2025`.  They represent the fraction
+of aerosols in DSTbin4 with :math:`D \gt 2.5 \ \mu m`, and the
+fraction of aerosols in DSTbin7 with :math:`D \le 10.0 \ \mu m`.
 
 Lastly, PM10 is converted to STP for diagnostic archival in
 GEOS-Chem according to the ideal gas law:

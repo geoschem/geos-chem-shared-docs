@@ -17,70 +17,94 @@ Useful tools
 There are many free and open-source software packages readily available
 for visualizing and manipulating netCDF files.
 
-.. option:: cdo
+.. _ncguide-useful-tools-cdo:
 
-   :program:`Climate Data Operators`: Highly-optimized command-line tools
-   for manipulating and analyzing netCDF files.  Contains features
-   that are especially useful for Earth Science applications.
+cdo
+---
 
-   See: https://code.zmaw.de/projects/cdo
+:program:`Climate Data Operators`: Highly-optimized command-line tools
+for manipulating and analyzing netCDF files.  Contains features
+that are especially useful for Earth Science applications.
 
-.. option:: GCPy
+See: https://code.zmaw.de/projects/cdo
 
-   :program:`GEOS-Chem Python toolkit`: Python package for visualizing
-   and analyzing GEOS-Chem output.  Used for creating the GEOS-Chem
-   benchmark plots.  Also contains some useful routines for creating
-   single-panel plots and multi-panel difference plots, as well as
-   file regridding utilities.
+.. _ncguide-useful-tools-gcpy:
 
-   See: https://gcpy.readthedocs.io
+GCPy
+----
 
-.. option:: ncdump
+:program:`GEOS-Chem Python toolkit`: Python package for visualizing
+and analyzing GEOS-Chem output.  Used for creating the GEOS-Chem
+benchmark plots.  Also contains some useful routines for creating
+single-panel plots and multi-panel difference plots, as well as
+file regridding utilities.
 
-   Generates a text representation of netCDF data and can be used to
-   quickly view the variables contained in a netCDF file.
-   :program:`ncdump` is installed to the :file:`bin/` folder of your
-   netCDF library distribution.
+See: https://gcpy.readthedocs.io
 
-   See: https://www.unidata.ucar.edu/software/netcdf/workshops/2011/utilities/Ncdump.html
+.. _ncguide-useful-tools-ncdump:
 
-.. option:: nco
+ncdump
+------
 
-   :program:`netCDF operators`: Highly-optimized command-line tools for
-   manipulating and analyzing netCDF files.
+Generates a text representation of netCDF data and can be used to
+quickly view the variables contained in a netCDF file.
+:program:`ncdump` is installed to the :file:`bin/` folder of your
+netCDF library distribution.
 
-   See: http://nco.sourceforge.net
+See: https://www.unidata.ucar.edu/software/netcdf/workshops/2011/utilities/Ncdump.html
 
-.. option:: ncview
+.. _ncguide-useful-tools-nco:
 
-   Visualization package for netCDF files. :program:`Ncview` has limited
-   features, but is great for a quick look at the contents of netCDF
-   files.
+nco
+---
 
-   See: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
+:program:`netCDF operators`: Highly-optimized command-line tools for
+manipulating and analyzing netCDF files.
 
-.. option:: netcdf-scripts
+See: http://nco.sourceforge.net
 
-   Our repository of useful netCDF utility scripts for GEOS-Chem.
+.. _ncguide-useful-tools-ncview:
 
-   See: https://github.com/geoschem/netcdf-scripts
+ncview
+------
 
-.. option:: Panoply
+Visualization package for netCDF files. :program:`Ncview` has limited
+features, but is great for a quick look at the contents of netCDF
+files.
 
-   Java-based data viewer for netCDF files.  This package offers an
-   alternative to ncview. From our experience, Panoply works nicely
-   when installed on the desktop, but is slow to respond in the Linux
-   environment.
+See: http://meteora.ucsd.edu/~pierce/ncview_home_page.html
 
-   See: https://www.giss.nasa.gov/tools/panoply/
+.. _ncguide-useful-tools-netcdf-scripts:
 
-.. option:: xarray
+netcdf-scripts
+--------------
 
-   Python package that lets you read the contents of a netCDF file
-   into a data structure.  The data can then be further manipulated or
-   converted to numpy or dask arrays for further procesing.
+Our repository of useful netCDF utility scripts for GEOS-Chem.
 
-   See: https://xarray.readthedocs.io
+See: https://github.com/geoschem/netcdf-scripts
+
+.. _ncguide-useful-tools-panoply:
+
+Panoply
+-------
+
+Java-based data viewer for netCDF files.  This package offers an
+alternative to ncview. From our experience, Panoply works nicely
+when installed on the desktop, but is slow to respond in the Linux
+environment.
+
+See: https://www.giss.nasa.gov/tools/panoply/
+
+.. _ncguide-useful-tools-xarray:
+
+xarray
+------
+
+Python package that lets you read the contents of a netCDF file
+into a data structure.  The data can then be further manipulated or
+converted to numpy or dask arrays for further procesing.
+
+See: https://xarray.readthedocs.io
 
 Some of the tools listed above, such as :program:`ncdump` and
 :program:`ncview` may come pre-installed on your system. Others may
@@ -446,7 +470,8 @@ As discussed :ref:`in the preceding section
 <ncguide-coards-compliant>`, you may find that you need to edit your
 netCDF files for COARDS-compliance.  Below are several useful commands
 for editing netCDF files.  Many of these commands utilize the
-:option:`nco` and :option:`cdo` utilities.
+:ref:`ncguide-useful-tools-nco` and :ref:`ncguide-useful-tools-cdo`
+utilities.
 
 #. Display the header and coordinate variables of a netCDF file, with
    the time variable displayed in human-readable format.  Also show
@@ -645,8 +670,9 @@ single netCDF file, as shown in the sections below.
 Concatenate with the netCDF operators
 -------------------------------------
 
-You can use the :program:`ncrcat` utility (from :option:`nco`)
-to concatenate the individual netCDF files into a single netCDF file.
+You can use the :program:`ncrcat` utility (from
+::ref:`ncguide-useful-tools-nco`) to concatenate the individual netCDF
+files into a single netCDF file.
 
 Let's assume we want to combine 12 monthy data files
 (e.g. :file:`month_01.nc`, :file:`month_02.nc`, .. :file:`month_12.nc`
@@ -714,8 +740,8 @@ GEOS-Chem restart files and GEOS-Chem diagnostic files.
 
 Regrid with cdo
 ---------------
-:option:`cdo` includes several tools for regridding netCDF files. For
-example:
+:ref:`ncguide-useful-tools-cdo` includes several tools for regridding
+netCDF files. For example:
 
    .. code-block:: console
 
@@ -773,8 +799,8 @@ please see the `GCPy Regridding documentation
 
 Regrid with nco
 ---------------
-:option:`nco` also includes several regridding utilities.  See the
-`Regridding section of the NCO User Guide
+:ref:`Nco <ncguide-useful-tools-nco>` also includes several regridding
+utilities.  See the `Regridding section of the NCO User Guide
 <http://nco.sourceforge.net/nco.html#Regridding>`_ for more
 information.
 
@@ -977,9 +1003,9 @@ when the file is split into one chunk per level (assuming your data
 has a lev dimension). This allows each individual vertical level of
 data to be read in parallel.
 
-You can use the :program:`nccopy` command of :option:`nco` to do the
-chunking. For example, say you have a netCDF file called
-:file:`myfile.nc` with these dimensions:
+You can use the :program:`nccopy` command of
+:ref:`ncguide-useful-tools-nco` to do the chunking. For example, say
+you have a netCDF file called :file:`myfile.nc` with these dimensions:
 
 .. code-block:: console
 

@@ -50,7 +50,7 @@ APM
       $ make install
 
 .. _customguide-aer-mp-tomas:
-      
+
 TOMAS
 ~~~~~
 
@@ -69,6 +69,30 @@ This will create a GEOS-Chem executable for the TOMAS15 (15 size bins)
 simulation.  To generate an executable for the TOMAS40 (40 size-bins)
 simulation, replace :code:`-DTOMAS_BINS=15` with
 :code:`-DTOMAS_BINS=40` in the :literal:`cmake` step above.
+
+.. _customguide-chem-ssdb:
+
+Sea salt debromination
+----------------------
+
+In Zhu *et al.* [`2018
+<https://acp.copernicus.org/articles/19/6497/2019/>`_], the authors
+present a mechanistic description of sea salt aerosol debromination.
+This option was originally enabled by in GEOS-Chem 13.4.0, but
+was then changed to be an option (disabled by default) due to the
+impact it had on ozone concentrations.
+
+Further chemistry updates to GEOS-Chem have allowed us to re-activate
+sea-salt debromination as the default option in GEOS-Chem 14.2.0 and
+later versions.  If you wish to disable sea salt debromination in your
+simulations, edit the line in :file:`HEMCO_Config.rc` indicated below.
+
+.. code-block:: kconfig
+
+   107     SeaSalt                : on  SALA/SALC/SALACL/SALCCL/SALAAL/SALCAL/BrSALA/BrSALC/MOPO/MOPI
+       # ... Preceding options omitted ...
+       --> Model sea salt Br-     :       true    # <== false deactivates sea salt debromination
+       --> Br- mass ratio         :       2.11e-3
 
 .. _customguide-chem:
 
@@ -316,7 +340,7 @@ environmental variables such as wind speed or temperature, which are
 best calculated online during execution of the model. HEMCO includes a
 suite of additional modules (aka `HEMCO extensions
 <https://hemco.readthedocs.io/en/stable/hco-ref-guide/extensions.html>`_)
-that perform **online emissions** ccalculations for a variety of
+that perform **online emissions** calculations for a variety of
 sources.
 
 Some types of emissions are highly sensitive to meteorological
@@ -355,7 +379,7 @@ You may toggle offline emissions on (:literal:`true`) or off
    # ----- OFFLINE EMISSIONS -----------------------------------------------------
    # To use online emissions instead set the offline emissions to 'false' and the
    # corresponding HEMCO extension to 'on':
-   #   OFFLINE_DUST        - DustDead or DustGinoux
+   #   OFFLINE_DUST        - DustL23M
    #   OFFLINE_BIOGENICVOC - MEGAN
    #   OFFLINE_SEASALT     - SeaSalt
    #   OFFLINE_SOILNOX     - SoilNOx
@@ -374,20 +398,30 @@ As stated in the comments, if you switch between offline and online
 emissions, you will need to activate the corresponding HEMCO
 extension:
 
-.. table:: Offline emissions and corresponding HEMCO extensions
+.. list-table:: Offline emissions and corresponding HEMCO extensions
+   :header-rows: 1
    :align: center
 
-   +-----------------------+-------------+-------------------------------+-------------+
-   | Offline base emission | Extension # | Corresponding HEMCO extension | Extension # |
-   +=======================+=============+===============================+=============+
-   | OFFLINE_DUST          | 0           | DustDead                      | 105         |
-   +-----------------------+-------------+-------------------------------+-------------+
-   | OFFLINE_BIOGENICVOC   | 0           | MEGAN                         | 108         |
-   +-----------------------+-------------+-------------------------------+-------------+
-   | OFFLINE_SEASALT       | 0           | SeaSalt                       | 107         |
-   +-----------------------+-------------+-------------------------------+-------------+
-   | OFFLINE_SOILNOX       | 0           | SoilNOx                       | 104         |
-   +-----------------------+-------------+-------------------------------+-------------+
+   * - Offline base emission
+     - Extension #
+     - Corresponding HEMCO extension
+     - Extension #
+   * - OFFLINE_DUST
+     - 0
+     - DustL23M
+     - 125
+   * - OFFLINE_BIOGENICVOC
+     - 0
+     - MEGAN
+     - 108
+   * - OFFLINE_SEASALT
+     - 0
+     - SeaSalt
+     - 107
+   * - OFFLINE_SOILNOX
+     - 0
+     - SoilNOx
+     - 104
 
 Example: Disabling offline dust emissions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -404,50 +438,39 @@ Example: Disabling offline dust emissions
 
    .. code-block:: kconfig
 
-      105     DustDead               : on    DST1/DST2/DST3/DST4
+      125     DustDead               : on    TDST/DSTbin1/DSTbin2/DSTbin3/DSTbin4/DSTbin5/DSTbin6/DSTbin7
 
-#. Change the extension number for all dust emission diagnostics from
-   :literal:`0` (the extension number for base emissions) to
-   :literal:`105` (the extension number for :literal:`DustDead`)
-   in :file:`HEMCO_Diagn.rc`.
+#. Change the extension number for all "Natural" dust emission
+   diagnostics from :literal:`0` (the extension number for base
+   emissions) to  :literal:`125` (the extension number for
+   :literal:`DustL23M`) in :file:`HEMCO_Diagn.rc`.  Also change the
+   Category value from :literal:`3` to :literal:`-1`.
 
    .. code-block:: kconfig
 
       ###############################################################################
       #####  Dust emissions                                                     #####
       ###############################################################################
-      EmisDST1_Total     DST1   -1    -1   -1   2   kg/m2/s  DST1_emission_flux_from_all_sectors
-      EmisDST1_Anthro    DST1  105     1   -1   2   kg/m2/s  DST1_emission_flux_from_anthropogenic
-      EmisDST1_Natural   DST1  105     3   -1   2   kg/m2/s  DST1_emission_flux_from_natural_sources
-      EmisDST2_Natural   DST2  105     3   -1   2   kg/m2/s  DST2_emission_flux_from_natural_sources
-      EmisDST3_Natural   DST3  105     3   -1   2   kg/m2/s  DST3_emission_flux_from_natural_sources
-      EmisDST4_Natural   DST4  105     3   -1   2   kg/m2/s  DST4_emission_flux_from_natural_sources
+      # NOTE: Uncomment EmisDST_Total if you wish to obtain total
+      # dust emissions from HEMCO standalone simulations
+      #EmisDST_Total         TDST      -1     -1  -1   2   kg/m2/s  Total_dust_emission_flux_from_natural_sources
+      EmisDSTbin1_Total     DSTbin1   -1     -1  -1   2   kg/m2/s  DSTbin1_emission_flux_from_all_sectors
+      EmisDSTbin1_Anthro    DSTbin1   0      1   -1   2   kg/m2/s  DSTbin1_emission_flux_from_anthropogenic
+      EmisDSTbin1_Natural   DSTbin1   125    -1  -1   2   kg/m2/s  DSTbin1_emission_flux_from_natural_sources
+      EmisDSTbin2_Total     DSTbin2   -1     -1  -1   2   kg/m2/s  DSTbin2_emission_flux_from_all_sectors
+      EmisDSTbin2_Anthro    DSTbin2   0      1   -1   2   kg/m2/s  DSTbin2_emission_flux_from_anthropogenic
+      EmisDSTbin2_Natural   DSTbin2   125    -1  -1   2   kg/m2/s  DSTbin2_emission_flux_from_natural_sources
+      EmisDSTbin3_Total     DSTbin3   -1     -1  -1   2   kg/m2/s  DSTbin3_emission_flux_from_all_sectors
+      EmisDSTbin3_Anthro    DSTbin3   0      1   -1   2   kg/m2/s  DSTbin3_emission_flux_from_anthropogenic
+      EmisDSTbin3_Natural   DSTbin3   125    -1  -1   2   kg/m2/s  DSTbin3_emission_flux_from_natural_sources
+      EmisDSTbin4_Total     DSTbin4   -1     -1  -1   2   kg/m2/s  DSTbin4_emission_flux_from_all_sectors
+      EmisDSTbin4_Anthro    DSTbin4   0      1   -1   2   kg/m2/s  DSTbin4_emission_flux_from_anthropogenic
+      EmisDSTbin4_Natural   DSTbin4   125    -1  -1   2   kg/m2/s  DSTbin4_emission_flux_from_natural_sources
+      EmisDSTbin5_Natural   DSTbin5   125    -1  -1   2   kg/m2/s  DSTbin5_emission_flux_from_natural_sources
+      EmisDSTbin6_Natural   DSTbin6   125    -1  -1   2   kg/m2/s  DSTbin6_emission_flux_from_natural_sources
+      EmisDSTbin7_Natural   DSTbin7   125    -1  -1   2   kg/m2/s  DSTbin7_emission_flux_from_natural_sources
 
 To enable online emissions again, do the inverse of the steps listed above.
-
-.. _customguide-chem-ssdb:
-
-Sea salt debromination
-----------------------
-
-In Zhu *et al.* [`2018
-<https://acp.copernicus.org/articles/19/6497/2019/>`_], the authors
-present a mechanistic description of sea salt aerosol debromination.
-This option was originally enabled by in GEOS-Chem 13.4.0, but
-was then changed to be an option (disabled by default) due to the
-impact it had on ozone concentrations.
-
-Further chemistry updates to GEOS-Chem have allowed us to re-activate
-sea-salt debromination as the default option in GEOS-Chem 14.2.0 and
-later versions.  If you wish to disable sea salt debromination in your
-simulations, edit the line in :file:`HEMCO_Config.rc` indicated below.
-
-.. code-block:: kconfig
-
-   107     SeaSalt                : on  SALA/SALC/SALACL/SALCCL/SALAAL/SALCAL/BrSALA/BrSALC/MOPO/MOPI
-       # ... Preceding options omitted ...
-       --> Model sea salt Br-     :       true    # <== false deactivates sea salt debromination
-       --> Br- mass ratio         :       2.11e-3
 
 .. _chemguide-phot:
 

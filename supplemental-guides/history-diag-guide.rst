@@ -379,67 +379,68 @@ dimension:
 
 .. list-table::
    :header-rows: 1
+   :widths: 18 43 40
 
    * - Wildcard
      - Description
      - Example
-   * - :literal:`?ADV?`
+   * - ?ADV?
      - Advected species
-     - :literal:`SpeciesConcVV_?ADV?`
-   * - :literal:`?AER?`
+     - SpeciesConcVV\_?ADV?
+   * - ?AER?
      - Aerosol species
-     - :literal:`SpeciesConcVV_?AER?`
-   * - :literal:`?ALL?`
+     - SpeciesConcVV\_?AER?
+   * - ?ALL?
      - All species
-     - :literal:`SpeciesConcVV_?ALL?`
-   * - :literal:`?DRY?`
+     - SpeciesConcVV\_?ALL?
+   * - ?DRY?
      - Dry-deposited species
-     - :literal:`SpeciesConcVV_?DRY?`
-   * - :literal:`?DRYALT?`
+     - SpeciesConcVV\_?DRY?
+   * - ?DRYALT?
      - Species for the :ref:`histguide-concafterchem` collection
-     - :literal:`SpeciesConcVV_?DRYALT`
-   * - :literal:`?DUSTBIN?`
+     - SpeciesConcVV\_?DRYALT
+   * - ?DUSTBIN?
      - Dust bin number
-     - :literal:`AODdust550nm_?DUSTBIN?`
-   * - :literal:`?FIX?`
+     - AODdust550nm\_?DUSTBIN?
+   * - ?FIX?
      - Fixed species in the KPP chemistry mechanism
-     - :literal:`SpeciesConcVV_?FIX?`
-   * - :literal:`?GAS?`
+     - SpeciesConcVV\_?FIX?
+   * - ?GAS?
      - Gas-phase species
-     - :literal:`SpeciesConcVV_?GAS?`
-   * - :literal:`?HYG?`
+     - SpeciesConcVV\_?GAS?
+   * - ?HYG?
      - Aerosol species that undergo hygroscopic growth - (e.g. black carbon)
-     - :literal:`AODhyg550nm_?HYG?`
-   * - :literal:`?KPP?`
+     - AODhyg550nm\_?HYG?
+   * - ?KPP?
      - All species (fixed variable) in the KPP chemistry mechanism
-     - `SpeciesConcVV_?KPP?`
-   * - :literal:`?LOS?`
+     - SpeciesConcVV\_?KPP?
+   * - ?LOS?
      - Chemical loss species or familes
-     - `SpeciesConcVV_?LOS?`
-   * - :literal:`?PHO?`
+     - SpeciesConcVV\_?LOS?
+   * - ?PHO?
      - Photolyzed species
-     - `SpeciesConcVV_?PHO?`
-   * - :literal:`?PRD?`
+     - SpeciesConcVV\_?PHO?
+   * - ?PRD?
      - Chemical production species or families
-     - :literal:`SpeciesConcVV_?PRD?`
-   * - :literal:`?RRTMG?`
+     - SpeciesConcVV\_?PRD?
+   * - ?RRTMG?
      - RRTMG-computed fluxes
-     - :literal:`RadAllSkywSurf_?RRTMG?`
-   * - :literal:`?RXN?`
+     - RadAllSkywSurf\_?RRTMG?
+   * - ?RXN?
      - KPP reaction rates
-     - :literal:`RxnRate_?RXN?`
-   * - :literal:`?TOMASBIN?`
+     - RxnRate\_?RXN?
+   * - ?TOMASBIN?
      - TOMAS size bins
-     - :literal:`TomasH2SO4Mass_?TOMASBIN?`
-   * - :literal:`?UVFLX?`
+     - TomasH2SO4Mass\_?TOMASBIN?
+   * - ?UVFLX?
      - UV flux bins
-     - :literal:`UVFluxDiffuse_?UVFLX?`
-   * - :literal:`?VAR?`
+     - UVFluxDiffuse\_?UVFLX?
+   * - ?VAR?
      - Variable (i.e. active) species in the KPP mechanism
-     - :literal:`SpeciesConcVV_?VAR?`
-   * - :literal:`?WET?`
+     - SpeciesConcVV\_?VAR?
+   * - ?WET?
      - Wet-deposited species
-     - :literal:`SpeciesConcVV_?WET`
+     - SpeciesConcVV\_?WET
 
 .. _histguide-prefixes:
 
@@ -1555,56 +1556,6 @@ GEOS-Chem carbon gases simulation.
      - Production of CO2 from CO oxidation
      - molec/cm3
 
-.. _histguide-ch4:
-
-CH4
----
-
-The **CH4** collection contains diagnostics for loss of CH4 and OH
-concentration for the CH4 simulation.
-
-.. attention::
-
-   This simulation is slated to be replaced by the GEOS-Chem carbon
-   gases simulation.  when this happens, the CH4 collection
-   will be replaced by the :ref:`histguide-carbon` collection.
-
-**Sample definition section for HISTORY.rc**
-
-.. code-block:: kconfig
-
-     CH4.template:    '%y4%m2%d2_%h2%n2z.nc4',
-     CH4.frequency:   00000100 000000
-     CH4.duration:    00000100 000000
-     CH4.mode:        'time-averaged'
-     CH4.fields:      'OHconcAfterChem   ',
-                      'LossCH4byClinTrop ',
-                      'LossCH4byOHinTrop ',
-                      'LossCH4inStrat    ',
-   ::
-
-**List of diagnostic fields in the CH4 collection**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 30 50 20
-
-   * - Diagnostic field
-     - Description
-     - Units
-   * - LossCH4byClinTrop
-     - Loss of CH4 by reaction with Cl in the troposphere
-     - kg/s
-   * - LossCH4byOHinTrop
-     - Loss of CH4 by reaction with OH in the troposphere
-     - kg/s
-   * - LossCH4inStrat
-     - Loss of CH4 in the stratosphere
-     - kg/s
-   * - OHconcAfterChem
-     - OH concentration after chemistry
-     - kg/s
-
 .. _histguide-cloudconvflux:
 
 CloudConvFlux
@@ -1638,91 +1589,6 @@ cloud convection.
      - Mass change due to cloud convection
      - kg/s
      - ?ADV? |br| ?GAS? |br| ?WET?
-
-.. _histguide-co:
-
-CO
----
-
-The **CO** collection contains diagnostic fields for the GEOS-Chem
-tagged CO simulation.
-
-.. attention::
-
-   The tagged CO simulation is slated to be replaced by the
-   GEOS-Chem carbon gases simulation.  When this happens, the CO
-   collection will be replaced with the :ref:`histguide-carbon`
-   collection.
-
-.. code-block::
-
-     CO.template:   '%y4%m2%d2_%h2%n2z.nc4',
-     CO.frequency:  00000100 000000
-     CO.duration:   00000100 000000
-     CO.mode:       'time-averaged'
-     CO.fields:     'ProdCOfromCH4  ',
-                    'ProdCOfromNMVOC',
-   ::
-
-**List of diagnostic fields in the CO collection**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 30 50 20
-
-   * - Diagnostic field
-     - Description
-     - Units
-   * - ProdCOfromCH4
-     - Production of CO from CH4
-     - kg/s
-   * - ProdCOfromNMVOC
-     - Production of CO from non-methane VOCs
-     - kg/s
-
-.. _histguide-co2:
-
-CO2
----
-
-The **CO2** collection contains diagnostic outputs from the GEOS-Chem
-CO2 simulation.
-
-.. attention::
-
-   The CO2 simulation is slated to be replaced by the new GEOS-Chem
-   carbon gases simulation.  When this happens, the CO2 collection
-   will be replaced with the :ref:`histguide-carbon` collection.
-
-.. note::
-
-   Several other diagnostics for the CO2 simulation are archived via
-   `HEMCO diagnostics
-   <https://hemco.readthedocs.io/en/latesthco-ref-guide/diagnostics.html>`_.
-
-**Sample definition section for HISTORY.rc**
-
-.. code-block:: kconfig
-
-     CO2.template:    '%y4%m2%d2_%h2%n2z.nc4',
-     CO2.frequency:   00000100 000000
-     CO2.duration:    00000100 000000
-     CO2.mode:        'time-averaged'
-     CO2.fields:      'ProdCO2fromCO',
-   ::
-
-**List of diagnostic fields in the CO2 collection**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 30 50 20
-
-   * - Diagnostic field
-     - Description
-     - Units
-   * - ProdCO2fromCO
-     - Chemical production of CO2 from CO oxidation
-     - kg/m2/s
 
 .. _histguide-concabovesfc:
 

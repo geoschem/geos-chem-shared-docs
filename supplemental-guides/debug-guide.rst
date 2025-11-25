@@ -95,7 +95,7 @@ Send debug printout to the log files
 ====================================
 
 If your :program:`GEOS-Chem` simulation stopped with an error, but you
-cannot tell where, turn on the the :code:`debug_printout` option.
+cannot tell where, turn on the the :code:`Verbose` option.
 This is found in the **Simulation Settings** section of
 :file:`geoschem_config.yml`:
 
@@ -105,21 +105,30 @@ This is found in the **Simulation Settings** section of
    # Simulation settings
    #============================================================================
    simulation:
-     name: fullchem
      start_date: [20190701, 000000]
      end_date: [20190801, 000000]
      root_data_dir: /path/to/ExtData
-     met_field: MERRA2
+     met_field: MERRA2  # or GEOSFP or GEOSIT
      species_database_file: ./species_database.yml
-     debug_printout: false  # <---- set this to true
+     species_metadata_output_file: OutputDir/geoschem_species_metadata.yml
+     verbose:
+       activate: true       # <=== activates debug printout
+       on_cores: root       # Allowed values: root all
      use_gcclassic_timers: false
+     read_restart_as_real8: false
 
 This will send additional output to the :program:`GEOS-Chem` log file,
 which may help you to determine where the simulation stopped.
 
+The :literal:`verbose:on_cores` option does not have any affect if you are
+running GEOS-Chem Classic or the HEMCO standalone.  If you are running
+GCHP, you can choose to print debug output only on the root core
+(recommended) or on all computational cores.
+
 If your :program:`HEMCO` simulation stopped with an error, turn on debug
 printout by editing the :code:`Verbose` and :code:`Warnings` settings
 at the top of the :file:`HEMCO_Config.rc` configuration file:
+
 
 .. code-block:: console
 
@@ -128,10 +137,9 @@ at the top of the :file:`HEMCO_Config.rc` configuration file:
    ###############################################################################
 
    ROOT:                        /path/to/ExtData/HEMCO
-   METDIR:                      MERRA2
-   GCAP2SCENARIO:               none
-   GCAP2VERTRES:                none
-   Logfile:                     HEMCO.log
+   GCAPSCENARIO:                MERRA2     # or GEOSFP or GEOSIT
+   GCAPVERTRES:                 none
+   Logfile:                     *
    DiagnFile:                   HEMCO_Diagn.rc
    DiagnPrefix:                 ./OutputDir/HEMCO_diagnostics
    DiagnFreq:                   Monthly
@@ -140,16 +148,18 @@ at the top of the :file:`HEMCO_Config.rc` configuration file:
    Unit tolerance:              1
    Negative values:             0
    Only unitless scale factors: false
-   Verbose:                     0      # <---- set this to 3
-   Warnings:                    1      # <---- set this to 3
+   Verbose:                     true       # <=== activates debug printout
+   VerboseOnCores:              root       # Accepted values: root all
 
-Both :code:`Verbose` and :code:`Warnings` settings can have values
-from 0 to 3.  The higher the number, the more information will be
-printed out to the :file:`HEMCO.log` file.  A value of 0 disables
-debug printout.
+   ### END SECTION SETTINGS ###
 
 Having this extra debug printout in your log file output may provide
 insight as to where your simulation is halting.
+
+The :literal:`VerboseOnCores` option does not have any affect if you are
+running GEOS-Chem Classic or the HEMCO standalone.  If you are running
+GCHP, you can choose to print debug output only on the root core
+(recommended) or on all computational cores.
 
 .. _debug-guide-traceback:
 

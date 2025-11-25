@@ -14,23 +14,14 @@ View species properties from the current stable GEOS-Chem version:
 - `View properties for most GEOS-Chem species <https://github.com/geoschem/geos-chem/blob/main/run/shared/species_database.yml>`_
 - `View properties for APM microphysics species <https://github.com/geoschem/geos-chem/blob/main/run/shared/species_database_apm.yml>`_
 - `View properties for TOMAS microphysics species <https://github.com/geoschem/geos-chem/blob/main/run/shared/species_database_tomas.yml>`_
-- `View properties for Hg simulation species <https://github.com/geoschem/geos-chem/blob/main/run/shared/species_database_hg.yml>`_
 
-.. _spcguide-defs:
+.. _spcguide-defs-id:
 
-==========================
-Species properties defined
-==========================
+=========================
+Identification properties
+=========================
 
-The following sections contain a detailed description of GEOS-Chem
-species properties.
-
-.. _spcguide-defs-defaults:
-
-Required default properties
----------------------------
-
-All GEOS-Chem species should have these properties defined:
+All GEOS-Chem species should have these properties defined, at minimum:
 
 .. code-block:: YAML
 
@@ -47,584 +38,778 @@ value" (e.g. :code:`false`, :code:`-999`, :code:`-999.0`, or,
 :code:`UNKNOWN`) to these properties when it reads the
 :file:`species_database.yml` file from disk.
 
-.. _spcguide-defs-id:
+Name
+----
 
-Identification
+Species short name (e.g. :literal:`ISOP`).
+
+Formula
+-------
+
+Species chemical formula (e.g. :literal:`CH2=C(CH3)CH=CH2`).  This
+is used to define the species' :literal:`formula` attribute, which
+gets written to GEOS-Chem diagnostic files and restart files.
+
+FullName
+--------
+
+Species long name (e.g. :literal:`Isoprene`).  This is used to
+define the species' :literal:`long_name` attribute, which gets
+written to GEOS-Chem diagnostic files and restart files.
+
+Is_Aerosol
+----------
+
+Indicates that the species is an aerosol (:literal:`true`), or isn't
+(:literal:`false`).
+
+Is_DryAlt
+---------
+
+Indicates that dry deposition diagnostic quantities for the species can
+be archived at a specified altitude above the surface
+(:literal:`true`), or can't (:literal:`false`).
+
+.. note::
+
+   The :code:`Is_DryAlt` flag only applies to species
+   :literal:`O3` and :literal:`HNO3`.
+
+Is_DryDep
+---------
+
+Indicates that the species is dry deposited (:literal:`true`), or
+isn't (:literal:`false`).
+
+Is_HygroGrowth
 --------------
 
-.. option:: Name
+Indicates that the species is an aerosol that is capable of
+hygroscopic growth (:literal:`true`), or isn't (:literal:`false`).
 
-   Species short name (e.g. :literal:`ISOP`).
+Is_Gas
+------
 
-.. option:: Formula
+Indicates that the species is a gas (:literal:`true`), or isn't
+(:literal:`false`).
 
-   Species chemical formula (e.g. :literal:`CH2=C(CH3)CH=CH2`).  This
-   is used to define the species' :literal:`formula` attribute, which
-   gets written to GEOS-Chem diagnostic files and restart files.
+Is_Hg0
+------
 
-.. option:: FullName
+Indicates that the species is elemental mercury (:literal:`true`),
+or isn't (:literal:`false`).
 
-   Species long name (e.g. :literal:`Isoprene`).  This is used to
-   define the species' :literal:`long_name` attribute, which gets
-   written to GEOS-Chem diagnostic files and restart files.
+Is_Hg2
+------
 
-.. option:: Is_Aerosol
+Indicates that the species is a mercury compound with oxidation
+state +2 (:literal:`true`), or isn't (:literal:`false`).
 
-   Indicates that the species is an aerosol (:literal:`true`), or isn't
-   (:literal:`false`).
+Is_HgP
+------
 
-.. option:: Is_DryAlt
+Indicates that the species is a particulate mercury compound
+(:literal:`true`), or isn't (:literal:`false`).
 
-   Indicates that dry deposition diagnostic quantities for the species can
-   be archived at a specified altitude above the surface
-   (:literal:`true`), or can't (:literal:`false`).
+Is_Photolysis
+-------------
 
-   .. note::
+Indicates that the species is photolyzed (:literal:`true`), or isn't
+(:literal:`false`).
 
-      The :code:`Is_DryAlt` flag only applies to species
-      :literal:`O3` and :literal:`HNO3`.
+Is_RadioNuclide
+---------------
 
-.. option:: Is_DryDep
-
-   Indicates that the species is dry deposited (:literal:`true`), or
-   isn't (:literal:`false`).
-
-.. option:: Is_HygroGrowth
-
-   Indicates that the species is an aerosol that is capable of
-   hygroscopic growth (:literal:`true`), or isn't (:literal:`false`).
-
-.. option:: Is_Gas
-
-   Indicates that the species is a gas (:literal:`true`), or isn't
-   (:literal:`false`).
-
-.. option:: Is_Hg0
-
-   Indicates that the species is elemental mercury (:literal:`true`),
-   or isn't (:literal:`false`).
-
-.. option:: Is_Hg2
-
-   Indicates that the species is a mercury compound with oxidation
-   state +2 (:literal:`true`), or isn't (:literal:`false`).
-
-.. option:: Is_HgP
-
-   Indicates that the species is a particulate mercury compound
-   (:literal:`true`), or isn't (:literal:`false`).
-
-.. option:: Is_Photolysis
-
-   Indicates that the species is photolyzed (:literal:`true`), or isn't
-   (:literal:`false`).
-
-.. option:: Is_RadioNuclide
-
-   Indicates that the species is a radionuclide (:literal:`true`), or
-   isn't (:literal:`false`).
+Indicates that the species is a radionuclide (:literal:`true`), or
+isn't (:literal:`false`).
 
 .. _spcguide-defs-physprop:
 
+===================
 Physical properties
--------------------
+===================
 
-.. option:: Density
+Density
+-------
 
-   Density (:math:`kg\ m^{-3}`) of the species.  Typically defined
-   only for aerosols.
+Density (:math:`kg\ m^{-3}`) of the species.  Typically defined
+only for aerosols.
 
-.. option:: Henry_K0
+Henry_K0
+--------
 
-   Henry's law solubility constant (:math:`M\ atm^{-1}`), used by the
-   default wet depositon scheme.
+Henry's law solubility constant (:math:`M\ atm^{-1}`), used by the
+default wet depositon scheme.
 
-.. option:: Henry_K0_Luo
+Henry_K0_Luo
+------------
 
-   Henry's law solubility constant (:math:`M\ atm^{-1}`) used by the
-   :cite:t:`Luo_et_al._2020` wet deposition scheme.
+Henry's law solubility constant (:math:`M\ atm^{-1}`) used by the Luo
+wet deposition scheme (cf. :cite:t:`Luo_et_al._2020`,
+:cite:t:`Luo_and_Yu_2023`).
 
-.. option:: Henry_CR
+Henry_CR
+--------
 
-   Henry's law volatility constant (:math:`K`) used by the default
-   wet deposition scheme.
+Henry's law volatility constant (:math:`K`) used by the default
+wet deposition scheme.
 
-.. option:: Henry_CR_Luo
+Henry_CR_Luo
+------------
 
-   Henry's law volatility constant (:math:`K`) used by the
-   :cite:t:`Luo_et_al._2020` wet deposition scheme.
+Henry's law volatility constant (:math:`K`) used by the
+:cite:t:`Luo_et_al._2020` wet deposition scheme.
 
-.. option:: Henry_pKa
+Henry_pKa
+---------
 
-   Henry's Law pH correction factor.
+Henry's Law pH correction factor.
 
-.. option:: MW_g
+MW_g
+----
 
-   Molecular weight (:math:`g\ mol^{-1}`) of the species.
+Molecular weight (:math:`g\ mol^{-1}`) of the species.
 
-   .. note::
+.. note::
 
-      Some aerosol-phase species (such as MONITA and IONITA) are given
-      the molar mass corresponding to the number of nitrogens that
-      they carry, whereas gas-phase species (MONITS and MONITU) get
-      the full molar mass of the compounds that they represent.  This
-      treatment has its origins in `J. Fisher et al
-      [2016] <https://acp.copernicus.org/articles/16/5969/2016/acp-16-5969-2016.pdf>`_.
+   Some aerosol-phase species (such as MONITA and IONITA) are given
+   the molar mass corresponding to the number of nitrogens that
+   they carry, whereas gas-phase species (MONITS and MONITU) get
+   the full molar mass of the compounds that they represent.  This
+   treatment has its origins in `J. Fisher et al
+   [2016] <https://acp.copernicus.org/articles/16/5969/2016/acp-16-5969-2016.pdf>`_.
 
-.. option:: Radius
+Radius
+------
 
-   Radius (:math:`m`) of the species.  Typically defined only for
-   aerosols.
+Radius (:math:`m`) of the species.  Typically defined only for
+aerosols.
 
 .. _spcguide-defs-drydep:
 
+=========================
 Dry deposition properties
--------------------------
+=========================
 
-.. option:: DD_AeroDryDep
+DD_AeroDryDep
+-------------
 
-   Indicates that dry deposition should consider hygroscopic growth
-   for this species (:literal:`true`), or shouldn't
-   (:literal:`false`).
+Indicates that dry deposition should consider hygroscopic growth
+for this species (:literal:`true`), or shouldn't
+(:literal:`false`).
 
-   .. note::
+.. note::
 
-     :code:`DD_AeroDryDep` is only defined for sea salt aerosols.
+  :code:`DD_AeroDryDep` is only defined for sea salt aerosols.
 
-.. option:: DD_DustDryDep
+DD_DustDryDep
+-------------
 
-   Indicates that dry deposition should exclude hygroscopic growth for
-   this species (:literal:`true`), or shouldn't (:literal:`false`).
+Indicates that dry deposition should exclude hygroscopic growth for
+this species (:literal:`true`), or shouldn't (:literal:`false`).
 
-   .. note::
+.. note::
 
-     :code:`DD_DustDryDep` is only defined for mineral dust
-     aerosols.
+  :code:`DD_DustDryDep` is only defined for mineral dust
+  aerosols.
 
-.. option:: DD_DvzAerSnow
+DD_DvzAerSnow
+-------------
 
-   Specifies the dry deposition velocity (:math:`cm\ s^{-1}`) over
-   ice and snow for certain aerosol species.  Typically,
-   :code:`DD_DvzAerSnow = 0.03`.
+Specifies the dry deposition velocity (:math:`cm\ s^{-1}`) over
+ice and snow for certain aerosol species.  Typically,
+:code:`DD_DvzAerSnow = 0.03`.
 
-.. option:: DD_DvzAerSnow_Luo
+DD_DvzAerSnow_Luo
+-----------------
 
-   Specifies the dry deposition velocity (:math:`cm\ s^{-1}`) over
-   ice and snow for certain aerosol species.
+Specifies the dry deposition velocity (:math:`cm\ s^{-1}`) over
+ice and snow for certain aerosol species.
 
-   .. note::
+.. note::
 
-      :code:`DD_DvzAerSnow_Luo` is only used when the
-      :cite:t:`Luo_et_al._2020` wet scavenging scheme is activated.
+   :code:`DD_DvzAerSnow_Luo` is only used when the
+   :cite:t:`Luo_et_al._2020` wet scavenging scheme is activated.
 
-.. option:: DD_DvzMinVal
+DD_DvzMinVal
+------------
 
-   Specfies minimum dry deposition velocities (:math:`cm\ s^{-1}`) for
-   sulfate  species (:literal:`SO2`, :literal:`SO4`, :literal:`MSA`,
-   :literal:`NH3`, :literal:`NH4`, :literal:`NIT`).  This follows the
-   methodology of the GOCART model.
+Specfies minimum dry deposition velocities (:math:`cm\ s^{-1}`) for
+sulfate  species (:literal:`SO2`, :literal:`SO4`, :literal:`MSA`,
+:literal:`NH3`, :literal:`NH4`, :literal:`NIT`).  This follows the
+methodology of the GOCART model.
 
-   :code:`DD_DvzMinVal` is defined as a two-element vector:
+:code:`DD_DvzMinVal` is defined as a two-element vector:
 
-   - :code:`DD_DvzMinVal(1)` sets a minimum dry deposition velocity
-     onto snow and ice.
-   - :code:`DD_DvzMinVal(2)` sets a minimum dry deposition velocity
-     over land.
+- :code:`DD_DvzMinVal(1)` sets a minimum dry deposition velocity
+  onto snow and ice.
+- :code:`DD_DvzMinVal(2)` sets a minimum dry deposition velocity
+  over land.
 
-.. option:: DD_Hstar_Old
+DD_Hstar_Old
+------------
 
-   Specifies the Henry's law constant (:math:`K_0`) that is used in
-   dry deposition.  This will be used to assign the :code:`HSTAR`
-   variable in the GEOS-Chem dry deposition module.
+Specifies the Henry's law constant (:math:`K_0`) that is used in
+dry deposition.  This will be used to assign the :code:`HSTAR`
+variable in the GEOS-Chem dry deposition module.
 
-   .. note::
+.. note::
 
-      The value of the :code:`DD_Hstar_old` parameter was tuned for
-      each species so that the dry deposition velocity would match
-      observations.
+   The value of the :code:`DD_Hstar_old` parameter was tuned for
+   each species so that the dry deposition velocity would match
+   observations.
 
-.. option:: DD_F0
+DD_F0
+-----
 
-   Specifies the reactivity factor for oxidation of biological
-   substances in dry deposition.
+Specifies the reactivity factor for oxidation of biological
+substances in dry deposition.
 
-.. option:: DD_KOA
+DD_KOA
+------
 
-   Specifies the octanal-air partition coefficient, used for the dry
-   deposition of species :code:`POPG`.
+Specifies the octanal-air partition coefficient, used for the dry
+deposition of species :code:`POPG`.
 
-   .. note::
+.. note::
 
-      :code:`DD_KOA` is only used in the `POPs simulation
-      <https://wiki.geos-chem.org/POPs_simulation>`_.
+   :code:`DD_KOA` is only used in the `POPs simulation
+   <https://wiki.geos-chem.org/POPs_simulation>`_.
 
 .. _spcguide-defs-wetdep:
 
+=========================
 Wet deposition properties
--------------------------
+=========================
 
-.. option:: WD_Is_H2SO4
+WD_Is_H2SO4
+-----------
 
-   Indicates that the species is :literal:`H2SO4` (:literal:`true`),
-   or isn't (:literal:`false)`.  This allows the wet deposition code
-   to perform special calculations when computing  :literal:`H2SO4`
-   rainout and washout.
+Indicates that the species is :literal:`H2SO4` (:literal:`true`),
+or isn't (:literal:`false)`.  This allows the wet deposition code
+to perform special calculations when computing  :literal:`H2SO4`
+rainout and washout.
 
-.. option:: WD_Is_HNO3
+WD_Is_HNO3
+----------
 
-   Indicates that the species is :literal:`HNO3` (:literal:`true`),
-   or isn't (:literal:`false)`.  This allows the wet deposition code
-   to perform special calculations when computing  :literal:`HNO3`.
-   rainout and washout.
+Indicates that the species is :literal:`HNO3` (:literal:`true`),
+or isn't (:literal:`false)`.  This allows the wet deposition code
+to perform special calculations when computing  :literal:`HNO3`.
+rainout and washout.
 
-.. option:: WD_Is_SO2
+WD_Is_SO2
+---------
 
-   Indicates that the species is :literal:`SO2` (:literal:`true`),
-   or isn't (:literal:`false)`.  This allows the wet deposition code
-   to perform special calculations when computing :literal:`SO2`
-   rainout and washout.
+Indicates that the species is :literal:`SO2` (:literal:`true`),
+or isn't (:literal:`false)`.  This allows the wet deposition code
+to perform special calculations when computing :literal:`SO2`
+rainout and washout.
 
-.. option:: WD_CoarseAer
+WD_CoarseAer
+------------
 
-   Indicates that the species is a coarse aerosol (:literal:`true`),
-   or isn't (:literal:`false`).  For wet deposition purposes, the
-   definition of coarse aerosol is radius > 1 :math:`\mu m`.
+Indicates that the species is a coarse aerosol (:literal:`true`),
+or isn't (:literal:`false`).  For wet deposition purposes, the
+definition of coarse aerosol is radius > 1 :math:`\mu m`.
 
-.. option:: WD_LiqAndGas
+WD_LiqAndGas
+------------
 
-   Indicates that the the ice-to-gas ratio can be computed for
-   this species by co-condensation (:literal:`true`), or can't
-   (:literal:`false`).
+Indicates that the the ice-to-gas ratio can be computed for
+this species by co-condensation (:literal:`true`), or can't
+(:literal:`false`).
 
-.. option:: WD_ConvFacI2G
+WD_ConvFacI2G
+-------------
 
-   Specifies the conversion factor (i.e. ratio of sticking
-   coefficients on the ice surface) for computing the ice-to-gas ratio
-   by co-condensation, as used in the default wet deposition scheme.
+Specifies the conversion factor (i.e. ratio of sticking
+coefficients on the ice surface) for computing the ice-to-gas ratio
+by co-condensation, as used in the default wet deposition scheme.
 
-   .. note::
+.. note::
 
-      :code:`WD_ConvFacI2G` only needs to be defined for those species
-      for which :code:`WD_LiqAndGas` is :literal:`true`.
+   :code:`WD_ConvFacI2G` only needs to be defined for those species
+   for which :code:`WD_LiqAndGas` is :literal:`true`.
 
-.. option:: WD_ConvFacI2G_Luo
+WD_ConvFacI2G_Luo
+-----------------
 
-   Specifies the conversion factor (i.e. ratio of sticking
-   coefficients on the ice surface) for computing the ice-to-gas ratio
-   by co-condensation, as used in the :cite:t:`Luo_et_al._2020` wet
-   deposition scheme.
+Specifies the conversion factor (i.e. ratio of sticking
+coefficients on the ice surface) for computing the ice-to-gas ratio
+by co-condensation, as used in the Luo wet deposition scheme
+(cf. :cite:t:`Luo_et_al._2020`, :cite:t:`Luo_and_Yu_2023`).
 
-   .. note::
+.. note::
 
-      :code:`WD_ConvFacI2G_Luo` only needs to be defined for those species
-      for which :code:`WD_LiqAndGas` is :literal:`true`, and is only
-      used when the :cite:t:`Luo_et_al._2020` wet deposition scheme is
-      activated.
+   :code:`WD_ConvFacI2G_Luo` only needs to be defined for those species
+   for which :code:`WD_LiqAndGas` is :literal:`true`, and is only
+   used when the :cite:t:`Luo_et_al._2020` wet deposition scheme is
+   activated.
 
-.. option:: WD_RetFactor
+WD_RetFactor
+------------
 
-   Specifies the retention efficiency :math:`R_i` of species in the
-   liquid cloud condensate as it is converted to precipitation.
-   :math:`R_i` < 1 accounts for volatization during riming.
+Specifies the retention efficiency :math:`R_i` of species in the
+liquid cloud condensate as it is converted to precipitation.
+:math:`R_i` < 1 accounts for volatization during riming.
 
-.. option:: WD_AerScavEff
+WD_AerScavEff
+-------------
 
-   Specifies the aerosol scavenging efficiency. This factor multiplies
-   :math:`F`, the fraction of aerosol species that is lost to
-   convective updraft scavenging.
+Specifies the aerosol scavenging efficiency. This factor multiplies
+:math:`F`, the fraction of aerosol species that is lost to
+convective updraft scavenging.
 
-   - :code:`WD_AerScavEff = 1.0` for most aerosols.
-   - :code:`WD_AerScavEff = 0.8` for secondary organic aerosols.
-   - :code:`WD_AerScavEff = 0.0` for hydrophobic aerosols.
+.. list-table::
+   :header-rows: 1
 
-.. option:: WD_KcScaleFac
+   * - Value of :literal:`WD_AerScavEff`
+     - Used for this type of aerosol
+   * - 1.0
+     - Most aerosols
+   * - 0.8
+     - Secondary organic aerosols
+   * - 0.0
+     - Hydrophobic aerosols
 
-   Specifies a temperature-dependent scale factor that is used to
-   multiply :math:`K` (aka :math:`K_c`), the rate constant for
-   conversion of cloud condensate to precipitation.
+WD_KcScaleFac
+-------------
 
-   :code:`WD_KcScaleFac` is defined as a 3-element vector:
+Specifies a temperature-dependent scale factor that is used to
+multiply :math:`K` (aka :math:`K_c`), the rate constant for
+conversion of cloud condensate to precipitation.
 
-   - :code:`WD_KcScaleFac(1)` multiplies :math:`K` when
-     :math:`T < 237` kelvin.
-   - :code:`WD_KcScaleFac(2)` multiplies :math:`K` when
-     :math:`237 \le T < 258` kelvin
-   - :code:`WD_KcScaleFac(3)` multiplies :math:`K` when
-     :math:`T \ge 258` kelvin.
+:code:`WD_KcScaleFac` is defined as a 3-element vector:
 
-.. option:: WD_KcScaleFac_Luo
+.. list-table::
+   :header-rows: 1
+   :widths: 33 33 34
 
-   Specifies a temperature-dependent scale factor that is used to
-   multiply :math:`K`, aka :math:`K_c`, the rate constant for
-   conversion of cloud condensate to precipitation.
+   * - Vector element
+     - Multiplies this variable
+     - In this temperature range
+   * - :literal:`WD_KcScaleFac(1)`
+     - :math:`K`
+     - :math:`T \le 237\ K`
+   * - :literal:`WD_KcScaleFac(2)`
+     - :math:`K`
+     - :math:`237 \ K \le T \lt 258 \ K`
+   * - :literal:`WD_KcScaleFac(3)`
+     - :math:`K`
+     - :math:`T \ge 258 \ K`
 
-   Used only in the :cite:t:`Luo_et_al._2020` wet deposition scheme.
+WD_KcScaleFac_Luo
+-----------------
 
-   :code:`WD_KcScaleFac_Luo` is defined as a 3-element vector:
+Specifies a temperature-dependent scale factor that is used to
+multiply :math:`K`, aka :math:`K_c`, the rate constant for
+conversion of cloud condensate to precipitation.
 
-   - :code:`WD_KcScaleFac_Luo(1)` multiplies :math:`K` when
-     :math:`T < 237` kelvin.
-   - :code:`WD_KcScaleFac_Luo(2)` multiplies :math:`K` when
-     :math:`237 \le T < 258` kelvin.
-   - :code:`WD_KcScaleFac_Luo(3)` multiplies :math:`K` when
-     :math:`T \ge 258` kelvin.
+Used only in the Luo wet deposition scheme
+(cf. :cite:t:`Luo_et_al._2020`, :cite:t:`Luo_and_Yu_2023`).
 
-.. option:: WD_RainoutEff
+:code:`WD_KcScaleFac_Luo` is defined as a 3-element vector:
 
-   Specifies a temperature-dependent scale factor that is used to
-   multiply :math:`F_i` (aka :literal:`RAINFRAC`), the fraction of
-   species scavenged by rainout.
+.. list-table::
+   :header-rows: 1
+   :widths: 33 33 34
 
-   :code:`WD_RainoutEff` is defined as a 3-element vector:
+   * - Vector element
+     - Multiplies this variable
+     - In this temperature range
+   * - :literal:`WD_KcScaleFac_Luo(1)`
+     - :math:`K`
+     - :math:`T \le 237\ K`
+   * - :literal:`WD_KcScaleFac_Luo(2)`
+     - :math:`K`
+     - :math:`237 \ K \le T \lt 258 \ K`
+   * - :literal:`WD_KcScaleFac_Luo(3)`
+     - :math:`K`
+     - :math:`T \ge 258\ K`
 
-   - :code:`WD_RainoutEff(1)` multiplies :math:`F_i` when
-     :math:`T < 237` kelvin.
-   - :code:`WD_RainoutEff(2)` multiplies :math:`F_i` when
-     :math:`237 \le T < 258` kelvin.
-   - :code:`RainoutEff(3)` multiplies :math:`F_i` when
-     :math:`T \ge 258` kelvin.
+WD_RainoutEff
+-------------
 
-   This allows us to better simulate scavenging by snow and impaction
-   scavenging of BC.  For most species, we need to be able to turn off
-   rainout  when :math:`237 \le T <  258` kelvin. This can be easily
-   done by setting :code:`RainoutEff(2) = 0`.
+Specifies a temperature-dependent scale factor that is used to
+multiply :math:`F_i` (aka :literal:`RAINFRAC`), the fraction of
+species scavenged by rainout.
 
-   .. note::
+:code:`WD_RainoutEff` is defined as a 3-element vector:
 
-      For SOA species, the maximum value of :code:`WD_RainoutEff` will
-      be 0.8 instead of 1.0.
+.. list-table::
+   :header-rows: 1
+   :widths: 33 33 34
 
-.. option:: WD_RainoutEff_Luo
+   * - Vector element
+     - Multiplies this variable
+     - In this temperature range
+   * - :literal:`WD_RainoutEff(1)`
+     - :math:`F_i`
+     - :math:`T \le 237\ K`
+   * - :literal:`WD_RainoutEff(2)`
+     - :math:`F_i`
+     - :math:`237 \ K \le T \lt 258 \ K`
+   * - :literal:`WD_RainoutEff(3)`
+     - :math:`F_i`
+     - :math:`T \ge 258 \ K`
 
-   Specifies a temperature-dependent scale factor that is used to
-   multiply :math:`F_i` (aka :literal:`RAINFRAC`), the fraction of
-   species scavenged by rainout. (Used only in the
-   :cite:`Luo_et_al._2020` wet deposition scheme).
+This allows us to better simulate scavenging by snow and impaction
+scavenging of BC.  For most species, we need to be able to turn off
+rainout  when :math:`237 \le T <  258` kelvin. This can be easily
+done by setting :code:`RainoutEff(2) = 0`.
 
-   :code:`WD_RainoutEff_Luo` is defined as a 3-element vector:
+.. note::
 
-   - :code:`WD_RainoutEff_Luo(1)` multiplies :math:`F_i` when
-     :math:`T < 237` kelvin.
-   - :code:`WD_RainoutEff_Luo(2)` multiplies :math:`F_i` when
-     :math:`237 \le T < 258` kelvin.
-   - :code:`RainoutEff_Luo(3)` multiplies :math:`F_i` when
-     :math:`T \ge 258` kelvin.
+   For SOA species, the maximum value of :code:`WD_RainoutEff` will
+   be 0.8 instead of 1.0.
 
-   This allows us to better simulate scavenging by snow and impaction
-   scavenging of BC.  For most species, we need to be able to turn off
-   rainout when :math:`237 \le T <  258` kelvin. This can be easily
-   done by setting :code:`RainoutEff(2) = 0`.
+WD_RainoutEff_Luo
+-----------------
 
-   .. note::
+Specifies a temperature-dependent scale factor that is used to
+multiply :math:`F_i` (aka :literal:`RAINFRAC`), the fraction of
+species scavenged by rainout.
 
-      For SOA species, the maximum value of :code:`WD_RainoutEff_Luo`
-      will  be 0.8 instead of 1.0.
+Used only in the Luo wet deposition scheme
+(cf. :cite:t:`Luo_et_al._2020`, :cite:t:`Luo_and_Yu_2023`).
+
+:code:`WD_RainoutEff_Luo` is defined as a 3-element vector:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 33 33 34
+
+   * - Vector element
+     - Multiplies this variable
+     - In this temperature range
+   * - :literal:`WD_RainoutEff_Luo(1)`
+     - :math:`F_i`
+     - :math:`T \le 237\ K`
+   * - :literal:`WD_RainoutEff_Luo(2)`
+     - :math:`F_i`
+     - :math:`237 \ K \le T \lt 258 \ K`
+   * - :literal:`WD_RainoutEff_Luo(3)`
+     - :math:`F_i`
+     - :math:`T \ge 258 \ K`
+
+This allows us to better simulate scavenging by snow and impaction
+scavenging of BC.  For most species, we need to be able to turn off
+rainout when :math:`237 \le T <  258` kelvin. This can be easily
+done by setting :code:`RainoutEff(2) = 0`.
+
+.. note::
+
+   For SOA species, the maximum value of :code:`WD_RainoutEff_Luo`
+   will be 0.8 instead of 1.0.
+
+WD_WashoutRainPara
+------------------
+
+Specifies terms used in the computation of the washout rate constant
+for dust aerosols by rain, as defined in :cite:t:`Zhang_et_al._2025`.
+This rate constant is computed as :math:`a \times P^b`, where
+:math:`P` is precipitation in :math:`mm \ h^{-1}`.
+
+:literal:`WD_WashoutRainPara` is defined as a 2-element vector:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 33 33 34
+
+   * - Vector element
+     - Description
+     - Used in this temperature range
+   * - :literal:`WD_WashoutSnowPara(1)`
+     - Coefficient (:math:`a`)
+     - :math:`T \ge 268\ K`
+   * - :literal:`WD_RainoutEff_Luo(2)`
+     - Exponent (:math:`b`)
+     - :math:`T \ge 268\ K`
+
+WD_WashoutSnowPara
+------------------
+
+Specifies terms used in the computation of the washout rate constant
+for dust aerosols by snow, as defined in :cite:t:`Zhang_et_al._2025`.
+This rate constant is computed as :math:`a \times P^b`, where
+:math:`P` is precipitation in :math:`mm \ h^{-1}`.
+
+:literal:`WD_WashoutSnowPara` is defined as a 2-element vector:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 33 33 34
+
+   * - Vector element
+     - Description
+     - Used in this temperature range
+   * - :literal:`WD_WashoutSnowPara(1)`
+     - Coefficient (:math:`a`)
+     - :math:`T \lt 268\ K`
+   * - :literal:`WD_RainoutEff_Luo(2)`
+     - Exponent (:math:`b`)
+     - :math:`T \lt 268\ K`
 
 .. _spcguide-defs-tracer:
 
-Transport tracer properties
----------------------------
+===========================
+TransportTracers properties
+===========================
 
-These properties are defined for species used in the TransportTracers
-simulation.  We will refer to these species as **tracers**.
+These properties are defined for species used in the
+:ref:`transport-sim`.  We will refer to these species as
+**tracers**.
 
-.. option:: Is_Tracer
+.. _spcguide-defs-tracer-is-tracer:
 
-   Indicates that the species is a transport tracer (:literal:`true`),
-   or is not (:literal:`false`).
+Is_Tracer
+---------
 
-.. option:: Snk_Horiz
+Indicates that the species is a transport tracer (:literal:`true`),
+or is not (:literal:`false`).
 
-   Specifies the horizontal domain of the tracer sink term.  Allowable
-   values are:
+.. _spcguide-defs-tracer-snk-horiz:
 
-   .. option:: all
+Snk_Horiz
+---------
 
-      The tracer sink term will be applied throughout the entire
-      horizonatal domain of the simulation grid.
+Specifies the horizontal domain of the tracer sink term.  Allowable
+values are:
 
-   .. option:: lat_zone
+.. option:: all
 
-      The tracer sink term will be applied only within the latitude
-      range specified by :option:`Snk_Lats`.
+   The tracer sink term will be applied throughout the entire
+   horizonatal domain of the simulation grid.
 
-.. option:: Snk_Lats
+.. option:: lat_zone
 
-   Defines the latitude range :literal:`[min_latitude, max_latitude]` for the
-   tracer sink term.  Will only be used if :option:`Snk_Horiz` is
-   set to :literal:`lat_zone`.
+   The tracer sink term will be applied only within the latitude
+   range specified by :ref:`spcguide-defs-tracer-snk-lats`.
 
-.. option:: Snk_Mode
 
-   Specifies how the tracer sink term will be applied.  Allowable values are:
+.. _spcguide-defs-tracer-snk-lats:
 
-   .. option:: constant
+Snk_Lats
+--------
 
-      The tracer sink term is a constant value (specified by
-      :option:`Snk_Value`).
+Defines the latitude range :literal:`[min_latitude, max_latitude]` for the
+tracer sink term.  Will only be used if
+:ref:`spcguide-defs-tracer-snk-horiz` is set to :literal:`lat_zone`.
 
-   .. option:: efolding
+.. _spcguide-defs-tracer-snk-mode:
 
-      The tracer sink term has an e-folding decay constant (specified in
-      :option:`Snk_Period`).
+Snk_Mode
+--------
 
-   .. option:: halflife
+Specifies how the tracer sink term will be applied.  Allowable values are:
 
-      A tracer sink term has a half-life (specified in
-      :option:`Snk_Period`).
+.. option:: constant
 
-   .. option:: none
+   The tracer sink term is a constant value (specified by
+   :ref:`spcguide-defs-tracer-snk-value`).
 
-      The tracer does not have a sink term.
+.. option:: efolding
 
-.. option:: Snk_Period
+   The tracer sink term has an e-folding decay constant (specified in
+   :ref:`spcguide-defs-tracer-snk-period`).
 
-   Specifies the period (in days) for which the tracer sink term
-   will be applied.
+.. option:: halflife
 
-.. option:: Snk_Value
+   A tracer sink term has a half-life (specified in
+   :ref:`spcguide-defs-tracer-snk-period`).
 
-   Specifies a value for the tracer sink term.
+.. option:: none
 
-.. option:: Snk_Vert
+   The tracer does not have a sink term.
 
-   Specifies the vertical domain of the tracer sink term. Allowable
-   values are:
+.. _spcguide-defs-tracer-snk-period:
 
-   .. option:: all
+Snk_Period
+----------
 
-      The tracer sink term will be applied throughout the entire
-      vertical domain of the simulation grid.
+Specifies the period (in days) for which the tracer sink term
+will be applied.
 
-   .. option:: boundary_layer
+.. _spcguide-defs-tracer-snk-value:
 
-      The tracer sink term will only be applied within the planetary
-      boundary layer.
+Snk_Value
+---------
 
-   .. option:: surface
+Specifies a value for the tracer sink term.
 
-      The tracer sink term will only be applied at the surface.
+.. _spcguide-defs-tracer-snk-vert:
 
-   .. option:: troposphere
+Snk_Vert
+--------
 
-      The tracer sink term will only be applied within the troposphere.
+Specifies the vertical domain of the tracer sink term. Allowable
+values are:
 
-.. option:: Src_Add
+.. option:: all
 
-   Specifies whether the tracer has a source term (:literal:`true`) or
-   not (:literal:`false`).
+   The tracer sink term will be applied throughout the entire
+   vertical domain of the simulation grid.
 
-.. option:: Src_Horiz
+.. option:: boundary_layer
 
-   Specifies the horizontal domain of the tracer source term.
-   Allowable values are:
+   The tracer sink term will only be applied within the planetary
+   boundary layer.
 
-   .. option:: all
+.. option:: surface
 
-      The tracer source term will be applied across the entire
-      horizontal extent of the simulation grid.
+   The tracer sink term will only be applied at the surface.
 
-   .. option:: lat_zone
+.. option:: troposphere
 
-      The tracer source term will only be applied within the latitude
-      range specified by :option:`Src_Lats`.
+   The tracer sink term will only be applied within the troposphere.
 
-.. option:: Src_Lats
+.. _spcguide-defs-tracer-src-add:
 
-   Defines the latitude range :literal:`[min_latitude, max_latitude]` for the
-   tracer source term.  Will only be applied if :option:`Src_Horiz` is
-   set to :literal:`lat_zone`.
+Src_Add
+-------
 
-.. option:: Src_Mode
+Specifies whether the tracer has a source term (:literal:`true`) or
+not (:literal:`false`).
 
-   Describes the type of tracer source term.  Allowable values are:
+.. _spcguide-defs-tracer-src-horiz:
 
-   .. option:: constant
+Src_Horiz
+---------
 
-      The tracer source term is a constant value (specified by
-      :option:`Src_Value`).
+Specifies the horizontal domain of the tracer source term.
+Allowable values are:
 
-   .. option:: decay_of_another_species
+.. option:: all
 
-      The tracer source term comes from the decay of
-      another species (e.g. Pb210 source comes from Rn222 decay).
+   The tracer source term will be applied across the entire
+   horizontal extent of the simulation grid.
 
-   .. option:: HEMCO
+.. option:: lat_zone
 
-      The tracer source term will be read from a file via HEMCO.
+   The tracer source term will only be applied within the latitude
+   range specified by :ref:`spcguide-defs-tracer-src-lats`
 
-   .. option:: maintain_mixing_ratio
+.. _spcguide-defs-tracer-src-lats:
 
-      The tracer source term will be calculated as needed
-      to maintain a constant mixing ratio at the surface.
+Src_Lats
+--------
 
-   .. option:: none
+Defines the latitude range :literal:`[min_latitude, max_latitude]` for the
+tracer source term.  Will only be applied if
+:ref:`spcguide-defs-tracer-src-horiz` is set to :literal:`lat_zone`.
 
-      The tracer does not have a source term.
+.. _spcguide-defs-tracer-src-mode:
 
-.. option:: Src_Unit
+Src_Mode
+--------
 
-   Specifies the unit of the source term that will be applied to the
-   tracer.
+Describes the type of tracer source term.  Allowable values are:
 
-   .. option:: ppbv
+.. option:: constant
 
-      The source term has units of parts per billion by volume.
+   The tracer source term is a constant value (specified by
+   :ref:`spcguide-defs-tracer-src-value`).
 
-   .. option:: timestep
+.. option:: decay_of_another_species
 
-      The source term has units of per emissions timestep.
+   The tracer source term comes from the decay of
+   another species (e.g. Pb210 source comes from Rn222 decay).
 
-.. option:: Src_Value
+.. option:: HEMCO
 
-   Specifies a value for the tracer source term in :option:`Src_Unit`.
+   The tracer source term will be read from a file via HEMCO.
 
-.. option:: Src_Vert
+.. option:: maintain_mixing_ratio
 
-   Specifies the vertical domain of the tracer source term.  Allowable
-   values are:
+   The tracer source term will be calculated as needed
+   to maintain a constant mixing ratio at the surface.
 
-   .. option:: all
+.. option:: none
 
-      The tracer source term will be applied throughout the entire
-      vertical domain of the simulation grid.
+   The tracer does not have a source term.
 
-   .. option:: pressures
+.. _spcguide-defs-tracer-src-unit:
 
-      The tracer source term will only be applied within the pressure
-      range specified in :option:`Src_Pressures`.
+Src_Unit
+--------
 
-   .. option:: stratosphere
+Specifies the unit of the source term that will be applied to the
+tracer.
 
-      The tracer source term will only be applied in the stratosphere.
+.. option:: ppbv
 
-   .. option:: troposphere
+   The source term has units of parts per billion by volume.
 
-      The tracer source term will only be applied in the troposphere.
+.. option:: timestep
 
-   .. option:: surface
+   The source term has units of per emissions timestep.
 
-      The tracer source term will only be applied at the surface.
+.. _spcguide-defs-tracer-src-value:
 
-.. option:: Src_Pressures
+Src_Value
+---------
 
-   Defines the pressure range :literal:`[min_pressure, max_pressure]`,
-   in hPa for the tracer source term.  Will only be used
-   if :option:`Src_Vert` is set to :literal:`pressures`.
+Specifies a value for the tracer source term in
+:ref:`spcguide-defs-tracer-src-unit`.
 
-.. option:: Units
+.. _spcguide-defs-tracer-src-vert:
 
-   Specifies the default units of the tracers (e.g. :literal:`aoa`,
-   :literal:`aoa_nh`, :literal:`aoa_bl` are carried in units :literal:`days`,
-   while all other species in GEOS-Chem are :literal:`kg/kg dry air`).
+Src_Vert
+--------
+
+Specifies the vertical domain of the tracer source term.  Allowable
+values are:
+
+.. option:: all
+
+   The tracer source term will be applied throughout the entire
+   vertical domain of the simulation grid.
+
+.. option:: pressures
+
+   The tracer source term will only be applied within the pressure
+   range specified in :ref:`spcguide-defs-tracer-src-pressures`.
+
+.. option:: stratosphere
+
+   The tracer source term will only be applied in the stratosphere.
+
+.. option:: troposphere
+
+   The tracer source term will only be applied in the troposphere.
+
+.. option:: surface
+
+   The tracer source term will only be applied at the surface.
+
+.. _spcguide-defs-tracer-src-pressures:
+
+Src_Pressures
+-------------
+
+Defines the pressure range :literal:`[min_pressure, max_pressure]`,
+in hPa for the tracer source term.  Will only be used
+if :ref:`spcguide-defs-tracer-src-vert` is set to
+:literal:`pressures`.
+
+.. _spcguide-defs-tracer-units:
+
+Units
+-----
+
+Specifies the default units of the tracers (e.g. :literal:`aoa`,
+:literal:`aoa_nh`, :literal:`aoa_bl` are carried in units :literal:`days`,
+while all other species in GEOS-Chem are :literal:`kg/kg dry air`).
 
 .. _spcguide-defs-tracer-prop:
 
 Properties used by each transport tracer
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------
 
-The list below shows the various :ref:`transport tracer properties <spcguide-defs-tracer>`
-that are used in the current TransportTracers simulation.
+The list below shows the various :ref:`transport tracer properties
+<spcguide-defs-tracer>` that are used in the current TransportTracers
+simulation.
 
 .. code-block:: none
 
@@ -706,43 +891,49 @@ that are used in the current TransportTracers simulation.
 
 .. _spcguide-defs-other:
 
+================
 Other properties
-----------------
+================
 
-.. option:: BackgroundVV
+.. _spcguide-defs-other-bkgdvv:
 
-   If a restart file does not contain an global initial concentration
-   field for a species, GEOS-Chem will attempt to set the initial
-   concentration (in :math:`vol\ vol^{-1}` dry air) to the value
-   specified in :code:`BackgroundVV` globally.   But if
-   :code:`BackgroundVV` has not been specified, GEOS-Chem will set
-   the initial concentration for the species to :math:`10^{-20}
-   vol\ vol^{-1}` dry air instead.
+BackgroundVV
+------------
 
-   .. note::
+If a restart file does not contain an global initial concentration
+field for a species, GEOS-Chem will attempt to set the initial
+concentration (in :math:`vol\ vol^{-1}` dry air) to the value
+specified in :code:`BackgroundVV` globally.   But if
+:code:`BackgroundVV` has not been specified, GEOS-Chem will set
+the initial concentration for the species to :math:`10^{-20}
+vol\ vol^{-1}` dry air instead.
 
-      Recent versions of GCHP may require that all initial conditions
-      for all species to be used in a simulation be present in the
-      restart file.  See `gchp.readthedocs.io
-      <https://gchp.readthedocs.io>`_ for more information.
+.. note::
 
-.. option:: MP_SizeResAer
+   Recent versions of GCHP may require that all initial conditions
+   for all species to be used in a simulation be present in the
+   restart file.  See `gchp.readthedocs.io
+   <https://gchp.readthedocs.io>`_ for more information.
 
-   Indicates that the species is a size-resolved aerosol species
-   (:literal:`true`), or isn't (:literal:`false`).  Used only by
-   simulations using either `APM
-   <http://wiki.geos-chem.org/APM_aerosol_microphysics>`_
-   or `TOMAS <http://wiki.geos-chem.org/TOMAS_aerosol_microphysics>`_
-   microphysics packages.
+MP_SizeResAer
+-------------
 
-.. option:: MP_SizeResNum
+Indicates that the species is a size-resolved aerosol species
+(:literal:`true`), or isn't (:literal:`false`).  Used only by
+simulations using either `APM
+<http://wiki.geos-chem.org/APM_aerosol_microphysics>`_
+or `TOMAS <http://wiki.geos-chem.org/TOMAS_aerosol_microphysics>`_
+microphysics packages.
 
-   Indicates that the species is a size-resolved aerosol number
-   (:literal:`true`), or isn't (:literal:`false`).  Used only by
-   simulations using either `APM
-   <http://wiki.geos-chem.org/APM_aerosol_microphysics>`_
-   or `TOMAS <http://wiki.geos-chem.org/TOMAS_aerosol_microphysics>`_
-   microphysics packages.
+MP_SizeResNum
+-------------
+
+Indicates that the species is a size-resolved aerosol number
+(:literal:`true`), or isn't (:literal:`false`).  Used only by
+simulations using either `APM
+<http://wiki.geos-chem.org/APM_aerosol_microphysics>`_
+or `TOMAS <http://wiki.geos-chem.org/TOMAS_aerosol_microphysics>`_
+microphysics packages.
 
 .. _spcguide-using:
 
@@ -767,40 +958,41 @@ describes a complete set of properties for a single GEOS-Chem
 species. In addition to the fields mentioned in the preceding sections, the
 :code:`Species` derived type also contains several species indices.
 
-.. table:: Indices stored in the :code:`Species` derived type
+.. list-table:: Indices stored in the :code:`Species` derived type
+   :header-rows: 1
+   :widths: 25 75
    :align: center
 
-   +-------------------+----------------------------------+
-   | Index             | Description                      |
-   +===================+==================================+
-   | :code:`ModelId`   | Model species index              |
-   +-------------------+----------------------------------+
-   | :code:`AdvectId`  | Advected species index           |
-   +-------------------+----------------------------------+
-   | :code:`AerosolId` | Aerosol species index            |
-   +-------------------+----------------------------------+
-   | :code:`DryAltId`  | Dry dep species at altitude Id   |
-   +-------------------+----------------------------------+
-   | :code:`DryDepId`  | Dry deposition species index     |
-   +-------------------+----------------------------------+
-   | :code:`GasSpcId`  | Gas-phase species index          |
-   +-------------------+----------------------------------+
-   | :code:`HygGrthId` | Hygroscopic growth species index |
-   +-------------------+----------------------------------+
-   | :code:`KppVarId`  | KPP variable species index       |
-   +-------------------+----------------------------------+
-   | :code:`KppFixId`  | KPP fixed spcecies index         |
-   +-------------------+----------------------------------+
-   | :code:`KppSpcId`  | KPP species index                |
-   +-------------------+----------------------------------+
-   | :code:`PhotolId`  | Photolyis species index          |
-   +-------------------+----------------------------------+
-   | :code:`RadNuclId` | Radionuclide index               |
-   +-------------------+----------------------------------+
-   | :code:`TracerId`  | Transport tracer index           |
-   +-------------------+----------------------------------+
-   | :code:`WetDepId`  | Wet deposition index             |
-   +-------------------+----------------------------------+
+   * - Index
+     - Description
+   * - :code:`ModelId`
+     - Model species index
+   * - :code:`AdvectId`
+     - Advected species index
+   * - :code:`AerosolId`
+     - Aerosol species index
+   * - :code:`DryAltId`
+     - Dry dep species at altitude Id
+   * - :code:`DryDepId`
+     - Dry deposition species index
+   * - :code:`GasSpcId`
+     - Gas-phase species index
+   * - :code:`HygGrthId`
+     - Hygroscopic growth species index
+   * - :code:`KppVarId`
+     - KPP variable species index
+   * - :code:`KppFixId`
+     - KPP fixed spcecies index
+   * - :code:`KppSpcId`
+     - KPP species index
+   * - :code:`PhotolId`
+     - Photolyis species index
+   * - :code:`RadNuclId`
+     - Radionuclide index
+   * - :code:`TracerId`
+     - Transport tracer index
+   * - :code:`WetDepId`
+     - Wet deposition index
 
 .. _spcguide-access-spcptrtype:
 

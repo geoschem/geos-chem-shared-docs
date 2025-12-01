@@ -36,8 +36,9 @@ download.
    Input Data portal <gcid-data>`:
 
    - NASA/GMAO meteorology fields that have been cropped to the
-     various :ref:`nested grid domains <gcc-hgrids-nested>` may be
-     downloaded from our :ref:`gcid-special-portals-nested`
+     various `nested grid domains
+     <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#nested-grids>`_
+     may be downloaded from our :ref:`gcid-special-portals-nested`
      portal (aka `s3://gcgrid
      <https://gcgrid.s3.amazonaws.com/index.html>`_). |br|
      |br|

@@ -48,69 +48,77 @@ may be downloaded without incurring any data egress fees.
      - Grid
    * - Africa
      - GEOS-FP
-     - :ref:`gcc-hgrids-nested-0125-af` [#A]_
+     - `0.125° x 0.15625° AF nested grid <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-15625-af-nested-grid>`_ [#A]_
    * - Africa
      - GEOS-FP
-     - :ref:`gcc-hgrids-nested-025-af`
+     - `0.25° x 0.3125° AF nested grid <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-3125-af-nested-grid>`_
    * - Asia
      - GEOS-FP
-     - :ref:`gcc-hgrids-nested-0125-as` [#B]_
+     - `0.125° x 0.15625° AS nested grid <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-15625-as-nested-grid>`_ [#B]_
    * - Asia
      - GEOS-FP
-     - :ref:`gcc-hgrids-nested-025-as`
+     - `0.25° x 0.3125° AS nested grid <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-3125-as-nested-grid>`_
    * - Asia
      - MERRA-2
-     - :ref:`gcc-hgrids-nested-05-as`
+     - `0.5° x 0625° AS nested grid <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-625-as-nested-grid>`_
    * - Europe
      - GEOS-FP
-     - :ref:`gcc-hgrids-nested-025-eu`
+     - `0.25° x 0.3125° EU nested grid <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-3125-eu-nested-grid>`_
    * - Europe
      - MERRA-2
-     - :ref:`gcc-hgrids-nested-05-eu`
+     - `0.5° x 0625° EU nested grid <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-625-eu-nested-grid>`_
    * - Middle East
      - GEOS-FP
-     - :ref:`gcc-hgrids-nested-025-me`
+     - `0.25° x 0.3125° ME nested grid <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-3125-me-nested-grid>`_
    * - North America
      - GEOS-FP
-     - :ref:`gcc-hgrids-nested-0125-na` [#C]_
+     - `0.125° x 0.15625° NA nested grid <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-15625-na-nested-grid>`_ [#C]_
    * - North America
      - GEOS-FP
-     - :ref:`gcc-hgrids-nested-025-na`
+     - `0.25° x 0.3125° NA nested grid <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-3125-na-nested-grid>`_
    * - North America
      - MERRA-2
-     - :ref:`gcc-hgrids-nested-05-na`
+     - `0.5° x 0625° NA nested grid <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-625-na-nested-grid>`_
    * - Oceania
      - GEOS-FP
-     - :ref:`gcc-hgrids-nested-025-oc`
+     - `0.25° x 0.3125° OC nested grid <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-3125-oc-nested-grid>`_
    * - Russia
      - GEOS-FP
-     - :ref:`gcc-hgrids-nested-025-ru`
+     - `0.25° x 0.3125° RU nested grid <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-3125-ru-nested-grid>`_
    * - South America
      - GEOS-FP
-     - :ref:`gcc-hgrids-nested-0125-sa` [#D]_
+     - `0.125° x 0.15625° SA nested grid <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-15625-sa-nested-grid>`_ [#D]_
    * - South America
      - GEOS-FP
-     - :ref:`gcc-hgrids-nested-025-sa`
+     - `0.25° x 0.3125° SA nested grid <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-3125-sa-nested-grid>`_
 
 .. rubric:: Notes
 
 .. [#A] Winds, pressures, and specific humidity are read at 0.125° x
         0.15625° over the nested Africa domain.  Other met fields are
-        taken from the GEOS-FP  :ref:`gcc-hgrids-nested-025-af` archive.
+        taken from the GEOS-FP  `0.25° x 0.3125° AF nested grid
+	<https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-3125-af-nested-grid>`_
+	archive.
 
 .. [#B] Winds, pressures, and specific humidity are read at 0.125° x
         0.15625° over the nested Asia domain.  Other met fields are
-        taken from the GEOS-FP :ref:`gcc-hgrids-nested-025-as` archive.
+        taken from the GEOS-FP `0.25° x 0.3125° AS nested grid
+	<https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-3125-as-nested-grid>`_
+	archive.
 
 .. [#C] Winds, pressures, and specific humidity are read at 0.125° x
         0.15625° over the nested North America domain.  Other met
         fields are taken from the GEOS-FP
-        :ref:`gcc-hgrids-nested-025-na` archive.
+        `0.25° x 0.3125° NA nested grid
+	<https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-3125-na-nested-grid>`_
+	archive.
 
 .. [#D] Winds, pressures, and specific humidity are read at 0.125° x
         0.15625° over the nested South America domain.  Other met
         fields are taken from the GEOS-FP
-        :ref:`gcc-hgrids-nested-025-sa` archive.
+        `0.25° x 0.3125° SA nested grid
+	<https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#x-0-3125-sa-nested-grid>`_
+	archive.
 
 The data can be accessed by:
 

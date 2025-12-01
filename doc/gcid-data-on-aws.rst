@@ -30,15 +30,17 @@ download.
    Input Data portal:
 
    - NASA/GMAO meteorology fields that have been cropped to the
-     various :ref:`nested grid domains <gcc-hgrids-nested>` may be
-     downloaded from our :ref:`gcid-special-portals-nested`
+     various `nested-grid domains
+     <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#nested-grids>`_
+     may be downloaded from our `GEOS-Chem Nested Input Data
+     <https://geos-chem.readthedocs.io/en/latest/geos-chem-shared-docs/doc/gcid-special-portals.html#geos-chem-nested-input-data>`_
      portal (aka `s3://gcgrid
      <https://gcgrid.s3.amazonaws.com/index.html>`_). |br|
      |br|
 
    - GCAP 2.0 meteorology fields for present & future scenarios may be
-     downloaded from our :ref:`GCAP 2.0 meteorology portal
-     hosted at U. Rochester <gcid-special-portals-gcap2>`.
+     downloaded from our `GCAP 2.0 meteorology portal hosted at U. Rochester
+     <https://geos-chem.readthedocs.io/en/latest/geos-chem-shared-docs/doc/gcid-special-portals.html#gcap-2-0-meteorology-hosted-at-u-rochestergcid-special-portals-gcap2>`_.
 
 .. _gcid-data-org:
 
@@ -101,7 +103,7 @@ Meteorology input data
 .. note::
 
    NASA/GMAO meteorology fields that have been cropped to the
-   various :ref:`nested grid domains <gcc-hgrids-nested>` may be
+   various `nested grid domains <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#nested-gridsgcc-hgrids-nested>`_ may be
    downloaded from our :ref:`gcid-special-portals-nested`
    portal.
 

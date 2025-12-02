@@ -61,7 +61,8 @@ Is_Aerosol
 ----------
 
 Indicates that the species is an aerosol (:literal:`true`), or isn't
-(:literal:`false`).
+(:literal:`false`).  This is used to activate special handling
+for aerosols in dry depositon.
 
 Is_DryAlt
 ---------
@@ -241,10 +242,16 @@ methodology of the GOCART model.
 
 :code:`DD_DvzMinVal` is defined as a two-element vector:
 
-- :code:`DD_DvzMinVal(1)` sets a minimum dry deposition velocity
-  onto snow and ice.
-- :code:`DD_DvzMinVal(2)` sets a minimum dry deposition velocity
-  over land.
+.. list-table::
+   :header-rows: 1
+   :widths: 25 75
+
+   * - Vector element
+     - Description
+   * - :code:`DD_DvzMinVal(1)`
+     - Sets a minimum dry deposition velocity onto snow and ice.
+   * - :code:`DD_DvzMinVal(2)`
+     - Sets a minimum dry deposition velocity over land.
 
 DD_Hstar_Old
 ------------
@@ -577,16 +584,18 @@ Snk_Horiz
 Specifies the horizontal domain of the tracer sink term.  Allowable
 values are:
 
-.. option:: all
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
 
-   The tracer sink term will be applied throughout the entire
-   horizonatal domain of the simulation grid.
-
-.. option:: lat_zone
-
-   The tracer sink term will be applied only within the latitude
-   range specified by :ref:`spcguide-defs-tracer-snk-lats`.
-
+   * - Value
+     - Description
+   * - all
+     - The tracer sink term will be applied throughout the entire
+       horizonatal domain of the simulation grid.
+   * - lat_zone
+     - The tracer sink term will be applied only within the latitude
+       range specified by :ref:`spcguide-defs-tracer-snk-lats`.
 
 .. _spcguide-defs-tracer-snk-lats:
 
@@ -604,24 +613,23 @@ Snk_Mode
 
 Specifies how the tracer sink term will be applied.  Allowable values are:
 
-.. option:: constant
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
 
-   The tracer sink term is a constant value (specified by
-   :ref:`spcguide-defs-tracer-snk-value`).
-
-.. option:: efolding
-
-   The tracer sink term has an e-folding decay constant (specified in
-   :ref:`spcguide-defs-tracer-snk-period`).
-
-.. option:: halflife
-
-   A tracer sink term has a half-life (specified in
-   :ref:`spcguide-defs-tracer-snk-period`).
-
-.. option:: none
-
-   The tracer does not have a sink term.
+   * - Value
+     - Description
+   * - constant
+     - The tracer sink term is a constant value (specified by
+       :ref:`spcguide-defs-tracer-snk-value`).
+   * - efolding
+     - The tracer sink term has an e-folding decay constant (specified in
+       :ref:`spcguide-defs-tracer-snk-period`).
+   * - halflife
+     - The tracer sink term has a half-life (specified in
+       :ref:`spcguide-defs-tracer-snk-period`).
+   * - none
+     - The tracer does not have a sink term.
 
 .. _spcguide-defs-tracer-snk-period:
 
@@ -646,23 +654,23 @@ Snk_Vert
 Specifies the vertical domain of the tracer sink term. Allowable
 values are:
 
-.. option:: all
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
 
-   The tracer sink term will be applied throughout the entire
-   vertical domain of the simulation grid.
-
-.. option:: boundary_layer
-
-   The tracer sink term will only be applied within the planetary
-   boundary layer.
-
-.. option:: surface
-
-   The tracer sink term will only be applied at the surface.
-
-.. option:: troposphere
-
-   The tracer sink term will only be applied within the troposphere.
+   * - Value
+     - Description
+   * - all
+     - The tracer sink term will be applied throughout the entire
+       vertical domain of the simulation grid.
+   * - boundary_layer
+     - The tracer sink term will only be applied within the planetary
+       boundary layer.
+   * - surface
+     - The tracer sink term will only be applied at the surface.
+   * - troposphere
+     - The tracer sink term will only be applied within the
+       troposphere.
 
 .. _spcguide-defs-tracer-src-add:
 
@@ -680,15 +688,18 @@ Src_Horiz
 Specifies the horizontal domain of the tracer source term.
 Allowable values are:
 
-.. option:: all
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
 
-   The tracer source term will be applied across the entire
-   horizontal extent of the simulation grid.
-
-.. option:: lat_zone
-
-   The tracer source term will only be applied within the latitude
-   range specified by :ref:`spcguide-defs-tracer-src-lats`
+   * - Value
+     - Description
+   * - all
+     - The tracer source term will be applied across the entire
+       horizontal extent of the simulation grid.
+   * - lat_zone
+     - The tracer source term will only be applied within the latitude
+       range specified by :ref:`spcguide-defs-tracer-src-lats`
 
 .. _spcguide-defs-tracer-src-lats:
 
@@ -706,28 +717,25 @@ Src_Mode
 
 Describes the type of tracer source term.  Allowable values are:
 
-.. option:: constant
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
 
-   The tracer source term is a constant value (specified by
-   :ref:`spcguide-defs-tracer-src-value`).
-
-.. option:: decay_of_another_species
-
-   The tracer source term comes from the decay of
-   another species (e.g. Pb210 source comes from Rn222 decay).
-
-.. option:: HEMCO
-
-   The tracer source term will be read from a file via HEMCO.
-
-.. option:: maintain_mixing_ratio
-
-   The tracer source term will be calculated as needed
-   to maintain a constant mixing ratio at the surface.
-
-.. option:: none
-
-   The tracer does not have a source term.
+   * - Value
+     - Description
+   * - constant
+     - The tracer source term is a constant value (specified by
+       :ref:`spcguide-defs-tracer-src-value`).
+   * - decay_of_another_species
+     - The tracer source term comes from the decay of
+       another species (e.g. Pb210 source comes from Rn222 decay).
+   * - HEMCO
+     - The tracer source term will be read from a file via HEMCO.
+   * -  maintain_mixing_ratio
+     - The tracer source term will be calculated as needed
+       to maintain a constant mixing ratio at the surface.
+   * - none
+     - The tracer does not have a source term.
 
 .. _spcguide-defs-tracer-src-unit:
 
@@ -737,13 +745,16 @@ Src_Unit
 Specifies the unit of the source term that will be applied to the
 tracer.
 
-.. option:: ppbv
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
 
-   The source term has units of parts per billion by volume.
-
-.. option:: timestep
-
-   The source term has units of per emissions timestep.
+   * - Value
+     - Description
+   * - ppbv
+     - The source term has units of parts per billion by volume.
+   * - timestep
+     - The source term has units of per emissions timestep.
 
 .. _spcguide-defs-tracer-src-value:
 
@@ -761,27 +772,24 @@ Src_Vert
 Specifies the vertical domain of the tracer source term.  Allowable
 values are:
 
-.. option:: all
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
 
-   The tracer source term will be applied throughout the entire
-   vertical domain of the simulation grid.
-
-.. option:: pressures
-
-   The tracer source term will only be applied within the pressure
-   range specified in :ref:`spcguide-defs-tracer-src-pressures`.
-
-.. option:: stratosphere
-
-   The tracer source term will only be applied in the stratosphere.
-
-.. option:: troposphere
-
-   The tracer source term will only be applied in the troposphere.
-
-.. option:: surface
-
-   The tracer source term will only be applied at the surface.
+   * - Value
+     - Description
+   * - all
+     - The tracer source term will be applied throughout the entire
+       vertical domain of the simulation grid.
+   * - pressures
+     - The tracer source term will only be applied within the pressure
+       range specified in :ref:`spcguide-defs-tracer-src-pressures`.
+   * - stratosphere
+     - The tracer source term will only be applied in the stratosphere.
+   * - troposphere
+     - The tracer source term will only be applied in the troposphere.
+   * - surface
+     - The tracer source term will only be applied at the surface.
 
 .. _spcguide-defs-tracer-src-pressures:
 

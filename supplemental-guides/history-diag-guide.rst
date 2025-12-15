@@ -3456,6 +3456,11 @@ quantities that are carried in the State_Met object.
 StateMetLevEdge
 ---------------
 
+.. attention::
+
+   The **LevelEdgeDiags** collection was renamed to
+   **StateMetLevEdge** in GEOS-Chem 14.7.0.
+
 The **StateMetLevEdge** collection contains diagnostics for quantities
 (mostly met fields) that are defined on the vertical edges of each grid
 box. According to the COARDS convention, all of the data variables in a

@@ -4,7 +4,9 @@
 Particulate matter in GEOS-Chem
 ###############################
 
-In this Guide we explain how particulate matter is computed in GEOS-Chem.
+In this Guide we explain how particulate matter (PM) is computed in
+GEOS-Chem 14.7.0 and later versions.  (For PM definitions in versions
+prior to 14.7.0, please see the :ref:`pmguide-previous` section.)
 
 .. _pmguide-pm25:
 
@@ -236,3 +238,37 @@ the PM2.5 and PM10 diagnostic computations were modified accordingly:
 The GEOS-Chem benchmark simulations carry both Simple SOA and Complex
 SOA species, but only the Simple SOA species (SOAS) is included in
 diagnostic output.
+
+.. _pmguide-previous:
+
+==========================================
+PM2.5 and PM10 in older GEOS-Chem versions
+==========================================
+
+GEOS-Chem versions prior to 14.7.0 used 4 bulk dust species (DST1,
+DST2, DST3, DST4) instead of 7.  These versions used the following
+definition for PM2.5:
+
+.. code-block:: text
+
+   PM2.5 = ( NH4 + NIT + SO4 + HMS ) * SIA_GROWTH
+         + BCPI
+         + BCPO
+         + ( OCPO + ( OCPI * ORG_GROWTH ) ) * ( OM/OC ratio )
+         + DST1
+         + ( DST2 * 0.30       )
+         + ( SALA * SSA_GROWTH )
+         + ( SOA  * ORG_GROWTH )
+
+and for PM10:
+
+.. code-block:: text
+
+   PM10 = PM2.5
+        + ( DST2 * 0.7        )
+        + DST3
+        + ( DST4 * 0.9        )
+        + ( SALC * SSA_GROWTH )
+
+The growth factors :literal:`SIA_GROWTH`, :literal:`SSA_GROWTH`, and
+:literal:`ORG_GROWTH` :ref:`are defined above <pmguide-pm25>`.

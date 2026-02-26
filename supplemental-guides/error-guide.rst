@@ -334,12 +334,45 @@ defined as:
    !%%%%% CONVERGENCE CRITERIA %%%%%
 
    ! Absolute tolerance
-   ATOL      = 1e-2_dp
+   ATOL      = State_Chm%KPP_AbsTol
 
    ! Relative tolerance
-   ! Changed to 0.5e-3 to avoid integrate errors by halogen chemistry
-   !  -- Becky Alexander & Bob Yantosca (24 Jan 2023)
-   RTOL      = 0.5e-3_dp
+   RTOL      = State_Chm%KPP_RelTol
+
+The values of :code:`State_Chm%KPP_AbsTol` and
+:code:`State_Chm%KPP_RelTol` that are used to define :code:`ATOL` and
+:code:`RTOL` are read from the :ref:`cfg-spec-db` file in your run
+directory.
+
+For example, if you wish to explicitly define the absolute and relative
+tolerances for BrCl, you would add these YAML tags to the entry for
+BrCl in :ref:`cfg-spec-db`:
+
+.. code-block:: yaml
+
+   BrCl:
+     DD_F0: 0.0
+     DD_Hstar: 9.7e-1
+     Henry_CR: 5600.0
+     Henry_K0: 9.7e-1
+     Formula: BrCl
+     FullName: Bromine chloride
+     Is_Gas: true
+     Is_DryDep: true
+     Is_WetDep: true
+     WD_RetFactor: 0.0
+     Is_Photolysis: true
+     MW_g: 115.45
+     KPP_AbsTol: 0.001  # <-- Use this to define ATOL for BrCl
+     KPP_RelTol: 0.005  # <-- Use this to define RTOL for BrCl
+
+If a species does not have an defined setting for
+:code:`KPP_AbsTol` in :ref:`cfg-spec-db`, it will be assigned the
+default absolute tolerance value :code:`ATOL = 0.01`.
+
+If a species does not have an defined setting for
+:code:`KPP_RelTol` in :ref:`cfg-spec-db`, it will be assigned the
+default relative tolerance value :code:`RTOL = 0.05`.
 
 Convergence errors can occur because the system arrives to a state too
 far from the truth to be able to converge. By tightening
@@ -351,8 +384,8 @@ enabling the chemistry to converge.
 CAVEAT: If the first time step of chemistry cannot converge,
 tightening the tolerances wouldn't work but loosening the tolerance
 would. So you might have to experiment a little bit in order to find
-the proper settings for :literal:`ATOL` and :literal:`RTOL` for your
-specific mechanism.
+the proper species-specific settings for :literal:`ATOL` and
+:literal:`RTOL` for your mechanism.
 
 .. _errguide-runtime-after-tpcore:
 

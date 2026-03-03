@@ -46,6 +46,9 @@ View related documentation
    * - HEMCO
      - GCST
      - `hemco.readthedocs.io <https://hemco.readthedocs.io>`_
+   * - GEOS-Chem on the Cloud
+     - GCST
+     - `geos-chem-cloud.readthedocs.io <https://geos-chem-cloud.readthedocs.io>`_
    * - GCPy (Python toolkit)
      - GCST
      - `gcpy.readthedocs.io <https://gcpy.readthedocs.io>`_

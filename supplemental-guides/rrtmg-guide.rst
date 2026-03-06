@@ -4,9 +4,9 @@
 
 .. _rrtmg-guide:
 
-##############################
-RRTMG radiative transfer model
-##############################
+#############################
+Radiative transfer with RRTMG
+#############################
 
 On this page we provide information about the coupling of GEOS-Chem
 with the `RRTMG radiative transfer model
@@ -19,13 +19,12 @@ Overview
 ========
 
 The GEOS-Chem model with online radiative transfer calculations
-(referred to as GCRT) was developed to allow GEOS-Chem users to
-produce gas and aerosol direct radiative effect (DRE) output for both
-the longwave and shortwave. This alternative to offline coupling
-allows better temporal resolution in the RT calculations and provides
-a consistent platform for  GEOS-Chem users with the widely used
-radiative transfer package `RRTMG
-<http://rtweb.aer.com/rrtm_frame.html>`_.
+was developed to allow GEOS-Chem users to produce gas and aerosol
+direct radiative effect (DRE) output for both the longwave and
+shortwave. This alternative to offline coupling allows better temporal
+resolution in the RT calculations and provides a consistent platform
+for  GEOS-Chem users with the widely used radiative transfer package
+`RRTMG <http://rtweb.aer.com/rrtm_frame.html>`_.
 
 Most of the added code is 'transparent', therefore this version of the
 GEOS-Chem model can still be run with the radiation code switched
@@ -45,7 +44,7 @@ Authors and collaborators
 
 .. list-table::
    :header-rows: 1
-   :align: center
+   :align: left
 
    * - Author or Collaborator
      - Institution
@@ -118,8 +117,8 @@ Available species
 The species available for output from the flux calculations are as follows:
 
 .. list-table::
-   :widths: 10 15 30
    :header-rows: 1
+  
 
    * - #
      - Abbreviation

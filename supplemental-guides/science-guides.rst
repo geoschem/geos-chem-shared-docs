@@ -1,19 +1,16 @@
-.. _gc-science-guides:
+.. _science-guides:
 
-######################################
-GEOS-Chem Classic scientific reference
-######################################
+#######################
+Science Guides overview
+#######################
 
 The following supplemental guides document the science algorithms and
-data used in GEOS-Chem Classic.  Much of this information has been migrated
+data used in GEOS-Chem.  Much of this information has been migrated
 here from the GEOS-Chem wiki.
 
-.. toctree::
-   :maxdepth: 1
-
-   aer-thermodyn-equilib.rst	      
-   cloud-convection.rst
-   photolysis.rst
-   physical-constants.rst
-   pm25-pm10-guide.rst
-   rrtmg-guide.rst
+- :ref:`ate-guide`
+- :ref:`cloud-conv-guide`
+- :ref:`photolysis-guide`
+- :ref:`phys-consts-guide`
+- :ref:`pmguide`
+- :ref:`rrtmg-guide`

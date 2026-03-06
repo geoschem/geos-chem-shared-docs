@@ -1,4 +1,4 @@
-.. _phys-consts:
+.. _phys-consts-guide:
 
 ##################
 Physical constants

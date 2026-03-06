@@ -1,4 +1,4 @@
-.. _cloud-conv:
+.. _cloud-conv-guide:
 
 ################
 Cloud convection
@@ -11,11 +11,27 @@ deposition
 wiki page, which contains information about the algorithms used for
 scavenging of soluble tracers.
 
-.. _cloud-conv-ras:
+.. _cloud-conv-guide-gf:
 
-===============================
-Relaxed Arakawa-Schubert scheme
-===============================
+=========================
+Grell-Freitas (GF) scheme
+=========================
+
+GEOS-Chem uses the Grell-Freitas (GF) convection scheme when being
+driven by `GEOS-IT
+<https://wiki.seas.harvard.edu/geos-chem/index.php?title=GEOS-IT>`_
+meteorology (for all dates) and `GEOS-FP
+<https://wiki.seas.harvard.edu/geos-chem/index.php?title=GEOS-FP>`_
+meteorology (for dates on or after 01 June 2020). The source code for
+this scheme is located in the :code:`DO_GF_CLOUD_CONVECTION` routine in
+:file:`GeosCore/convection_mod.F90` (see `GitHub source
+<https://github.com/geoschem/geos-chem/blob/3671d504cab09196ee960447a361b36ec41fe926/GeosCore/convection_mod.F90#L1388-L2237>`_).
+
+.. _cloud-conv-guide-ras:
+
+=====================================
+Relaxed Arakawa-Schubert (RAS) scheme
+=====================================
 
 The Relaxed Arakawa-Schubert (RAS) convection scheme is used in
 GEOS-Chem when driven by `GEOS-FP
@@ -27,11 +43,6 @@ located in the :code:`DO_RAS_CLOUD_CONVECTION` routine in
 :file:`GeosCore/convection_mod.F90`
 (see `GitHub source
 <https://github.com/geoschem/geos-chem/blob/3671d504cab09196ee960447a361b36ec41fe926/GeosCore/convection_mod.F90#L408-L1387>`_).
-
-.. _cloud-conv-ras-overview:
-
-RAS Overview
--------------
 
 From Section 2, paragraph 10 of `Wu et al., [2007]
 <https://drive.google.com/file/d/1S6T40p8IjTAgS7YuZDjcBvGWtMst4PJY/view?usp=drive_link>`_:
@@ -58,22 +69,19 @@ Section 1 of   `Jacob et al [2000]
 <http://acmg.seas.harvard.edu/geos/wiki_docs/deposition/wetdep.jacob_etal_2000.pdf>`_
 and in Section 2.3.1 of Liu et al., [2001].
 
-.. _cloud-conv-ras-validation:
-
-RAS Validation
---------------
-
-See `Bey et al., [2001]
+For information about validation of the RAS convective scheme in
+GEOS-Chem, see `Bey et al., [2001]
 <https://drive.google.com/file/d/1T8NnbiPE9VWXJxuUsNrKzZfNvu10yw7W/view?usp=drive_link>`_,
 `Liu et al., [2001]
 <https://drive.google.com/file/d/1aLluvIsa5ftkw0A47Gz1FUlyvanxUjDM/view?usp=drive_link>`_, and
 `Wu et al., [2007]
 <https://drive.google.com/file/d/1S6T40p8IjTAgS7YuZDjcBvGWtMst4PJY/view?usp=drive_link>`_.
 
-.. _cloud-conv-ras-references:
+.. _cloud-conv-guide-references:
 
-RAS References
---------------
+==========
+References
+==========
 
 #. Allen, D.J, R.B. Rood, A.M. Thompson, and R.D. Hidson, *Three
    dimensional* :sup:`222`\ *Rn calculations using assimilated data and a convective mixing algorithm*, J. Geophys. Res, 101, 6871-6881, 1986a.
@@ -92,6 +100,11 @@ RAS References
    for long-term climate studies: The GISS scheme, in The
    Representation of Cumulus Convection in Numerical Models*,
    Meteorol. Monogr., 46, 181–184, 1993.
+
+#. `GEOS-FP Convection Change (June 2020-onward) can have large
+   impacts on surface concentrations #1409
+   <https://github.com/geoschem/geos-chem/issues/1409>`_ at the
+   GEOS-Chem Github repository
 
 #. Hack, J.J., *Parameterization of moist convection in the National
    Center for Atmospheric Research Community Climate Model (CCM2)*,
@@ -123,29 +136,3 @@ RAS References
    simulations to the parameterization of cumulus  convection in the
    Canadian Climate Centre general circulation model*,
    Atmos. Ocean, 33 (3), 407–446, 1995.
-
-.. _cloud-conv-gf:
-
-====================
-Grell-Freitas scheme
-====================
-
-GEOS-Chem uses the Grell-Freitas (GF) convection scheme when being
-driven by `GEOS-IT
-<https://wiki.seas.harvard.edu/geos-chem/index.php?title=GEOS-IT>`_
-meteorology (for all dates) and `GEOS-FP
-<https://wiki.seas.harvard.edu/geos-chem/index.php?title=GEOS-FP>`_
-meteorology (for dates on or after 01 June 2020). The source code for
-this scheme is located in the `DO_GF_CLOUD_CONVECTION` routine in
-:file:`GeosCore/convection_mod.F90` (see `GitHub source
-<https://github.com/geoschem/geos-chem/blob/3671d504cab09196ee960447a361b36ec41fe926/GeosCore/convection_mod.F90#L1388-L2237>`_).
-
-.. _cloud-conv-gf-references:
-
-GF References
--------------
-
-#. `GEOS-FP Convection Change (June 2020-onward) can have large
-   impacts on surface concentrations #1409
-   <https://github.com/geoschem/geos-chem/issues/1409>`_ at the
-   GEOS-Chem Github repository

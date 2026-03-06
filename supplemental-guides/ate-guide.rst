@@ -1,7 +1,7 @@
 .. _ate-guide:
 
 ###################################
-Aerosol Thermodynamical Equilibrium
+Aerosol thermodynamical equilibrium
 ###################################
 
 This guide describes the aerosol thermodynamical equilbrium codes that

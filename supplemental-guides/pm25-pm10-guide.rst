@@ -1,8 +1,8 @@
 .. _pmguide:
 
-###############################
-Particulate matter in GEOS-Chem
-###############################
+##################
+Particulate matter
+##################
 
 In this Guide we explain how particulate matter (PM) is computed in
 GEOS-Chem 14.7.0 and later versions.  (For PM definitions in versions

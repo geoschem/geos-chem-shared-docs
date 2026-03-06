@@ -1,13 +1,12 @@
 .. _phys-consts:
 
-###############################
-Physical constants in GEOS-Chem
-###############################
+##################
+Physical constants
+##################
 
-Prior and updated values of global physical constants in
-:file:`Headers/physconstants.F90` are listed in the table below. All
-values use flexible precision and are therefore double-precision
-unless compiling with single-precision enabled.
+Prior and updated values of global physical constants used in
+GEOS-Chem are listed in the table below.  These constants are located
+in the source code file :file:`Headers/physconstants.F90`.
 
 .. list-table:: Physical Constants in GEOS-Chem
    :header-rows: 1

@@ -276,7 +276,7 @@ aerosol direct RF (DRF).
 
 A more recent comparison of DRF values (clear sky vs. all sky) based on
 GEOS-Chem/APM with those of other AeroCom models (discussion version of
-:cite:t:`*Myhre_et_al._2013` indicates that CCCMa RF code may have
+:cite:t:`Myhre_et_al._2013` indicates that CCCMa RF code may have
 underestimated the impacts of clouds on radiation. We found out that the
 underestimation is likely associated with the cloud overlapping
 assumption. The version of CCCMa RF code we integrated into GEOS-Chem
@@ -292,21 +292,21 @@ Transfer Model for GCMs (RRTMG) (:cite:t:`Mlawer_et_al._1997`;
 GEOS-Chem/APM.
 
 RRTMG, which contains the McICA scheme, is a broadband k-distribution
-radiation model (*Mlawer et al.*, 1997; :cite:t:`Iacono_et_al._2003`;
-:cite:t:`Iacono_et_al._2008`) that has been widely used in community
-models (such as WRF, CAM5, etc.). The RRTMG for shortwave (SW) (used
-in this study) can calculate fluxes and heating rates over 14
-contiguous shortwave bands (:math:`820 - 50000 cm^{-1}`, or
-:math:`0.2 - 12.20 \mu m`). The individual band ranges (in
-wavenumbers, :math:`cm^{-1}`)  are: 2600-3250, 3250-4000, 4000-4650,
-4650-5150, 5150-6150, 6150-7700, 7700-8050, 8050-12850, 
+radiation model (:cite:t:`Mlawer_et_al._1997`;
+:cite:t:`Iacono_et_al._2003`; :cite:t:`Iacono_et_al._2008`) that has
+been widely used in community models (such as WRF, CAM5, etc.). The
+RRTMG for shortwave (SW) (used in this study) can calculate fluxes and
+heating rates over 14 contiguous shortwave bands (:math:`820 - 50000
+cm^{-1}`, or :math:`0.2 - 12.20 \mu m`). The individual band ranges
+(in wavenumbers, :math:`cm^{-1}`)  are: 2600-3250, 3250-4000,
+4000-4650, 4650-5150, 5150-6150, 6150-7700, 7700-8050, 8050-12850, 
 12850-16000, 16000-22650, 22650-29000, 29000-38000, 38000-50000, and
 820-2600, with the last band coded out of sequence to preserve
 spectral continuity with the longwave bands.
 
 GEOS-Chem/APM-RRTMG results have been included into the final manuscript
 on radiative forcing of the direct aerosol effect from AeroCom Phase II
-simulations (:cite:t:`*Myhre_et_al.,_2013`) and another manuscript on
+simulations (:cite:t:`Myhre_et_al._2013`) and another manuscript on
 host model uncertainties in aerosol radiative forcing estimates
 (:cite:t`Stier_et_al._2013`). GEOS-Chem/APM-RRTMG has also been
 employed to study the first aerosol indirect radiative forcing
@@ -370,10 +370,10 @@ AEROCOM OA intercomparison. We also managed to submit AOD, AAOD, aerosol
 direct radiative forcing results to AeroCom in September 2011. The
 results have been in the following papers:
 
-- Aerosol direct radiative forcing (:cite:t:`*Myhre_et_al._2013`, 2013)
+- Aerosol direct radiative forcing (:cite:t:`Myhre_et_al._2013`, 2013)
 - Host model uncertainties in aerosol radiative forcing estimates
   (:cite:t:`Stier_et_al._2013`)
-- Aerosol microphysics (:cite:t:`*Mann_et_al._2014`)
+- Aerosol microphysics (:cite:t:`Mann_et_al._2014`)
 - Aerosol organics (:cite:t:`Tsigaridis_et_al._2014`)
 
 .. _apmguide-community:
@@ -384,14 +384,5 @@ APM in other community models
 
 The same APM model initially developed for GEOS-Chem
 (:cite:t:`Yu_and_Luo_2009`) has been incorporated into WRF-Chem
-(:cite:t:`Luo_and_Yu_2011`). GEOS-Chem/APM results provide initial and
+(:cite:t:`Luo_and_Yu_2011a`). GEOS-Chem/APM results provide initial and
 boundary conditions for WRF-Chem/APM simulations.
-
-.. _apmguide-references:
-
-==========
-References
-==========
-
-.. bibliography:: ../biblio/apm-guide.bib
-   :cited:

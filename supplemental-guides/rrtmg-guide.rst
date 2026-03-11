@@ -36,6 +36,8 @@ Compiling with :command:`-DRRTMG=y` requires approximately double the
 amount of RAM and takes between 40% and 100% longer depending on the
 settings used.
 
+**Reference**: :cite:t:`Heald_et_al._2014`
+
 .. _rrtmg-guide-authors:
 
 =========================
@@ -348,17 +350,3 @@ Settings in HISTORY.rc
                                  'RadAsymWL1_PM         ',
                                  #'RadAsymWL1_ST         ',
 
-
-.. _rrtmg-guide-references:
-
-==========
-References
-==========
-
-#. Heald, C.L., D.A. Ridley, J.H. Kroll, S.R.H. Barrett,
-   K.E. Cady-Pereira, M.J. Alvarado, C.D. Holmes, *Beyond Direct
-   Radiative Forcing: The Case for Characterizing the Direct
-   Radiative Effect of Aerosols*, Atmos. Chem. Phys., 14,
-   5513-5527,  doi:10.5194/acp-14-5513-2014, 2014.
-   (`Article
-   <http://www.atmos-chem-phys.net/14/5513/2014/acp-14-5513-2014.html>`_)

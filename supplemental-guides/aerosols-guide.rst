@@ -219,12 +219,3 @@ Computing PM2.5 concentrations from GEOS-Chem output
 
 For information on how to compute particulate matter (PM2.5) from
 GEOS-Chem diagnostic outputs, please see our :ref:`pmguide` Guide.
-
-.. _aerguide-references:
-
-==========
-References
-==========
-
-.. bibliography:: ../biblio/aerosols-guide.bib
-   :cited:

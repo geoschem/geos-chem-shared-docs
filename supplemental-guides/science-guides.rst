@@ -10,6 +10,7 @@ here from the GEOS-Chem wiki.
 
 - :ref:`apmguide`
 - :ref:`ate-guide`
+- :ref:`aerguide`
 - :ref:`cloud-conv-guide`
 - :ref:`pblguide`
 - :ref:`photolysis-guide`

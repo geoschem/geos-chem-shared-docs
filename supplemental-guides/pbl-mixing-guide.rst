@@ -46,7 +46,7 @@ The VDIFF scheme is the default PBL mixing scheme in GEOS-Chem.  To
 use VDIFF, make sure you have the following settings in your
 :ref:`cfg-gc-yml` file.
 
-.. code-block:: none
+.. code-block:: yaml
 
    pbl_mixing:
      activate: true
@@ -56,13 +56,13 @@ Description
 -----------
 
 Jintai Lin implemented a non-local PBL mixing scheme into
-GEOS-Chem. It is a non-local scheme formulated by *Holtslag and
-Boville* (1993). Unlike the full mixing assumption where emissions,
-dry depositions and concentrations of individual species are evenly
-distributed in the PBL (the depth of which being taken from
-meteorological datasets such as GEOS-FP), the non-local scheme
-considers different states of mixing within the PBL as determined by
-the static instability.
+GEOS-Chem. It is a non-local scheme formulated by
+:cite:t:`Holtslag_and_Boville_1993`. Unlike the full mixing assumption
+where emissions,dry depositions and concentrations of individual
+species are evenly distributed in the PBL (the depth of which being
+taken from meteorological datasets such as GEOS-FP), the non-local
+scheme considers different states of mixing within the PBL as
+determined by the static instability.
 
 - In the case of a **stable PBL** (e.g., at night), the scheme reduces
   to the well-known local scheme based on K-theory, and the derived
@@ -77,8 +77,8 @@ the static instability.
 The non-local scheme has been shown to simulate mixing of
 meteorological parameters and chemical tracers reasonably well under
 various PBL conditions, and is more realistic than the assumption of a
-fully mixed PBL. Analysis of the two schemes is conducted by Lin et
-al. (2008, AE) and Lin et al. (2010, AE).
+fully mixed PBL. Analysis of the two schemes is conducted by
+:cite:t:`Lin_et_al._2008` and :cite:t:`Lin_and_McElroy_2010`.
 
 How the non-local scheme works: it first calculates the PBL depth,
 then the eddy diffusivity (:math:`K`) for tracers. :math:`K` is used
@@ -92,13 +92,13 @@ PBL height; this option is available in the code
 Validation
 ----------
 
-See *Lin & McElroy*, 2010 in the :ref:`references` section below.
+See :cite:t:`Lin_and_McElroy_2010`.
 
 .. _pblguide-turbday:
 
-=======
-TURBDAY
-=======
+=========================
+TURBDAY (full PBL mixing)
+=========================
 
 The TURBDAY mixing scheme was formerly the default mixing scheme in
 GEOS-Chem but is now optional.  It can be used with all of the
@@ -106,10 +106,17 @@ different types of meteorological fields (GEOS-FP, MERRA-2, GEOS-IT,
 GISS/GCAP2).
 
 To use TURBDAY, make sure you have the following settings in your
-``input.geos`` file :
+:ref:`cfg-gc-yml` file.
 
-#. The updated concentrations for each tracer N at grid boxes (I,J,L) underneath the PBL
-   top are computed as:
+.. code-block:: yaml
+
+   pbl_mixing:
+     activate: true
+     use_non_local_pbl: false
+
+
+The updated concentrations for each tracer N at grid boxes (I,J,L)
+underneath the PBL top are computed as:
 
 .. code-block:: none
 
@@ -132,8 +139,7 @@ To use TURBDAY, make sure you have the following settings in your
 Validation
 ----------
 
-See *Bey et al* [2001] and *Wu et al* [2007] in the :ref:`references`
-section below.
+See :cite:t:`Bey_et_al._2001` and :cite:t:`Wu_et_al._2007`.
 
 .. _pblguide-pblh:
 
@@ -155,47 +161,8 @@ sharply restricts mixing between the PBL and the free troposphere.
 After sunrise, surface heating erodes the stable residual layer from
 below, producing an **unstable mixed layer** that grows over the
 morning hours to eventually reach the full depth of the PBL. See
-Brasseur and Jacob (2016) for this discussion and illustrations. When
-discussing PBL height in terms of mixing, what is actually meant is
-the mixed layer--- and that is what is calculated by the online PBLH
-(mixed layer) computation in Holtslag and Boville (1993) or in the
-NASA GEOS model.
-
-.. _pblguide-references:
-
-==========
-References
-==========
-
-#. Bey, I., D. J. Jacob, R. M. Yantosca, J. A. Logan, B. Field,
-   A. M. Fiore, Q. Li, H. Liu, L. J. Mickley,   
-   and M. Schultz, *Global modeling of tropospheric chemistry with 
-   assimilated meteorology: Model description and
-   evaluation*, J. Geophys. Res., **106**, 23,073–23,096, 2001. `[PDF]
-   <http://acmg.seas.harvard.edu/publications/2001/bey2001a.pdf>`_
-
-#. Canuto, V. M., *Large-eddy simulation of turbulence: A subgrid
-   scale model including shear, vorticity, rotation and buoyancy*,
-   Astrophys. J., **428**, 729–752, 1994.
-
-#. Canuto, V. M., A. Howard, Y. Cheng, and M. S. Dubovikov, *Ocean
-   turbulence, part I: One-point closure model — Momentum and heat
-   vertical diffusivities*, J. Phys. Ocean., **31**, 1413–1426, 2001.
-
-#. Holtslag, A. A. M., and B. Boville, *Local versus nonlocal boundary
-   layer diffusion in a global climate model*, J. Clim., **6**,
-   1825–1842, 1993. 
-
-#. Lin, J.-T., D. Youn, X.-Z. Liang, and D. J. Wuebbles, *Global model
-   simulation of summertime U.S. ozone diurnal cycle and its
-   sensitivity to PBL mixing, spatial resolution, and emissions*,
-   Atmos. Environ., `doi:10.1016/j.atmosenv.2008.08.012
-   <https://www.sciencedirect.com/science/article/pii/S1352231008007510>`_,
-   2008.
-
-#. Lin, J.-T., and M. McElroy, *Impacts of boundary layer mixing on
-   pollutant vertical profiles in the lower troposphere: Implications
-   to satellite remote sensing*, Atmos. Environ.,
-   `doi:10.1016/j.atmosenv.2010.02.009
-   <http://acmg.seas.harvard.edu/publications/2009/jlin5_2009_AE_1.pdf>`_,
-   2010. 
+:cite:t:`Jacob_and_Brasseur_2016` for this discussion and
+illustrations. When discussing PBL height in terms of mixing, what is
+actually meant is the mixed layer--- and that is what is calculated by
+the online PBLH (mixed layer) computation in
+:cite:t:`Holtslag_and_Boville_1993` or in the NASA GEOS model.

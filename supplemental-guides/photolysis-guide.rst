@@ -51,11 +51,10 @@ Fast-JX
 =======
 
 Sebastian Eastham implemented FAST-JX v7.0a into GEOS-Chem v10-01.  As
-described in `Eastham et al. (2014)
-<https://doi.org/10.1016/j.atmosenv.2014.02.001>`_:
+described in :cite:t:`Eastham_et_al._2014`:
 
    GEOS-Chem uses a customized version of the FAST-JX v6.2 photolysis
-   mechanism (Wild et al., 2000), which efficiently estimates
+   mechanism (:cite:t:`Wild_et_al._2000`), which efficiently estimates
    tropospheric photolysis. The customized version uses the wavelength
    bands from the older Fast-J tropospheric photolysis scheme and does
    not consider wavelengths shorter than 289 nm, assuming they are
@@ -94,24 +93,3 @@ FAST-JX is still used by the GEOS-Chem :ref:`hg-sim`.
 - Michael Prather (UC Irvine)
 - Oliver Wild (formerly UC Irvine)
 - Sebastian Eashtam (formerly MIT)
-
-.. _photolysis-guide-references:
-
-==========
-References
-==========
-
-#. `Cloud-J README file on GitHub <https://github.com/geoschem/Cloud-J/blob/main/README.md>`_
-#. Eastham, S.D., D.K. Weisenstein, Steven R.H. Barrett, *Development
-   and evaluation of the unified tropospheric–stratospheric chemistry
-   extension (UCX) for the global chemistry-transport model
-   GEOS-Chem*, Atmos. Env., 39, 52-63,
-   `doi:10.1016/j.atmosenv.2014.02.001
-   <https://doi.org/10.1016/j.atmosenv.2014.02.001>`_, 2014.
-#. `History of the Fast-J and FAST-JX photolysis codes
-   <https://github.com/geoschem/cloud-j/blob/main/docs/History_of_Fast-J_photolysis_code.md>`_
-#. Wild, O., Zhu, X. & Prather, M.J. *Fast-J: Accurate Simulation of
-   In- and Below-Cloud Photolysis in Tropospheric Chemical
-   Models*, Journal of Atmospheric Chemistry 37, 245–282,
-   `doi:10.1023/A:1006415919030
-   <https://doi.org/10.1023/A:1006415919030>`_ 2000.

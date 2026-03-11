@@ -44,8 +44,7 @@ approved by the `Aerosols Working Group
 The OA changes at both RH, and the SIA change at 50% RH are
 straightforward changes to yield consistency between with the current
 Kappa-Kohler hygroscopicity parameterization in GEOS-Chem based on
-`Latimer and Martin
-[2019] <https://acp.copernicus.org/articles/19/2635/2019/>`_.
+:cite:t:`Latimer_and_Martin_2019`.
 
 The SIA recommendation at 35% RH is less certain since it depends on
 the efflorescence RH of the SIA in the aerosol mixture under the

@@ -52,15 +52,7 @@ From the abstract to Miller et al, [2024]:
    considered in the solver and is provided as open-source Fortran
    shareware.
 
-**Reference**
-
-- Miller, S.J, P.A. Makar, and C.J. Lee, *HETerogeneous vectorized or
-  Parallel (HETPv1.0): an updated inorganic heterogeneous chemistry
-  solver for the metastable-state
-  NH4+–Na+–Ca2+–K+–Mg2+–SO42−–NO3−–Cl−–H2O system based on ISORROPIA
-  II*, Geosci. Model Dev., 17, 6, 2197-2219,
-  `doi:10.5194/gmd-17-2197-2024
-  <https://gmd.copernicus.org/preprints/gmd-2023-159/>`_ , 2024.
+**Reference**: :cite:t:`Miller_et_al._2024`
 
 .. _ate-guide-isorropia:
 
@@ -69,21 +61,8 @@ ISORROPIA II
 ============
 
 :program:`ISORROPIAII` is an updated version of the original ISORROPIA
-scheme [Fountoukis and Nenes, 2007], whose implementation into
-GEOS-Chem is described by Pye et al., [2009].
+scheme :cite:t:`Fountoukis_and_Nenes_2007`, whose implementation into
+GEOS-Chem is described by :cite:t:`Pye_et_al._2009`.
 
 ISORROPIA II was retired in GEOS-Chem 14.4.0, when it was replaced by
 :ref:`HetP <ate-guide-hetp>`.
-
-**References**
-
-- Fountoukis, C., and A. Nenes *ISORROPIA II: A computationally
-  efficient thermodynamic equilibrium model for
-  K+-Ca2+-Mg2+-NH4+-Na+-SO42-NO3-Cl-H2O aerosols*, Atmos. Chem. Phys.,
-  7(17), 4639-4659., 2007.
-- Pye, H. O. T., H. Liao, S. Wu, L. J. Mickley, D. J.Jacob, D. K. Henze,
-  and J. H. Seinfeld, *Effect of changes in climate and emissions on
-  future sulfate-nitrate-ammonium aerosol levels in the United
-  States*, J. Geophys. Res., 114, D01205, `doi:10.1029/2008JD010701
-  <https://drive.google.com/file/d/1xB0xfZ20fD-i9tMSZPALmlKdocXdmDk7/view>`_,
-  2009.

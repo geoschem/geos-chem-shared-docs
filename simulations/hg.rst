@@ -10,7 +10,7 @@ Hg (mercury) simulation
 Overview
 ========
 
-From the abstract to Shah et al. 2021:
+From the abstract to :cite:t:`Shah_et_al._2021`:
 
    We present a new chemical mechanism for HgO, HgI/HgII atmospheric
    cycling, including recent laboratory and computational data, and
@@ -34,12 +34,7 @@ From the abstract to Shah et al. 2021:
    include Br concentrations, stability and reactions of HgI, and
    speciation and photoreduction of HgII in aerosols and clouds.
 
-**Reference**: Shah, V., D.J. Jacob, C.P. Thackray, X. Wang, E.M. Sunderland,
-T.S. Dibble, A. Saiz-Lopez, I. Cernusak, V. Kello, P.J. Castro, R. Wu,
-and C. Wang, `Improved mechanistic model of the atmospheric redox
-chemistry of mercury`, Environ. Sci. Technol., 55, 14445-14456, 2021,
-DOI: `10.1021/acs.est.1c03160
-<https://doi.org/10.1021/acs.est.1c03160>`_
+**Reference**: :cite:t:`Shah_et_al._2021`.
 
 .. _hg-sim-species:
 

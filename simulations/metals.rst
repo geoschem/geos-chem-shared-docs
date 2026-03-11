@@ -10,7 +10,7 @@ Metals simulation
 Overview
 ========
 
-From the abstract of Xu et al. [2019]:
+From the abstract of :cite:t:`Xu_et_al._2019`:
 
    Trace metal distributions are of relevance to understand sources of
    fine particulate matter (PM2.5), PM2.5-related health effects, and
@@ -41,12 +41,7 @@ From the abstract of Xu et al. [2019]:
    versus observations by more than 80%, potentially reflecting
    missing sources.
 
-**Reference** Xu, J.-W., R.V. Martin, B.H. Henderson, J. Meng,
-Y.B. Oztaner, J.L. Hand, A. Hakami, M. Strum, and S.B. Phillips, `Simulation of
-airborne trace metals in fine particulate matter over North America`,
-Atmos. Environ., 214, 116883, 2019,  DOI:
-`10.1016/j.atmosenv.2019.116883
-<https://doi.org/10.1016/j.atmosenv.2019.116883>`_
+**Reference**: :cite:t:`Xu_et_al._2019`:
 
 .. _ metals-sim-species:
 

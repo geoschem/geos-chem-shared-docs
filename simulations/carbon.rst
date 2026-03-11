@@ -20,10 +20,7 @@ The individual CH4, CO2, and Tagged CO simulations were removed in
 GEOS-Chem 14.7.0.  These simulations have been superseded by the
 carbon gases simulation.
 
-**Reference**:  Bukosa, B., Fisher, J., Deutscher, N., and Jones, D. A
-Coupled CH4, CO and CO2 Simulation for Improved Chemical Source
-Modelling. Atmosphere, 14:764, 2023, DOI: `10.3390/atmos14050764
-<https://doi.org/10.3390/atmos14050764>`_.
+**Reference**: :cite:t:`Bukosa_et_al._2023`
 
 ===============
 List of species

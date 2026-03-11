@@ -12,28 +12,27 @@ This Guide describes photolysis mechansims used by GEOS-Chem.
 Cloud-J
 =======
 
-:program:`Cloud-J` is a multi-scattering eight-stream radiative
+:program:`Cloud-J` (:cite:t:`Prather_2015`) is a multi-scattering eight-stream radiative
 transfer model for solar radiation based on the older Fast-J scheme.
 It was introduced into GEOS-Chem in 14.3.0.
 
 From `History of the Fast-J and FAST-JX photolysis codes
 <https://github.com/geoschem/cloud-j/blob/main/docs/History_of_Fast-J_photolysis_code.md>`_:
 
-   Cloud-J version 7.3c (Prather 2015) now supersedes
-   :ref:`photolysis-guide-fastjx`, and all new development for
-   photolysis rates, whether in the Fast-JX core modules or the
-   Cloud-J wrapper, will follow this notation....Cloud-J developed a
-   new algorithm for cloud overlap based on the vertical decorrelation
-   observed: Blocks of clouds in the altitude ranges 0-1.5 km,
-   1.5–3.5, 3.5–6, 6–9, 9–13, and >13 km are maximally overlapped
-   while each block is de-correlated from the one below. Cloud-J also
-   developed a fast code to completely define all independent column
-   atmospheres (ICAs) for a range of cloud overlap rules. Other minor
-   changes included the shift of the end of bin 18 from 850 nm to 778
-   nm to match the infrared bands of the solar heating code
-   RRTMG-SW. Also, solar fluxes and cross-sections changed slightly
-   with the updated solar spectrum reference data and improved
-   averaging over wavelength, but changes in J's and any of the
+   Cloud-J version 7.3c now supersedes :ref:`photolysis-guide-fastjx`,
+   and all new development for photolysis rates, whether in the
+   Fast-JX core modules or the Cloud-J wrapper, will follow this
+   notation....Cloud-J developed a new algorithm for cloud overlap
+   based on the vertical decorrelation observed: Blocks of clouds in
+   the altitude ranges 0-1.5 km, 1.5–3.5, 3.5–6, 6–9, 9–13, and >13 km
+   are maximally overlapped while each block is de-correlated from the
+   one below. Cloud-J also developed a fast code to completely define
+   all independent column atmospheres (ICAs) for a range of cloud
+   overlap rules. Other minor changes included the shift of the end of
+   bin 18 from 850 nm to 778 nm to match the infrared bands of the
+   solar heating code RRTMG-SW. Also, solar fluxes and cross-sections
+   changed slightly with the updated solar spectrum reference data and
+   improved averaging over wavelength, but changes in J's and any of the 
    Cloud-J stats are <1% and usually <<1%.
 
 Cloud-J is the photolyis scheme used by all GEOS-Chem :ref:`fullchem

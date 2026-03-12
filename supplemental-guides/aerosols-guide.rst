@@ -10,10 +10,8 @@ Aerosol types
 Carbonaceous aerosols
 =====================
 
-`Park et al,
-[2003]
-<http://acmg.seas.harvard.edu/publications/2002/2002JD003190.pdf>`_
-describes the original formulation of carbonaceous aerosols in GEOS-Chem:
+**Reference**: :cite:t:`Park_et_al._2003`.  This paper describes the
+original formulation of carbonaceous aerosols in GEOS-Chem:
 
    The simulation of carbonaceous aerosols in GEOS-Chem follows that of
    the Georgia Tech/Goddard Global Ozone Chemistry Aerosol Radiation and
@@ -80,6 +78,314 @@ such as:
    secondary organic aerosol species to the simulation.
 #. Anthropogenic emissions of EC and OC now come from the CEDS
    inventory.
+
+.. _aerguide-dust:
+
+=============
+Dust aerosols
+=============
+
+.. _aerguide-dust-dustl23m:
+
+The DustL23M mobilization scheme
+--------------------------------
+
+**Reference:** :cite:t:`Zhang_et_al._2025`.  From the abstract:
+
+    Accurate representation of mineral dust remains a challenge for
+    global air quality or climate models due to inadequate
+    parametrization of the emission scheme, removal mechanisms, and
+    size distribution. While various studies have constrained aspects
+    of dust emission fluxes and/or dust optical depth, annual mean
+    surface dust concentrations still vary by factors of 5–10 among
+    models. In this study, we focus on improving the annual simulation
+    of fine dust in the GEOS-Chem chemical transport model, leveraging
+    recent mechanistic understanding of dust source and removal, and
+    reconciling the size differences between models and ground-based
+    measurements. Specifically, we conduct sensitivity simulations
+    using GEOS-Chem in its high performance configuration (GCHP)
+    version 14.4.1 to investigate the effects of mechanism or
+    parameter updates on annual mean concentrations. The results are
+    evaluated by comparisons versus Deep Blue satellite-based aerosol
+    optical depth (AOD) and AErosol RObotic NETwork (AERONET)
+    ground-based AOD for total column abundance, and versus the
+    Surface Particulate Matter Network (SPARTAN) for novel
+    measurements of surface PM2.5 dust concentrations. Reconciling
+    modelled geometric diameter versus measured aerodynamic diameter
+    is important for consistent comparison. The two-fold
+    overestimation of surface fine dust in the standard model is
+    alleviated by 39 % without degradation of total column abundance
+    by implementing a new physics-based dust emission scheme with
+    better spatial distribution. Further reduction by 20 % of the
+    overestimation of surface PM2.5 dust is achieved through reducing
+    the mass fraction of emitted fine dust based on the brittle
+    fragmentation theory, and explicit tracking of three additional
+    fine mineral dust size bins with updated parametrization for
+    below-cloud scavenging. Overall, these developments reduce the
+    normalized mean difference against surface fine dust measurements
+    from SPARTAN from 94 % to 35 %, while retaining comparable skill
+    of total column abundance against satellite and ground-based AOD.
+
+.. _aerguide-dust-dustl23m-validation:
+
+Validation
+~~~~~~~~~~
+
+Dandan Zhang wrote:
+
+    I have inspected the implementation of 7 dust bins and related
+    changes for dust scheme, emitted dust size distribution and
+    dry/wet depositions. They all make sense to me.
+
+    For the total dust emission changes, my annual results in the year
+    of 2018 also show emission increase of 45.3% relative to the base
+    case (see Table 3 of :cite:t:`Zhang_et_al._2025`.  The emission
+    increase is dominated by the updated size distribution
+    (:cite:t:`Kok_2011`) with larger coarse dust than the default size
+    distribution (see Figure 8a of the same paper). This is consistent
+    with prior studies (e.g., :cite:t:`Meng_et_al._2022`,
+    :cite:t:`Kok_et_al._2017`) showing the underestimation of coarse
+    dust and overestimation of fine dust.
+
+    For the total dust mass, I checked my annual results in the year
+    of 2018. It shows increase of 34% than the base case. The less
+    increase of dust mass than dust emissions is probably due to the
+    modification of updated larger dry deposition rate as shown in
+    Figure 9 in the paper. I also noticed a smaller increase in July
+    2018 from my results, showing increase of 22% than the base case
+    for total dust mass.
+
+    For OH reduction with the increased total dust mass, it seems
+    plausible as the heterogenous uptake of oxidants from increased
+    dust concentration could reduce the OH concentrations.
+
+    I also confirmed that the reconciliation of aerodynamic diameter
+    of dust is implemented in the default diagnostics of PM25 and
+    PM10.
+
+    For the twice increase of the largest dust size bin from the
+    updates than the default is mostly due to the new particle size
+    distribution used. The mass fraction of each size bin is shown
+    below:
+
+.. list-table:: Mass Fraction of Dust Size Bins
+   :header-rows: 1
+   :stub-columns: 1
+   :widths: 20 20 20 20 20
+   :align: center
+
+   * - Bin
+     - Size range (:math:`\mu m`)
+     - Default (%)
+     - Kok 2011 (%)
+     - Fennec (%)
+   * - DSTbin1
+     - 0.2 --- 0.36
+     - 0.0534
+     - 0.0334
+     - 0.269
+   * - DSTbin2
+     - 0.36 --- 0.6
+     - 0.254
+     - 0.159
+     - 0.526
+   * - DSTbin3
+     - 0.6 --- 1.2
+     - 1.90
+     - 1.19
+     - 2.54
+   * - DSTbin4
+     - 1.2 --- 2.0
+     - 5.44
+     - 3.43
+     - 2.72
+   * - DSTbin5
+     - 2.0 --- 3.6
+     - 19.2
+     - 12.5
+     - 11.6
+   * - DSTbin6
+     - 3.6 --- 6.0
+     - 34.9
+     - 25.7
+     - 16.0
+   * - DSTbin7
+     - 6.0 --- 12.0
+     - 38.2
+     - 57.0
+     - 66.4
+
+The :cite:t:`Kok_2011` is the particle size distribution used in
+GEOS-Chem 14.7.0 and later versions. The fraction of DSTbin7 is 1.5
+times larger than the default, which is also shown in Figure 8a with
+no curving down beyond ~7 micrometer in geometric diameter of the
+:cite:t:`Kok_2011` than the default particle size
+distribution. Combining with the increased total dust mass, the
+doubling of DSTbin7 looks reasonable to me.
+
+.. _aerguide-dust-dustl23m-massfacs:
+
+Mass Tuning Factors for the DustL23M Scheme
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Dandan Zhang generated mass tuning factors for DustL23M, in order to
+ensure consistent dust emission totals regardless of which combination
+of meteorology and horizontal resolution is used. The relevant value
+from the **Abs. scaling factor** column below will be copied into
+the :literal:`--> Mass tuning factor` entry in the :ref:`cfg-hco-cfg`
+file that ships with your run directory.
+
+.. list-table:: Mass Tuning Factors - Lat-lon Grids
+   :header-rows: 1
+   :stub-columns: 1
+   :widths: 15 15 20 20 20
+
+   * - Meteorology
+     - Resolution
+     - Emissions (Tg/yr)
+     - Rel. Scaling Factor
+     - Abs. Scaling Factor
+   * - GEOS-FP
+     - 4x5
+     - 968.793
+     - 3.118
+     - 8.830E-03
+   * - GEOS-FP
+     - 2x2.5
+     - 1759.238
+     - 1.717
+     - 4.862E-03
+   * - GEOS-FP
+     - 0.25x0.3125
+     - 3020.560
+     - 1.000
+     - 2.832E-03
+   * - GEOS-IT
+     - 4x5
+     - 1288.555
+     - 2.344
+     - 6.639E-03
+   * - GEOS-IT
+     - 2x2.5
+     - 2336.167
+     - 1.293
+     - 3.662E-03
+   * - GEOS-IT
+     - 0.5x0.625
+     - 3547.693
+     - 0.851
+     - 2.411E-03
+   * - MERRA-2
+     - 4x5
+     - 817.376
+     - 3.695
+     - 1.047E-02
+   * - MERRA-2
+     - 2x2.5
+     - 1487.798
+     - 2.030
+     - 5.750E-03
+   * - MERRA-2
+     - 0.5x0.625
+     - 2276.232
+     - 1.327
+     - 3.758E-03
+
+.. list-table:: Mass Tuning Factors - Cubed-Sphere Grids
+   :header-rows: 1
+   :stub-columns: 1
+   :widths: 15 15 20 20 20
+
+   * - Meteorology
+     - Resolution
+     - Emissions (Tg/yr)
+     - Rel. Scaling Factor
+     - Abs. Scaling Factor
+   * - GEOS-FP
+     - C24
+     - 1259.054
+     - 2.399
+     - 6.794E-03
+   * - GEOS-FP
+     - C48
+     - 1943.159
+     - 1.554
+     - 4.402E-03
+   * - GEOS-FP
+     - C90
+     - 2421.573
+     - 1.247
+     - 3.533E-03
+   * - GEOS-FP
+     - C180
+     - 2776.547
+     - 1.088
+     - 3.081E-03
+   * - GEOS-FP
+     - C360
+     - 2925.491
+     - 1.032
+     - 2.924E-03
+   * - GEOS-IT
+     - C30
+     - 2021.690
+     - 1.494
+     - 4.231E-03
+   * - GEOS-IT
+     - C48
+     - 2585.650
+     - 1.168
+     - 3.308E-03
+   * - GEOS-IT
+     - C90
+     - 3272.238
+     - 0.923
+     - 2.614E-03
+   * - GEOS-IT
+     - C180
+     - 3697.048
+     - 0.817
+     - 2.314E-03
+   * - MERRA-2
+     - C24
+     - 1076.762
+     - 2.805
+     - 7.944E-03
+   * - MERRA-2
+     - C48
+     - 2011.220
+     - 1.502
+     - 4.253E-03
+   * - MERRA-2
+     - C90
+     - 1970.463
+     - 1.533
+     - 4.341E-03
+   * - MERRA-2
+     - C180
+     - 2175.513
+     - 1.388
+     - 3.932E-03
+
+.. _aerguide-dust-afcid:
+
+Anthropogenic PM2.5 Dust Source in GEOS-Chem
+--------------------------------------------
+
+**Reference:** :cite:t:`Philip_et_al._2017`.  From the abstract:
+
+    We have added a new PM2.5 dust emission inventory (in addition to
+    the default mineral dust simulation) into GEOS-Chem, termed as
+    **A**\ nthropogenic **F**\ ugitive, **C**\ ombustion and **I**\
+    ndustrial **D**\ ust (AFCID). In this dataset of fine
+    anthropogenic dust, combustion and industrial sources dominate in
+    most regions. The more commonly used term of fugitive dust is
+    primarily coarse and not well represented in this fine dust
+    inventory. Inclusion of AFCID improved the comparison of simulated
+    dust and total PM2.5 mass in comparison with in situ observations
+    (:cite:t:`Philip_et_al._2017`). Users have the option to turn
+    on/off this inventory within the :ref:`cfg-hco-cfg` configuration
+    file.
 
 .. _aerguide-seasalt:
 
@@ -210,6 +516,216 @@ larger, with a 30-50% decrease at high latitudes and a factor of ~2
 increase over tropical regions. See `this presentation
 <https://drive.google.com/file/d/1F18TjBYpeJIY1sDtGlM1KBkZ9Neb2svM/view?usp=sharing>`_
 for more information.
+
+.. _aerguide-sulfur:
+
+============================
+Sulfur and nitrogen aerosols
+============================
+
+**Reference:** :cite:t:`Park_et_al._2004`.  From the paper:
+
+    The sulfur simulation in GEOS-Chem is based on the Georgia
+    Tech/Goddard Global Ozone Chemistry Aerosol Radiation and
+    Transport (GOCART) model (Chin *et al.*, `2000a
+    <https://acd-ext.gsfc.nasa.gov/People/Chin/papers/Chin_ams_2001.pdf>`_],
+    with a number of modifications described below. Our fossil fuel
+    and industrial emission inventory is for 1999-2000 and is obtained
+    by scaling the gridded, seasonally resolved inventory from the
+    Global Emissions Inventory Activity (GEIA) for 1985
+    (:cite:t:`Benkovitz_et_al._1996`)  with updated national emission
+    inventories and fuel use data (:cite:t:`Bey_et_al._2001`). The
+    emissions for the United States and Canada are from U.S. EPA
+    [2001], and the emissions for European countries are from European
+    Monitoring and Evaluation Programme (EMEP)/United Nations Economic
+    Commission for Europe (UNECE). Asian sulfur emission in the model
+    is 20 Tg S/yr, which can be compared to year 2000
+    estimates of 17 Tg S/yr by :cite:t:`Streets_et_al._2003` and 25
+    Tg S/yr by Intergovernmental Panel on Climate Change
+    (hereinafter IPCC) [2001].Anthropogenic sulfur is emitted as
+    SO\ :sub:`2` except for a small fraction as sulfate (5% in Europe
+    and  3% elsewhere) (Chin *et al.*, [2000a]).
+
+    Other anthropogenic sources of SO\ :sub:`2` in the model include
+    gridded monthly aircraft emissions (0.07 Tg S/yr) taken
+    from Chin *et al.* [2000a] and biofuel use. We use a global
+    biofuel CO emission inventory with 1° × 1° spatial resolution from
+    :cite:t:`Yevich_and_Logan_2003` and apply an emission factor of
+    0.0015 mol SO\ :sub:`2` per mole CO
+    (:cite:t:`Andreae_and_Merlet_2001`). Seasonal variations in
+    biofuel emissions are specified from the heating degree days
+    approach (:cite:t:`Park_et_al._2003`).
+
+    Natural sources of sulfur in the model include DMS from oceanic
+    phytoplankton and SO\ :sub:`2` from volcanoes and biomass
+    burning. The oceanic emission of DMS is calculated as the product
+    of local seawater DMS concentration and sea-to-air transfer
+    velocity. The seawater DMS concentrations are gridded monthly
+    averages from :cite:t:`Kettle_et_al._1999`, and the transfer
+    velocity of DMS is computed using an empirical formula from
+    :cite:t:`Liss_and_Merlivat_1986` as a function of the surface
+    (10 m) wind speed. The GEOS surface winds used here assimilate
+    remote sensing data from the Special Sensor Microwave Imager
+    instrument. Volcanic emissions of SO\ :sub:`2` from continuously
+    active volcanoes are included from the database of
+    :cite:t:`Andres_and_Kasgnoc_1998`. Emissions from sporadically
+    erupting volcanoes show large year-to-year variability and are not
+    included in the model. No major volcanic eruptions occurred
+    in 2001. Biomass burning emissions of SO\ :sub:`2` are calculated
+    using a gridded monthly biomass burning inventory of CO
+    constrained from satellite observations in 2001 by
+    :cite:t:`Duncan_et_al._2003` with an  emission factor of 0.0026
+    mol SO\ :sub:`2` per mole CO (:cite:t:`Andreae_and_Merlet_2001`).
+
+    The gas-phase sulfur oxidation chemistry in the model includes DMS
+    oxidation by OH to form SO\ :sub:`2` and MSA, DMS oxidation by
+    nitrate radicals NO\ :sub:`3` to form SO\ :sub:`2`, and
+    SO\ :sub:`2` oxidation by OH to form sulfate. Reaction rates are
+    from  :cite:t:`DeMore_et_al._1997` and the yields of
+    SO\ :sub:`2` and MSA from DMS oxidation are from
+    :cite:t:`Chatfield_and_Crutzen_1990`. Aqueous-phase oxidation of
+    SO\ :sub:`2` by O\ :sub:`3` and H\ :sub:`2`\O\ :sub:`2` in clouds to
+    form sulfate is included using kinetic data from
+    :cite:t:`Jacob_1986` and assuming a pH of 4.5 for the oxidation by
+    O\ :sub:`3`. Cloud liquid water content is not available in the
+    GEOS data, and we specify it instead in each cloudy grid box by
+    using a temperature-dependent parameterization
+    (:cite:t:`Somerville_and_Remer_1984`). The cloud volume fraction
+    in a given grid box is specified as an empirical function of the
+    relative humidity following Sundqvist *et al.* [1989].
+
+    Ammonia emissions in the model are based on annual data for 1990
+    from the 1° × 1° GEIA inventory of
+    :cite:t:`Bouwman_et_al._1997`. Source categories in that inventory
+    include domesticated animals, fertilizers, human bodies, industry,
+    fossil fuels, oceans, crops, soils, and wild animals. We view the
+    first five as anthropogenic and the last four as
+    natural. Additional emissions from biomass burning and biofuel use
+    are computed using the global inventories of
+    :cite:t:`Duncan_et_al._2003` and :cite:t:`Yevich_and_Logan_2003`
+    with an emission factor of 1.3 g NH\ :sub:`3` per kilogram dry
+    mass burned (:cite:t:`Andreae_and_Merlet_2001`).
+
+    Production of total inorganic nitrate (gas-phase nitric acid and
+    aerosol nitrate) in the model is computed from the
+    ozone-NOx-hydrocarbon chemical mechanism.
+
+Important updates to the original formulation
+---------------------------------------------
+
+Notable additions since :cite:t:`Park_et_al._2004`:
+
+#. Biomass emissions of SO\ :sub:`2` and NH\ :sub:`3` are now computed
+   by the GFED inventory.
+
+   * The most recent version (Oct 2015) is GFED4
+   * You may still use the older GFED2 or GFED3 inventories for research purposes.
+
+#. Incorporation of new volcanic SO\ :sub:`2` emissions from Aerocom.
+#. Alkalinity computation for sea salt aerosols.
+#. Updates to regional and global anthropogenic emissions inventories.
+#. Get liquid water content and cloud fraction directly from
+   meteorological fields for SO\ :sub:`2` chemistry.
+#. All species are no longer carried as per molecules sulfur or per
+   molecules nitrogen.
+#. Emissions inventories have been updated.
+#. Other minor changes as described in the sections below.
+
+Immplemented cloud Water pH for sulfate formation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+From :cite:t:`Alexander_et_al._2012`:
+
+   Bulk cloud pH is calculated iteratively using concentrations of
+   sulfate, total nitrate HNO\ :sub:`3` + NO\ :sub:`3`), total
+   ammonia (NH\ :sub:`3` + NH\ :sub:`4`), SO\ :sub:`2`, and
+   CO\ :sub:`2` = 390 ppmv based on their effective Henry's law
+   constants and the local cloud LWC.
+
+   Over the oceans, the influence of cloud droplet heterogeneity in pH
+   on in-cloud sulfate production rates is accounted for using the
+   Yuen et al. (1996) parameterization. Based on isotopic evidence,
+   this parameterization seems to work well over the oceans using sea
+   salt aerosol as the coarse mode aerosol component, but tends to
+   overestimate in-cloud sulfate production over land.
+
+Implemented the Lana DMS climatology
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Monthly average DMS seawater concentrations at 1° × 1° resolution
+(:cite:t:`Lana_et_al._2011`) are now read from disk via `HEMCO
+<https://hemco.readthedocs.io>`_.
+
+Added sulfur oxidation by reactive halogens
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Reference:** :cite:t:`Chen_et_al._2017`.  From the abstract:
+
+    Sulfur and reactive bromine (Bry) play important roles in
+    tropospheric chemistry and the global radiation budget. The
+    oxidation of dissolved SO\ :sub:`2` (S(IV)) by HOBr increases
+    sulfate aerosol abundance and may also impact the Bry budget, but
+    is generally not included in global climate and chemistry
+    models. In this study, we implement HOBr + S(IV) reactions into
+    the GEOS-Chem global chemical transport model and evaluate the
+    global impacts on both sulfur and Bry budgets. Modeled HOBr mixing
+    ratios on the order of 0.1–1.0 parts per trillion (ppt) lead to
+    HOBr + S(IV) contributing to 8% of global sulfate production and
+    up to 45% over some tropical ocean regions with high HOBr mixing
+    ratios (0.6–0.9 ppt). Inclusion of HOBr + S(IV) in the model leads
+    to a global Bry decrease of 50%, initiated by the decrease in
+    bromide recycling in cloud droplets. Observations of HOBr are
+    necessary to better understand the role of HOBr + S(IV) in
+    tropospheric sulfur and Bry cycles.
+
+    Text S2 in `this supporting document
+    <http://onlinelibrary.wiley.com/store/10.1002/2017GL073812/asset/supinfo/grl56123-sup-0001-2017GL073812-SI.docx?v=1&s=50a4b1defa58571990b4a7eda5585f9207db7713>`_
+    describes the parameterization of HOBr + S(IV) reactions in
+    GEOS-Chem.
+
+Added metal-catalyzed SO2 oxidation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Reference:** :cite:t:`Alexander_et_al._2009`. From the author:
+
+   SO\ :sub:`2` is oxidized in clouds by transition metals (Fe and
+   Mn). Natural Fe and Mn atmospheric concentrations are scaled
+   to dust, and anthropogenic are scaled to primary
+   anthropogenic sulfate. It is assumed that 1% of natural Mn
+   and Fe is soluble, for anthropogenic it is 10%. The oxidation
+   state of Fe and Mn depends on sunlight
+   al. [2009] for more details.
+
+Viral Shah implemented the metal catalyzed in-cloud SO\ :sub:`2`
+oxidation pathway originally described in
+:cite:t:`Alexander_et_al._2009`.  He wrote:
+
+    My method largely follows Becky's implementation. The main
+    difference is that instead of using a tracer for primary sulfate
+    to calculate anthropogenic Fe and Mn concentrations, I have added
+    a tracer for anthropogenic Fe (pFe). pFe is emitted along with
+    primary sulfate with an emissions ratio that equals the scaling
+    factor used by Becky to calculate Fe concentrations from primary
+    sulfate. This emission ratio is added as a scaling factor in
+    HEMCO_Config and can be adjusted in the future. For wet and dry
+    deposition, pFe is treated as an aerosol species. Anthropogenic Mn
+    concentrations are calculated by scaling pFe concentrations. Note
+    that Fe and Mn are also present in natural dust, and the GC dust
+    species are used to calculate the natural Fe and Mn
+    concentrations.
+
+Set the molecular weights of SO4s and NITs to that of SALC
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The reason for using SALC sea salt's molecular weight for
+SO\ :sub:`4`\s and NITs is that these tracers are essentially
+internally mixed with coarse sea salt aerosol (SALC). As coarse
+sea salt aerosol likely dominates the mass of these aerosols, it
+is appropriate to use sea salt's MW.
+
+Another explanation is that since SO\ :sub:`4`\s and NITs are
+internally mixed with sea salt, they should be treated identically to
+SALC in the model for all processes.
 
 .. _aerguide-pm25:
 

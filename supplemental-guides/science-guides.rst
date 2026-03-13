@@ -12,6 +12,7 @@ here from the GEOS-Chem wiki.
 - :ref:`ate-guide`
 - :ref:`aerguide`
 - :ref:`cloud-conv-guide`
+- :ref:`drydep-guide`
 - :ref:`pblguide`
 - :ref:`photolysis-guide`
 - :ref:`phys-consts-guide`

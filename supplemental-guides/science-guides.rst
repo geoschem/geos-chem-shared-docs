@@ -18,4 +18,5 @@ here from the GEOS-Chem wiki.
 - :ref:`phys-consts-guide`
 - :ref:`pmguide`
 - :ref:`rrtmg-guide`
+- :ref:`tomas-guide`
 - :ref:`wetdep-guide`

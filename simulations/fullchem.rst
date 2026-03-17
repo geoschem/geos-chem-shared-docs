@@ -4,12 +4,107 @@
 Fullchem simulation
 ###################
 
-========
-Overview
-========
+The GEOS-Chem :program:`fullchem` (aka "full-chemistry") mechanism
+simulates detailed oxidant-aerosol-halogen chemistry in the
+troposphere and stratosphere. The chemical solver is KPP 3
+(:cite:t:`Lin_et_al._2023`) as implemented in GEOS-Chem with the
+FlexChem interface, and includes the option to use an adaptive
+chemical solver.
 
-The GEOS-Chem  :program:`fullchem` (aka "full-chemistry") simulation
-uses a detailed NOx-Ox-hydrocarbons-aerosols-halogens mechanism.
+Chemical mechanism kinetics generally follow JPL/IUPAC recommendations
+as most recently implemented by :cite:t:`Bates_et_al._2024`.  The
+mechanism goes beyond the recommendations for specific aspects of  the
+mechanism including for:
+
+- Isoprene: :cite:t:`Bates_and_Jacob_2019`
+- Aromatics: :cite:t:`Bates_et_al._2021`
+- Ethylene and acetylene chemistry: :cite:t:`Kwon_et_al._2021`
+- Methanol: :cite:t:`Chen_et_al._2019`. The CH3O2 + OH reaction was
+  subsequently added as a source of methanol following
+  :cite:t:`Bates_et_al._2021`.
+- Methyl, ethyl, and propyl nitrates: :cite:t:`Fisher_et_al._2018`.
+- Hydroxymethanesulfonate (HMS) chemistry: :cite:t:`Moch_et_al._2020`.
+- Tropospheric halogen chemistry: :cite:t:`Wang_et_al._2021`.
+- Criegees: :cite:t:`Millet_et_al._2015`.
+- Aerosol nitrate photolysis: :cite:t:`Shah_et_al._2023`
+- Lumped furans: :cite:t:`Carter_et_al._2022`
+- RCOOH, monoterpenes, new PNs and ANs: :cite:t:`Travis_et_al._2024`
+- Update to ALK4 and R4N2 chemistry: :cite:t:`Brewer_et_al._2023`
+- PPN photolysis: :cite:t:`Horner_et_al._2024`
+
+Photolysis frequencies are computed by :ref:`Cloud-J
+<photolysis-guide-cloudj>`.
+
+Methane is prescribed as a surface boundary condition from monthly
+mean maps of spatially-interpolated NOAA flask data, and subsequently
+allowed to advect and react (:cite:t:`Murray_2016`). Water is
+specified from the driving meteorological fields in the troposphere
+but is transported as a reactive tracer in the stratosphere.
+
+Reactive uptake of NO\ :sub:`2` NO\ :sub:`3`, and N\ :sub:`2`\ O\
+:sub:`5` by aerosols is as described by :cite:t:`Holmes_et_al._2019`,
+with reactive uptake coefficients for N\ :sub:`2`\ O\ :sub:`5` on
+sulfate-nitrate-ammonium-organic aerosol from
+:cite:t:`McDuffie_et_al_2018a` and :cite:t:`McDuffie_et_al._2018b`.
+HO\ :sub:`2` uptake is from :cite:t:`Mao_et_al._2013` with a reactive
+uptake coefficient of 0.2 for conversion to H\ :sub:`2`\ O. Acid
+uptake by dust particles from :cite:t:`Fairlie_et_al._2010` is an
+option in the model. Aerosol hygroscopicity for calculating surface
+areas is from :cite:t:`Latimer_and_Martin_2019`. Cloudwater pH is
+calculated following :cite:t:`Shah_et_al._2020`.
+
+Reactive uptake of nitrogen oxides by clouds accounts for entrainment
+in the subgrid cloudy fraction of gridboxes. The same treatment is
+also applied for halogen reactive uptake by clouds.
+
+:ref:`Sulfate-nitrate-ammonium aerosol thermodynamics <ate-guide>` are
+computed with the HETP thermodynamic module
+(:cite:t:`Miller_et_al._2024`).  Sulfur oxidation in clouds and
+aerosols is coupled with gas-phase chemistry through KPP.
+
+:cite:t:`Wang_et_al._2014` describes the BC simulation in
+GEOS-Chem. Organic aerosol in the default model follows the 'simple
+SOA' scheme of :cite:t:`Pai_et_al._2020`. The model has an option for
+'complex SOA' following the Volatility Basis Set (VBS) scheme of
+:cite:t:`Pye_et_al._2010` and also including the aqueous-phase
+isoprene SOA scheme of :cite:t:`Marais_et_al._2016` coupled to the
+isoprene gas-phase chemistry mechanism.
+
+The dust simulation in GEOS-Chem is described by
+:cite:t:`Zhang_et_al._2025` with dust size distributions from
+:cite:t:`Singh_et_al._2024` Fine anthropogenic dust from combustion
+and industrial sources is from the AFCID inventory of
+:cite:t:`Philip_et_al._2017`.
+
+The sea salt aerosol simulation in GEOS-Chem is described by
+:cite:t:`Jaegle_et_al._2011` with emissions from blowing snow from
+:cite:t:`Huang_and_Jaegle_2017`.
+
+Aerosol size for sulfate-nitrate-ammonium and organic
+aerosol is from a parameterization of :cite:t:`Zhu_et_al._2023`.
+
+There is an option to emit marine POA following Gantt et
+al. [2015].
+
+Two alternate simulations of aerosol
+microphysics are implemented in GEOS-Chem: the :ref:`TOMAS simulation
+<tomas-guide>` and the :ref:`APM simulation <apmguide>`.
+
+RH-dependent aerosol optical properties affecting photolysis rates are
+calculated from :cite:t:`Zhu_et_al._2023`.  Extinction of radiation by
+mineral dust accounts for its nonsphericity
+(:cite:t:`Singh_et_al._2024`). There is an option to add absorption of
+UV by brown carbon (:cite:t:`Hammer_et_al._2016`).
+
+UCX, the Universal tropospheric-stratospheric Chemistry eXtension
+(:cite:t:`Eastham_et_al._2014`) adds online stratospheric chemistry
+into the standard GEOS-Chem full-chemistry mechanism. All other
+mesospheric chemistry is approximated using the linearized GMI
+mechanism.
+
+==================
+Simulation options
+==================
 
 You may choose one of several fullchem simulation options at :ref:`run directory
 creation time <rundir>`.
@@ -1565,8 +1660,8 @@ Benchmark
 Fullchem simulations with the :program:`Benchmark` option allow the
 `GEOS-Chem Support Team
 <https://geoschem.github.io/support-team.html>`_ to perform
-simulations that document the performance and evolution of GEOS-Chem 
-over time.  
+simulations that document the performance and evolution of GEOS-Chem
+over time.
 
 Benchmark simulations use all of the :ref:`Standard species
 <fullchem-sim-standard>`, as well as the :ref:`Complex SOA species

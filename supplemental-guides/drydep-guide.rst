@@ -45,7 +45,7 @@ From Section 6 of :cite:t:`Wang_et_al._1998`:
    We use a resistance-in-series model
    (:cite:t:`Wesely_and_Hicks_1977`) to compute dry deposition
    velocities of O\ :sub:`3`, NO\ :sub:`2`, HNO\ :sub:`3`, PANs and H\
-   :sub:2`\ O\ :sub:`2`. The deposition velocity :math:`V_i` for
+   :sub:`2`\ O\ :sub:`2`. The deposition velocity :math:`V_i` for
    species :math:`i` is computed as:
 
    .. math::
@@ -329,7 +329,7 @@ Cold-temperature Updates
 
 The following updates were added, following Viral Shah:
 
-* Set |HNO3| bulk surface resistance to 1 s/m.
+* Set HNO\ :sub:`3` bulk surface resistance to 1 s/m.
 * Limit increases in Rc at low temperature to a factor of 2.
 
 .. _drydep-guide-updates-ra:

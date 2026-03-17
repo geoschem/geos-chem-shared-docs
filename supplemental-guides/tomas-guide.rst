@@ -5,7 +5,7 @@
 .. _tomas-guide:
 
 ##########################
-TOMAS Aerosol Microphysics
+TOMAS aerosol microphysics
 ##########################
 
 This Guide describes the TOMAS aerosol microphysics option in GEOS-Chem.

@@ -62,7 +62,7 @@ Sphinx and its dependencies, which are listed in the table below.
 
 We recommend that you create a standalone :program:`Conda` environment
 to install Sphinx and its dependencies.  The YAML file
-:file:`docs/read_the_docs_environment.yaml` contains the proper package
+:file:`docs/read_the_docs_environment.yml` contains the proper package
 specifications.  Use these commands:
 
 .. code-block:: console

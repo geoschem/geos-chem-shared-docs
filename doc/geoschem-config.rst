@@ -204,12 +204,16 @@ GEOS-Chem.  Accepted values are:
    GCAP-2 has hundreds of years of data available, making it useful
    for simulations of historical climate.
 
+.. _gc-yml-simulation-spcdb:
+
 species_database_file
 ---------------------
 
 Path to the :ref:`GEOS-Chem Species Database <spcguide>` file. This
 is stored in the run directory file :file:`./species_database.yml`.
 You should not have to edit this setting.
+
+.. _gc-yml-simulation-spc-output:
 
 species_metadata_output_file
 ----------------------------
@@ -219,6 +223,8 @@ contains echoback of information from :ref:`species_database.yml
 <spcguide>`, but only for species that are defined in this
 simulation (instead of all possible species).  This facilitates
 interfacing GEOS-Chem with external models such as CESM.
+
+.. _gc-yml-simulation-verb:
 
 verbose
 -------
@@ -256,6 +262,8 @@ and/or testing) with the options below:
       using this when using GEOS-Chem as GCHP, or in MPI-based
       external models (NASA GEOS, CESM, etc.).
 
+.. _gc-yml-simulation-timers:
+
 use_gcclassic_timers
 --------------------
 
@@ -282,8 +290,10 @@ use_gcclassic_timers
    timers if you are running a benchmark simulation or if you are
    doing performance testing.
 
-read_restart_as_real8:
-----------------------
+.. _gc-yml-simulation-rst-real8:
+
+read_restart_as_real8
+---------------------
 
 .. note::
 
@@ -296,16 +306,21 @@ Option controlling how the GEOS-Chem Classic restart file will be read.
 .. option:: false
 
    The GEOS-Chem Classic  restart file will be read by HEMCO (which
-   reads all data as :code:`REAL*4`).  This is the default option.  You
-   must use this option if the resolution of the restart file does not
-   match the simulation grid resolution.
+   reads all data as :code:`REAL*4`).  This is the default option.
+
+   Use this option if the resolution of the restart file does not
+   match the simulation grid resolution (HEMCO will remap the initial
+   initial species concentrations to the simulation grid).
 
 .. option:: true
 
    The restart file will be read directly by GEOS-Chem Classic as
-   :code:`REAL*8`.  Use this option when the resolution of your
-   restart file matches the simulation grid resolution, and when mass
-   conservation needs to be strictly enforced.
+   :code:`REAL*8`.
+
+   Use this option when the resolution of your restart file matches
+   the simulation grid resolution (as this option bypasses HEMCO
+   vertical regridding).  Also use this option when conservation needs
+   to be strictly enforced.
 
 .. _cfg-gc-yml-grid:
 
@@ -372,6 +387,7 @@ Specifies the horizontal resolution of the grid.  Accepted values are:
    global or :ref:`nested-grid simulations <nestgrid-guide>` with
    :option:`GEOS-FP` meteorology.
 
+.. _gc-yml-simulation-rst-numlev:
 
 number_of_levels
 ----------------
@@ -387,11 +403,28 @@ values are:
 .. option:: 47
 
    Use 47 vertical levels (for :option:`MERRA2`, :option:`GEOS-FP`,
-   and :option:`GEOS-IT`).
+   and :option:`GEOS-IT`) in GEOS-Chem Classic simulations.
+
+   .. important::
+
+      If you select this option, you must also set
+      :ref:`gc-yml-simulation-rst-real8` to :literal:`false`, as
+      reading the restart file as :code:`REAL*8` bypasses HEMCO
+      vertical regridding.  Otherwise your simulation will halt with
+      an error.
 
 .. option:: 40
 
-   Use 40 vertical levels (for :option:`GCAP2`).
+   Use 40 vertical levels (for :option:`GCAP2`), in GEOS-Chem Classic
+   simulations.
+
+   .. important::
+
+      If you select this option, you must also set
+      :ref:`gc-yml-simulation-rst-real8` to :literal:`false`, as
+      reading the restart file as :code:`REAL*8` bypasses HEMCO
+      vertical regridding. Otherwise your simulation will halt with
+      an error.
 
 longitude
 ---------
@@ -447,6 +480,15 @@ nested_grid_simulation
 
       Indicates this indicates that the simulation will use a
       sub-domain of the horizontal grid.
+
+      .. important::
+
+	 We recommend that you run nested-grid :ref:`fullchem simulations
+	 <fullchem-sim>` with the native 72 :ref:`vertical levels
+	 <gc-yml-simulation-rst-numlev>`.  This will avoid a `bias in
+	 tropospheric photolysis rates
+	 <https://github.com/geoschem/geos-chem/issues/3238>`_ caused
+	 by the HEMCO vertical remapping from 72 to 47 levels.
 
    .. option:: false
 

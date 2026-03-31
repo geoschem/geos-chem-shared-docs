@@ -45,13 +45,14 @@ Reactive uptake of NO\ :sub:`2` NO\ :sub:`3`, and N\ :sub:`2`\ O\
 :sub:`5` by aerosols is as described by :cite:t:`Holmes_et_al._2019`,
 with reactive uptake coefficients for N\ :sub:`2`\ O\ :sub:`5` on
 sulfate-nitrate-ammonium-organic aerosol from
-:cite:t:`McDuffie_et_al_2018a` and :cite:t:`McDuffie_et_al._2018b`.
-HO\ :sub:`2` uptake is from :cite:t:`Mao_et_al._2013` with a reactive
-uptake coefficient of 0.2 for conversion to H\ :sub:`2`\ O. Acid
-uptake by dust particles from :cite:t:`Fairlie_et_al._2010` is an
-option in the model. Aerosol hygroscopicity for calculating surface
-areas is from :cite:t:`Latimer_and_Martin_2019`. Cloudwater pH is
-calculated following :cite:t:`Shah_et_al._2020`.
+:cite:t:`McDuffie_et_al._2018a`\ a and
+:cite:t:`McDuffie_et_al._2018b`\ b. HO\ :sub:`2` uptake is from
+:cite:t:`Mao_et_al._2013` with a reactive uptake coefficient of 0.2
+for conversion to H\ :sub:`2`\ O. Acid uptake by dust particles from
+:cite:t:`Fairlie_et_al._2010` is an option in the model. Aerosol
+hygroscopicity for calculating surface areas is from
+:cite:t:`Latimer_and_Martin_2019`. Cloudwater pH is calculated
+following :cite:t:`Shah_et_al._2020`.
 
 Reactive uptake of nitrogen oxides by clouds accounts for entrainment
 in the subgrid cloudy fraction of gridboxes. The same treatment is

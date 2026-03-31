@@ -987,7 +987,7 @@ Photolysis
        activate: true
        cloud-j:
          cloudj_input_dir: ${RUNDIR_DATA_ROOT}/CHEM_INPUTS/CLOUD_J/v2025-01/
-	 verbose: false
+         verbose: false
          num_levs_with_cloud: 34
          cloud_scheme_flag: 3
          opt_depth_increase_factor: 1.050
@@ -2111,7 +2111,7 @@ CH4_boundary_condition_ppb_increase_NSEW
 
 Specifies the perturbation amount (in ppbv) to apply to the north,
 south, east and west CH4 nested-grid boundary conditions.  Used in
-conjunction with the :ref:`gc-yml-ch4_anopt-perturb` option.
+conjunction with the :ref:`gc-yml-ch4-perturb` option.
 
 Default value: :literal:`[0.0, 0.0, 0.0, 0.0]` (no perturbation)
 

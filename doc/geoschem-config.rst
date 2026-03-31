@@ -18,7 +18,8 @@ The :file:`geoschem_config.yml` file contains several sections.  Only
 The sections relevant to a given type of simulation are present.  For
 example, :option:`fullchem` simulation options (such as aerosol
 settings and photolysis settings) are omitted from the
-:file:`geoschem_config.yml` file for the :ref:`carbon-sim`.
+:file:`geoschem_config.yml` file for the :ref:`carbon gases simulation
+<carbon-sim>`.
 
 .. note::
 
@@ -102,8 +103,8 @@ values are
 
 .. option:: POPs
 
-   `Persistent organic pollutants (aka POPs) simulation
-   <http://wiki.geos-chem.org/POPs simulation>`_.
+
+   Persistent organic pollutants (aka POPs) simulation.
 
    .. attention::
 
@@ -592,11 +593,10 @@ done.
 radiation_timestep_in_s
 -----------------------
 
-Specifies the frequency at which the `RRTMG
-<http://wiki.geos-chem.org/Coupling_GEOS-Chem_with_RRTMG>`_ radiative
-transfer model will be called (valid for :option:`fullchem`
-simulations only).  We recommend using a timestep of 10800s (3h),
-as the RRTMG calculations are computationally intensive.
+Specifies the frequency at which the :ref:`RRTMG radiative transfer
+model <rrtmg-guide>` will be called (valid for :option:`fullchem`
+simulations only).  We recommend using a timestep of 10800s (3h), as
+the RRTMG calculations are computationally intensive.
 
 .. _cfg-gc-yml-operations-chemistry:
 
@@ -718,9 +718,8 @@ autoreduce_solver
 -----------------
 
 Menu for controlling the adaptive mechanism auto-reduction feature,
-which is available in `KPP
-3.0.0. <https://kpp.readthedocs.io/en/3.0.0/>`_ and later
-versions. See :cite:t:`Lin_et_al._2023` for details.
+which is available in `KPP 3.0.0 <https://kpp.readthedocs.io/>`_ and
+later versions. See :cite:t:`Lin_et_al._2023` for details.
 
 .. option:: activate
 
@@ -838,7 +837,7 @@ Convection
      # ... following sub-sections omitted ...
 
 The :command:`operations:convection` section contains settings for
-`cloud convection <http://wiki.geos-chem.org/Cloud_convection>`_:
+:ref:`cloud convection <cloud-conv-guide>`:
 
 activate
 --------
@@ -877,7 +876,7 @@ Dry deposition
      # ... following sub-sections omitted ...
 
 The :literal:`operations:dry_deposition` section contains settings that
-for `dry deposition <http://wiki.geos-chem.org/Dry_deposition>`_:
+for :ref:`dry deposition <drydep-guide>`:
 
 activate
 --------
@@ -944,8 +943,7 @@ PBL mixing
      # ... following sub-sections omitted ...
 
 The :command:`operations:pbl_mixing` section contains settings that
-for `planetary boundary layer (PBL) mixing
-<http://wiki.geos-chem.org/Boundary_layer_mixing>`_:
+for :ref:`planetary boundary layer (PBL) mixing <pblguide>`:
 
 activate
 --------
@@ -963,14 +961,12 @@ use_non_local_pbl
 
 .. option:: true
 
-   Uses the `non-local PBL mixing scheme (VDIFF)
-   <http://wiki.geos-chem.org/Boundary_layer_mixing#VDIFF>`_.  This is
-   the default setting.
+   Uses the :ref:`non-local PBL mixing scheme (VDIFF)
+   <pblguide-vdiff>`.  This is the default setting.
 
 .. option:: false
 
-   Uses the `full PBL mixing scheme (TURBDAY)
-   <http://wiki.geos-chem.org/Boundary_layer_mixing#VDIFF>`_.
+   Uses the :ref:`full PBL mixing scheme (TURBDAY) <pblguide-turbday>`.
 
 .. _cfg-gc-yml-operations-photolysis:
 
@@ -991,6 +987,7 @@ Photolysis
        activate: true
        cloud-j:
          cloudj_input_dir: ${RUNDIR_DATA_ROOT}/CHEM_INPUTS/CLOUD_J/v2025-01/
+	 verbose: false
          num_levs_with_cloud: 34
          cloud_scheme_flag: 3
          opt_depth_increase_factor: 1.050
@@ -1015,8 +1012,9 @@ Photolysis
 
      # ... following sub-sections omitted ...
 
-The :command:`operations:photolysis` section contains settings for photolysis.
-This section only applies to :option:`fullchem` and :option:`Hg` simulations.
+The :command:`operations:photolysis` section contains settings for
+:ref:`photolysis <photolysis-guide>`. This section only applies to
+:option:`fullchem` and :option:`Hg` simulations.
 
 activate
 --------
@@ -1038,7 +1036,8 @@ activate
 cloud-j
 -------
 
-Specifies various options for the Cloud-J photolysis package.
+Specifies various options for the :ref:`photolysis-guide-cloudj`
+photolysis package.
 
 .. note::
 
@@ -1050,6 +1049,16 @@ Specifies various options for the Cloud-J photolysis package.
 
    Specifies the path to the Cloud-J configuration files containing
    information about species cross sections and quantum yields.
+
+.. option:: verbose
+
+   .. option:: false
+
+      Disables verbose printout from Cloud-J.  This is the default setting.
+
+   .. option:: true
+
+      Enables verbose printout from Cloud-J.  Use this option for debugging.
 
 .. option:: num_levs_with_cloud
 
@@ -1184,7 +1193,8 @@ Specifies various options for the Cloud-J photolysis package.
 fast-jx
 -------
 
-Specifies various options for the FAST-JX photolysis package.
+Specifies various options for the :ref:`photolysis-guide-fastjx`
+photolysis package.
 
 .. attention::
 
@@ -1306,10 +1316,8 @@ RRTMG radiative transfer model
      # .. following sub-sections omitted ...
 
 The :command:`operations:rrtmg_rad_transfer_model` section contains
-settings for the `RRTMG radiative transfer model
-<http://wiki.geos-chem.org/Coupling_RRTMG_to_GEOS-Chem>`_:
-
-This section only applies to :option:`fullchem` simultions.
+settings for the :ref:`RRTMG radiative transfer model <rrtmg-guide>` (which
+only applies to :option:`fullchem` simultions).
 
 activate
 --------
@@ -1387,8 +1395,7 @@ fixed_dyn_heating
 .. option:: true
 
    Activates fixed dynamic heating (FDH) approximation as described
-   by Forster *et al.* [`1997
-   <https://agupubs.onlinelibrary.wiley.com/doi/10.1029/96JD03510>`_].
+   by :cite:t:`Forster_et_al._1997`.
 
 .. option:: false
 
@@ -1401,8 +1408,7 @@ seasonal_fdh
 .. option:: true
 
    Activates seasonally-evolving fixed dynamic heating (SEFDH)
-   approximation as described by Kiehl *et al.* [`1999
-   <https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/1999JD900991>`_].
+   approximation as described by :cite:t:`Kiehl_et_al._1999`.
 
    .. attention::
 
@@ -1544,7 +1550,7 @@ Wet deposition
        activate: true
 
 The :command:`operations:wet_deposition` section contains settings
-for `wet deposition <http://wiki.geos-chem.org/Wet_deposition>`_.
+for :ref:`wet deposition <wetdep-guide>`:
 
 activate
 --------
@@ -1584,8 +1590,8 @@ Aerosol optics
      # .. following sub-sections omitted ...
 
 The :command:`aerosols:optics` section contains settings for aerosol
-optics data.  This section only applies to :option:`fullchem` and
-:option:`aerosol` simulations.
+optics data.  This section only applies to :ref:`fullchem
+<fullchem-sim>` and :ref:`aerosol-only <aerosol-sim>` simulations.
 
 optics
 ------
@@ -1621,10 +1627,9 @@ Carbon aerosols
      # .. following sub-sections omitted ...
 
 The :command:`aerosols:carbon` section contains settings for
-`carbon aerosols
-<http://wiki.geos-chem.org/Carbonaceous_aerosols>`_.  This section
-only applies to :option:`fullchem` and :option:`aerosol`
-simulations.
+:ref:`carbonaceous aerosols <aerguide-carbon>`.  This section only
+apply to :ref:`fullchem <fullchem-sim>` and :ref:`aerosol-only
+<aerosol-sim>` simulations.
 
 activate
 --------
@@ -1750,10 +1755,10 @@ Mineral dust aerosols
      # ... following sub-sections omitted ...
 
 The :command:`aerosols:dust` section contains settings for
-`mineral dust aerosols
-<http://wiki.seas.harvard.edu/geos-chem/index.php/Mineral_dust_aerosols>`_.
-This section only applies to :option:`fullchem` and :option:`aerosol`
-simulations.
+:ref:`mineral dust aerosols <aerguide-dust>`.  This section only
+applies to arvard.edu/geos-chem/index.php/Mineral_dust_aerosols>`_.
+This section only apply to :ref:`fullchem
+<fullchem-sim>` and :ref:`aerosol-only <aerosol-sim>` simulations.
 
 activate
 --------
@@ -1772,9 +1777,8 @@ acid_uptake_on_dust
 
 .. option:: true
 
-   Activates `acid uptake on dust option
-   <http://wiki.seas.harvard.edu/geos-chem/index.php/Mineral_dust_aerosols#Surface_chemistry_on_dust>`_,
-   which includes 12 additional species.
+   Activates the :ref:`acid uptake on dust option
+   <fullchem-sim-aciduptake>`, which includes 12 additional species
 
 .. option:: false
 
@@ -1803,11 +1807,10 @@ Sea salt aerosols
 
      # ... following sub-sections omitted ...
 
-The :command:`aerosols:sea_salt` section contains settings for `sea salt
-aerosols
-<http://wiki.seas.harvard.edu/geos-chem/index.php/Sea_salt_aerosols>`_.
-This section only applies to :option:`fullchem` and
-:option:`aerosol` simulations.
+The :command:`aerosols:sea_salt` section contains settings for
+:ref:`sea salt aerosols <aerguide-seasalt>`.  This section only apply
+to :ref:`fullchem <fullchem-sim>` and :ref:`aerosol-only
+<aerosol-sim>` simulations.
 
 activate
 --------
@@ -1840,9 +1843,9 @@ marine_organic_aerosols
 
 .. option:: true
 
-   Activates `emission of marine primary organic aerosols
-   <http://wiki.seas.harvard.edu/geos-chem/index.php/Aerosol_emissions#Online_emission_of_marine_primary_organic_aerosol_.28POA.29>`_.
-   This option includes two extra species (**MOPO** and **MOPI**).
+   Activates :ref:`emission of marine primary organic aerosols
+   <fullchem-sim-mpoa>`.  This option includes two extra species
+   (**MOPO** and **MOPI**).
 
 .. option:: false
 
@@ -1876,7 +1879,7 @@ Stratospheric aerosols
 
      # ... following sub-sections omitted ...
 
-The :command:`aerosols:sulfate` section contains settings for
+The :command:`aerosols:stratosphere` section contains settings for
 stratopsheric aerosols.  This section only applies to
 :option:`fullchem` simulations.
 
@@ -1978,9 +1981,10 @@ Sulfate aerosols
        activate: true
        metal_cat_SO2_oxidation: true
 
-The :command:`aerosols:sulfate` section contains settings for `sulfate
-aerosols <http://wiki.geos-chem.org/Sulfate_aerosols>`_.  This section
-only applies to the :option:`fullchem` and :option:`aerosol` simulations.
+The :command:`aerosols:sulfate` section contains settings for
+:ref:`sulfur and nitrogen aerosols <aerguide-sulfur>`.  This section
+only applies to :ref:`fullchem <fullchem-sim>` and :ref:`aerosol-only
+<aerosol-sim>` simulations.
 
 activate
 --------
@@ -1998,13 +2002,294 @@ metal_cat_SO2_oxidation
 
 .. option:: true
 
-   Activates  `metal catalyzed oxidation of SO2
-   <http://wiki.geos-chem.org/Sulfate_aerosols#Metal_catalyzed_oxidation_of_SO2>`_.
-   This is the default setting.
+   Activates :ref:`metal catalyzed oxidation of SO2
+   <aerguide-sulfur-metal-cat-so2>` This is the default setting.
 
 .. option:: false
 
    Deactivates metal-catalyzed oxidation of SO2.
+
+.. _cfg-gc-yml-ch4:
+
+=====================
+CH\ :sub:`4` settings
+=====================
+
+This section contains options pertaining to the CH\ :sub:`4` species
+in the :ref:`carbon gases simulation <carbon-sim>`.
+
+.. code-block:: yaml
+
+   #============================================================================
+   # Options for CH4
+   #============================================================================
+   CH4_options:
+
+     use_observational_operators:
+       AIRS: false
+       GOSAT: false
+       TCCON: false
+
+     analytical_inversion:
+       perturb_CH4_boundary_conditions: false
+       CH4_boundary_condition_ppb_increase_NSEW: [0.0, 0.0, 0.0, 0.0]
+
+.. _cfg-gc-yml-airs:
+
+AIRS
+----
+
+.. option:: true
+
+   Activates the AIRS observational operator.
+
+.. option:: false
+
+   Deactivates the AIRS observational operator.  This is the default
+   setting.
+
+.. _gc-yml-ch4_gosat:
+
+
+GOSAT
+-----
+
+.. option:: true
+
+   Activates the GOSAT observational operator.
+
+.. option:: false
+
+   Deactivates the GOSAT observational operator.  This is the default
+   setting.
+
+.. _gc-yml-ch4_tccon:
+
+TCCON
+-----
+
+.. option:: true
+
+   Activates the TCCON observational operator.
+
+.. option:: false
+
+   Deactivates the TCCON observational operator.  This is the default
+   setting.
+
+.. _gc-yml-ch4-perturb:
+
+perturb_CH4_boundary_conditions
+-------------------------------
+
+.. note::
+
+   This setting only applies to :ref:`carbon gases simulations
+   <carbon-sim>` done within the `Integrated Methane Inversion workflow
+   (aka IMI) <https://imi.readthedocs.io>`_.
+
+.. option:: true
+
+   Activates perturbation of CH4 nested-grid boundary conditions in
+   analytical inversions.
+
+.. option:: false
+
+   Deactivates perturbation of CH4 nested-grid boundary conditions in
+   analytical inversions. This is the default setting.
+
+.. _gc-yml-ch4-bc-increase:
+
+CH4_boundary_condition_ppb_increase_NSEW
+----------------------------------------
+
+.. note::
+
+   This setting only applies to :ref:`<carbon gases simulations
+   <carbon-sim>` done within the `Integrated Methane Inversion workflow
+   (aka IMI) <https://imi.readthedocs.io>`_.
+
+Specifies the perturbation amount (in ppbv) to apply to the north,
+south, east and west CH4 nested-grid boundary conditions.  Used in
+conjunction with the :ref:`gc-yml-ch4_anopt-perturb` option.
+
+Default value: :literal:`[0.0, 0.0, 0.0, 0.0]` (no perturbation)
+
+.. _cfg-gc-yml-co:
+
+===========
+CO settings
+===========
+
+.. code-block:: yaml
+
+   #============================================================================
+   # Options for CO
+   #============================================================================
+   CO_options:
+     use_archived_PCO_from_CH4: true
+     use_archived_PCO_from_NMVOC: true
+
+The :literal:`CO_options` section contains settings for chemical
+sources of CO in the :ref:`carbon gases simulation <carbon-sim>`.
+
+use_fullchem_PCO_from_CH4
+-------------------------
+
+.. option:: true
+
+    Activates applying the production of CO from CH\ :sub:`4`.
+    This field is archived from a 1-year or 10-year :ref:`fullchem
+    <fullchem-sim>` benchmark simulation and is read from disk via
+    HEMCO.  This is the default setting.
+
+.. option:: false
+
+    Deactivates applying the production of CO from CH\ :sub:`4`.
+
+use_fullchem_PCO_from_NMVOC
+---------------------------
+
+.. option:: true
+
+    Activates applying the production of CO from non-methane volatile
+    organic compounds (NMVOCs). This field is archived from a 1-year
+    or 10-year :ref:`fullchem <fullchem-sim>` benchmark simulation and
+    is read from disk via HEMCO.  This is the default setting.
+
+.. option:: false
+
+   Deactivates applying the production of CO from NMVOCs.
+
+.. _cfg-gc-yml-co2:
+
+=====================
+CO\ :sub:`2` settings
+=====================
+
+.. code-block:: yaml
+
+   #============================================================================
+   # Options for CO2
+   #============================================================================
+   CO2_options:
+
+     sources:
+       use_archived_PCO2_from_CO: true
+
+This section contains settings for chemical sources of CO\ :sub:`2` in
+the :ref:`carbon gases simulation <carbon-sim>`.
+
+use_archived_PCO2_from_CO
+-------------------------
+
+.. option:: true
+
+   Activates CO\ :sub:`2` production by archived chemical oxidation,
+   as read by HEMCO.  This is the default setting.
+
+.. option:: false
+
+   Deactivates CO\ :sub:`2` production by archived chemical oxidation.
+
+.. _cfg-gc-yml-hg-src:
+
+==========
+Hg sources
+==========
+
+.. code-block:: YAML
+
+   #============================================================================
+   # Settings specific to the Hg simulation
+   #============================================================================
+   Hg_simulation_options:
+
+     sources:
+       use_dynamic_ocean_Hg: false
+       use_preindustrial_Hg: false
+       use_arctic_river_Hg: true
+
+     # ... following sub-sections omitted ...
+
+The :command:`Hg_simulation_options:sources` section contains settings
+for various mercury sources.  This section only applies to the
+:ref:`mercury (Hg) simulation <hg-sim>`.
+
+use_dynamic_ocean_Hg
+--------------------
+
+.. option:: true
+
+   Activates the online slab ocean mercury model.
+
+.. option:: false
+
+   Deactivates the online slab ocean mercury model.  This is the
+   default setting.
+
+use_preindustrial_Hg
+--------------------
+
+.. option:: true
+
+   Activates the preindustrial mercury simulation.  This will turn off all
+   anthropogenic emissions.
+
+.. option:: false
+
+   Deactivates the preindustrial mercury simulation.  This is the
+   default setting.
+
+use_arctic_river_Hg
+-------------------
+
+.. option:: true
+
+   Activates the source of mercury from arctic rivers.  This is the
+   default setting.
+
+.. option:: false
+
+   Deactivates the source of mercury from arctic rivers.
+
+.. _cfg-gc-yml-hg-chem:
+
+============
+Hg chemistry
+============
+
+.. code-block:: YAML
+
+   #============================================================================
+   # Settings specific to the Hg simulation
+   #============================================================================
+   Hg_simulation_options:
+
+     # ... preceding sub-sections omitted ...
+
+     chemistry:
+       tie_HgIIaq_reduction_to_UVB: true
+
+     # ... following sub-sections omitted ...
+
+The :command:`Hg_simulation_options:chemistry` section contains settings
+for mercury chemistry.   This section only applies to the
+:ref:`mercury (Hg) simulation <hg-sim>`.
+
+tie_HgIIaq_reduction_to_UVB
+---------------------------
+
+.. option:: true
+
+   Activates linking the reduction of aqueous oxidized mercury to UVB
+   radiation. (A lifetime of -1 seconds indicates the species has an
+   infinite lifetime.)  This is the default setting.
+
+.. option:: false
+
+   Deactivates linking the reduction of aqueous oxidized mercury to
+   UVB radiation.
 
 .. _gc-yml-xdiag-obspack:
 
@@ -2037,7 +2322,8 @@ Obspack diagnostic
      # ... following sub-sections omitted ...
 
 The :command:`extra_diagnostics:obspack` section contains settings for
-the `Obspack diagnostic <https://wiki.geos-chem.org/Obspack_diagnostic>`_:
+the `Obspack diagnostic
+<https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/obspack.html>`_:
 
 activate
 --------
@@ -2114,7 +2400,7 @@ Planeflight diagnostic
 
 The :command:`extra_diagnostics:planeflight` section contains settings for
 the `GEOS-Chem planeflight diagnostic
-<https://wiki.geos-chem.org/Planeflight_diagnostic>`_.
+<https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/planeflight.html>`_.
 
 activate
 --------
@@ -2143,354 +2429,3 @@ output_file
 Specifies the path to the Planeflight output file.  Requested
 quantities will be archived from GEOS-Chem along the flight track
 specified in :ref:`gc-yml-xdiag-plane-flight-track-file`.
-
-.. _cfg-gc-yml-hg-src:
-
-==========
-Hg sources
-==========
-
-.. code-block:: YAML
-
-   #============================================================================
-   # Settings specific to the Hg simulation
-   #============================================================================
-   Hg_simulation_options:
-
-     sources:
-       use_dynamic_ocean_Hg: false
-       use_preindustrial_Hg: false
-       use_arctic_river_Hg: true
-
-     # ... following sub-sections omitted ...
-
-The :command:`Hg_simulation_options:sources` section contains settings
-for various mercury sources.  This section only applies to the
-:option:`Hg` simulation.
-
-
-use_dynamic_ocean_Hg
---------------------
-
-.. option:: true
-
-   Activates the online slab ocean mercury model.
-
-.. option:: false
-
-   Deactivates the online slab ocean mercury model.  This is the
-   default setting.
-
-use_preindustrial_Hg
---------------------
-
-.. option:: true
-
-   Activates the preindustrial mercury simulation.  This will turn off all
-   anthropogenic emissions.
-
-.. option:: false
-
-   Deactivates the preindustrial mercury simulation.  This is the
-   default setting.
-
-use_arctic_river_Hg
--------------------
-
-.. option:: true
-
-   Activates the source of mercury from arctic rivers.  This is the
-   default setting.
-
-.. option:: false
-
-   Deactivates the source of mercury from arctic rivers.
-
-.. _cfg-gc-yml-hg-chem:
-
-============
-Hg chemistry
-============
-
-.. code-block:: YAML
-
-   #============================================================================
-   # Settings specific to the Hg simulation
-   #============================================================================
-   Hg_simulation_options:
-
-     # ... preceding sub-sections omitted ...
-
-     chemistry:
-       tie_HgIIaq_reduction_to_UVB: true
-
-     # ... following sub-sections omitted ...
-
-The :command:`Hg_simulation_options:chemistry` section contains settings
-for mercury chemistry.   This section only applies to the :option:`Hg`
-simulation.
-
-tie_HgIIaq_reduction_to_UVB
----------------------------
-
-.. option:: true
-
-   Activates linking the reduction of aqueous oxidized mercury to UVB
-   radiation. (A lifetime of -1 seconds indicates the species has an
-   infinite lifetime.)  This is the default setting.
-
-.. option:: false
-
-   Deactivates linking the reduction of aqueous oxidized mercury to
-   UVB radiation.
-
-.. _gc-yml-ch4_obsopt:
-
-===========================
-CH4 observational operators
-===========================
-
-.. code-block:: YAML
-
-   #============================================================================
-   # Settings specific to the CH4 simulation / Integrated Methane Inversion
-   #============================================================================
-   CH4_options:
-
-     use_observational_operators:
-       AIRS: false
-       GOSAT: false
-       TCCON: false
-
-     # ... following sub-sections omitted ...
-
-The :command:`CH4_simulation_options:use_observational_operators` section
-contains options for using satellite observational operators for CH4.
-This section only applies to simulations with carbon gases
-(:option:`carbon`).
-
-AIRS
-----
-
-.. option:: true
-
-   Activates the AIRS observational operator.
-
-.. option:: false
-
-   Deactivates the AIRS observational operator.  This is the default
-   setting.
-
-
-GOSAT
------
-
-.. option:: true
-
-   Activates the GOSAT observational operator.
-
-.. option:: false
-
-   Deactivates the GOSAT observational operator.  This is the default
-   setting.
-
-TCCON
------
-
-.. option:: true
-
-   Activates the TCCON observational operator.
-
-.. option:: false
-
-   Deactivates the TCCON observational operator.  This is the default
-   setting.
-
-.. _gc-yml-ch4_anopt:
-
-================================
-CH4 analytical inversion options
-================================
-
-.. code-block:: YAML
-
-   #============================================================================
-   # Settings specific to the CH4 simulation / Integrated Methane Inversion
-   #============================================================================
-   CH4_options:
-
-     # ... preceding sub-sections omitted ...
-
-     analytical_inversion:
-       perturb_OH_boundary_conditions: false
-       CH4_boundary_condition_ppb_increase_NSEW: [0.0, 0.0, 0.0, 0.0]
-
-The :literal:`ch4_simulation_options:analytical_inversion` section
-contains options for analytical inversions with the `Integrated
-Methane Inversion workflow (aka IMI) <https://imi.readthedocs.io>`_.
-The IMI will automatically modify several of these options based on
-the inversion parameters that you specify.
-
-This section only applies to the :ref:`carbon-sim`.
-
-.. _gc-yml-ch4_anopt-perturb:
-
-perturb_CH4_boundary_conditions
--------------------------------
-
-.. option:: true
-
-   Activates perturbation of CH4 nested-grid boundary conditions in
-   analytical inversions.
-
-.. option:: false
-
-   Deactivates perturbation of CH4 nested-grid boundary conditions in
-   analytical inversions. This is the default setting.
-
-CH4_boundary_condition_ppb_increase_NSEW
-----------------------------------------
-
-Specifies the perturbation amount (in ppbv) to apply to the north,
-south, east and west CH4 nested-grid boundary conditions.  Used in
-conjunction with the :ref:`gc-yml-ch4_anopt-perturb` option.
-
-Default value: :literal:`[0.0, 0.0, 0.0, 0.0]` (no perturbation)
-
-.. _cfg-gc-yml-co2:
-
-===========
-CO2 Sources
-===========
-
-.. code-block:: YAML
-
-   #============================================================================
-   # Settings specific to the CO2 simulation
-   #============================================================================
-   CO2_options:
-
-     sources:
-       3D_chemical_oxidation_source: true
-
-     # ... following sub-sections omitted ...
-
-The :command:`CO2_simulation_options:sources` section contains toggles
-for activating sources of :math:`CO_2`.  This section only applies to
-simulations the :ref:`carbon-sim`.
-
-3D_chemical_oxidation_source
-----------------------------
-
-.. option:: true
-
-   Activates :math:`CO_2` production by archived chemical oxidation,
-   as read by HEMCO.  This is the default setting.
-
-.. option:: false
-
-   Deactivates :math:`CO_2` production by archived chemical oxidation.
-
-.. _cfg-gc-yml-co2-tagspc:
-
-==================
-CO2 tagged species
-==================
-
-.. code-block:: YAML
-
-   #============================================================================
-   # Settings specific to the CO2 simulation
-   #============================================================================
-   CO2_options:
-
-     # ... preceding sub-sections omitted ...
-
-     tagged_species:
-       tag_bio_and_ocean_CO2: false
-       tag_land_fossil_fuel_CO2: false
-
-     # .. following sub-sections omitted ...
-
-The :literal:`CO2_simulation_options:tagged_species` section contains toggles
-for activating tagged :math:`CO_2` species.  This section only applies to
-the :ref:`carbon-sim`.
-
-.. attention::
-
-   Tagged :math:`CO_2` tracers should be customized by each user and
-   the present configuration will not work for resolutions other than
-   :math:`2.0^{\circ} {\times} 2.5^{\circ}`.
-
-tag_bio_and_ocean_CO2
----------------------
-
-.. option:: true
-
-   Activates tagging of biosphere regions (28), ocean regions (11),
-   and the rest of the world (ROW) as specified in
-   :file:`Regions_land.dat` and :file:`Regions_ocean.dat` files.
-
-.. option:: false
-
-   DeActivates tagging of regions. This is the default setting.
-
-tag_land_fossil_fuel_CO2
-------------------------
-
-.. option:: true
-
-   Activates tagging of land and ocean fossil fuel regions.
-
-.. option:: false
-
-   Deactivates tagging of land and ocean fossil fuel regions.  This is
-   the default setting.
-
-.. _cfg-gc-yml-co:
-
-===================
-CO chemical sources
-===================
-
-.. code-block:: YAML
-
-   #============================================================================
-   # Settings specific to the tagged CO simulation
-   #============================================================================
-
-   CO_options:
-     use_fullchem_PCO_from_CH4: true
-     use_fullchem_PCO_from_NMVOC: true
-
-The :literal:`tagged_CO_simulation_options` section contains settings
-for sources of CO used in the :ref:`carbon-sim`.
-
-use_fullchem_PCO_from_CH4
--------------------------
-
-.. option:: true
-
-    Activates applying the production of :math:`CO` from :math:`CH_4`.
-    This field is archived from a 1-year or 10-year :option:`fullchem`
-    benchmark simulation and is read from disk via HEMCO.  This is the
-    default setting.
-
-.. option:: false
-
-    DeActivates applying the production of :math:`CO` from :math:`CH_4`.
-
-use_fullchem_PCO_from_NMVOC
----------------------------
-
-.. option:: true
-
-    Activates applying the production of :math:`CO` from non-methane
-    volatile organic compounds (NMVOCs). This field is archived from a
-    1-year or 10-year :ref:`full-chemistry <fullchem-sim>` benchmark
-    simulation and is read from disk via  HEMCO.  This is the default
-    setting.
-
-.. option:: false
-
-   Deactivates applying the production of :math:`CO` from NMVOCs.

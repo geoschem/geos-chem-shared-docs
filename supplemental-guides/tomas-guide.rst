@@ -256,7 +256,7 @@ All TOMAS-specific sections of code are segregated from the rest of
 GEOS-Chem with C-preprocessor :code:`#if defined` (or :code:`#ifdef`
 for short) statements such as:
 
-.. code-block:: Fortran90
+.. code-block:: Fortran
 
    #if defined( TOMAS )
 

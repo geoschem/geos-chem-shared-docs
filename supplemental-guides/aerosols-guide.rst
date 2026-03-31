@@ -683,6 +683,8 @@ Added sulfur oxidation by reactive halogens
     describes the parameterization of HOBr + S(IV) reactions in
     GEOS-Chem.
 
+.. _aerguide-sulfur-metal-cat-so2:
+
 Added metal-catalyzed SO2 oxidation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

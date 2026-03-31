@@ -3042,69 +3042,497 @@ are stored in the SpeciesConc collection).
 
 .. code-block:: kconfig
 
-     StateChm.template:    '%y4%m2%d2_%h2%n2z.nc4',
-     StateChm.frequency:   00000100 000000
-     StateChm.duration:    00000100 000000
-     StateChm.mode:        'time-averaged'
-     StateChm.fields:      'Chem_phSav      ', 'GIGCchem',
-                           'Chem_HplusSav   ', 'GIGCchem',
-                           'Chem_WaterSav   ', 'GIGCchem',
-                           'Chem_SulRatSav  ', 'GIGCchem',
-                           'Chem_NaRatSav   ', 'GIGCchem',
-                           'Chem_AcidPurSav ', 'GIGCchem',
-                           'Chem_BiSulSav   ', 'GIGCchem',
-                           'Chem_pHCloud    ', 'GIGCchem',
-                           'Chem_SSAlk',    ', 'GIGCchem',
-                           'Chem_HSO3AQ     ', 'GIGCchem',
-                           'Chem_SO3AQ      ', 'GIGCchem',
-                           'Chem_fupdateHOBr', 'GIGCchem',
-   ::
+     StateChm.template:          %y4%m2%d2_%h2%n2z.nc4',
+     StateChm.frequency:         00000100 000000
+     StateChm.duration:          00000100 000000
+     StateChm.frequency:         ${RUNDIR_HIST_TIME_AVG_FREQ}
+     StateChm.duration:          ${RUNDIR_HIST_TIME_AVG_DUR}
+     StateChm.mode:              'time-averaged'
+     StateChm.fields:            'Chem_IsorropAeropHAccum       ',
+                                 'Chem_IsorropAeropHCoarse      ',
+                                 'Chem_IsorropHplusAccum        ',
+                                 'Chem_IsorropHplusCoarse       ',
+                                 'Chem_IsorropAeroH2OAccum      ',
+                                 'Chem_IsorropAeroH2OCoarse     ',
+                                 'Chem_IsorropSulfate           ',
+                                 'Chem_IsorropNitrateAccum      ',
+                                 'Chem_IsorropNitrateCoarse     ',
+                                 'Chem_IsorropChlorideAccum     ',
+                                 'Chem_IsorropChlorideCoarse    ',
+                                 'Chem_IsorropBisulfate         ',
+                                 'Chem_pHCloud                  ',
+                                 'Chem_isCloud                  ',
+                                 'Chem_SSAlkAccumMode           ',
+                                 'Chem_SSAlkCoarseMode          ',
+                                 'Chem_HSO3AQ                   ',
+                                 'Chem_SO3AQ                    ',
+                                 'Chem_fupdateHOBr              ',
+                                 'Chem_GammaN2O5overall         ',
+                                 'Chem_GammaN2O5fine            ',
+                                 'Chem_YieldClNO2fine           ',
+     ::
 
 **List of diagnostic fields in the StateChm collection**
 
 .. list-table::
    :header-rows: 1
-   :widths: 30 50 20
+   :widths: 25 52 23
 
-   * - Diagnostic field
+   * - Name
      - Description
      - Units
-   * - Chm_AcidPurSav
-     - ATE Acidpur concentration
-     - M
-   * - Chm_BiSulSav
-     - ATE Bisulfate general acid concentration
-     - M
-   * - Chm_fupdateHOBr
-     - Correction factor for HOBr removal by SO2 grid box (wet air)
-     - mol/L
-   * - Chm_HplusSav
-     - ATE H+ concentration
-     - M
-   * - Chm_HSO3AQ
+   * - Chem_AclArea
+     - Dry aerosol area for fine mode Cl\ :sup:`-`
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_AclRadi
+     - Dry aerosol radius for fine mode Cl\ :sup:`-`
+     - cm
+   * - Chem_AeroAreaBC
+     - Dry aerosol area for black carbon
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_AeroAreaBGSULF
+     - Dry aerosol area for background stratospheric sulfate
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_AeroAreaIcei
+     - Dry aerosol area for irregular ice cloud (Mischenko)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_AeroAreaMDUST1
+     - Dry aerosol area for mineral dust (0.15 :math:`\mu`\ m)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_AeroAreaMDUST2
+     - Dry aerosol area for mineral dust (0.25 :math:`\mu`\ m)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_AeroAreaMDUST3
+     - Dry aerosol area for mineral dust (0.4 :math:`\mu`\ m)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_AeroAreaMDUST4
+     - Dry aerosol area for mineral dust (0.8 :math:`\mu`\ m)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_AeroAreaMDUST5
+     - Dry aerosol area for mineral dust (1.5 :math:`\mu`\ m)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_AeroAreaMDUST6
+     - Dry aerosol area for mineral dust (2.5 :math:`\mu`\ m)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_AeroAreaMDUST7
+     - Dry aerosol area for mineral dust (4.0 :math:`\mu`\ m)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_AeroAreaOc
+     - Dry aerosol area for organic carbon
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_AeroAreaSsa
+     - Dry aerosol area for sea salt, accumulation mode
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_AeroAreaSsc
+     - Dry aerosol area for sea salt, coarse mode
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_AeroAreaSulf
+     - Dry aerosol area for black carbon
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_AeroH2OBc
+     - Chem_Aerosol H\ :sub:`2`\ O content for black carbon
+     - cm\ :sup:`3`\  cm\ :sup:`-3`
+   * - Chem_AeroH2OBgSulf
+     - Chem_Aerosol H\ :sub:`2`\ O content for background
+       stratospheric sulfate
+     - cm\ :sup:`3` cm\ :sup:`-3`
+   * - Chem_AeroH2OIcei
+     - Chem_Aerosol H\ :sub:`2`\ O content for irregular ice cloud
+       (Mischenko)
+     - cm\ :sup:`3` cm\ :sup:`-3`
+   * - Chem_AeroH2OMDUST1
+     - Chem_Aerosol H\ :sub:`2`\ O content for mineral dust (0.15
+       :math:`\mu`\ m)
+     - cm\ :sup:`3` cm\ :sup:`-3`
+   * - Chem_AeroH2OMDUST2
+     - Chem_Aerosol H\ :sub:`2`\ O content for mineral dust (0.25
+       :math:`\mu`\ m)
+     - cm\ :sup:`3` cm\ :sup:`-3`
+   * - Chem_AeroH2OMDUST3
+     - Chem_Aerosol H\ :sub:`2`\ O content for mineral dust (0.4
+       :math:`\mu`\ m)
+     - cm\ :sup:`3` cm\ :sup:`-3`
+   * - Chem_AeroH2OMDUST4
+     - Chem_Aerosol H\ :sub:`2`\ O content for mineral dust (0.8
+       :math:`\mu`\ m)
+     - cm\ :sup:`3` cm\ :sup:`-3`
+   * - Chem_AeroH2OMDUST5
+     - Chem_Aerosol H\ :sub:`2`\ O content for mineral dust (1.5
+       :math:`\mu`\ m)
+     - cm\ :sup:`3` cm\ :sup:`-3`
+   * - Chem_AeroH2OMDUST6
+     - Chem_Aerosol H\ :sub:`2`\ O content for mineral dust (2.5
+       :math:`\mu`\ m)
+     - cm\ :sup:`3` cm\ :sup:`-3`
+   * - Chem_AeroH2OMDUST7
+     - Chem_Aerosol H\ :sub:`2`\ O content for mineral dust (4.0
+       :math:`\mu`\ m)
+     - cm\ :sup:`3` cm\ :sup:`-3`
+   * - Chem_AeroH2Ooc
+     - Chem_Aerosol H\ :sub:`2`\ O content for organic carbon
+     - cm\ :sup:`3` cm\ :sup:`-3`
+   * - Chem_AeroH2OSna
+     - Sulfur-nitrogen-ammonia aerosol water content
+     - cm\ :sup:`3` cm\ :sup:`-3`
+   * - Chem_AeroH2Ossa
+     - Chem_Aerosol H\ :sub:`2`\ O content for sea salt, accumulation mode
+     - cm\ :sup:`3` cm\ :sup:`-3`
+   * - Chem_AeroH20ssc
+     - Chem_Aerosol H\ :sub:`2`\ O content for sea salt, coarse mode
+     - cm\ :sup:`3` cm\ :sup:`-3`
+   * - Chem_AeroRadiBC
+     - Dry aerosol radius for black carbon
+     - cm
+   * - Chem_AeroRadiBGSULF
+     - Dry aerosol radius for background stratospheric sulfate
+     - cm
+   * - Chem_AeroRadiICEI
+     - Dry aerosol radius for irregular ice cloud (Mischenko)
+     - cm
+   * - Chem_AeroRadiMDUST1
+     - Dry aerosol radius for mineral dust (0.15 :math:`\mu`\ m)
+     - cm
+   * - Chem_AeroRadiMDUST2
+     - Dry aerosol radius for mineral dust (0.25 :math:`\mu`\ m)
+     - cm
+   * - Chem_AeroRadiMDUST3
+     - Dry aerosol radius for mineral dust (0.4 :math:`\mu`\ m)
+     - cm
+   * - Chem_AeroRadiMDUST4
+     - Dry aerosol radius for mineral dust (0.8 :math:`\mu`\ m)
+     - cm
+   * - Chem_AeroRadiMDUST5
+     - Dry aerosol radius for mineral dust (1.5 :math:`\mu`\ m)
+     - cm
+   * - Chem_AeroRadiMDUST6
+     - Dry aerosol radius for mineral dust (2.5 :math:`\mu`\ m)
+     - cm
+   * - Chem_AeroRadiMDUST7
+     - Dry aerosol radius for mineral dust (4.0 :math:`\mu`\ m)
+     - cm
+   * - Chem_AeroRadiOC
+     - Dry aerosol radius for organic carbon
+     - cm
+   * - Chem_AeroRadiSSA
+     - Dry aerosol radius for sea salt, accumulation mode
+     - cm
+   * - Chem_AeroRadiSSC
+     - Dry aerosol radius for sea salt, coarse mode
+     - cm
+   * - Chem_AeroRadiSULF
+     - Dry aerosol radius for tropospheric sulfate
+     - cm
+   * - Chem_DryDepFreq
+     - Dry deposition frequencies
+     - s\ :sup:`-1`
+   * - Chem_DryDepNitrogen
+     - Dry deposited nitrogen
+     - molec cm\ :sup:`-2` s\ :sup:`-1`
+   * - Chem_DryDepRa10m
+     - 10 meter aerodynamic resistance *(MODEL_GEOS only)*
+     - s cm\ :sup:`-1`
+   * - Chem_DryDepRa2m
+     - 2 meter aerodynamic resistance *(MODEL_GEOS only)*
+     - s cm\ :sup:`-1`
+   * - Chem_DryDepVel
+     - Dry deposition velocities
+     - m s\ :sup:`-1`
+   * - Chem_fUpdateHobr
+     - Correction factor for HOBr removal by SO\ :sub:`2`
+     - 1
+   * - Chem_fUpdateHocl
+     - Correction factor for HOCl removal by SO\ :sub:`2`
+     - 1
+   * - Chem_GammaN2o5Fine
+     - Sticking coefficient for Gamma N\ :sub:`2`\ O\ :sub:`5` and fine aerosol
+     - l
+   * - Chem_GammaN2o5Overall
+     - Sticking coefficient for Gamma N\ :sub:`2`\ O\ :sub:`5` overall
+     - l
+   * - Chem_H2O2afterChem
+     - H\ :sub:`2`\ O\ :sub:`2` after sulfate chemistry
+     - mol mol\ :sup:`-1`
+   * - Chem_H2SO4prdr
+     - H\ :sub:`2`\ SO\ :sub:`4` production rate in timestep *(MODEL_CESM only)*
+     - mol mol\ :sup:`-1`
+   * - Chem_HSO3aq
      - Cloud bisulfite concentration
-     - mol/L
-   * - Chm_NaRatSav
-     - ATE Na+ concentration
-     - M
-   * - Chm_phCloud
+     - mol L\ :sup:`-1`
+   * - Chem_Iodide
+     - Surface iodide concentration
+     - nM
+   * - Chem_IsCloud
+     - Cloud presence
+     - 1
+   * - Chem_IsorropAeroH2OAccum
+     - ISORROPIA aerosol water concentration, accumulation mode
+     - :math:`\mu`\ g m\ :sup:`-3`
+   * - Chem_IsorropAeroH2OCoarse
+     - ISORROPIA aerosol water concentration, coarse mode
+     - :math:`\mu`\ g m\ :sup:`-3`
+   * - Chem_IsorropAerophAccum
+     - ISORROPIA aerosol pH, accumulation mode
+     - 1
+   * - Chem_IsorropAerophCoarse
+     - ISORROPIA aerosol pH, coarse mode
+     - 1
+   * - Chem_IsorropBisulfate
+     - ISORROPIA bisulfate (general acid) concentration
+     - mol L\ :sup:`-1`
+   * - Chem_IsorropChlorideAccum
+     - ISORROPIA chloride concentration, accumulation mode
+     - mol L\ :sup:`-1`
+   * - Chem_IsorropChlorideCoarse
+     - ISORROPIA chloride concentration, coarse mode
+     - mol L\ :sup:`-1`
+   * - Chem_IsorropHplusAccum
+     - ISORROPIA H\ :sup:`+` concentration, accumulation mode
+     - mol L\ :sup:`-1`
+   * - Chem_IsorropHplusCoarse
+     - ISORROPIA H\ :sup:`+` concentration, coarse mode
+     - mol L\ :sup:`-1`
+   * - Chem_IsorropNitrateAccum
+     - ISORROPIA nitrate concentration, accumulation mode
+     - mol L\ :sup:`-1`
+   * - Chem_IsorropNitrateCoarse
+     - ISORROPIA nitrate concentration, coarse mode
+     - mol L\ :sup:`-1`
+   * - Chem_IsorropSulfate
+     - ISORROPIA sulfate concentration
+     - mol L\ :sup:`-1`
+   * - Chem_JNO2
+     - Surface J-values for reaction NO\ :sub:`2` + h\ :math:`\nu` → NO + O
+     - 1
+   * - Chem_JOH
+     - Surface J-values for reaction O\ :sub:`3` + h\ :math:`\nu` → O\
+       :sub:`2` + O
+     - 1
+   * - Chem_KhetiSlaBrNO3H2O
+     - Sticking coefficient for BrNO\ :sub:`3` + H\ :sub:`2`\ O reaction
+     - 1
+   * - Chem_KhetiSlaBrNO3HCl
+     - Sticking coefficient for BrNO\ :sub:`3` + HCl reaction
+     - 1
+   * - Chem_KhetiSlaClNO3H2O
+     - Sticking coefficient for ClNO\ :sub:`3` + H\ :sub:`2`\ O reaction
+     - 1
+   * - Chem_KhetiSlaClNO3HBr
+     - Sticking coefficient for ClNO\ :sub:`3` + HBr reaction
+     - 1
+   * - Chem_KhetiSlaClno3Hcl
+     - Sticking coefficient for ClNO\ :sub:`3` + HCl reaction
+     - 1
+   * - Chem_KhetiSlaHOBrHbr
+     - Sticking coefficient for HOBr + HBr reaction
+     - 1
+   * - Chem_KhetiSlaHOBrHCl
+     - Sticking coefficient for HOBr + HCl reaction
+     - 1
+   * - Chem_KhetiSlaHOClHBr
+     - Sticking coefficient for HClr + HBr reaction
+     - 1
+   * - Chem_KhetiSlaHOClHCl
+     - Sticking coefficient for HOCl + HCl reaction
+     - 1
+   * - Chem_KhetiSlaN2O5H2O
+     - Sticking coefficient for N\ :sub:`2`\ O\ :sub:`5` + H\
+       :sub:`2`\ O reaction
+     - 1
+   * - Chem_KhetiSlaN2O5HCl
+     - Sticking coefficient for N\ :sub:`2`\ O\ :sub:`5` + HCl reaction
+     - 1
+   * - Chem_KppHvalue
+     - `Hnew value
+       <https://kpp.readthedocs.io/en/stable/using_kpp/05_output_from_kpp.html#rstatus-3>`_
+       for Rosenbrock solver
+     - 1
+   * - Chem_Krate
+     - KRATE
+     - 1
+   * - Chem_OceanHg0
+     - Hg(0) ocean mass
+     - kg
+   * - Chem_OceanHg2
+     - Hg(II) ocean mass
+     - kg
+   * - Chem_OceanHgP
+     - HgP ocean mass
+     - kg
+   * - Chem_OMOC
+     - OM:OC ratio as read by HEMCO (from aerosol_mod.F90)
+     - 1
+   * - Chem_OMOCOPOA
+     - OM:OC ratio for OPOA (from aerosol_mod.F90)
+     - 1
+   * - Chem_OMOCPOA
+     - OM:OC ratio for POA (from aerosol_mod.F90)
+     - 1
+   * - Chem_ORVCSESQ
+     - Sesquiterpenes mass
+     - kg
+   * - Chem_pHCloud
      - Cloud pH
      - 1
-   * - Chm_phSav
-     - Aerosol pH
+   * - Chem_PhRain
+     - Rain pH
      - 1
-   * - Chm_SO3AQ
+   * - Chem_QLxphCloud
+     - Cloud pH × Met_QL
+     - 1
+   * - Chem_QQ3D
+     - Rate of new precipitation formation
+     - cm\ :sup:`3` H\ :sub:`2`\ O cm\ :sup:`-3` air
+   * - Chem_QQPHRAIN
+     - QQRain pH
+     - 1
+   * - Chem_QQRAIN
+     - QQRain
+     - 1
+   * - Chem_Salinity
+     - Salinity
+     - PSU
+   * - Chem_SnowHgLand
+     - Reducible Hg snowpack on land
+     - kg
+   * - Chem_SnowHgLandStored
+     - Non-reducible Hg snowpack on land
+     - kg
+   * - Chem_SnowHgOcean
+     - Reducible Hg snowpack on ocean
+     - kg
+   * - Chem_SnowHgOceanStored
+     - Non-reducible Hg snowpack on ocean
+     - kg
+   * - Chem_SO2afterChem
+     - SO\ :sub:`2` after sulfate chemistry
+     - mol mol\ :sup:`-1`
+   * - Chem_SO3aq
      - Cloud sulfite concentration
-     - mol/L
-   * - Chm_SulRatSav
-     - Sulfate concentration
-     - M
-   * - Chm_SSalk
-     - Sea salt alkalinity
-     -
-   * - Chm_WaterSav
-     - ATE Aerosol water
-     - :math:`{\mu}g/m3`
+     - mol L\ :sup:`-1`
+   * - Chem_SoilDust1
+     - Dust aerosol concentration in bin 1
+     - kg m\ :sup:`-3`
+   * - Chem_SOILDUST2
+     - Dust aerosol concentration in bin 2
+     - kg m\ :sup:`-3`
+   * - Chem_SOILDUST3
+     - Dust aerosol concentration in bin 3
+     - kg m\ :sup:`-3`
+   * - Chem_SOILDUST4
+     - Dust aerosol concentration in bin 4
+     - kg m\ :sup:`-3`
+   * - Chem_SOILDUST5
+     - Dust aerosol concentration in bin 5
+     - kg m\ :sup:`-3`
+   * - SoilDust6
+     - Dust aerosol concentration in bin 6
+     - kg m\ :sup:`-3`
+   * - Chem_SOILDUST7
+     - Dust aerosol concentration in bin 7
+     - kg m\ :sup:`-3`
+   * - Chem_SSalkAccumMode
+     - Sea salt alkalinity, accumulation mode
+     - 1
+   * - Chem_SSalkCoarseMode
+     - Sea salt alkalinity, coarse mode
+     - 1
+   * - Chem_StatePsc
+     - Polar stratospheric cloud type (cf Kirner et al 2011, GMD)
+     - count
+   * - Chem_TStratAdj
+     - Stratospheric temperature adjustment
+     - K
+   * - Chem_WetAeroAreaBc
+     - Wet aerosol area for black carbon
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_WetAeroAreaBGSULF
+     - Wet aerosol area for background stratospheric sulfate
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_WetAeroAreaICEI
+     - Wet aerosol area for irregular ice cloud (Mischenko)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_WetAeroAreaMDUST1
+     - Wet aerosol area for mineral dust (0.15 :math:`\mu`\ m)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_WetAeroAreaMDUST2
+     - Wet aerosol area for mineral dust (0.25 :math:`\mu`\ m)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_WetAeroAreaMDUST3
+     - Wet aerosol area for mineral dust (0.4 :math:`\mu`\ m)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_WetAeroAreaMDUST4
+     - Wet aerosol area for mineral dust (0.8 :math:`\mu`\ m)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_WetAeroAreaMDUST5
+     - Wet aerosol area for mineral dust (1.5 :math:`\mu`\ m)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_WetAeroAreaMDUST6
+     - Wet aerosol area for mineral dust (2.5 :math:`\mu`\ m)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_WetAeroAreaMDUST7
+     - Wet aerosol area for mineral dust (4.0 :math:`\mu`\ m)
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_WetAeroAreaOC
+     - Wet aerosol area for organic carbon
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_WetAeroAreaSSA
+     - Wet aerosol area for sea salt, accumulation mode
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_WetAeroAreaSSC
+     - Wet aerosol area for sea salt, coarse mode
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_WetAeroAreaSULF
+     - Wet aerosol area for tropospheric sulfate
+     - cm\ :sup:`2` cm\ :sup:`-3`
+   * - Chem_WetAeroRadiBC
+     - Wet aerosol radius for black carbon
+     - cm
+   * - Chem_WetAeroRadiBGSULF
+     - Wet aerosol radius for background stratospheric sulfate
+     - cm
+   * - Chem_WetAeroRadiICEI
+     - Wet aerosol radius for irregular ice cloud (Mischenko)
+     - cm
+   * - Chem_WetAeroRadiMDUST1
+     - Wet aerosol radius for mineral dust (0.15 :math:`\mu`\ m)
+     - cm
+   * - Chem_WetAeroRadiMDUST2
+     - Wet aerosol radius for mineral dust (0.25 :math:`\mu`\ m)
+     - cm
+   * - Chem_WetAeroRadiMDUST3
+     - Wet aerosol radius for mineral dust (0.4 :math:`\mu`\ m)
+     - cm
+   * - Chem_WetAeroRadiMDUST4
+     - Wet aerosol radius for mineral dust (0.8 :math:`\mu`\ m)
+     - cm
+   * - Chem_WetAeroRadiMDUST5
+     - Wet aerosol radius for mineral dust (1.5 :math:`\mu`\ m)
+     - cm
+   * - Chem_WetAeroRadiMDUST6
+     - Wet aerosol radius for mineral dust (2.5 :math:`\mu`\ m)
+     - cm
+   * - Chem_WetAeroRadiMDUST7
+     - Wet aerosol radius for mineral dust (4.0 :math:`\mu`\ m)
+     - cm
+   * - Chem_WetAeroRadiOC
+     - Wet aerosol radius for organic carbon
+     - cm
+   * - Chem_WetAeroRadiSSA
+     - Wet aerosol radius for sea salt, accumulation mode
+     - cm
+   * - Chem_WetAeroRadiSSC
+     - Wet aerosol radius for sea salt, coarse mode
+     - cm
+   * - Chem_WetAeroRadiSULF
+     - Wet aerosol radius for tropospheric sulfate
+     - cm
+   * - Chem_WetDepNitrogen
+     - Wet deposited nitrogen
+     - molec cm\ :sup:`-2` s\ :sup:`-1`
+   * - Chem_YieldClNO2fine
+     - Production yield coefficient for ClNO\ :sub:`2` from N\
+       :sub:`2`\ O\ :sub:`5` fine aerosol uptake
+     - L
 
 .. _histguide-statemet:
 

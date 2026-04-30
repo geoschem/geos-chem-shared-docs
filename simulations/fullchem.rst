@@ -99,9 +99,33 @@ UV by brown carbon (:cite:t:`Hammer_et_al._2016`).
 
 UCX, the Universal tropospheric-stratospheric Chemistry eXtension
 (:cite:t:`Eastham_et_al._2014`) adds online stratospheric chemistry
-into the standard GEOS-Chem full-chemistry mechanism. All other
-mesospheric chemistry is approximated using the linearized GMI
-mechanism.
+into the standard GEOS-Chem full-chemistry mechanism.  In particular:
+
+- In-model column ozone is be used to estimate ozone optical depth for
+  photolysis calculations, allowing photochemistry to couple to
+  modeled ozone depletion or production.
+
+- Long-lived species such as N\ :sub:`2`\ O, CH\ :sub:`4`  OCS,
+  CFCs, HCFCs and halons are emitted, advected and lost as part of the
+  chemistry mechanism, instead of ignored or set to fixed mixing ratios.
+  
+- Stratospheric water is treated as an advected tracer, and can be
+  enhanced by changes in tropospheric meteorology and upwelling CH\
+  :sub:`4`.
+  
+- Stratospheric aerosols (LBS, STS, NAT and ice) are formed according
+  to thermodynamics equilibrium. These aerosols are advected, interact
+  with radiation, can settle (based on a log-normal approximation) and
+  take part in heterogeneous chemistry as described in
+  :cite:t:`Kirner_et_al._2011`.
+
+- A mesospheric steady-state approximation is applied to
+  NO\ :sub:`y` and SO\ :sub:`x` to prevent formation of an
+  unrealistic high-altitude reservoir while conserving total nitrogen
+  and sulfur.
+
+All other mesospheric chemistry is approximated using the linearized
+GMI mechanism.
 
 ==================
 Simulation options

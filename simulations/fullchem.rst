@@ -131,8 +131,8 @@ GMI mechanism.
 Simulation options
 ==================
 
-You may choose one of several fullchem simulation options at :ref:`run directory
-creation time <rundir>`.
+You may choose one of several fullchem simulation options at :ref:`run
+directory creation time <rundir>`.
 
 .. list-table::
    :header-rows: 1
@@ -448,7 +448,7 @@ The :program:`Standard` fullchem option uses the following species:
      - CH3I
      - 141.94
    * - CH4
-     - not listed
+     - Methane
      - CH4
      - 16.04
    * - CHBr3
@@ -492,7 +492,7 @@ The :program:`Standard` fullchem option uses the following species:
      - not listed
      - 1.0
    * - CO
-     - not listed
+     - Carbon monoxide
      - CO
      - 28.01
    * - CSL
@@ -504,31 +504,31 @@ The :program:`Standard` fullchem option uses the following species:
      - (CH3)2S
      - 62.13
    * - DSTbin1
-     - Dust aerosol, Reff = 0.151 :math:`\mu\text{m}`
+     - Dust aerosol, Reff = 0.151 :math:`\mu`\ m
      - not listed
      - 29.0
    * - DSTbin2
-     - Dust aerosol, Reff = 0.253 :math:`\mu\text{m}`
+     - Dust aerosol, Reff = 0.253 :math:`\mu`\ m
      - not listed
      - 29.0
    * - DSTbin3
-     - Dust aerosol, Reff = 0.402 :math:`\mu\text{m}`
+     - Dust aerosol, Reff = 0.402 :math:`\mu`\ m
      - not listed
      - 29.0
    * - DSTbin4
-     - Dust aerosol, Reff = 0.818 :math:`\mu\text{m}`
+     - Dust aerosol, Reff = 0.818 :math:`\mu`\ m
      - not listed
      - 29.0
    * - DSTbin5
-     - Dust aerosol, Reff = 1.491 :math:`\mu\text{m}`
+     - Dust aerosol, Reff = 1.491 :math:`\mu`\ m
      - not listed
      - 29.0
    * - DSTbin6
-     - Dust aerosol, Reff = 2.417 :math:`\mu\text{m}`
+     - Dust aerosol, Reff = 2.417 :math:`\mu`\ m
      - not listed
      - 29.0
    * - DSTbin7
-     - Dust aerosol, Reff = 3.721 :math:`\mu\text{m}`
+     - Dust aerosol, Reff = 3.721 :math:`\mu`\ m
      - not listed
      - 29.0
    * - EBZ
@@ -919,6 +919,10 @@ The :program:`Standard` fullchem option uses the following species:
      - Catechols and methyl catechols
      - C7H8O2
      - 124.0
+   * - MDL
+     - Methanediol
+     - HOCH2OH
+     - 64.05
    * - MEK
      - Methyl Ethyl Ketone
      - RC(O)R
@@ -1030,7 +1034,7 @@ The :program:`Standard` fullchem option uses the following species:
    * - NITs
      - Inorganic nitrates on surface of seasalt aerosol
      - not listed
-     - 31.4
+     - 62.01
    * - NO
      - Nitrogen oxide
      - NO
@@ -1196,7 +1200,7 @@ The :program:`Standard` fullchem option uses the following species:
      - CH3CH2C(O)OOH
      - 90.09
    * - SALA
-     - Fine (0.01-0.05 :math:`\mu\text{m}`) sea salt aerosol
+     - Fine (0.01-0.05 :math:`\mu`\ m) sea salt aerosol
      - not listed
      - 31.4
    * - SALAAL
@@ -1208,7 +1212,7 @@ The :program:`Standard` fullchem option uses the following species:
      - not listed
      - 35.45
    * - SALC
-     - Coarse (0.5-8 :math:`\mu\text{m}`) sea salt aerosol
+     - Coarse (0.5-8 :math:`\mu`\ m) sea salt aerosol
      - not listed
      - 31.4
    * - SALCAL
@@ -1230,7 +1234,7 @@ The :program:`Standard` fullchem option uses the following species:
    * - SO4s
      - Sulfate on surface of seasalt aerosol
      - not listed
-     - 31.4
+     - 96.06
    * - SOAGX
      - Aerosol-phase glyoxal
      - C2H2O2

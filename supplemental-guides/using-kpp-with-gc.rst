@@ -7,13 +7,13 @@ Update chemical mechanisms with KPP
 This Guide demonstrates how you can use `The Kinetic PreProcessor
 (aka KPP) <https://kpp.readthedocs.io>`_ to translate a chemical
 mechanism specification in plain text format to highly-optimized
-Fortran90 code for use with GEOS-Chem:
+Fortran code for use with GEOS-Chem:
 
 .. attention::
 
-   You must use at least `KPP 3.2.0
-   <https://kpp.readthedocs.io/en/stable/getting_started/00_revision_history.html#kpp-3--0>`_
-   with the current GEOS-Chem release series.
+   You must use `KPP 3.5.0
+   <https://github.com/KineticPreProcessor/KPP/releases/tag/3.5.0>`_
+   or later with the current GEOS-Chem release series.
 
 .. _kppguide-quick-start:
 
@@ -28,8 +28,8 @@ Using KPP: Quick start
 
 The :file:`KPP/custom` folder is intended for building customized mechanisms.
 (The standard mechanisms that ship with GEOS-Chem are contained in
-other folders named :file:`KPP/fullchem` and :file:`KPP/Hg`, but we
-will leave these alone.)
+other folders named :file:`KPP/fullchem`, :file:`KPP/Hg`, and
+:file:`KPP/carbon`, but we will leave these alone.)
 
 If you are using GEOS-Chem "Classic", type:
 
@@ -41,7 +41,7 @@ or if you are using GCHP, type:
 
 .. code-block:: console
 
-   $ cd GCHP/GCHP_GridComp/GEOSChem_GridComp/geos-chem/KPP/custom
+   $ cd GCHP/src/GCHP_GridComp/GEOSChem_GridComp/geos-chem/KPP/custom
 
 .. _kppguide-config-files:
 
@@ -58,12 +58,12 @@ documentation at `kpp.readthedocs.io <https://kpp.readthedocs.io>`_.)
 
 You can edit these :ref:`kppguide-custom-eqn` and
 :ref:`kppguide-custom-kpp` configuration files to define your own
-custom mechanism (cf. :ref:`kppguide-reference-section` for details).
+custom mechanism (see the :ref:`kppguide-reference-section` for details).
 
 .. important::
 
-   We recommend always building a custom mechanism from the
-   :file:`KPP/custom` folder, and to leave the other folders
+   We recommend that you always build a custom mechanism from the
+   :file:`KPP/custom` folder and leave the other folders
    untouched. This will allow you to validate your modified mechanism
    against one of the standard mechanisms that ship with GEOS-Chem.
 
@@ -93,14 +93,14 @@ file. It contains:
 - Functions to compute reaction rates
 - Global definitions
 - An :command:`#INCLUDE custom.eqn` command, which tells
-  :program:`KPP` to look for chemical reaction definitions in
+  KPP to look for chemical reaction definitions in
   :ref:`kppguide-custom-eqn`.
 
 .. important::
 
    The symbolic link :file:`gckpp.kpp` points to :file:`custom.kpp`.
    This is necessary in order to generate Fortran files with the
-   the naming convention :file:`gckpp*.F90`.
+   the consistent naming convention :file:`gckpp*.F90`.
 
 .. _kppguide-build-mechanism-sh:
 
@@ -116,20 +116,20 @@ Return to the top-level :file:`KPP` folder from :file:`KPP/custom`:
    $ cd ..
 
 There you will find a script named :file:`build_mechanism.sh`, which
-is the driver script for running :program:`KPP`. Execute the script as
+is the driver script for running KPP. Execute the script as
 follows:
 
 .. code-block:: console
 
    $ ./build_mechanism.sh custom
 
-This will run the :program:`KPP` executable (located in the folder
+This will run the KPP executable (located in the folder
 :file:`$KPP_HOME/bin`) :file:`custom.kpp` configuration
 file (via symbolic link :file:`gckpp.kpp`,  It also runs a python
 script to generate code for the OH reactivity diagnostic.  You should
 see output similar to this:
 
-.. code-block:: console
+.. code-block:: none
 
   This is KPP-X.Y.Z.
 
@@ -139,16 +139,16 @@ see output similar to this:
   KPP is initializing the code generation.
   KPP is generating the monitor data:
     - gckpp_Monitor
-  KPP is generating the utility data:
+  KPP is generating the utility data:
     - gckpp_Util
-  KPP is generating the global declarations:
+  KPP is generating the global declarations:
     - gckpp_Main
-  KPP is generating the ODE function:
+  KPP is generating the ODE function:
     - gckpp_Function
   KPP is generating the ODE Jacobian:
     - gckpp_Jacobian
     - gckpp_JacobianSP
-  KPP is generating the linear algebra routines:
+  KPP is generating the linear algebra routines:
     - gckpp_LinearAlgebra
   KPP is generating the utility functions:
     - gckpp_Util
@@ -167,7 +167,7 @@ see output similar to this:
   Reactivity consists of xxx reactions    # NOTE: xxx will be replaced by the actual number
   Written to gckpp_Util.F90
 
-where :file:`X.Y.Z` denotes the :program:`KPP` version that you are using.
+where :file:`X.Y.Z` denotes the KPP version that you are using.
 
 If this process is successful, the :file:`custom` folder will have
 several new files starting with :file:`gckpp`:
@@ -180,33 +180,50 @@ several new files starting with :file:`gckpp`:
   gckpp_Initialize.F90  gckpp.kpp@               gckpp_Monitor.F90     gckpp_Util.F90
   gckpp_Integrator.F90  gckpp_LinearAlgebra.F90  gckpp_Parameters.F90
 
-The :file:`gckpp*.F90` files contain optimized Fortran-90 instructions
+The :file:`gckpp*.F90` files contain optimized Fortran instructions
 for solving the chemical mechanism that you have specified.  The
 :file:`gckpp.log` file is a human-readable description of the
 mechanism.  Also, :file:`gckpp.kpp` is a symbolic link to the
 :file:`custom.kpp` file.
 
-`A complete description of these KPP-generated files
-<https://kpp.readthedocs.io/en/latest/using_kpp/05_output_from_kpp.html#the-fortran90-code>`_
-at kpp.readthedocs.io.
+See kpp.readthedocs.io for `a complete description of these
+KPP-generated files
+<https://kpp.readthedocs.io/en/stable/output/code_f90.html>`_.
 
 .. _kppguide-using-custom-mech:
 
 4. Recompile GEOS-Chem with your custom mechanism
 -------------------------------------------------
 
-:program:`GEOS-Chem` will always use the default mechanism (which is named
+GEOS-Chem will always use the default mechanism (which is named
 :file:`fullchem`).  To tell GEOS-Chem to use the :file:`custom`
 mechanism instead, follow these steps.
 
+.. _kppguide-configuring-gc:
+
+Navigate to your GEOS-Chem Classic or GCHP run directory:
+
+.. code-block:: console
+
+   $ cd /path/to/your/run/directory
+
+Your run directory should have a subdirectory named :file:`build/`.
+This is where you will compile GEOS-Chem.  Navigate to this folder:
+
+.. code-block:: console
+
+   $ cd build
+
+
 .. tip::
 
-   GEOS-Chem Classic run directories have a subdirectory named
-   :file:`build` in which you can configure and build GEOS-Chem.  If
-   you don't have a build directory, you can add one to your run
-   directory with :command:`mkdir build`.
+   If for some reason your run directory does not contain a
+   :file:`build/` folder, create it and then navigate to it.
 
-.. _kppguide-configuring-gc:
+   .. code-block:: console
+
+      $ mkdir build
+      $ cd build
 
 From the build directory, type:
 
@@ -225,8 +242,8 @@ This confirms that the custom mechanism has been selected.
 
 .. _kppguide-compiling:
 
-Once you have configured :program:`GEOS-Chem` to use the
-:file:`custom` mechanism, you may build the exectuable.  Type:
+Once you have configured GEOS-Chem to use the :file:`custom`
+mechanism, you may build the exectuable.  Type:
 
 .. code-block:: console
 
@@ -248,21 +265,25 @@ Using KPP: Reference section
 Adding species to a mechanism
 -----------------------------
 List chemically-active (aka variable) species in the `#DEFVAR
-<https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#defvar-and-deffix>`_ section of :file:`custom.eqn`, as shown below:
+<https://kpp.readthedocs.io/en/stable/input/kpp_sections.html#defvar-and-deffix>`_ section of :file:`custom.eqn`, as shown below:
 
 .. code-block:: none
 
   #DEFVAR
+
   A3O2       = IGNORE; {CH3CH2CH2OO; Primary RO2 from C3H8}
+  ACR        = IGNORE; {C3H4O, Acrolein}
+  ACRO2      = IGNORE; {C3H5O4}
+  ACO3       = IGNORE; {C3H3O3}
   ACET       = IGNORE; {CH3C(O)CH3; Acetone}
-  ACTA       = IGNORE; {CH3C(O)OH; Acetic acid}
   ...etc ...
 
 The :code:`IGNORE` tells KPP not to perform mass-balance checks, which
 would make GEOS-Chem execute more slowly.
 
 List species whose concentrations do not change in the `#DEFFIX
-<https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#defvar-and-deffix>`_ section of :file:`custom.eqn`, as shown below:
+<https://kpp.readthedocs.io/en/stable/input/kpp_sections.html#defvar-and-deffix>`_
+section of :file:`custom.eqn`, as shown below:
 
 .. code-block:: none
 
@@ -286,7 +307,7 @@ Gas-phase reactions
 ~~~~~~~~~~~~~~~~~~~
 
 List gas-phase reactions first in the `#EQUATIONS
-<https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#equations>`_
+<https://kpp.readthedocs.io/en/stable/input/kpp_sections.html#equations>`_
 section of :file:`custom.eqn`.
 
 .. code-block:: none
@@ -322,9 +343,9 @@ molecule is consumed or produced, then the factor can be omitted;
 otherwise the number of molecules consumed or produced should be
 specified with at least 1 decimal place of accuracy. The final
 section, between the colon and semi-colon, specifies the function
-:code:`RATE_LAW_FUNCTION` and its arguments which will be used to
-calculate the reaction rate constant k. Rate-law functions are
-specified in the :file:`custom.kpp` file.
+:program:`RATE_LAW_FUNCTION` and its arguments which will be used to
+calculate the reaction rate constant :math:`k`. Rate-law functions are
+specified in the :file:`custom.eqn` file.
 
 For an equation such as the one above, the overall rate at which the
 reaction will proceed is determined by :math:`k[A][B]`. However, if the
@@ -342,11 +363,10 @@ This will save the overhead of a function call.
 Rates for two-body reactions according to the Arrhenius law
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-For many reactions, the calculation of k follows the Arrhenius law:
+For many reactions, the calculation of :math:`k` follows the Arrhenius
+law:
 
-.. code-block:: none
-
-   k = a0 * ( 300 / TEMP )**b0 * EXP( c0 / TEMP )
+   :math:`k = a_0 \times ( 300 / T )^{b_0} \times e^{(c_0 / T)}`
 
 .. important::
 
@@ -356,15 +376,16 @@ For many reactions, the calculation of k follows the Arrhenius law:
 
 For example, the `JPL chemical data evaluation
 <https://jpldataeval.jpl.nasa.gov>`__), (Feb 2017) specifies that the
-reaction O3 + NO produces NO2 and O2, and its
-Arrhenius parameters are :math:`A` = 3.0x10^-12 and :math:`E/R` = 1500.   To
-use the Arrhenius formulation above, we must specify :math:`a_0 = 3.0e-12`
-and :math:`c_0 = -1500`.
+reaction O\ :sub:`3` + NO produces NO\ :sub:`2` and O\ :sub:`2`, and
+its Arrhenius parameters are :math:`A` = 3.0x10\ :sup:`-12` and
+:math:`E/R` = 1500.   To use the Arrhenius formulation above, we must
+specify :math:`a_0` = 3.0e-12 and :math:`c_0` = -1500.
 
 To specify a two-body reaction whose rate follows the Arrhenius law, you
 can use the :code:`GCARR` rate-law function, which is defined in
-:file:`gckpp.kpp`. For example, the entry for the :math:`O3 + NO =
-NO2 + O2` reaction can be written as in :file:`custom.eqn` as:
+:file:`gckpp.kpp`. For example, the entry for the O\ :sub:`3` + NO =
+NO\ :sub:`2` + O\ :sub:`2` reaction can be written as in
+:file:`custom.eqn` as:
 
 .. code-block:: none
 
@@ -408,16 +429,16 @@ called for each cell in the chemistry grid, wasted clock cycles can
 accumulate into a noticeable slowdown in execution.
 
 You can also make your rate-law functions more efficient if you
-rewrite them to avoid computing terms that evaluate to 1.   We saw
-above (cf. :ref:`kppguide-two-body-rates`) that the rate of the
-reaction :math:`O3 + NO = NO2 + O2` can be computed according to the
-Arrhenius law.  But because :code:`b0 = 0`, term
+rewrite them to avoid computing terms that evaluate to 1.  :ref:`We
+saw above <kppguide-two-body-rates>` that the rate of the  reaction
+O\ :sub:`3` + NO = NO\ :sub:`2` + O\ :sub:`2` can be computed
+according to the Arrhenius law.  But because :math:`b0` = 0, term
 :code:`(300/TEMP)**b0` evaluates to 1. We can therefore rewrite the
 computation of the reaction rate as:
 
 .. code-block:: none
 
-   k = 3.0x10^-12 + EXP( 1500 / TEMP )
+   k = 3.0e-12 + EXP( 1500 / TEMP )
 
 .. tip::
 
@@ -434,7 +455,8 @@ into multiple functions:
 #. :code:`GCARR_ab(a0, b0)`: Use when :code:`a0 > 0` and :code:`b0 > 0`
 #. :code:`GCARR_ac(a0, c0)`: Use when :code:`a0 > 0` and :code:`c0 > 0`
 
-Thus we can write the O3 + NO reaction in :file:`custom.eqn` as:
+Thus we can write the O\ :sub:`3` + NO reaction in :file:`custom.eqn`
+as:
 
 .. code-block:: none
 
@@ -462,7 +484,7 @@ List heterogeneous reactions after all of the gas-phase reactions in
   NO3 = NIT :                                  NO3hypsisClonSALA( State_Het );       {2018/03/16; XW}
   ... etc ...
 
-A simple example is uptake of HO2, specified as
+A simple example is uptake of HO\ :sub:`2`, specified as
 
 .. code-block:: none
 
@@ -476,7 +498,7 @@ A simple example is uptake of HO2, specified as
    fixed species (i.e. one whose concentration does not change with
    time).
 
-The rate law function :file:`NO2uptk1stOrd` is contained in the
+The rate law function :program:`NO2uptk1stOrd` is contained in the
 Fortran module :file:`KPP/fullchem/fullchem_RateLawFuncs.F90`, which
 is symbolically linked to the :file:`custom` folder.  The
 :file:`fullchem_RateLawFuncs.F90` file is inlined into
@@ -529,7 +551,7 @@ the :code:`PHOTOL` array. This index can be determined by inspecting the file
    determine the path to the :file:`cloudj_input_dir` folder in which
    the :file:`FJX_j2j.dat` and :file:`FJX_spec.dat` files are stored.
 
-For example, one branch of the :math:`NO_3` photolysis reaction is specified in
+For example, one branch of the NO\ :sub:`3` photolysis reaction is specified in
 the :file:`custom.eqn` file as
 
 .. code-block:: none
@@ -537,7 +559,8 @@ the :file:`custom.eqn` file as
   NO3 + hv = NO2 + O : PHOTOL(12)
 
 Referring back to :file:`FJX_j2j.dat` shows that reaction 12, as
-specified by the left-most index, is indeed :math:`NO_3 = NO2 + O`:
+specified by the left-most index, is indeed NO\ :sub:`3` = NO\
+:sub:`2` + O:
 
 .. code-block:: none
 
@@ -605,27 +628,27 @@ added to :file:`FJX_spec.dat` with the same name.
 Adding production and loss families to a mechanism
 --------------------------------------------------
 
-Certain common families (e.g. :math:`PO_x`, :math:`LO_x`) have been
-pre-defined for you. You will find the family definitions near the top of the
-:file:`custom.kpp` file (which is symbolically linked to :file:`gckpp,kpp`):
+Certain common families (e.g. PO\ :sub:`x`, LO\ :sub:`x`) have been
+pre-defined for you. You will find the family definitions near the top
+of the :file:`custom.kpp` file (which is symbolically linked to
+:file:`gckpp,kpp`):
 
 .. code-block:: none
 
-  #FAMILIES
-  POx : O3 + NO2 + 2NO3 + PAN + PPN + MPAN + HNO4 + 3N2O5 + HNO3 + BrO + HOBr + BrNO2 + 2BrNO3 + MPN + ETHLN + MVKN + MCRHN + MCRHNB + PROPNN + R4N2 + PRN1 + PRPN + R4N1 + HONIT + MONITS + MONITU + OLND + OLNN + IHN1 + IHN2 + IHN3 + IHN4 + INPB + INPD + ICN + 2IDN + ITCN + ITHN + ISOPNOO1 + ISOPNOO2 + INO2B + INO2D + INA + IDHNBOO + IDHNDOO1 + IDHNDOO2 + IHPNBOO + IHPNDOO + ICNOO + 2IDNOO + MACRNO2 + ClO + HOCl + ClNO2 + 2ClNO3 + 2Cl2O2 + 2OClO + O + O1D + IO + HOI + IONO + 2IONO2 + 2OIO + 2I2O2 + 3I2O3 + 4I2O4;
-  LOx : O3 + NO2 + 2NO3 + PAN + PPN + MPAN + HNO4 + 3N2O5 + HNO3 + BrO + HOBr + BrNO2 + 2BrNO3 + MPN + ETHLN + MVKN + MCRHN + MCRHNB + PROPNN + R4N2 + PRN1 + PRPN + R4N1 + HONIT + MONITS + MONITU + OLND + OLNN + IHN1 + IHN2 + IHN3 + IHN4 + INPB + INPD + ICN + 2IDN + ITCN + ITHN + ISOPNOO1 + ISOPNOO2 + INO2B + INO2D + INA + IDHNBOO + IDHNDOO1 + IDHNDOO2 + IHPNBOO + IHPNDOO + ICNOO + 2IDNOO + MACRNO2 + ClO + HOCl + ClNO2 + 2ClNO3 + 2Cl2O2 + 2OClO + O + O1D + IO + HOI + IONO + 2IONO2 + 2OIO + 2I2O2 + 3I2O3 + 4I2O4;
-  PCO : CO;
-  LCO : CO;
-  PSO4 : SO4;
-  LCH4 : CH4;
-  PH2O2 : H2O2;
+   #FAMILIES                 { Chemical families for prod/loss diagnostic }
+   POx : O3 + NO2 + 2NO3 + PAN + PPN + MPAN + HNO4 + 3N2O5 + HNO3 + BrO + HOBr + BrNO2 + 2BrNO3 + MPN + ETHLN + MVKN + MCRHN + MCRHNB + PROPNN + R4N2 + PRN1 + PRPN + R4N1 + HONIT + MONITS + MONITU + OLND + OLNN + IHN1 + IHN2 + IHN3 + IHN4 + INPB + INPD + ICN + 2IDN + ITCN + ITHN + ISOPNOO1 + ISOPNOO2 + INO2B + INO2D + INA + IDHNBOO + IDHNDOO1 + IDHNDOO2 + IHPNBOO + IHPNDOO + ICNOO + 2IDNOO + MACRNO2 + ClO + HOCl + ClNO2 + 2ClNO3 + 2Cl2O2 + 2OClO + O + O1D + IO + HOI + IONO + 2IONO2 + 2OIO + 2I2O2 + 3I2O3 + 4I2O4 + NIT + NITs;
+   LOx : O3 + NO2 + 2NO3 + PAN + PPN + MPAN + HNO4 + 3N2O5 + HNO3 + BrO + HOBr + BrNO2 + 2BrNO3 + MPN + ETHLN + MVKN + MCRHN + MCRHNB + PROPNN + R4N2 + PRN1 + PRPN + R4N1 + HONIT + MONITS + MONITU + OLND + OLNN + IHN1 + IHN2 + IHN3 + IHN4 + INPB + INPD + ICN + 2IDN + ITCN + ITHN + ISOPNOO1 + ISOPNOO2 + INO2B + INO2D + INA + IDHNBOO + IDHNDOO1 + IDHNDOO2 + IHPNBOO + IHPNDOO + ICNOO + 2IDNOO + MACRNO2 + ClO + HOCl + ClNO2 + 2ClNO3 + 2Cl2O2 + 2OClO + O + O1D + IO + HOI + IONO + 2IONO2 + 2OIO + 2I2O2 + 3I2O3 + 4I2O4 + NIT + NITs;
+   PCO : CO;
+   LCO : CO;
+   PSO4 : SO4;
+   LCH4 : CH4;
+   PH2O2 : H2O2;
 
 .. note::
 
-   The :math:`PO_x`, :math:`LO_x`, :math:`PCO`, and :math:`LCO` families
-   are used for computing budgets in the GEOS-Chem benchmark
-   simulations.  :math:`PSO4` is required for simulations using `TOMAS aerosol
-   microphysics <TOMAS_aerosol_microphysics>`__.
+   The PO\ :sub:`x`, LO\ :sub:`x`, PCO, and LCO families are used for
+   computing budgets in the GEOS-Chem benchmark simulations.  PSO4 is
+   required for simulations using :ref:`tomas-guide`.
 
 To add a new prod/loss family, add a new line to the :code:`#FAMILIES`
 section with the format
@@ -639,8 +662,8 @@ whether KPP should calculate a production or a loss rate.  You will
 also need to make a corresponding update to the :ref:`GEOS-Chem
 species database <spcguide>` (:file:`species_database.yml`) in order
 to define the :literal:`FullName`, :literal:`Is_Gas`, and
-:literal:`MW_g`, and attributes.  For example, the entries for family
-species :literal:`LCO` and :literal:`PCO` are:
+:literal:`MW_g`, and :literal:`KPP_AbsTol` attributes.  For example,
+the entries for family species :literal:`LCO` and :literal:`PCO` are:
 
 .. code-block:: yaml
 
@@ -648,17 +671,28 @@ species :literal:`LCO` and :literal:`PCO` are:
      FullName: Dummy species to track loss rate of CO
      Is_Gas: true
      MW_g: 28.01
+     KPP_AbsTol: 1.0e+25
    PCO:
      FullName: Dummy species to track production rate of CO
      Is_Gas: true
      MW_g: 28.01
+     KPP_AbsTol: 1.0e+25
+
+.. important::
+
+   Add :literal:`KPP_AbsTol = 1.0e25` to each "dummy" species that
+   you add in :file:`species_database.yml`.  This will flag the
+   species as "passive" so that KPP will ignore it in certain
+   computations (such as the Rosenbrock solver error norm).  This will
+   help to ensure that the mechanism will not be affected by these
+   "dummy" species.
 
 The maximum number of families allowed by KPP is currently set to 300.
 Depending on how many prod/loss families you add, you may need to
 increase that to a larger number to avoid errors in KPP. You can change
 the number for :code:`MAX_FAMILIES` in
 :file:`KPP/kpp-code/src/gdata.h` and then `rebuild the KPP executable
-<https://kpp.readthedocs.io/en/stable/getting_started/01_installation.html#build-the-kpp-executableFlexChem#KPP_source_code>`_.
+<https://kpp.readthedocs.io/en/stable/getting_started/installation.html#build-the-kpp-executable>`_.
 
 .. code-block:: C
 
@@ -680,11 +714,14 @@ the number for :code:`MAX_FAMILIES` in
    //       problems on MacOS then consider reducing MAX_EQN and MAX_SPECIES
    //       to smaller values than are listed below.
    //         -- Bob Yantosca (03 May 2022)
+   //   (3) The large value of MAX_EQN = 18000 is necessary to run the
+   //       complete MCM mechanism in KPP.
+   //         -- Rolf Sander (2024-01-03)
    #ifdef MACOS
    #define MAX_EQN        2000     // Max number of equations (MacOS only)
    #define MAX_SPECIES    1000     // Max number of species   (MacOS only)
    #else
-   #define MAX_EQN       11000     // Max number of equations
+   #define MAX_EQN       18000     // Max number of equations
    #define MAX_SPECIES    6000     // Max number of species
    #endif
    #define MAX_SPNAME       30     // Max char length of species name
@@ -699,92 +736,97 @@ the number for :code:`MAX_FAMILIES` in
    #define MAX_FAMILIES    300     // Max number of family definitions
    #define MAX_MEMBERS     150     // Max number of family members
    #define MAX_EQNLEN      300     // Max char length of equations
-   #define MAX_EQNLEN      200
 
 .. important::
 
    When adding a prod/loss family or changing any of the other
    settings in :file:`gckpp.kpp`, you must :ref:`re-run KPP to produce
-   new Fortran90 files for GEOS-Chem <kppguide-build-mechanism-sh>`.
+   new Fortran files for GEOS-Chem <kppguide-build-mechanism-sh>`.
 
 Production and loss families are archived via the HISTORY diagnostics.
-For more information, please see the `Guide to GEOS_Chem History
-diagnostics <http://wiki.geos-chem.org/Guide_to_GEOS_Chem_History_diagnostics>`__
-on the GEOS-Chem wiki.
+For more information, please see our :ref:`histguide` supplemental guide.
 
 .. _kppguide-changing-int:
 
 Changing the numerical integrator
 ---------------------------------
 
-Several global options for :program:`KPP` are listed at the top of the
+Several global options for KPP are listed at the top of the
 :file:`gckpp.kpp` file:
 
 .. code-block:: none
 
-   #MINVERSION   3.2.0                  { Need this version of KPP or later          }
-   #INTEGRATOR   rosenbrock_autoreduce  { Use Rosenbrock integration method          }
-   #AUTOREDUCE   on                     { ... with autoreduce enabled but optional   }
-   #LANGUAGE     Fortran90              { Generate solver code in Fortran90 ...      }
-   #UPPERCASEF90 on                     { ... with .F90 suffix (instead of .f90)     }
-   #DRIVER       none                   { Do not create gckpp_Main.F90               }
-   #HESSIAN      off                    { Do not create the Hessian matrix           }
-   #MEX          off                    { MEX is for Matlab, so skip it              }
-   #STOICMAT     off                    { Do not create stoichiometric matrix        }
+   #MINVERSION   3.5.0                  { Need this version of KPP or later     }
+   #INTEGRATOR   rosenbrock_autoreduce  { Use Rosenbrock integration method     }
+   #AUTOREDUCE   on                     { ...w/ autoreduce enabled but optional }
+   #LANGUAGE     Fortran90              { Generate solver code in Fortran90 ... }
+   #UPPERCASEF90 on                     { ...w/ .F90 suffix (instead of .f90)   }
+   #DRIVER       none                   { Do not create gckpp_Main.F90          }
+   #HESSIAN      off                    { Do not create the Hessian matrix      }
+   #MEX          off                    { MEX is for Matlab, so skip it         }
+   #STOICMAT     off                    { Do not create stoichiometric matrix   }
 
-The `#INTEGRATOR
-<https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#integrator>`_
+The `#INTEGRATOR <https://kpp.readthedocs.io/en/stable/input/kpp_commands.html#integrator>`_
 tag specifies the choice of numerical integrator that you wish to use
-with your chemical mechanism. The table below lists
+with your chemical mechanism.
 
 .. list-table:: Integrators used for each KPP-based GEOS-Chem mechanism
    :align: center
    :header-rows: 1
-	   
+
    * - Simulation
      - #INTEGRATOR setting
      - Integration method
      - #AUTOREDUCE setting
    * - carbon
-     - `feuler <https://kpp.readthedocs.io/en/stable/tech_info/07_numerical_methods.html#feuler>`_ 
+     - `feuler <https://kpp.readthedocs.io/en/stable/num_methods/forward_diff.html#feuler>`_
      - Forward Euler
      - N/A
    * - custom
-     - `rosenbrock_autoreduce <https://kpp.readthedocs.io/en/stable/tech_info/07_numerical_methods.html#rosenbrock-with-mechanism-auto-reduction>`_
-     - `RODAS3 <https://kpp.readthedocs.io/en/stable/tech_info/07_numerical_methods.html#rodas-3>`_
+     - `rosenbrock_autoreduce <https://kpp.readthedocs.io/en/stable/num_methods/rosenbrock-methods.html#rosenbrock-with-mechanism-auto-reduction>`_
+     - `RODAS3.1 <https://kpp.readthedocs.io/en/stable/num_methods/rosenbrock-methods.html#rodas-3-1>`_
      - on
    * - fullchem
      - rosenbrock_autoreduce
-     - RODAS3
+     - RODAS3.1
      - on
    * - Hg
      - `rosenbrock <https://kpp.readthedocs.io/en/stable/tech_info/07_numerical_methods.html#rosenbrock-methods>`_
-     - RODAS3
+     - `RODAS3 <https://kpp.readthedocs.io/en/stable/num_methods/rosenbrock-methods.html#rodas-3>`_
      - N/A
 
 .. attention::
 
-   The auto-reduction option is activated but disabled by default
-   in the GEOS-Chem carbon and fullchem mechanisms.  You must
-   activate the auto-reduction option in
-   :file:`geoschem_config.yml`.
+   The auto-reduction option is activated but disabled by default in
+   the GEOS-Chem fullchem mechanism.  You must activate the
+   auto-reduction option in :file:`geoschem_config.yml`.
 
-If you wish to use a different integrator for research purposes, you may select from `several more options
-<https://kpp.readthedocs.io/en/latest/tech_info/07_numerical_methods.html>`_.
+KPP also provides integrators using `Rosenbrock
+<https://kpp.readthedocs.io/en/stable/num_methods/rosenbrock-methods.html#>`_,
+`Runge-Kutta
+<https://kpp.readthedocs.io/en/stable/num_methods/runge_kutta_methods.html>`_,
+`backward differentiation
+<https://kpp.readthedocs.io/en/stable/num_methods/backward_diff.html>`_,
+and `forward differentiation
+<https://kpp.readthedocs.io/en/stable/num_methods/forward_diff.html>`_
+methods that you may use for research purposes.  However, integrators
+other than the ones listed in the table above have not been validated
+with GEOS-Chem simulations.
 
-The `#LANGUAGE
-<https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#language>`_
-should be set to :command:`Fortran90` and `#UPPERCASEF90
-<https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#uppercasef90>`_
-should be set to :command:`on`.
+As for the other settings shown above:
 
-The `#MINVERSION
-<https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#minversion>`_
-should be set to 3.2.0.  This is the minimum KPP version you should be
-using with GEOS-Chem.
+#. `#LANGUAGE
+   <https://kpp.readthedocs.io/en/stable/input/kpp_commands.html#language>`_
+   should be :command:`Fortran90` and `#UPPERCASEF90
+   <https://kpp.readthedocs.io/en/stable/input/kpp_commands.html#uppercasef90>`_
+   should be :command:`on`.
 
-The other options should be left as they are, as they are not relevant
-to :program:`GEOS-Chem`.
+#. `#MINVERSION
+   <https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#minversion>`_
+   should be :program:`3.5.0`.  You need at least this version of KPP for GEOS-Chem.
 
-For more information about :program:`KPP` settings, please see
-`https://kpp.readthedocs.io <kpp.readthedocs.io>`_.
+#. All of the other options should be :program:`off`, as they are not
+   relevant to GEOS-Chem.
+
+For more information about KPP settings, please see
+`kpp.readthedocs.io <https://kpp.readthedocs.io>`_.

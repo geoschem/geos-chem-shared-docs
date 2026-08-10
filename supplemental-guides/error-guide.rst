@@ -452,6 +452,37 @@ simulation date is outside of the range of data contained in the
 file, you can set the time cycle flag to :literal:`C` (cycling).  This
 will tell HEMCO to use the most recent available year of data instead.
 
+
+.. _errguide-runtime-nofield-flashdens:
+
+HEMCO Error: Cannot get field FLASH_DENS
+----------------------------------------
+
+.. code-block:: none
+
+   HEMCO ERROR: ... Cannot get field FLASH_DENS.
+   Please check file name and time (incl. time range flag) in the config. file
+
+   HEMCO ERROR: Error encountered in routine HCOIO_Read!
+ 
+   HEMCO ERROR: Error in HCOIO_DATAREAD called from HEMCO ReadList_Fill: FLASH_DENS
+    --> LOCATION: ReadList_Fill (HCO_ReadList_Mod.F90)
+   
+**Problem:** A GEOS-Chem Classic or HEMCO standalone simulation halts
+because HEMCO cannot read from the :literal:`FLASH_DENS` field.  This
+typically indicates that the simulation date and time lies outside of the
+range of avaialble lightning data on disk.
+
+**Solution:** Select the :literal:`LightningClimatology` option in
+:file:`HEMCO_Config.rc` (this  is set to :literal:`false` by default).
+Activating this setting will tell HEMCO to read :literal:`FLASH_DENS`
+from a long-term climatology.
+
+.. code-block:: kconfig
+
+   103     LightNOx               : on    NO
+       --> LightningClimatology   :       false  # <== set this to true
+
 .. _errguide-runtime-ps-nextday:
 
 HEMCO Error: Cannot get field PS_NEXTDAY

@@ -9,18 +9,18 @@ The GEOS-Chem Input Data portal
 ###############################
 
 The `GEOS-Chem Input Data portal
-<https://aws.amazon.com/marketplace/pp/prodview-gsu7hiudejnxq>`_
+<https://aws.amazon.com/marketplace/pp/prodview-gsu7hiudejnxq>`__
 is hosted at the AWS S3 bucket `s3://geos-chem
-<https://geos-chem.s3.amazonaws.com/index.html>`_.  From here you may
+<https://geos-chem.s3.amazonaws.com/index.html>`__.  From here you may
 download the data required to run :program:`GEOS-Chem Classic`,
 :program:`GCHP`, or :program:`HEMCO standalone` simulations.
 
 We are pleased to announce that the GEOS-Chem Input Data portal is
 part of the `AWS Open Data Sponsorship Program
-<https://aws.amazon.com/opendata/open-data-sponsorship-program/>`_.
+<https://aws.amazon.com/opendata/open-data-sponsorship-program/>`__.
 As a result, **the data is completely free to use**.  You will NOT
 incur any data egress fees when downloading data from the
-`s3://geos-chem <https://geos-chem.s3.amazonaws.com/index.html>`_
+`s3://geos-chem <https://geos-chem.s3.amazonaws.com/index.html>`__
 bucket.  This is now the recommended repository for GEOS-Chem data
 download.
 
@@ -31,16 +31,16 @@ download.
 
    - NASA/GMAO meteorology fields that have been cropped to the
      various `nested-grid domains
-     <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#nested-grids>`_
+     <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#nested-grids>`__
      may be downloaded from our `GEOS-Chem Nested Input Data
-     <https://geos-chem.readthedocs.io/en/latest/geos-chem-shared-docs/doc/gcid-special-portals.html#geos-chem-nested-input-data>`_
+     <https://geos-chem.readthedocs.io/en/latest/geos-chem-shared-docs/doc/gcid-special-portals.html#geos-chem-nested-input-data>`__
      portal (aka `s3://gcgrid
-     <https://gcgrid.s3.amazonaws.com/index.html>`_). |br|
+     <https://gcgrid.s3.amazonaws.com/index.html>`__). |br|
      |br|
 
    - GCAP 2.0 meteorology fields for present & future scenarios may be
      downloaded from our `GCAP 2.0 meteorology portal hosted at U. Rochester
-     <https://geos-chem.readthedocs.io/en/latest/geos-chem-shared-docs/doc/gcid-special-portals.html#gcap-2-0-meteorology-hosted-at-u-rochestergcid-special-portals-gcap2>`_.
+     <https://geos-chem.readthedocs.io/en/latest/geos-chem-shared-docs/doc/gcid-special-portals.html#gcap-2-0-meteorology-hosted-at-u-rochestergcid-special-portals-gcap2>`__.
 
 .. _gcid-data-org:
 
@@ -51,7 +51,7 @@ Data organization
 The GEOS-Chem Input Data portal is structured into the following
 categories:
 
-#. :ref:`gcid-data-org-init-cond` (aka `Restart files <https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/restart-files.html#restart-files>`_)
+#. :ref:`gcid-data-org-init-cond` (aka `Restart files <https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/restart-files.html#restart-files>`__)
 #. :ref:`gcid-data-org-chem-inputs`
 #. :ref:`gcid-data-org-emis-inputs`
 #. :ref:`gcid-data-org-met`
@@ -63,7 +63,7 @@ Initial conditions input data
 
 Initial conditions include initial species concentrations (aka
 `Restart files
-<https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/restart-files.html#restart-files>`_)
+<https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/restart-files.html#restart-files>`__)
 used to start a GEOS-Chem simulation.
 
 .. _gcid-data-org-chem-inputs:
@@ -103,16 +103,16 @@ Meteorology input data
 .. note::
 
    NASA/GMAO meteorology fields that have been cropped to the
-   various `nested grid domains <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#nested-gridsgcc-hgrids-nested>`_ may be
+   various `nested grid domains <https://geos-chem.readthedocs.io/en/latest/supplemental-guides/horizontal-grids.html#gcc-hgrids-nested>`__ may be
    downloaded from our :ref:`gcid-special-portals-nested`
    portal.
 
 GEOS-Chem Classic be driven by the following meteorology products:
 
-#. `MERRA-2 <http://wiki.geos-chem.org/MERRA-2>`_
-#. `GEOS-FP <http://wiki.geos-chem.org/GEOS_FP>`_
-#. `GEOS-IT <https://gmao.gsfc.nasa.gov/gmao-products/geos-it/>`_
-#. GCAP 2.0 (available at the `atmos.earth.rochester.edu data portal <http://atmos.earth.rochester.edu/input/gc/ExtData>`_)
+#. `MERRA-2 <http://wiki.geos-chem.org/MERRA-2>`__
+#. `GEOS-FP <http://wiki.geos-chem.org/GEOS_FP>`__
+#. `GEOS-IT <https://gmao.gsfc.nasa.gov/gmao-products/geos-it/>`__
+#. GCAP 2.0 (available at the `atmos.earth.rochester.edu data portal <http://atmos.earth.rochester.edu/input/gc/ExtData>`__)
 
 .. _gcid-data-access:
 
@@ -185,8 +185,8 @@ Dry-run simulation (GEOS-Chem Classic and HEMCO standalone only)
 ----------------------------------------------------------------
 
 If you plan to run a `GEOS-Chem Classic
-<https://geos-chem.readthedocs.io>`_ or `HEMCO standalone
-<https://hemco.readthedocs.io/en/stable/hco-sa-guide/intro.html>`_
+<https://geos-chem.readthedocs.io>`__ or `HEMCO standalone
+<https://hemco.readthedocs.io/en/stable/hco-sa-guide/intro.html>`__
 simulation, we recommend first performing a :program:`dry-run
 simulation`.  The dry-run simulation workflow is as follows:
 
@@ -204,9 +204,9 @@ simulation`.  The dry-run simulation workflow is as follows:
 For more information, please see the following links:
 
 - `GEOS-Chem Classic dry-run instructions
-  <https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/dry-run.html>`_
+  <https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/dry-run.html>`__
 - `HEMCO standalone dry-run instructions
-  <https://hemco.readthedocs.io/en/latest/hco-sa-guide/hco-sa-dry-run.html>`_
+  <https://hemco.readthedocs.io/en/latest/hco-sa-guide/hco-sa-dry-run.html>`__
 
 .. _gcid-data-access-globus:
 

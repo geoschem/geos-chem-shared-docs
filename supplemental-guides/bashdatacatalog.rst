@@ -16,7 +16,7 @@ What is bashdatacatalog?
 ========================
 
 The :program:`bashdatacatalog` is a command-line tool (written by
-`Liam Bindle <https://github.com/LiamBindle>`_) that facilitates
+`Liam Bindle <https://github.com/LiamBindle>`__) that facilitates
 synchronizing local data collections with a remote data
 source. With the :program:`bashdatacatalog`, you can run queries on
 your local data collections to answer questions like "What files am I
@@ -29,7 +29,7 @@ simply a file list.
 
 The :program:`bashdatacatalog` was written to facilitate downloading
 input data for users of the `GEOS-Chem atmospheric chemistry model
-<http://geos-chem.org>`_. The canonical GEOS-Chem input data
+<http://geos-chem.org>`__. The canonical GEOS-Chem input data
 repository has >1 M files and >100 TB of data, and the input data
 required for a simulation depends on the model version and simulation
 parameters such as start and end date.
@@ -42,8 +42,8 @@ Usage instructions
 
 For detailed instructions on using :program:`bashdatacatalog`, please
 see the `bashdatacatalog wiki on Github
-<https://github.com/geoschem/bashdatacatalog/wiki/Instructions-for-GEOS-Chem-Users>`_.
+<https://github.com/geoschem/bashdatacatalog/wiki/Instructions-for-GEOS-Chem-Users>`__.
 
 Also see our `input-data-catalogs Github repository
-<https://github.com/geoschem/input-data-catalogs>`_ for
+<https://github.com/geoschem/input-data-catalogs>`__ for
 comma-separated input lists of GEOS-Chem data, separated by model version.

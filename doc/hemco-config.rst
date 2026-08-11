@@ -5,14 +5,14 @@ HEMCO_Config.rc
 ###############
 
 GEOS-Chem Classic relies on the `Harmonized Emissions Component (aka
-HEMCO) <https://hemco.readthedocs.io>`_  for file I/O, regridding, and
+HEMCO) <https://hemco.readthedocs.io>`__  for file I/O, regridding, and
 computing emissions fluxes.  Settings for HEMCO can be updated in the
 `HEMCO configuration file
-<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html>`_,
+<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html>`__,
 which is named :file:`HEMCO_Config.rc`.
 
 The HEMCO online manual at `hemco.readthedocs.io
-<https://hemco.readthedocs.io>`_ contains detailed instructions about
+<https://hemco.readthedocs.io>`__ contains detailed instructions about
 the structure and contents of :file:`HEMCO_Config.rc`, so we will not
 replicate that content in this Guide.  Instead, we will provide a
 short summary with links to the relevant documentation.
@@ -24,7 +24,7 @@ General HEMCO settings
 ======================
 
 Define general simulation parameters in the `Settings section
-<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html#section-settings>`_
+<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html#section-settings>`__
 of :file:`HEMCO_Config.rc`.  This includes data paths, global
 diagnostic options, and verbose output options.
 
@@ -60,12 +60,12 @@ Extension switches
 
 Turn individual emissions inventories on/off in the `Extension
 Switches section
-<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html#extension-switches>`_
+<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html#extension-switches>`__
 of :file:`HEMCO_Config.rc`.  Emission inventories are
 specified as either `Base Emissions
-<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html#base-emissions>`_
+<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html#base-emissions>`__
 (i.e. read from files on disk) or `Extensions
-<https://hemco.readthedocs.io/en/latest/hco-ref-guide/extensions.html>`_
+<https://hemco.readthedocs.io/en/latest/hco-ref-guide/extensions.html>`__
 (i.e. computed using meteorological inputs).
 
 .. code-block:: kconfig
@@ -127,7 +127,7 @@ Base emissions
 
 Specify how emissions and other data sets will be read from disk in
 the `Base Emissions section
-<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html#base-emissions>`_
+<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html#base-emissions>`__
 of :file:`HEMCO_Config.rc`.
 
 .. code-block:: kconfig
@@ -169,7 +169,7 @@ GEOS-Chem Classic restart input via HEMCO
 
 If your GEOS-Chem Classic simulation is configured to `read the
 restart file via HEMCO
-<https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/restart-files-gc.html#using-hemco-to-read-restart-file>`_,
+<https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/restart-files-gc.html#using-hemco-to-read-restart-file>`__,
 then your simulation will stop by default if:
 
 #. The start date of your simulation does not match the restart file's
@@ -203,7 +203,7 @@ Scale factors
 
 Define scale factors for emissions inventories and other data sets in
 the `Scale Factors section
-<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html#scale-factors>`_
+<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html#scale-factors>`__
 of :file:`HEMCO_Config.rc`.
 
 .. code-block:: kconfig
@@ -236,7 +236,7 @@ Masks
 =====
 
 Define masks for emissions and other data sets in the `Masks section
-<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html#masks>`_
+<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html#masks>`__
 of :file:`HEMCO_Config.rc`
 
 .. code-block:: kconfig

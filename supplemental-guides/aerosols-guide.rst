@@ -410,7 +410,7 @@ Updated molecular weight of sea salt tracers
 Molecular weights of sea salt species are 31.4 g/mol, which is
 consistent with the actual average composition of sea salt, and
 international guidelines from the `IAPWS
-<http://www.iapws.org/relguide/seawater.pdf>`_.
+<http://www.iapws.org/relguide/seawater.pdf>`__.
 
 .. _aerguide-seasalt-sst:
 
@@ -514,7 +514,7 @@ burdens of accumulation mode (20% decrease) and coarse model (25%
 increase) sea salt aerosols. However, the spatial changes are much
 larger, with a 30-50% decrease at high latitudes and a factor of ~2
 increase over tropical regions. See `this presentation
-<https://drive.google.com/file/d/1F18TjBYpeJIY1sDtGlM1KBkZ9Neb2svM/view?usp=sharing>`_
+<https://drive.google.com/file/d/1F18TjBYpeJIY1sDtGlM1KBkZ9Neb2svM/view?usp=sharing>`__
 for more information.
 
 .. _aerguide-sulfur:
@@ -528,7 +528,7 @@ Sulfur and nitrogen aerosols
     The sulfur simulation in GEOS-Chem is based on the Georgia
     Tech/Goddard Global Ozone Chemistry Aerosol Radiation and
     Transport (GOCART) model (Chin *et al.*, `2000a
-    <https://acd-ext.gsfc.nasa.gov/People/Chin/papers/Chin_ams_2001.pdf>`_],
+    <https://acd-ext.gsfc.nasa.gov/People/Chin/papers/Chin_ams_2001.pdf>`__],
     with a number of modifications described below. Our fossil fuel
     and industrial emission inventory is for 1999-2000 and is obtained
     by scaling the gridded, seasonally resolved inventory from the
@@ -654,7 +654,7 @@ Implemented the Lana DMS climatology
 
 Monthly average DMS seawater concentrations at 1° × 1° resolution
 (:cite:t:`Lana_et_al._2011`) are now read from disk via `HEMCO
-<https://hemco.readthedocs.io>`_.
+<https://hemco.readthedocs.io>`__.
 
 Added sulfur oxidation by reactive halogens
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -679,7 +679,7 @@ Added sulfur oxidation by reactive halogens
     tropospheric sulfur and Bry cycles.
 
     Text S2 in `this supporting document
-    <http://onlinelibrary.wiley.com/store/10.1002/2017GL073812/asset/supinfo/grl56123-sup-0001-2017GL073812-SI.docx?v=1&s=50a4b1defa58571990b4a7eda5585f9207db7713>`_
+    <http://onlinelibrary.wiley.com/store/10.1002/2017GL073812/asset/supinfo/grl56123-sup-0001-2017GL073812-SI.docx?v=1&s=50a4b1defa58571990b4a7eda5585f9207db7713>`__
     describes the parameterization of HOBr + S(IV) reactions in
     GEOS-Chem.
 

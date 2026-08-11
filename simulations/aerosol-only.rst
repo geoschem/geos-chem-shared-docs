@@ -42,7 +42,7 @@ capabilities, but reduces the suite of tracers from full chemistry.
    |br|
    
 #. As reported in `GEOS-Chem issue #2961 on GitHub
-   <https://github.com/geoschem/geos-chem/issues/2961#issuecomment-3221292606>`_,
+   <https://github.com/geoschem/geos-chem/issues/2961#issuecomment-3221292606>`__,
    the current aerosol-only simulation is not capable of accurately
    representing NH4-NO3-SO4 aerosols.  For the time being, please use
    one of the :ref:`fullchem simulations <fullchem-sim>` to compute total

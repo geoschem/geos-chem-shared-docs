@@ -11,7 +11,7 @@ geoschem_config.yml
 Starting with GEOS-Chem 14.0.0, the :file:`input.geos` configuration
 file (plain text) has been replaced with by the
 :file:`geoschem_config.yml` file.  This file is in `YAML
-<https://yaml.org>`_ format, which is a text-based markup syntax used
+<https://yaml.org>`__ format, which is a text-based markup syntax used
 for representing dictionary-like data structures.
 
 The :file:`geoschem_config.yml` file contains several sections.  Only
@@ -28,7 +28,7 @@ settings and photolysis settings) are omitted from the
    directory.  We will note these excluded settings below.  All other
    settings in :file:`geoschem_config.yml` will be treated in
    in the same way as in `GEOS-Chem Classic
-   <https://geos-chem.readthedocs.io>`_.
+   <https://geos-chem.readthedocs.io>`__.
 
 .. _gc-yml-simulation:
 
@@ -82,10 +82,10 @@ values are
    more information, please see:
 
    - `GEOS-Chem Classic configuration instructions
-     <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/compile-cmake.html>`_,
+     <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/compile-cmake.html>`__,
      or
    - `GCHP configuration instructions
-     <https://gchp.readthedocs.io/en/stable/user-guide/configuration-files.html>`_
+     <https://gchp.readthedocs.io/en/stable/user-guide/configuration-files.html>`__
 
 .. option:: Hg
 
@@ -96,10 +96,10 @@ values are
    more information, please see:
 
    - `GEOS-Chem Classic configuration instructions
-     <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/compile-cmake.html>`_,
+     <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/compile-cmake.html>`__,
      or
    - `GCHP configuration instructions
-     <https://gchp.readthedocs.io/en/stable/user-guide/configuration-files.html>`_
+     <https://gchp.readthedocs.io/en/stable/user-guide/configuration-files.html>`__
 
 .. option:: POPs
 
@@ -183,20 +183,20 @@ GEOS-Chem.  Accepted values are:
 
 .. option:: MERRA2
 
-   The `MERRA-2 <https://wiki.geos-chem.org/MERRA-2>`_ meteorology
+   The `MERRA-2 <https://wiki.geos-chem.org/MERRA-2>`__ meteorology
    product from NASA/GMAO.  MERRA-2 is a stable reanalysis product,
    and extends from approximately 1980 to present.
    **(Recommended option)**
 
 .. option:: GEOS-FP
 
-   The `GEOS-FP <https://wiki.geos-chem.org/MERRA-2>`_ meteorology
+   The `GEOS-FP <https://wiki.geos-chem.org/MERRA-2>`__ meteorology
    product from NASA/GMAO.  GEOS-FP is an operational data product
    and, unlike MERRA-2, periodically receives science updates.
 
 .. option:: GEOS-IT
 
-   The `GEOS-IT <https://wiki.geos-chem.org/GEOS-IT>`_ meteorology
+   The `GEOS-IT <https://wiki.geos-chem.org/GEOS-IT>`__ meteorology
    product from NASA/GMAO.
 
 .. option:: GCAP2
@@ -282,10 +282,10 @@ use_gcclassic_timers
 
    Activates the GEOS-Chem Classic timers.  Information about how
    long each component of GEOS-Chem Classic took to execute will be
-   printed to the screen and/or the `log file <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/log-files.html#geos-chem-and-hemco-log-file>`_
+   printed to the screen and/or the `log file <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/log-files.html#geos-chem-and-hemco-log-file>`__
    The same information will also be written in JSON format to a
    file named `gcclassic_timers.json
-   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/log-files.html#timers-log-file>`_.
+   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/log-files.html#timers-log-file>`__.
 
    You will only really need to activate the GEOS-Chem Classic
    timers if you are running a benchmark simulation or if you are
@@ -488,7 +488,7 @@ nested_grid_simulation
 	 <fullchem-sim>` with the native 72 :ref:`vertical levels
 	 <gc-yml-simulation-rst-numlev>`.  This will avoid a `bias in
 	 tropospheric photolysis rates
-	 <https://github.com/geoschem/geos-chem/issues/3238>`_ caused
+	 <https://github.com/geoschem/geos-chem/issues/3238>`__ caused
 	 by the HEMCO vertical remapping from 72 to 47 levels.
 
    .. option:: false
@@ -559,12 +559,12 @@ settings.
      - 300s (5m)
 
 The `Courant limit
-<https://en.wikipedia.org/wiki/Courant%E2%80%93Friedrichs%E2%80%93Lewy_condition>`_
+<https://en.wikipedia.org/wiki/Courant%E2%80%93Friedrichs%E2%80%93Lewy_condition>`__
 on the latitude-longitude grid constrains the choice of transport
 timestep for a given horizontal resolution.  We choose a chemistry timestep that is
 double the transport timestep (i.e.
 `Strang operator splitting
-<https://hplgit.github.io/fdm-book/doc/pub/book/sphinx/._book018.html#strang-splitting-for-odes>`_).
+<https://hplgit.github.io/fdm-book/doc/pub/book/sphinx/._book018.html#strang-splitting-for-odes>`__).
 
 .. note::
 
@@ -574,7 +574,7 @@ double the transport timestep (i.e.
 See :cite:t:`Philip_et_al._2016` for a comprehensive study on
 GEOS-Chem timesteps.  For some practical tips on speeding up your
 simulations, see our `Speeding up GEOS-Chem Classic simulations
-<https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/run-speedup.html>`_
+<https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/run-speedup.html>`__
 guide.
 
 transport_timestep_in_s
@@ -671,7 +671,7 @@ stratosphere and/or mesosphere.  These apply only to
       .. option:: true
 
          Activates `Linoz stratospheric ozone chemistry
-         <http://wiki.geos-chem.org/Linoz_stratospheric_ozone_chemistry>`_
+         <http://wiki.geos-chem.org/Linoz_stratospheric_ozone_chemistry>`__
          will be used.  This is the default setting.
 
       .. option:: false
@@ -718,7 +718,7 @@ autoreduce_solver
 -----------------
 
 Menu for controlling the adaptive mechanism auto-reduction feature,
-which is available in `KPP 3.0.0 <https://kpp.readthedocs.io/>`_ and
+which is available in `KPP 3.5.0 <https://kpp.readthedocs.io/>`__ and
 later versions. See :cite:t:`Lin_et_al._2023` for details.
 
 .. option:: activate
@@ -894,7 +894,7 @@ CO2_effect
 
 This sub-section contains options for applying the
 `simple parameterization for the CO2 effect on stomatal resistance
-<http://wiki.geos-chem.org/Dry_deposition#Simple_parameterization_for_CO2_dependence_of_stomatal_resistance>`_.
+<http://wiki.geos-chem.org/Dry_deposition#Simple_parameterization_for_CO2_dependence_of_stomatal_resistance>`__.
 
 .. option:: activate
 
@@ -919,7 +919,7 @@ diag_alt_above_sfc_in_m
 -----------------------
 
 Specifies the altitude above the surface (in m) to used with the
-`ConcAboveSfc diagnostic collection <http://wiki.seas.harvard.edu/geos-chem/index.php/History_collections_for_dry_deposition#The_ConcAboveSfc_collection>`_.
+`ConcAboveSfc diagnostic collection <http://wiki.seas.harvard.edu/geos-chem/index.php/History_collections_for_dry_deposition#The_ConcAboveSfc_collection>`__.
 
 .. _cfg-gc-yml-operations-pblmix:
 
@@ -1078,7 +1078,7 @@ photolysis package.
 .. option:: cloud_scheme_flag
 
    Specifies the `cloud option
-   <https://github.com/geoschem/Cloud-J/blob/f8a2b7f964bde1582fbc38c41d8872bc23a21735/src/Core/cldj_cmn_mod.F90#L71-L79>`_
+   <https://github.com/geoschem/Cloud-J/blob/f8a2b7f964bde1582fbc38c41d8872bc23a21735/src/Core/cldj_cmn_mod.F90#L71-L79>`__
    used in the computation of photolyis rates.
 
    .. list-table::
@@ -1135,7 +1135,7 @@ photolysis package.
 .. option:: num_cloud_overlap_blocks
 
    Specifies the number of `maximum-overlap blocks
-   <https://github.com/geoschem/Cloud-J/blob/f8a2b7f964bde1582fbc38c41d8872bc23a21735/src/Core/cldj_cmn_mod.F90#L97-L99>`_.
+   <https://github.com/geoschem/Cloud-J/blob/f8a2b7f964bde1582fbc38c41d8872bc23a21735/src/Core/cldj_cmn_mod.F90#L97-L99>`__.
 
    .. list-table::
       :header-rows: 1
@@ -1148,7 +1148,7 @@ photolysis package.
 
 .. option:: sphere_correction
 
-   Specifies the type of `spherical correction <https://github.com/geoschem/Cloud-J/blob/f8a2b7f964bde1582fbc38c41d8872bc23a21735/src/Core/cldj_cmn_mod.F90#L56-L60>`_ to be applied.
+   Specifies the type of `spherical correction <https://github.com/geoschem/Cloud-J/blob/f8a2b7f964bde1582fbc38c41d8872bc23a21735/src/Core/cldj_cmn_mod.F90#L56-L60>`__ to be applied.
 
    .. list-table::
       :header-rows: 1
@@ -1162,7 +1162,7 @@ photolysis package.
 .. option:: num_wavelength_bins
 
    Specifies the `number of wavelength bins
-   <https://github.com/geoschem/Cloud-J/blob/f8a2b7f964bde1582fbc38c41d8872bc23a21735/src/Core/cldj_cmn_mod.F90#L101-L104>`_
+   <https://github.com/geoschem/Cloud-J/blob/f8a2b7f964bde1582fbc38c41d8872bc23a21735/src/Core/cldj_cmn_mod.F90#L101-L104>`__
    to use in the computation of photolysis reaction rates.
 
    .. list-table::
@@ -1336,7 +1336,7 @@ aod_wavelengths_in_nm
 
    Specify wavelength(s) for the aerosol optical properties in nm
    (in `YAML sequence format
-   <https://www.tutorialspoint.com/yaml/yaml_sequence_styles.htm>`_)
+   <https://www.tutorialspoint.com/yaml/yaml_sequence_styles.htm>`__)
    Up to three wavelengths can be selected.  The specified wavelengths
    are used for the photolysis mechanism (either legacy FAST-JX or
    Cloud-J) regardless of whether the RRTMG radiative transfer model is used.
@@ -1470,7 +1470,7 @@ Transport
 
 The :command:`operations:transport` section contains
 settings for `species transport
-<http://wiki.geos-chem.org/Advection_scheme_TPCORE>`_:
+<http://wiki.geos-chem.org/Advection_scheme_TPCORE>`__:
 
 gcclassic_tpcore
 ----------------
@@ -1482,7 +1482,7 @@ gcclassic_tpcore
 
 Options that control species transport in GEOS-Chem
 Classic with the `TPCORE advection scheme
-<http://wiki.geos-chem.org/Advection_scheme_TPCORE>`_:
+<http://wiki.geos-chem.org/Advection_scheme_TPCORE>`__:
 
 .. option:: activate
 
@@ -1528,7 +1528,7 @@ transported_species
 -------------------
 
 A list of species names (in `YAML sequence format
-<https://www.tutorialspoint.com/yaml/yaml_sequence_styles.htm>`_)
+<https://www.tutorialspoint.com/yaml/yaml_sequence_styles.htm>`__)
 that will be transported by the TPCORE advection scheme.
 
 .. _cfg-gc-yml-wetdep:
@@ -1704,7 +1704,7 @@ Complex SOA
 
 The :command:`aerosols:complex_SOA` section contains settings for
 `the complex SOA scheme used in GEOS-Chem
-<http://wiki.seas.harvard.edu/geos-chem/index.php/Secondary_organic_aerosols#Complex_SOA_scheme>`_.
+<http://wiki.seas.harvard.edu/geos-chem/index.php/Secondary_organic_aerosols#Complex_SOA_scheme>`__.
 This section only applies to :option:`fullchem` and
 :option:`aerosol` simulations.
 
@@ -2086,7 +2086,7 @@ perturb_CH4_boundary_conditions
 
    This setting only applies to :ref:`carbon gases simulations
    <carbon-sim>` done within the `Integrated Methane Inversion workflow
-   (aka IMI) <https://imi.readthedocs.io>`_.
+   (aka IMI) <https://imi.readthedocs.io>`__.
 
 .. option:: true
 
@@ -2107,7 +2107,7 @@ CH4_boundary_condition_ppb_increase_NSEW
 
    This setting only applies to :ref:`<carbon gases simulations
    <carbon-sim>` done within the `Integrated Methane Inversion workflow
-   (aka IMI) <https://imi.readthedocs.io>`_.
+   (aka IMI) <https://imi.readthedocs.io>`__.
 
 Specifies the perturbation amount (in ppbv) to apply to the north,
 south, east and west CH4 nested-grid boundary conditions.  Used in
@@ -2323,7 +2323,7 @@ Obspack diagnostic
 
 The :command:`extra_diagnostics:obspack` section contains settings for
 the `Obspack diagnostic
-<https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/obspack.html>`_:
+<https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/obspack.html>`__:
 
 activate
 --------
@@ -2400,7 +2400,7 @@ Planeflight diagnostic
 
 The :command:`extra_diagnostics:planeflight` section contains settings for
 the `GEOS-Chem planeflight diagnostic
-<https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/planeflight.html>`_.
+<https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/planeflight.html>`__.
 
 activate
 --------

@@ -88,6 +88,6 @@ in the source code file :file:`Headers/physconstants.F90`.
 .. rubric:: Notes
 
 .. [#A] Taken from `NIST CODATA Fundamental Physical Constants
-	<https://data.nist.gov/od/id/FDB5909746705200E043065706813E54120>`_ (2014)
+	<https://data.nist.gov/od/id/FDB5909746705200E043065706813E54120>`__ (2014)
 
 .. [#B] Legacy usage in GEOS-Chem versions prior to v11-01

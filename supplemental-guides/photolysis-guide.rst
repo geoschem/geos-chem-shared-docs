@@ -17,7 +17,7 @@ transfer model for solar radiation based on the older Fast-J scheme.
 It was introduced into GEOS-Chem in 14.3.0.
 
 From `History of the Fast-J and FAST-JX photolysis codes
-<https://github.com/geoschem/cloud-j/blob/main/docs/History_of_Fast-J_photolysis_code.md>`_:
+<https://github.com/geoschem/cloud-j/blob/main/docs/History_of_Fast-J_photolysis_code.md>`__:
 
    Cloud-J version 7.3c now supersedes :ref:`photolysis-guide-fastjx`,
    and all new development for photolysis rates, whether in the

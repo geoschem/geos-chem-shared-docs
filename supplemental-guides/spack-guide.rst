@@ -9,9 +9,9 @@ Build required software with Spack
 ##################################
 
 This page has instructions for building **dependencies** for
-`GEOS-Chem Classic <https://geos-chem.readthedocs.io>`_, `GCHP
-<https://gchp.readthedocs.io>`_, and `HEMCO
-<https://hemco.readthedocs.io>`_ These are the **software libraries**
+`GEOS-Chem Classic <https://geos-chem.readthedocs.io>`__, `GCHP
+<https://gchp.readthedocs.io>`__, and `HEMCO
+<https://hemco.readthedocs.io>`__ These are the **software libraries**
 that are needed to compile and execute these programs.
 
 
@@ -23,9 +23,9 @@ to install your own versions.
 
 For more information about software dependencies, see:
 
-- `GEOS-Chem Classic software requirements <https://geos-chem.readthedocs.io/en/stable/gcc-guide/01-startup/system-req-soft.html>`_
-- `GCHP software requirements <https://gchp.readthedocs.io/en/stable/getting-started/requirements.html#software-requirements>`_
-- `HEMCO software requirements <https://hemco.readthedocs.io/en/stable/hco-sa-guide/software.html>`_
+- `GEOS-Chem Classic software requirements <https://geos-chem.readthedocs.io/en/stable/getting-started/system-req-soft.html>`__
+- `GCHP software requirements <https://gchp.readthedocs.io/en/stable/getting-started/requirements.html#software-requirements>`__
+- `HEMCO software requirements <https://hemco.readthedocs.io/en/stable/hco-sa-guide/software.html>`__
 
 .. _spackguide-intro:
 
@@ -39,7 +39,7 @@ Classic, GCHP, and HEMCO**.  This will be especially of use for those
 users working on a computational cluster where these dependencies have
 not yet been installed.
 
-We will be using the `Spack <https://spack.readthedocs.io>`_ package
+We will be using the `Spack <https://spack.readthedocs.io>`__ package
 manager to download and build all required software dependencies for GEOS-Chem
 Classic, GCHP and HEMCO.
 
@@ -68,7 +68,7 @@ Install Spack and do first-time setup
 .. attention::
 
    We will use the `Spack v0.23.1 release
-   <https://github.com/spack/spack/releases/tag/v0.23.1>`_ in the
+   <https://github.com/spack/spack/releases/tag/v0.23.1>`__ in the
    installation workflow described below.  This will allow us to use
    the GCC 12.2.0 compilers, which have since been :ref:`deprecated in
    Spack  v1.0.0 and later versions <gc-known-bugs-gcc12>`.  We hope
@@ -161,9 +161,9 @@ directory.  Use this command to view the value of :envvar:`SPACK_ROOT`:
 Clone a copy of GCClassic, GCHP, or HEMCO
 =========================================
 
-The `GCClassic  <https://github.com/geoschem/GCClassic>`_, `GCHP
-<https://github.com/geoschem/GCHP>`_ , and `HEMCO
-<https://github.com/geoschem/HEMCO>`_ repositories each contain a
+The `GCClassic  <https://github.com/geoschem/GCClassic>`__, `GCHP
+<https://github.com/geoschem/GCHP>`__ , and `HEMCO
+<https://github.com/geoschem/HEMCO>`__ repositories each contain a
 :file:`spack/` subdirectory with customized Spack configuration files
 :file:`modules.yaml` and :file:`packages.yaml`.  We have updated these
 YAML files with the proper settings in order to ensure a smooth
@@ -214,7 +214,7 @@ variable that you defined in the :ref:`previous step <spackguide-model>`.
    the settings in :literal:`${scope_dir}/packages.yaml`.
 
    As of this writing, the default compiler is `gcc 12.2.0
-   <https://gcc.gnu.org/onlinedocs/12.2.0/>`_ (includes C, C++, and
+   <https://gcc.gnu.org/onlinedocs/12.2.0/>`__ (includes C, C++, and
    Fortran compilers).  We will upgrade to newer compiler and software
    package versions as necessary.
 
@@ -343,7 +343,7 @@ with GEOS-Chem data:
 
 #. Build the :program:`flex` (Fast Lexical Analyzer) package.  This is
    a dependency of the `Kinetic PreProcessor (KPP)
-   <https://kpp.readthedocs.io>`_, with which you can update GEOS-Chem
+   <https://kpp.readthedocs.io>`__, with which you can update GEOS-Chem
    chemical mechanisms.
 
    .. code-block:: console
@@ -377,11 +377,11 @@ the HEMCO standalone.
 Please see the following links for sample environment files.
 
 - `Sample GEOS-Chem Classic environment file
-  <https://geos-chem.readthedocs.io/en/stable/getting-started/login-env-files-gnu.html>`_
+  <https://geos-chem.readthedocs.io/en/stable/getting-started/login-env-files-gnu.html>`__
 - `Sample GCHP environment file
-  <https://github.com/geoschem/geos-chem/blob/main/run/GCHP/runScriptSamples/operational_examples/harvard_cannon/gchp.gcc12_openmpi4_cannon_rocky.env>`_
+  <https://github.com/geoschem/geos-chem/blob/main/run/GCHP/runScriptSamples/operational_examples/harvard_cannon/gchp.gcc12_openmpi4_cannon_rocky.env>`__
 - `Sample HEMCO environment file
-  <https://hemco.readthedocs.io/en/stable/hco-sa-guide/login-env.html>`_
+  <https://hemco.readthedocs.io/en/stable/hco-sa-guide/login-env.html>`__
 
 Copy and paste the code below into a file named :code:`${model}.env` (using
 the :code:`${model}` environment variable that :ref:`you defined
@@ -398,7 +398,7 @@ commands with the following code:
    # ${SPACK_ROOT} will be blank if the setup-env.sh script hasn't been called.
    # (modifiable) Replace "/path/to/spack" with the path to your Spack root directory
    if [[ "x${SPACK_ROOT}" == "x" ]]; then
-      source ${SPACK_ROOT}/source/spack/setup-env.sh
+      source /path/to/spack/share/spack/setup-env.sh
    fi
 
    # Load esmf, hdf5, netcdf-c, netcdf-fortran, openmpi

@@ -11,7 +11,7 @@ Tutorial: Accessing GEOS-Chem Input Data using AWS CLI
 This tutorial will guide you through the process of accessing and
 using the :ref:`GEOS-Chem Input Data <gcid>` with
 AWS CLI. Alternatively, you can access the data via `AWS S3 Explorer
-<https://geos-chem.s3.amazonaws.com/index.html>`_.
+<https://geos-chem.s3.amazonaws.com/index.html>`__.
 
 .. note::
 
@@ -43,7 +43,7 @@ The workflow is:
 Install AWS CLI
 ===============
 
-Follow the installation instructions from the `AWS CLI User Guide <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>`_.
+Follow the installation instructions from the `AWS CLI User Guide <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>`__.
 
 .. _gcid-tut-conf:
 
@@ -65,7 +65,7 @@ Configure AWS CLI with this command:
 
 and supply your credentials when prompted.
 
-For instructions on :literal:`aws configure`, refer to the `Configure the AWS CLI <https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html>`_ .
+For instructions on :literal:`aws configure`, refer to the `Configure the AWS CLI <https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html>`__ .
 
 .. _gcid-tut-access:
 
@@ -132,7 +132,7 @@ Step 3: Download the data
    If you are using :program:`GEOS-Chem Classic` or the
    :program:`HEMCO standalone model`, you can `download data with a
    dry-run simulation
-   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/dry-run.html>`_,
+   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/dry-run.html>`__,
    while still using the AWS CLI data transfer protocol.
 
 Once you have located the data you need, you can download it to your
@@ -165,13 +165,13 @@ instance, you may run a :program:`GEOS-Chem Classic`,
 refer to the relevant user guide listed below.
 
 - `GEOS-Chem Classic Quickstart Guide
-  <https://geos-chem.readthedocs.io/en/latest/getting-started/quick-start.html>`_
+  <https://geos-chem.readthedocs.io/en/latest/getting-started/quick-start.html>`__
 
 - `GCHP Quickstart Guide
-  <https://gchp.readthedocs.io/en/latest/getting-started/quick-start.html>`_
+  <https://gchp.readthedocs.io/en/latest/getting-started/quick-start.html>`__
 
 - `HEMCO Standalone Guide
-  <https://hemco.readthedocs.io/en/stable/hco-sa-guide/intro.html>`_
+  <https://hemco.readthedocs.io/en/stable/hco-sa-guide/intro.html>`__
 
 .. _gcid-tut-gchp-on-aws:
 
@@ -179,5 +179,5 @@ Running GCHP on AWS
 -------------------
 
 If you wish to use the computing resources on AWS to run GCHP and are
-seeking for an AMI, feel free to check our `Set up AWS ParallelCluster <https://gchp.readthedocs.io/en/latest/supplement/setting-up-aws-parallelcluster.html>`_
+seeking for an AMI, feel free to check our `Set up AWS ParallelCluster <https://gchp.readthedocs.io/en/latest/supplement/setting-up-aws-parallelcluster.html>`__
 guide.

@@ -10,7 +10,7 @@ Radiative transfer with RRTMG
 
 On this page we provide information about the coupling of GEOS-Chem
 with the `RRTMG radiative transfer model
-<http://rtweb.aer.com/rrtm_frame.html>`_ (by AER, Inc.).
+<http://rtweb.aer.com/rrtm_frame.html>`__ (by AER, Inc.).
 
 .. _rrtmg-overview:
 
@@ -24,7 +24,7 @@ direct radiative effect (DRE) output for both the longwave and
 shortwave. This alternative to offline coupling allows better temporal
 resolution in the RT calculations and provides a consistent platform
 for  GEOS-Chem users with the widely used radiative transfer package
-`RRTMG <http://rtweb.aer.com/rrtm_frame.html>`_.
+`RRTMG <http://rtweb.aer.com/rrtm_frame.html>`__.
 
 Most of the added code is 'transparent', therefore this version of the
 GEOS-Chem model can still be run with the radiation code switched
@@ -173,7 +173,7 @@ Settings in geoschem_config.yml
 -------------------------------
 
 For more information about these settings, please see the
-`geoschem_config.yml chapter <https://geos-chem.readthedocs.io/en/stable/geos-chem-shared-docs/doc/geoschem-config.html>`_
+`geoschem_config.yml chapter <https://geos-chem.readthedocs.io/en/stable/geos-chem-shared-docs/doc/geoschem-config.html>`__
 in our ReadTheDocs documentation.
 
 .. code-block:: yaml
@@ -211,7 +211,7 @@ Settings in HEMCO_Config.rc
 ---------------------------
 
 Several of the inputs to RRTMG are stored in netCDF format for input via
-`HEMCO <https://hemco.readthedocs.io>`_. These include:
+`HEMCO <https://hemco.readthedocs.io>`__. These include:
 
 #. Diffuse surface albedos in visible and near-IR
 #. Direct surface albedos in visible and near-IR
@@ -270,7 +270,7 @@ that ships with the RRTMG simulation run directory:
    )))RRTMG
 
 The data files are located in the :file:`HEMCO/RRTMG/v2018-11` folder on our
-`GEOS-Chem Input data portal <https://geos-chem.readthedocs.io/en/stable/geos-chem-shared-docs/doc/gcid-data-on-aws.html>`_.
+`GEOS-Chem Input data portal <https://geos-chem.readthedocs.io/en/stable/geos-chem-shared-docs/doc/gcid-data-on-aws.html>`__.
 
 
 .. _rrtmg-guide-running-history:

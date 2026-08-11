@@ -1,19 +1,19 @@
- .. _spcguide:
+.. _spcguide:
 
 #################################
 View GEOS-Chem species properties
 #################################
 
 Properties for GEOS-Chem species are stored in the **GEOS-Chem
-Species Database**, which is a `YAML <https://yaml.org>`_ file
+Species Database**, which is a `YAML <https://yaml.org>`__ file
 (:file:`species_database.yml`) that is placed into each GEOS-Chem run
 directory.
 
 View species properties from the current stable GEOS-Chem version:
 
-- `View properties for most GEOS-Chem species <https://github.com/geoschem/geos-chem/blob/main/run/shared/species_database.yml>`_
-- `View properties for APM microphysics species <https://github.com/geoschem/geos-chem/blob/main/run/shared/species_database_apm.yml>`_
-- `View properties for TOMAS microphysics species <https://github.com/geoschem/geos-chem/blob/main/run/shared/species_database_tomas.yml>`_
+- `View properties for most GEOS-Chem species <https://github.com/geoschem/geos-chem/blob/main/run/shared/species_database.yml>`__
+- `View properties for APM microphysics species <https://github.com/geoschem/geos-chem/blob/main/run/shared/species_database_apm.yml>`__
+- `View properties for TOMAS microphysics species <https://github.com/geoschem/geos-chem/blob/main/run/shared/species_database_tomas.yml>`__
 
 .. _spcguide-defs-id:
 
@@ -178,7 +178,7 @@ Molecular weight (:math:`g\ mol^{-1}`) of the species.
    they carry, whereas gas-phase species (MONITS and MONITU) get
    the full molar mass of the compounds that they represent.  This
    treatment has its origins in `J. Fisher et al
-   [2016] <https://acp.copernicus.org/articles/16/5969/2016/acp-16-5969-2016.pdf>`_.
+   [2016] <https://acp.copernicus.org/articles/16/5969/2016/acp-16-5969-2016.pdf>`__.
 
 Radius
 ------
@@ -281,7 +281,7 @@ deposition of species :code:`POPG`.
 .. note::
 
    :code:`DD_KOA` is only used in the `POPs simulation
-   <https://wiki.geos-chem.org/POPs_simulation>`_.
+   <https://wiki.geos-chem.org/POPs_simulation>`__.
 
 .. _spcguide-defs-wetdep:
 
@@ -921,7 +921,7 @@ vol\ vol^{-1}` dry air instead.
    Recent versions of GCHP may require that all initial conditions
    for all species to be used in a simulation be present in the
    restart file.  See `gchp.readthedocs.io
-   <https://gchp.readthedocs.io>`_ for more information.
+   <https://gchp.readthedocs.io>`__ for more information.
 
 MP_SizeResAer
 -------------
@@ -929,8 +929,8 @@ MP_SizeResAer
 Indicates that the species is a size-resolved aerosol species
 (:literal:`true`), or isn't (:literal:`false`).  Used only by
 simulations using either `APM
-<http://wiki.geos-chem.org/APM_aerosol_microphysics>`_
-or `TOMAS <http://wiki.geos-chem.org/TOMAS_aerosol_microphysics>`_
+<http://wiki.geos-chem.org/APM_aerosol_microphysics>`__
+or `TOMAS <http://wiki.geos-chem.org/TOMAS_aerosol_microphysics>`__
 microphysics packages.
 
 MP_SizeResNum
@@ -939,8 +939,8 @@ MP_SizeResNum
 Indicates that the species is a size-resolved aerosol number
 (:literal:`true`), or isn't (:literal:`false`).  Used only by
 simulations using either `APM
-<http://wiki.geos-chem.org/APM_aerosol_microphysics>`_
-or `TOMAS <http://wiki.geos-chem.org/TOMAS_aerosol_microphysics>`_
+<http://wiki.geos-chem.org/APM_aerosol_microphysics>`__
+or `TOMAS <http://wiki.geos-chem.org/TOMAS_aerosol_microphysics>`__
 microphysics packages.
 
 .. _spcguide-using:
@@ -960,7 +960,7 @@ The Species derived type
 -------------------------
 
 The `Species
-<https://github.com/geoschem/geos-chem/blob/main/Headers/species_mod.F90#L61>`_
+<https://github.com/geoschem/geos-chem/blob/main/Headers/species_mod.F90#L61>`__
 derived type (defined in module :file:`Headers/species_mod.F90`)
 describes a complete set of properties for a single GEOS-Chem
 species. In addition to the fields mentioned in the preceding sections, the
@@ -1008,7 +1008,7 @@ The SpcPtr derived type
 -----------------------
 
 The `SpcPtr
-<https://github.com/geoschem/geos-chem/blob/main/Headers/species_mod.F90#L54>`_
+<https://github.com/geoschem/geos-chem/blob/main/Headers/species_mod.F90#L54>`__
 derived type (also defined in :file:`Headers/species_mod.F90`)
 describes a container for an object of type :ref:`Species
 <spcguide-access-spctype>`.

@@ -46,7 +46,7 @@ indirect radiative forcing.
 
    * - Author
      - Institution
-   * - `Fangqun Yu <http://www.albany.edu/%7Eyfq>`_
+   * - `Fangqun Yu <http://www.albany.edu/%7Eyfq>`__
      - SUNY Albany
    * - Gan Luo
      - SUNY Albany
@@ -319,7 +319,7 @@ Dust Particle Size Distribution
 
 `Model-simulated annual mean dust particle mass size distributions in
 Beijing, normalized to total dust mass
-concentrations. <https://drive.google.com/file/d/1WWoMI0B-2EbmB7QsjnfBz6BekkP0JgVf/view?usp=sharing>`_
+concentrations. <https://drive.google.com/file/d/1WWoMI0B-2EbmB7QsjnfBz6BekkP0JgVf/view?usp=sharing>`__
 The distribution
 peaks in diameter of :math:`~3-5 \mu m`. Based on the size
 distributions, about 90% of DST4 (diameter range :math:`6 - 12 \mu m`)

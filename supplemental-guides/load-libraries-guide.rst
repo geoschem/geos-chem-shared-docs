@@ -18,7 +18,7 @@ All of the required software dependencies for :program:`GEOS-Chem` and
 :program:`HEMCO` will be included in the Amazon Machine Image (AMI)
 that you use to initialize your Amazon Elastic Cloud Compute (EC2)
 instance. For more information, please see our `our GEOS-Chem cloud
-computing tutorial <http://geos-chem-cloud.readthedocs.io>`_.
+computing tutorial <https://geos-chem-cloud.readthedocs.io>`__.
 
 .. _libguide-cluster:
 
@@ -29,10 +29,10 @@ On a shared computer cluster
 If you plan to use :program:`GEOS-Chem` or :program:`HEMCO` on a
 shared computational cluster (e.g. at a university or research
 institution), then there is a good chance that your IT staff will have
-already installed several of the required software dependencis.
+already installed several of the required software dependencies.
 
 Depending on your system's setup, there are a few different ways in
-which you can activate these software pacakges in your computational
+which you can activate these software packages in your computational
 environment, as shown below.
 
 .. _libguide-check-modules:
@@ -40,8 +40,8 @@ environment, as shown below.
 1. Check if libraries are available as modules
 ----------------------------------------------
 Many high-performance computing (HPC) clusters use a module manager such
-as `Lmod <https://lmod.readthedocs.io/en/latest/>`_ or
-`environment-modules <https://modules.readthedocs.io/en/latest/>`_
+as `Lmod <https://lmod.readthedocs.io/en/latest/>`__ or
+`environment-modules <https://modules.readthedocs.io/en/latest/>`__
 to load software packages and libraries. A module manager allows you to
 load different compilers and libraries with simple commands.
 
@@ -73,8 +73,7 @@ strings that serve to differentiate one build from another.
    module load netcdf-c/4.9.2-fasrc01         # netcdf-c
    module load netcdf-fortran/4.6.0-fasrc02   # netcdf-fortran
    module load flex/2.6.4-fasrc01             # Flex lexer (needed for KPP)
-   module load cmake/3.25.2-fasrc01           # CMake (needed to
-   compile)
+   module load cmake/3.25.2-fasrc01           # CMake (needed to compile)
 
 Note that it is often not necessary to load all modules.  For example,
 loading :program:`netcdf-fortran` will also cause its dependencies
@@ -82,14 +81,6 @@ loading :program:`netcdf-fortran` will also cause its dependencies
 into your environment.
 
 Here is a summary of what the above commands do:
-
-.. option:: module purge
-
-   Removes all previously loaded modules
-
-.. option:: module load git/...
-
-   Loads Git (version control system)
 
 .. option:: module load gcc/...
 
@@ -114,10 +105,6 @@ Here is a summary of what the above commands do:
 
 	 module load netcdf-fortran/...
 
-.. option:: module load perl/...
-
-   Loads Perl (scripting language)
-
 .. option:: module load cmake/...
 
    Loads Cmake (needed to compile GEOS-Chem)
@@ -125,7 +112,7 @@ Here is a summary of what the above commands do:
 .. option:: module load flex/...
 
    Loads the Flex lexer (needed for `The Kinetic PreProcessor
-   <https://kpp.readthedocs.io>`_).
+   <https://kpp.readthedocs.io>`__).
 
 
 .. _libguide-check-spack:
@@ -142,9 +129,9 @@ if the required libraries for :program:`GEOS-Chem` and
 
    $ spack find
 
-to locate any Spack-built software libraries on your system.  If there
-Spack-built libraries are found, you may present, you may load them
-into your computational environment with :program:`spack load`
+to locate any Spack-built software libraries on your system.  If any
+Spack-built libraries are found, you may load them into your
+computational environment with :program:`spack load`
 commands such as:
 
 .. code-block:: console
@@ -168,10 +155,10 @@ library in case there are several available builds to choose from.
 
 We recommend that you place :command:`spack load` commands into an
 `environment file
-<https://geos-chem.readthedocs.io/getting-started/login-env-files.html>`_.
+<https://geos-chem.readthedocs.io/getting-started/login-env-files.html>`__.
 
 If a `Spack environment
-<https://spack-tutorial.readthedocs.io/en/latest/tutorial_environments.html>`_
+<https://spack-tutorial.readthedocs.io/en/latest/tutorial_environments.html>`__
 has been installed on your system, type:
 
 .. code-block:: console
@@ -188,8 +175,8 @@ To deactivate the environment, type:
 
 .. _libguide-check-manual:
 
-3. Check if libaries have been manually installed
--------------------------------------------------
+3. Check if libraries have been manually installed
+---------------------------------------------------
 
 If your computer system does not use a module manager and does not use
 Spack, check for a manual library installation. Very often, common

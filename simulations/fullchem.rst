@@ -151,7 +151,7 @@ directory creation time <rundir>`.
    * - :ref:`Complex SOA <fullchem-sim-csoa>`
      - Replaces the simple SOA species and precursor with the `Pye et
        al. [2010]
-       <https://acp.copernicus.org/articles/10/11261/2010/acp-10-11261-2010.html>`_
+       <https://acp.copernicus.org/articles/10/11261/2010/acp-10-11261-2010.html>`__
        complex SOA scheme.
    * - :ref:`Complex SOA plus semi-volatile POA <fullchem-sim-svpoa>`
      - Replaces the simple SOA species and precursor with the Pye et
@@ -1688,7 +1688,7 @@ Benchmark
 
 Fullchem simulations with the :program:`Benchmark` option allow the
 `GEOS-Chem Support Team
-<https://geoschem.github.io/support-team.html>`_ to perform
+<https://geoschem.github.io/support-team.html>`__ to perform
 simulations that document the performance and evolution of GEOS-Chem
 over time.
 

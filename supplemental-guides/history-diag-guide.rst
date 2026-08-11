@@ -21,8 +21,8 @@ History.
 
    HEMCO has its own diagnostic archiving capability.  Please see the
    `HEMCO diagnostics
-   <https://hemco.readthedocs.io/en/latest/hco-ref-guide/diagnostics.html>`_
-   chapter of `The HEMCO User's Guide <https://hemco.readthedocs.io>`_
+   <https://hemco.readthedocs.io/en/latest/hco-ref-guide/diagnostics.html>`__
+   chapter of `The HEMCO User's Guide <https://hemco.readthedocs.io>`__
    more information. Note that HEMCO diagnostics are configured
    from configuration file :file:`HEMCO_Diagn.rc` for both GCHP and GEOS-Chem Classic
    but diagnostics are also specified in :file:`HISTORY.rc` for GCHP only.
@@ -1999,7 +1999,7 @@ GEOS-Chem mercury simulation.
 
    Several other mercury emission diagnostics are archived via
    `HEMCO diagnostics
-   <https://hemco.readthedocs.io/en/latesthco-ref-guide/diagnostics.html>`_.
+   <https://hemco.readthedocs.io/en/latest/hco-ref-guide/diagnostics.html>`__.
 
 **Sample definition section for HISTORY.rc**
 
@@ -2306,7 +2306,7 @@ radionuclide species in the GEOS-Chem TransportTracers simulation.
 
    Emissions of Rn222, Be7, and Be10 species are archived to
    diagnostic output by `HEMCO diagnostics
-   <https://hemco.readthedocs.io/en/latesthco-ref-guide/diagnostics.html>`_,
+   <https://hemco.readthedocs.io/en/latest/hco-ref-guide/diagnostics.html>`__,
    and are thus not contained in this collection.
 
 **Sample definition section for HISTORY.rc**
@@ -2641,7 +2641,7 @@ RxnConst
 .. attention::
 
    As reported in `GitHub issue #1991
-   <https://github.com/geoschem/geos-chem/issues/1991>`_, some
+   <https://github.com/geoschem/geos-chem/issues/1991>`__, some
    reaction rates are computed within the precision of the model while
    other rates are computed incorrectly.  We recommend not to use this
    diagnostic until we can provide a solution.
@@ -2696,7 +2696,7 @@ RxnRates
 .. attention::
 
    As reported in `GitHub issue #1991
-   <https://github.com/geoschem/geos-chem/issues/1991>`_, some
+   <https://github.com/geoschem/geos-chem/issues/1991>`__, some
    reaction rates are computed within the precision of the model while
    other rates are computed incorrectly.  We recommend not to use this
    diagnostic until we can provide a solution.
@@ -3343,7 +3343,7 @@ are stored in the SpeciesConc collection).
      - 1
    * - Chem_KppHvalue
      - `Hnew value
-       <https://kpp.readthedocs.io/en/stable/using_kpp/05_output_from_kpp.html#rstatus-3>`_
+       <https://kpp.readthedocs.io/en/stable/using_kpp/05_output_from_kpp.html#rstatus-3>`__
        for Rosenbrock solver
      - 1
    * - Chem_Krate

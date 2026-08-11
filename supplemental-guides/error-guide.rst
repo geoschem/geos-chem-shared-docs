@@ -27,7 +27,7 @@ that your GEOS-Chem simulation might encounter.
 We strongly encourage that you try to debug the issue using the info
 both in this Guide and in our :ref:`debug-guide` Guide.  Please see
 our `Support Guidelines
-<https://geos-chem.readthedocs.io/en/latest/help-and-reference/SUPPORT.html>`_
+<https://geos-chem.readthedocs.io/en/latest/help-and-reference/SUPPORT.html>`__
 for more information.
 
 .. _errguide-where:
@@ -36,9 +36,9 @@ for more information.
 Where does error output get printed?
 ====================================
 
-`GEOS-Chem Classic <https://geos-chem.readthedocs.io>`_, `GCHP
-<https://gchp.readthedocs.io>`_, and `HEMCO
-<https://hemco.readthedocs.io>`_, like all Linux-based programs,
+`GEOS-Chem Classic <https://geos-chem.readthedocs.io>`__, `GCHP
+<https://gchp.readthedocs.io>`__, and `HEMCO
+<https://hemco.readthedocs.io>`__, like all Linux-based programs,
 send output to two streams: **stdout** and **stderr**.
 
 Most output will go to the **stdout** stream, which takes I/O from the
@@ -87,7 +87,7 @@ output both to a log file as well as to the terminal window:
 
    #. GCHP sends output to several log files as well as to the stdout
       and stderr streams.  Please see `gchp.readthedocs.io
-      <https://gchp.readthedocs.io>`_ for more information. |br|
+      <https://gchp.readthedocs.io>`__ for more information. |br|
       |br|
 
    #. When using GEOS-Chem 14.5.1 or later within CESM, HEMCO error
@@ -129,7 +129,7 @@ KPP error: Cannot find -lfl
    error: ld returned exit 1 status
 
 **Problem:**: The `Kinetic PreProcessor (KPP)
-<https://kpp.readthedocs.io>`_ cannot find the :program:`flex`
+<https://kpp.readthedocs.io>`__ cannot find the :program:`flex`
 library, which is one of its dependencies.
 
 **Solution:** Make sure that :ref:`all software dependencies have been
@@ -414,10 +414,10 @@ HEMCO Error: Cannot find field in restart file
 **Problem:** A GEOS-Chem Classic or HEMCO standalone simulation halts
 because HEMCO cannot find initial conditions for a given species in
 the `GEOS-Chem restart file
-<https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/restart-files-gc.html/restart-files-gc.html>`_.
+<https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/restart-files-gc.html>`__.
 By default, the GEOS-Chem restart file (entry :literal:`SPC_` in
 `HEMCO_Config.rc
-<https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/hemco-config.html>`_)
+<https://geos-chem.readthedocs.io/en/latest/geos-chem-shared-docs/doc/hemco-config.html>`__)
 uses time cycle flag :literal:`EFYO`, which directs HEMCO to halt
 unless initial conditions can be found for all species.
 
@@ -557,7 +557,7 @@ the error listed above.
    GCHP, and HEMCO can only read data placed on calendars with leap
    years.
 
-GCST member `Lizzie Lundgren <https://github.com/lizziel>`_ writes:
+GCST member `Lizzie Lundgren <https://github.com/lizziel>`__ writes:
 
    This HEMCO error occurs if the reference time for the netCDF file
    time dimension is prior to 1901. If you do :command:`ncdump –c
@@ -570,7 +570,7 @@ GCST member `Lizzie Lundgren <https://github.com/lizziel>`_ writes:
    Operators) using the :program:`setreftime` command.
 
    Here is a bash script example by GCST member `Melissa Sulprizio
-   <https://github.com/msulprizio>`_ that updates the calendar and
+   <https://github.com/msulprizio>`__ that updates the calendar and
    reference time for all files ending in :file:`*.nc` within a
    directory.  This script was made for a user who ran into this issue.
    into the same issue. In that case the first file was for Jan 1, 1950,
@@ -946,7 +946,7 @@ COARDS-standard index variables (:literal:`time`, :literal:`lev`,
 :literal:`lat`, :literal:`lon`).
 
 **Solution:** Use the `isCoards
-<https://github.com/geoschem/netcdf-scripts/blob/main/scripts/isCoards>`_
+<https://github.com/geoschem/netcdf-scripts/blob/main/scripts/isCoards>`__
 script to check if your netCDF file is COARDS-compliant.  You can then
 use the netCDF Operators (NCO) and/or Climate Data Operators
 (CDO) to edit your netCDF file accordingly.  For more information,
@@ -1076,7 +1076,7 @@ of the memory structure where short-lived variables are stored, such as:
 
 **Solution:** Max out the amount of stack memory that is available to
 GEOS-Chem and HEMCO.  `See this section
-<https://geos-chem.readthedocs.io/en/latest/getting-started/login-env-parallel.html>`_
+<https://geos-chem.readthedocs.io/en/latest/getting-started/login-env-parallel.html>`__
 for instructions.
 
 .. _errguide-lesscommon:
@@ -1121,7 +1121,7 @@ circumstances.  Usually this means one of the following has occurred:
    already been deallocated.
 
 `Please see this link
-<http://stackoverflow.com/questions/2902064/how-to-track-down-a-double-free-or-corruption-error-in-c-with-gdb>`_
+<http://stackoverflow.com/questions/2902064/how-to-track-down-a-double-free-or-corruption-error-in-c-with-gdb>`__
 for more details.
 
 **Solution:** Try setting all deleted pointers to :code:`NULL()`.
@@ -1256,7 +1256,7 @@ already been deallocated or modified.
 GEOS-Chem or HEMCO the error occurs.  You will likely have to remove a
 duplicate :code:`DEALLOCATE` or :code:`=> NULL()` statement.  `See
 this article on Stack Overflow
-<http://stackoverflow.com/questions/6199729/how-to-solve-munmap-ch unk-invalid-pointer-error-in-c>`_
+<http://stackoverflow.com/questions/6199729/how-to-solve-munmap-ch unk-invalid-pointer-error-in-c>`__
 for more information.
 
 .. _errguide-lesscommon-outmem:

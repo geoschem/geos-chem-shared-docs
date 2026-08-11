@@ -9,7 +9,7 @@ Editing this User Guide
 #######################
 
 This user guide is generated with `Sphinx
-<https://www.sphinx-doc.org/>`_.  Sphinx is an open-source Python
+<https://www.sphinx-doc.org/>`__.  Sphinx is an open-source Python
 project designed to make writing software documentation easier.  The
 documentation is written in :ref:`reStructuredText (reST)
 <editing_this_user_guide_rest>`, a plaintext markup language that
@@ -38,25 +38,25 @@ Sphinx and its dependencies, which are listed in the table below.
      - Version
    * - sphinx
      - Creates online user manual documentation from markup text files
-     - 7.2.6
-   * - `sphinx-autobuild <https://github.com/sphinx-doc/sphinx-autobuild>`_
+     - 8.2.3
+   * - `sphinx-autobuild <https://github.com/sphinx-doc/sphinx-autobuild>`__
      - Dynamically builds Sphinx documentation and displays it in a
        browser
-     - 2021.3.14
-   * - `sphinx_rtd_theme <https://github.com/readthedocs/sphinx_rtd_theme>`_
+     - 2024.2.4
+   * - `sphinx_rtd_theme <https://github.com/readthedocs/sphinx_rtd_theme>`__
      - Sphinx theme for ReadTheDocs
-     - 2.0.0
-   * - `sphinxcontrib-bibtex <https://pypi.org/project/sphinxcontrib-bibtex/>`_
+     - 3.1.0
+   * - `sphinxcontrib-bibtex <https://pypi.org/project/sphinxcontrib-bibtex/>`__
      - Inserts LaTeX-style bibliography citations into ReadTheDocs
        documentation
-     - 2.6.2
-   * - `docutils <https://docutils.sourceforge.io/>`_
+     - 2.6.5
+   * - `docutils <https://docutils.sourceforge.io/>`__
      - Processes plaintext documentation into HTML and other formats
-     - 0.20.1
-   * - `recommonmark  <https://github.com/readthedocs/recommonmark>`_
-     - Parses text for docutils
-     - 0.7.1
-   * - `jinja2 <https://jinja.palletsprojects.com/en/stable/>`_
+     - 0.21.2
+   * - `myst-parser <https://github.com/executablebooks/MyST-Parser>`__
+     - Parses Markdown text for docutils
+     - 5.0.0
+   * - `jinja2 <https://jinja.palletsprojects.com/en/stable/>`__
      - Replaces tokenized strings with text
      - 3.1.6
 
@@ -170,23 +170,23 @@ started. Dedicating an hour to learning reST will save you time in the
 long-run. Below are some good resources for learning reST.
 
 - `reStructuredText primer
-  <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_:
+  <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`__:
   (single best resource; however, it's better read than skimmed) |br|
   |br|
 
 - Official `reStructuredText reference
-  <https://docutils.sourceforge.io/docs/user/rst/quickref.html>`_
+  <https://docutils.sourceforge.io/docs/user/rst/quickref.html>`__
   (there is *a lot* of information here) |br|
   |br|
 
 - `Presentation by Eric Holscher
-  <https://www.youtube.com/watch?v=eWNiwMwMcr4>`_ (co-founder of Read
+  <https://www.youtube.com/watch?v=eWNiwMwMcr4>`__ (co-founder of Read
   The Docs) at DjangoCon US 2015 (the entire presentation is good, but
   reST is described from 9:03 to 21:04) |br|
   |br|
 
 - `YouTube tutorial by Audrey Tavares
-  <https://www.youtube.com/watch?v=DSIuLnoKLd8>`_
+  <https://www.youtube.com/watch?v=DSIuLnoKLd8>`__
 
 A good starting point would be Eric Holscher's presentations followed
 by the reStructuredText primer.
@@ -241,8 +241,8 @@ References and links
      - ``:ref:`Getting Started <editing_this_user_guide_quickstart>``
      - :ref:`Getting Started <editing_this_user_guide_quickstart>`
    * - HTML link
-     - ```ReadTheDocs <https://geos-chem.readthedocs.io>`_``
-     - `GEOS-Chem Manual <https://geos-chem.readthedocs.io>`_
+     - ```ReadTheDocs <https://geos-chem.readthedocs.io>`__``
+     - `GEOS-Chem Manual <https://geos-chem.readthedocs.io>`__
 
 Other common style elements
 ---------------------------

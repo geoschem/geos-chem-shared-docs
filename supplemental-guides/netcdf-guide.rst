@@ -293,7 +293,7 @@ Read data with Python
 ---------------------
 
 The easiest way to read a netCDF file is to use the `xarray Python
-package <https://xarray.readthedocs.io>`_.
+package <https://xarray.readthedocs.io>`__.
 
 .. code-block::  python
 
@@ -397,9 +397,9 @@ Determining if a netCDF file is COARDS-compliant
 All netCDF files used as input to GEOS-Chem and/or HEMCO must adhere
 to the :ref:`COARDS netCDF conventions <coards-guide>`.  You can use
 the `isCoards script
-<https://github.com/geoschem/netcdf-scripts/blob/main/scripts/isCoards>`_
+<https://github.com/geoschem/netcdf-scripts/blob/main/scripts/isCoards>`__
 (from our `netcdf-scripts repository at GitHub
-<https://github.com/geoschem/netcdf-scripts>`_) to determine if a
+<https://github.com/geoschem/netcdf-scripts>`__) to determine if a
 netCDF file adheres to the COARDS conventions.
 
 Run the :file:`isCoards` script at the command line on any netCDF file, and
@@ -517,7 +517,7 @@ utilities.
 
 #. Add/change the :literal:`long_name` attribute of the vertical
    coordinate (:literal:`lev`) to :literal:`GEOS-Chem levels`.  This
-   will ensure that `HEMCO <https://hemco.readthedocs.io>`_ recognizes
+   will ensure that `HEMCO <https://hemco.readthedocs.io>`__ recognizes
    the vertical levels of the input file as GEOS-Chem model levels.
 
    .. code-block:: console
@@ -627,7 +627,7 @@ utilities.
          $ cdo setyear,1992, ...     # Sets year to 1992
 
       See the `cdo user manual
-      <https://code.mpimet.mpg.de/projects/cdo/embedded/index.html#x1-2690002.6.4>`_
+      <https://code.mpimet.mpg.de/projects/cdo/embedded/index.html#x1-2690002.6.4>`__
       for more information.
 
 #. Change the :literal:`time:calendar` attribute:
@@ -749,9 +749,9 @@ netCDF files. For example:
       $ cdo remapcon,gridfile infile.nc outfile.nc
 
 For :file:`gridfile`, you can use the files `here
-<https://geoschemdata.wustl.edu/ExtData/HEMCO/grids/>`_.  Also see
+<https://geoschemdata.wustl.edu/ExtData/HEMCO/grids/>`__.  Also see
 `this reference
-<http://www.climate-cryosphere.org/wiki/index.php?title=Regridding_with_CDO%7Cthis>`_.
+<http://www.climate-cryosphere.org/wiki/index.php?title=Regridding_with_CDO%7Cthis>`__.
 
 .. _ncguide-regrid-cdo-issue:
 
@@ -793,7 +793,7 @@ utilities that allow you to regrid from lat/lon to cubed-sphere grids
 (and vice versa).  Regridding weights can be generated on-the-fly, or
 can be archived and reused.  For detailed instructions, please see the
 please see the `GCPy Regridding documentation
-<https://gcpy.readthedocs.io/en/latest/Regridding.html>`_.
+<https://gcpy.readthedocs.io/en/latest/Regridding.html>`__.
 
 .. _ncguide-regrid-nco:
 
@@ -801,7 +801,7 @@ Regrid with nco
 ---------------
 :ref:`Nco <ncguide-useful-tools-nco>` also includes several regridding
 utilities.  See the `Regridding section of the NCO User Guide
-<http://nco.sourceforge.net/nco.html#Regridding>`_ for more
+<http://nco.sourceforge.net/nco.html#Regridding>`__ for more
 information.
 
 .. _ncguide-regrid-xarray:
@@ -809,10 +809,10 @@ information.
 Regrid with xarray
 ------------------
 
-The `xarray <https://xarray.readthedocs.io>`_ Python package has a
+The `xarray <https://xarray.readthedocs.io>`__ Python package has a
 built-in capability for 1-D interpolation. It wraps the `SciPy
 interpolation module
-<https://docs.scipy.org/doc/scipy/reference/interpolate.html>`_. This
+<https://docs.scipy.org/doc/scipy/reference/interpolate.html>`__. This
 functionality can also be used for vertical regridding.
 
 .. _ncguide-regrid-xesmf:
@@ -820,7 +820,7 @@ functionality can also be used for vertical regridding.
 Regrid with xESMF
 -----------------
 
-`xESMF <https://xesmf.readthedocs.io>`_ is a universal regridding tool
+`xESMF <https://xesmf.readthedocs.io>`__ is a universal regridding tool
 for geospatial data, which is written in Python. It can be used to
 regrid data not only on cartesian grids, but also on cubed-sphere and
 unstructured grids.
@@ -995,10 +995,10 @@ We recommend that you **chunk** the data in your netCDF file. Chunking
 specifies the order in along which the data will be read from
 disk. The Unidata web site has `a good overview of why chunking a
 netCDF file matters
-<https://www.unidata.ucar.edu/blogs/developer/entry/chunking_data_why_it_matters>`_.
+<https://www.unidata.ucar.edu/blogs/developer/entry/chunking_data_why_it_matters>`__.
 
 For `GEOS-Chem with the high-performance option (aka GCHP)
-<https://gchp.readthedocs.io>`_, the best file I/O performance occurs
+<https://gchp.readthedocs.io>`__, the best file I/O performance occurs
 when the file is split into one chunk per level (assuming your data
 has a lev dimension). This allows each individual vertical level of
 data to be read in parallel.
@@ -1044,11 +1044,11 @@ levels, ranging from 0 (no deflation) to 9 (max deflation). For most
 purposes, a deflation level of 1 (:command:`d1`) is sufficient.
 
 The `GEOS-Chem Support Team
-<https://wiki.geos-chem.org/GEOS-Chem_Support_Team>`_ has created a
+<https://wiki.geos-chem.org/GEOS-Chem_Support_Team>`__ has created a
 Perl script named  `nc_chunk.pl
-<https://github.com/geoschem/netcdf-scripts/blob/main/scripts/nc_chunk.pl>`_
+<https://github.com/geoschem/netcdf-scripts/blob/main/scripts/nc_chunk.pl>`__
 (contained in the `netcdf-scripts repository at GitHub
-<https://github.com/geoschem/netcdf-scripts>`_)  that will
+<https://github.com/geoschem/netcdf-scripts>`__)  that will
 automatically chunk and  compress data for you.
 
 .. code-block:: console

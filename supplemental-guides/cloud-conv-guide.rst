@@ -5,11 +5,9 @@ Cloud convection
 ################
 
 This page describes the cloud convection (aka wet convection)
-algorithms of GEOS-Chem. We also invite you to read our `Wet
-deposition
-<https://wiki.seas.harvard.edu/geos-chem/index.php?title=Wet_deposition>`_
-wiki page, which contains information about the algorithms used for
-scavenging of soluble tracers.
+algorithms of GEOS-Chem. We also invite you to read our
+:ref:`wetdep-guide` Supplemental Guide, which contains information
+about the algorithms used for scavenging of soluble tracers.
 
 .. _cloud-conv-guide-gf:
 
@@ -19,13 +17,13 @@ Grell-Freitas (GF) scheme
 
 GEOS-Chem uses the Grell-Freitas (GF) convection scheme when being
 driven by `GEOS-IT
-<https://wiki.seas.harvard.edu/geos-chem/index.php?title=GEOS-IT>`_
+<https://wiki.seas.harvard.edu/geos-chem/index.php?title=GEOS-IT>`__
 meteorology (for all dates) and `GEOS-FP
-<https://wiki.seas.harvard.edu/geos-chem/index.php?title=GEOS-FP>`_
+<https://wiki.seas.harvard.edu/geos-chem/index.php?title=GEOS-FP>`__
 meteorology (for dates on or after 01 June 2020). The source code for
 this scheme is located in the :code:`DO_GF_CLOUD_CONVECTION` routine in
 :file:`GeosCore/convection_mod.F90` (see `GitHub source
-<https://github.com/geoschem/geos-chem/blob/3671d504cab09196ee960447a361b36ec41fe926/GeosCore/convection_mod.F90#L1388-L2237>`_).
+<https://github.com/geoschem/geos-chem/blob/3671d504cab09196ee960447a361b36ec41fe926/GeosCore/convection_mod.F90#L1388-L2237>`__).
 
 .. _cloud-conv-guide-ras:
 
@@ -35,14 +33,14 @@ Relaxed Arakawa-Schubert (RAS) scheme
 
 The Relaxed Arakawa-Schubert (RAS) convection scheme is used in
 GEOS-Chem when driven by `GEOS-FP
-<https://wiki.seas.harvard.edu/geos-chem/index.php?title=GEOS-FP>`_
+<https://wiki.seas.harvard.edu/geos-chem/index.php?title=GEOS-FP>`__
 meteorology (for dates prior to 01 June 2020) and `MERRA-2
-<https://wiki.seas.harvard.edu/geos-chem/index.php?title=MERRA-2>`_
+<https://wiki.seas.harvard.edu/geos-chem/index.php?title=MERRA-2>`__
 meteorology (for all dates). The source code for this scheme is
 located in the :code:`DO_RAS_CLOUD_CONVECTION` routine in
 :file:`GeosCore/convection_mod.F90`
 (see `GitHub source
-<https://github.com/geoschem/geos-chem/blob/3671d504cab09196ee960447a361b36ec41fe926/GeosCore/convection_mod.F90#L408-L1387>`_).
+<https://github.com/geoschem/geos-chem/blob/3671d504cab09196ee960447a361b36ec41fe926/GeosCore/convection_mod.F90#L408-L1387>`__).
 
 From Section 2, paragraph 10 of :cite:t:`Wu_et_al._2007`.
 

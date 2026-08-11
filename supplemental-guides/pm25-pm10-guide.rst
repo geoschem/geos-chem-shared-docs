@@ -17,7 +17,7 @@ PM2.5 definition
 PM2.5 refers to particulate matter having a diameter of :math:`2.5 \ \mu
 m` or less.  We use the following PM2.5 definition in GEOS-Chem, as
 approved by the `Aerosols Working Group
-<http://wiki.seas.harvard.edu/geos-chem/index.php/Aerosols_Working_Group>`_.
+<http://wiki.seas.harvard.edu/geos-chem/index.php/Aerosols_Working_Group>`__.
 
 .. list-table:: Hygroscopic growth factors for PM2.5 constituent
 		species
@@ -213,7 +213,7 @@ The PM2.5 and PM10 diagnostics belong to the
 :ref:`AerosolMass collection <histguide-aerosolmass>` in the GEOS-Chem
 History diagnostics). They are computed according to the code below,
 which may be found in `aerosol_mod.F90
-<https://github.com/geoschem/geos-chem/blob/3671d504cab09196ee960447a361b36ec41fe926/GeosCore/aerosol_mod.F90#L809-L987>`_.
+<https://github.com/geoschem/geos-chem/blob/3671d504cab09196ee960447a361b36ec41fe926/GeosCore/aerosol_mod.F90#L809-L987>`__.
 
 Avoid double-counting of ISOAAQ species
 ---------------------------------------

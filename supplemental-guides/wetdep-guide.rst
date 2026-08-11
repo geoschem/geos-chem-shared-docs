@@ -63,7 +63,7 @@ Obtain precipitation fields directly from meteorology
 
 In GEOS-Chem v9-01-01 and later versions, we use an improved `wet deposition
 scheme
-<https://drive.google.com/file/d/1oVNX0JM_3Qrvdg9Y1FomFbs_FfjpCC7s/view?usp=sharing>`_
+<https://drive.google.com/file/d/1oVNX0JM_3Qrvdg9Y1FomFbs_FfjpCC7s/view?usp=sharing>`__
 which uses the precipitation fields directly from the meteorology.
 At the time, the MERRA meteorology product was used, but this same
 methodology extends to other met field products as well.

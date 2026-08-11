@@ -18,7 +18,7 @@ The COARDS netCDF standard
 ==========================
 
 The `Harmonized Emissions Compionent (HEMCO)
-<https://hemco.readthedocs.io>`_ reads data stored in `the netCDF file
+<https://hemco.readthedocs.io>`__ reads data stored in `the netCDF file
 format
 <http://www.unidata.ucar.edu/software/netcdf/docs/faq.html#whatisit>`__,
 which is a common data format used in atmospheric and climate
@@ -29,7 +29,7 @@ a description of the data.
 Several netCDF conventions have been developed in order to facilitate
 data exchange and visualization. The `Cooperative Ocean Atmosphere
 Research Data Service (COARDS) standard
-<https://ferret.pmel.noaa.gov/Ferret/documentation/coards-netcdf-conventions>`_
+<https://ferret.pmel.noaa.gov/Ferret/documentation/coards-netcdf-conventions>`__
 defines regular conventions for naming dimensions as well as the
 `attributes <https://www.unidata.ucar.edu/software/netcdf/docs/netcdf/Attributes.html>`__
 describing the data. You will find more information about these
@@ -187,14 +187,14 @@ Special considerations for time vectors
 
 #. We recommend that index variables (such as :literal:`time`) be
    declared with type :literal:`float` or :literal:`double`.  `GCHP
-   <https://gchp.readthedocs.io>`_  cannot parse files with that have
+   <https://gchp.readthedocs.io>`__  cannot parse files with that have
    index variables of type :literal:`int`. |br|
    |br|
 
 #. We have noticed that netCDF files having a :option:`time:units`
    reference datetime prior to :literal:`1900/01/01 00:00:00` may not
-   be read properly when using `HEMCO <https://hemco.readthedocs.io>`_
-   or `GCHP <https://gchp.readthedocs.io>`_ within an ESMF
+   be read properly when using `HEMCO <https://hemco.readthedocs.io>`__
+   or `GCHP <https://gchp.readthedocs.io>`__ within an ESMF
    environment.  We therefore recommend that you use reference
    datetime values after 1900 whenever possible. |br|
    |br|
@@ -291,12 +291,12 @@ The :literal:`lev` coordinate vector has the following attributes:
 Additional considerations for lev vectors:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When using `GEOS-Chem <https://geos-chem.readthedocs.io>`_ or `HEMCO
-<https://hemco.readthedocs.io>`_ in a non-ESMF environment, data is
+When using `GEOS-Chem <https://geos-chem.readthedocs.io>`__ or `HEMCO
+<https://hemco.readthedocs.io>`__ in a non-ESMF environment, data is
 interpolated onto the simulation levels if the input data is on
 vertical levels other than the HEMCO model levels (see `HEMCO vertical
 regridding
-<https://hemco.readthedocs.io/en/latest/hco-ref-guide/input-file-format.html#vertical-regridding>`_).
+<https://hemco.readthedocs.io/en/latest/hco-ref-guide/input-file-format.html#vertical-regridding>`__).
 
 Data on non-model levels must be on a hybrid sigma pressure coordinate
 system. In order to properly determine the vertical pressure levels of
@@ -630,7 +630,7 @@ COARDS Global attributes
 ========================
 
 **Global attributes** are `netCDF attributes
-<https://www.unidata.ucar.edu/software/netcdf/docs/netcdf/Attributes.html>`_
+<https://www.unidata.ucar.edu/software/netcdf/docs/netcdf/Attributes.html>`__
 that contain information about a netCDF file, as opposed to
 information about an individual data array.
 

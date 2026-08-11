@@ -11,7 +11,7 @@ Customize emissions with HEMCO
 In this Guide, we will walk you through the process of adding **your
 own emissions file** (a new regional inventory, a replacement for an
 existing species, a locally-produced dataset, etc.) to the `Base Emissions
-<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#base-emissions>`_
+<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#base-emissions>`__
 section of :file:`HEMCO_Config.rc`.
 
 .. attention::
@@ -19,15 +19,15 @@ section of :file:`HEMCO_Config.rc`.
    If the emissions inventory that you wish to add depends on external
    meteorology, you will need to implement it
    as a new `HEMCO Extension
-   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/extensions.html>`_.
+   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/extensions.html>`__.
    This is a customized Fortran module that computes emissions using
    meteorology inputs supplied from HEMCO.
 
 For the full, authoritative reference on every :file:`HEMCO_Config.rc`
 attribute, see the `HEMCO configuration file reference guide
-<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html>`_
+<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html>`__
 and the `GEOS-Chem summary of it
-<https://geos-chem.readthedocs.io/en/stable/geos-chem-shared-docs/doc/hemco-config.html>`_.
+<https://geos-chem.readthedocs.io/en/stable/geos-chem-shared-docs/doc/hemco-config.html>`__.
 This Guide does not replace that reference, but rather walks through
 the specific decisions and mistakes that come up most often when
 adding a new emissions field.
@@ -54,41 +54,41 @@ columns:
 
    * - Column
      - What it means
-   * - `ExtNr <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#extnr>`_
+   * - `ExtNr <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#extnr>`__
      - :literal:`0` for a file-based (Base) entry. A nonzero value
        assigns the entry to a HEMCO extension instead (not covered
        here).
-   * - `Name <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#name>`_
+   * - `Name <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#name>`__
      - A label you choose for this entry. Used in log/verbose output
        and in scale-factor bookkeeping---it does not need to match
        anything in the file.
-   * - `sourceFile <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#sourcefile>`_
+   * - `sourceFile <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#sourcefile>`__
      - Path to your netCDF file. May contain :literal:`$ROOT`,
        :literal:`$YYYY`, :literal:`$MM`, :literal:`$DD`,
        :literal:`$HH` tokens.
-   * - `sourceVar <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#sourcevar>`_
+   * - `sourceVar <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#sourcevar>`__
      - The exact netCDF variable name inside the file (case-sensitive
        -- check with :program:`ncdump -h`).
-   * - `sourceTime <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#sourcetime>`_
+   * - `sourceTime <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#sourcetime>`__
      - The time range/frequency covered by the file(s), plus a cycling
        mode letter -- see :ref:`custom-emis-timecycle` below.
-   * - `C/R/E <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#cre>`_
+   * - `C/R/E <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#cre>`__
      - The **time cycle flag**: what HEMCO should do when the
        simulation date falls outside what the file(s) provide. See
        :ref:`custom-emis-timecycle`.
-   * - `SrcDim <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#srcdim>`_
+   * - `SrcDim <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#srcdim>`__
      - The spatial/vertical shape of the data in the file, and how to
        map it onto model levels. See :ref:`custom-emis-srcdim`.
-   * - `SrcUnit <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#srcunit>`_
+   * - `SrcUnit <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#srcunit>`__
      - The units HEMCO should assume the data is in. See
        :ref:`custom-emis-units`.
-   * - `Species <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#hco-cfg-base-species>`_
+   * - `Species <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#hco-cfg-base-species>`__
      - The GEOS-Chem species this data will be emitted as.
-   * - `ScalIDs <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#scalids>`_
+   * - `ScalIDs <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#scalids>`__
      - Scale factor ID(s) (from the :literal:`SCALE FACTORS` section,
        :ref:`cfg-hco-scalefac`) to apply to this field, separated by
        :literal:`/`. Use :literal:`-` for none.
-   * - `Cat  <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#cat>`_  / `Hier <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#hier>`_
+   * - `Cat  <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#cat>`__  / `Hier <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#hier>`__
      - Emission category and hierarchy, used to combine/override this
        field against other inventories. Only meaningful for
        :literal:`ExtNr = 0` entries. See :ref:`custom-emis-cathier`.
@@ -99,33 +99,33 @@ columns:
    relies upon the MAPL ExtData mechanism.  Thus, GCHP will **ignore
    entirely** the following columns of :file:`HEMCO_Config.rc`:
    `sourceFile
-   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#sourcefile>`_,
+   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#sourcefile>`__,
    `sourceVar
-   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#sourcevar>`_,
-   `sourceTime <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#sourcetime>`_,
-   `C/R/E <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#cre>`_,
+   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#sourcevar>`__,
+   `sourceTime <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#sourcetime>`__,
+   `C/R/E <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#cre>`__,
    `SrcDim
-   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#srcdim>`_, and
-   `SrcUnit <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#srcunit>`_.
+   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#srcdim>`__, and
+   `SrcUnit <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#srcunit>`__.
 
    To tell GCHP to read a variable from disk, you must **also** add a
    corresponding entry to `ExtData.rc
-   <https://gchp.readthedocs.io/en/stable/user-guide/config-files/ExtData_rc.html>`_
+   <https://gchp.readthedocs.io/en/stable/user-guide/config-files/ExtData_rc.html>`__
    specifying the file path, variable name, and read frequency.  GCHP only
    uses the masking and scaling fields from :file:`HEMCO_Config.rc`
-   (`ExtNr <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#extnr>`_,
-   `Species <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#hco-cfg-base-species>`_
-   `ScalIDs <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#scalids>`_,
+   (`ExtNr <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#extnr>`__,
+   `Species <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#hco-cfg-base-species>`__
+   `ScalIDs <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#scalids>`__,
    `Cat
-   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#cat>`_,
+   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#cat>`__,
    and
    `Hier
-   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#hier>`_.).
+   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#hier>`__.).
 
    Updating only :file:`HEMCO_Config.rc` without making corresponding
    changes to :file:`ExtData.rc` is a common source of error.  Please
    see `GCHP vs. GC-Classic usage differences
-   <https://geos-chem.readthedocs.io/en/stable/geos-chem-shared-docs/doc/hemco-config.html#usage-differences-between-gchp-and-geos-chem-classic>`_
+   <https://geos-chem.readthedocs.io/en/stable/geos-chem-shared-docs/doc/hemco-config.html#usage-differences-between-gchp-and-geos-chem-classic>`__
    for more information.
 
 .. _custom-emis-srcdim:
@@ -178,7 +178,7 @@ land on the model grid as-is, use :literal:`xyz`. Use :literal:`xyL*`
 spread it across levels according to some vertical profile.
 
 See the full `SrcDim reference table
-<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#srcdim>`_
+<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#srcdim>`__
 for every variant (fixed heights in meters, ensemble dimensions, etc.).
 
 Worked example: vertically distributing a 2-D emission field
@@ -212,7 +212,7 @@ Time cycle flags (C/R/E) -- which to pick
 =========================================
 
 The `C/R/E time cycle flag
-<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#cre>`_
+<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#cre>`__
 controls what HEMCO does when your simulation date and time does not
 does not line up exactly with the date and time in the netCDF file
 containing your emissions data.
@@ -268,14 +268,14 @@ Units: A source of silent errors
 
 Unlike a missing file or a bad date, a **units mismatch does not
 always stop your run**.  By default HEMCO's `unit tolerance
-<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#unit-tolerance>`_.
+<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#unit-tolerance>`__.
 setting only prints a warning.  This makes it very easy to end up with
 incorrect emissions without generating any error or warning at all.
 
 To check if your unit conversion is correct, set `Verbose
-<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#verbose>`_
+<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#verbose>`__
 to :literal:`true` in the `Settings
-<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#settings>`_
+<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#settings>`__
 section of (:file:`HEMCO_Config.rc`) and run a short (~1 hour)
 simulation. The unit conversion factor that HEMCO applies will be
 written to the log file.  If the unit conversion factor is not
@@ -293,12 +293,12 @@ Other unit pitfalls to check:
   |br|
 
 - **Only unitless scale factors**. Tightening the `unit tolerance
-  <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#unit-tolerance>`_
+  <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#unit-tolerance>`__
   to :literal:`0` while testing a new inventory will cause HEMCO to halt
   on any units mismatch instead of generating warnings.
 
 See the `full HEMCO units reference
-<https://hemco.readthedocs.io/en/stable/hco-ref-guide/units.html>`_ for
+<https://hemco.readthedocs.io/en/stable/hco-ref-guide/units.html>`__ for
 the complete list of recognized unit strings and for more unit
 conversion examples.
 
@@ -327,7 +327,7 @@ new field with (or have it override) an existing inventory.
 If you're not sure what category/hierarchy an existing inventory uses, then:
 
 - Set `Verbose
-  <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#verbose>`_
+  <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#verbose>`__
   to :literal:`true`, and run a short (~1 hour) simulation.  The
   category and hierarchy of each emissions entry read by HEMCO will be
   reflected in the logfile. |br|
@@ -359,7 +359,7 @@ emissions field from your own inventory:
 
    The brackets allow the emissions entry to be toggled on and off in
    the `Extension Switches
-   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#extension-switches>`_
+   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#extension-switches>`__
    section of :literal:`HEMCO_Config.rc`. |br|
    |br|
 
@@ -373,7 +373,7 @@ emissions field from your own inventory:
       )))
 
 #. (Optional) Add a scale factor under the `Scale Factors
-   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#scale-factors>`_
+   <https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#scale-factors>`__
    section of :literal:`HEMCO_Config.rc` and reference its ID number
    in the :literal:`ScalIDs` column. |br|
    |br|
@@ -404,7 +404,7 @@ Wiring your new field into HEMCO_Diagn.rc
 
 Adding a Base Emissions entry does **not** automatically create a
 diagnostic for it.  You must separately update `HEMCO_Diagn.rc
-<https://hemco.readthedocs.io/en/latest/hco-ref-guide/diagnostics.html#configuration-file-for-the-default-collection>`_
+<https://hemco.readthedocs.io/en/latest/hco-ref-guide/diagnostics.html#configuration-file-for-the-default-collection>`__
 with the combination of species/extension/category/hierarchy to
 sum into each diagnostic output variable.
 
@@ -417,7 +417,7 @@ sum into each diagnostic output variable.
    data.  If you forget to update :file:`HISTORY.rc`, then your HEMCO
    diagnostic output will not be saved to disk.  Please
    see `GCHP vs. GC-Classic usage differences
-   <https://geos-chem.readthedocs.io/en/stable/geos-chem-shared-docs/doc/hemco-config.html#usage-differences-between-gchp-and-geos-chem-classic>`_
+   <https://geos-chem.readthedocs.io/en/stable/geos-chem-shared-docs/doc/hemco-config.html#usage-differences-between-gchp-and-geos-chem-classic>`__
    for more information.
 
 For example, this :file:`HEMCO_Diagn.rc` entry:
@@ -441,7 +441,7 @@ will result in this behavior:
      - Sums C\ :sub:`3`\H\ :sub:`8` emissions over **all** extensions.
        This not only includes the Base Emissions (:literal:`ExtNr =
        0`) but also any HEMCO extensions (e.g. `MEGAN
-       <https://hemco.readthedocs.io/en/stable/hco-ref-guide/extensions.html#megan>`_)
+       <https://hemco.readthedocs.io/en/stable/hco-ref-guide/extensions.html#megan>`__)
        that have been activated.
    * - :literal:`Cat`
      - -1
@@ -494,9 +494,9 @@ which will result in the following behavior:
 If you're not sure what :literal:`ExtNr`, :literal:`Cat`, and
 :literal:`Hier` your :file:`HEMCO_Diagn.rc` entry actually uses, set
 `Verbose
-<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#verbose>`_
+<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#verbose>`__
 to :literal:`true` (under `Settings
-<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#settings>`_
+<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#settings>`__
 in :file:`HEMCO_Config.rc` and run a short (~1 hour) test
 simulation.  The HEMCO log file will contain exactly what was read for
 each container, which you can then match against your diagnostic definition.
@@ -577,13 +577,13 @@ Quick-reference troubleshooting
      - Forgot to add the file to :file:`ExtData.rc` -- GCHP ignores
        :file:`HEMCO_Config.rc`'s file-I/O columns
      - `GCHP vs. GC-Classic usage differences
-       <https://geos-chem.readthedocs.io/en/stable/geos-chem-shared-docs/doc/hemco-config.html#usage-differences-between-gchp-and-geos-chem-classic>`_
+       <https://geos-chem.readthedocs.io/en/stable/geos-chem-shared-docs/doc/hemco-config.html#usage-differences-between-gchp-and-geos-chem-classic>`__
    * - New field runs and diagnoses correctly, but never appears in
        output files under **GCHP**
      - Emissions diagnostics in GCHP must also be listed in
        :file:`HISTORY.rc`, not just :file:`HEMCO_Diagn.rc`
      - `GCHP vs. GC-Classic usage differences
-       <https://geos-chem.readthedocs.io/en/stable/geos-chem-shared-docs/doc/hemco-config.html#usage-differences-between-gchp-and-geos-chem-classic>`_
+       <https://geos-chem.readthedocs.io/en/stable/geos-chem-shared-docs/doc/hemco-config.html#usage-differences-between-gchp-and-geos-chem-classic>`__
        |br|
        |br|
        :ref:`custom-emis-diagn`

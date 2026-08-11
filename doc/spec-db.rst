@@ -10,7 +10,7 @@ species_database.yml
    adding new species to a GEOS-Chem simulation.
 
 The :ref:`GEOS-Chem Species Database <spcguide>` is a `YAML file
-<https://yaml.org>`_ that contains a listing of metadata for each
+<https://yaml.org>`__ that contains a listing of metadata for each
 species used by GEOS-Chem.  The Species Database is included in your
 run directory as file :file:`species_database.yml`, a snippet of which
 is shown below.

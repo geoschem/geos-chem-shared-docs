@@ -5,14 +5,14 @@ Update chemical mechanisms with KPP
 ###################################
 
 This Guide demonstrates how you can use `The Kinetic PreProcessor
-(aka KPP) <https://kpp.readthedocs.io>`_ to translate a chemical
+(aka KPP) <https://kpp.readthedocs.io>`__ to translate a chemical
 mechanism specification in plain text format to highly-optimized
 Fortran code for use with GEOS-Chem:
 
 .. attention::
 
    You must use `KPP 3.5.0
-   <https://github.com/KineticPreProcessor/KPP/releases/tag/3.5.0>`_
+   <https://github.com/KineticPreProcessor/KPP/releases/tag/3.5.0>`__
    or later with the current GEOS-Chem release series.
 
 .. _kppguide-quick-start:
@@ -54,7 +54,7 @@ specification files (:ref:`kppguide-custom-eqn` and
 mechanism and are copies of the default :command:`fullchem` mechanism
 configuration files found in the :file:`KPP/fullchem` folder.  (For a
 complete description of KPP configuration files, please see the
-documentation at `kpp.readthedocs.io <https://kpp.readthedocs.io>`_.)
+documentation at `kpp.readthedocs.io <https://kpp.readthedocs.io>`__.)
 
 You can edit these :ref:`kppguide-custom-eqn` and
 :ref:`kppguide-custom-kpp` configuration files to define your own
@@ -188,7 +188,7 @@ mechanism.  Also, :file:`gckpp.kpp` is a symbolic link to the
 
 See kpp.readthedocs.io for `a complete description of these
 KPP-generated files
-<https://kpp.readthedocs.io/en/stable/output/code_f90.html>`_.
+<https://kpp.readthedocs.io/en/stable/output/code_f90.html>`__.
 
 .. _kppguide-using-custom-mech:
 
@@ -265,7 +265,7 @@ Using KPP: Reference section
 Adding species to a mechanism
 -----------------------------
 List chemically-active (aka variable) species in the `#DEFVAR
-<https://kpp.readthedocs.io/en/stable/input/kpp_sections.html#defvar-and-deffix>`_ section of :file:`custom.eqn`, as shown below:
+<https://kpp.readthedocs.io/en/stable/input/kpp_sections.html#defvar-and-deffix>`__ section of :file:`custom.eqn`, as shown below:
 
 .. code-block:: none
 
@@ -282,7 +282,7 @@ The :code:`IGNORE` tells KPP not to perform mass-balance checks, which
 would make GEOS-Chem execute more slowly.
 
 List species whose concentrations do not change in the `#DEFFIX
-<https://kpp.readthedocs.io/en/stable/input/kpp_sections.html#defvar-and-deffix>`_
+<https://kpp.readthedocs.io/en/stable/input/kpp_sections.html#defvar-and-deffix>`__
 section of :file:`custom.eqn`, as shown below:
 
 .. code-block:: none
@@ -307,7 +307,7 @@ Gas-phase reactions
 ~~~~~~~~~~~~~~~~~~~
 
 List gas-phase reactions first in the `#EQUATIONS
-<https://kpp.readthedocs.io/en/stable/input/kpp_sections.html#equations>`_
+<https://kpp.readthedocs.io/en/stable/input/kpp_sections.html#equations>`__
 section of :file:`custom.eqn`.
 
 .. code-block:: none
@@ -692,7 +692,7 @@ Depending on how many prod/loss families you add, you may need to
 increase that to a larger number to avoid errors in KPP. You can change
 the number for :code:`MAX_FAMILIES` in
 :file:`KPP/kpp-code/src/gdata.h` and then `rebuild the KPP executable
-<https://kpp.readthedocs.io/en/stable/getting_started/installation.html#build-the-kpp-executable>`_.
+<https://kpp.readthedocs.io/en/stable/getting_started/installation.html#build-the-kpp-executable>`__.
 
 .. code-block:: C
 
@@ -766,7 +766,7 @@ Several global options for KPP are listed at the top of the
    #MEX          off                    { MEX is for Matlab, so skip it         }
    #STOICMAT     off                    { Do not create stoichiometric matrix   }
 
-The `#INTEGRATOR <https://kpp.readthedocs.io/en/stable/input/kpp_commands.html#integrator>`_
+The `#INTEGRATOR <https://kpp.readthedocs.io/en/stable/input/kpp_commands.html#integrator>`__
 tag specifies the choice of numerical integrator that you wish to use
 with your chemical mechanism.
 
@@ -779,20 +779,20 @@ with your chemical mechanism.
      - Integration method
      - #AUTOREDUCE setting
    * - carbon
-     - `feuler <https://kpp.readthedocs.io/en/stable/num_methods/forward_diff.html#feuler>`_
+     - `feuler <https://kpp.readthedocs.io/en/stable/num_methods/forward_diff.html#feuler>`__
      - Forward Euler
      - N/A
    * - custom
-     - `rosenbrock_autoreduce <https://kpp.readthedocs.io/en/stable/num_methods/rosenbrock-methods.html#rosenbrock-with-mechanism-auto-reduction>`_
-     - `RODAS3.1 <https://kpp.readthedocs.io/en/stable/num_methods/rosenbrock-methods.html#rodas-3-1>`_
+     - `rosenbrock_autoreduce <https://kpp.readthedocs.io/en/stable/num_methods/rosenbrock-methods.html#rosenbrock-with-mechanism-auto-reduction>`__
+     - `RODAS3.1 <https://kpp.readthedocs.io/en/stable/num_methods/rosenbrock-methods.html#rodas-3-1>`__
      - on
    * - fullchem
      - rosenbrock_autoreduce
      - RODAS3.1
      - on
    * - Hg
-     - `rosenbrock <https://kpp.readthedocs.io/en/stable/tech_info/07_numerical_methods.html#rosenbrock-methods>`_
-     - `RODAS3 <https://kpp.readthedocs.io/en/stable/num_methods/rosenbrock-methods.html#rodas-3>`_
+     - `rosenbrock <https://kpp.readthedocs.io/en/stable/tech_info/07_numerical_methods.html#rosenbrock-methods>`__
+     - `RODAS3 <https://kpp.readthedocs.io/en/stable/num_methods/rosenbrock-methods.html#rodas-3>`__
      - N/A
 
 .. attention::
@@ -802,13 +802,13 @@ with your chemical mechanism.
    auto-reduction option in :file:`geoschem_config.yml`.
 
 KPP also provides integrators using `Rosenbrock
-<https://kpp.readthedocs.io/en/stable/num_methods/rosenbrock-methods.html#>`_,
+<https://kpp.readthedocs.io/en/stable/num_methods/rosenbrock-methods.html#>`__,
 `Runge-Kutta
-<https://kpp.readthedocs.io/en/stable/num_methods/runge_kutta_methods.html>`_,
+<https://kpp.readthedocs.io/en/stable/num_methods/runge_kutta_methods.html>`__,
 `backward differentiation
-<https://kpp.readthedocs.io/en/stable/num_methods/backward_diff.html>`_,
+<https://kpp.readthedocs.io/en/stable/num_methods/backward_diff.html>`__,
 and `forward differentiation
-<https://kpp.readthedocs.io/en/stable/num_methods/forward_diff.html>`_
+<https://kpp.readthedocs.io/en/stable/num_methods/forward_diff.html>`__
 methods that you may use for research purposes.  However, integrators
 other than the ones listed in the table above have not been validated
 with GEOS-Chem simulations.
@@ -816,17 +816,17 @@ with GEOS-Chem simulations.
 As for the other settings shown above:
 
 #. `#LANGUAGE
-   <https://kpp.readthedocs.io/en/stable/input/kpp_commands.html#language>`_
+   <https://kpp.readthedocs.io/en/stable/input/kpp_commands.html#language>`__
    should be :command:`Fortran90` and `#UPPERCASEF90
-   <https://kpp.readthedocs.io/en/stable/input/kpp_commands.html#uppercasef90>`_
+   <https://kpp.readthedocs.io/en/stable/input/kpp_commands.html#uppercasef90>`__
    should be :command:`on`.
 
 #. `#MINVERSION
-   <https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#minversion>`_
+   <https://kpp.readthedocs.io/en/latest/using_kpp/04_input_for_kpp.html#minversion>`__
    should be :program:`3.5.0`.  You need at least this version of KPP for GEOS-Chem.
 
 #. All of the other options should be :program:`off`, as they are not
    relevant to GEOS-Chem.
 
 For more information about KPP settings, please see
-`kpp.readthedocs.io <https://kpp.readthedocs.io>`_.
+`kpp.readthedocs.io <https://kpp.readthedocs.io>`__.

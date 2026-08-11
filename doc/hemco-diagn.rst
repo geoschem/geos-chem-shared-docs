@@ -5,7 +5,7 @@ HEMCO_Diagn.rc
 ##############
 
 In your run directory, you will find a copy of the `HEMCO diagnostic configuration file
-<https://hemco.readthedocs.io/en/latest/hco-ref-guide/diagnostics.html#configuration-file-for-the-default-collection>`_
+<https://hemco.readthedocs.io/en/latest/hco-ref-guide/diagnostics.html#configuration-file-for-the-default-collection>`__
 (named :file:`HEMCO_Diagn.rc`) corresponding to the
 :ref:`HEMCO_Config.rc <cfg-hco-cfg>` file.  You will only need to edit
 this file if you wish to change the default diagnostic output configuration.
@@ -48,7 +48,7 @@ Columns:
 The prefix (e.g. :literal:`OutputDir/HEMCO_diagnostics`) for HEMCO diagnostics
 output files are specified in the
 `Settings section of the HEMCO_Config.rc file
-<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html#section-settings>`_.
+<https://hemco.readthedocs.io/en/latest/hco-ref-guide/hemco-config.html#section-settings>`__.
 
 .. _cfg-hco-diagn-gchp-gcc:
 
@@ -60,7 +60,7 @@ Emissions diagnostics (beginning with :literal:`Emis` or
 :literal:`Inv`) listed in :file:`HEMCO_Diagn.rc` will not be archived
 to disk unless they are also included in the
 :literal:`Emissions` collection of the `GCHP HISTORY.rc file
-<https://gchp.readthedocs.io/en/latest/user-guide/config-files/HISTORY_rc.html>`_.
+<https://gchp.readthedocs.io/en/latest/user-guide/config-files/HISTORY_rc.html>`__.
 This is because GCHP relies on the MAPL :program:`HISTORY` component
 for diagnostic archival, and thus all diagnostic ouptuts must be
 listed in the GCHP :file:`HISTORY.rc` file.

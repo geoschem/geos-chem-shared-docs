@@ -54,7 +54,7 @@ which allows one to construct aerosol and CCN number budgets that will
 balance.
 
 :cite:t:`Croft_et_al._2024` have made TOMAS compatible with `GEOS-Chem
-High Performance (aka GCHP) <https://gchp.readthedocs.io>`_.  From the
+High Performance (aka GCHP) <https://gchp.readthedocs.io>`__.  From the
 abstract:
 
    Global modeling of aerosol-particle number and size is important

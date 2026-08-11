@@ -45,7 +45,7 @@ KPP-Standalone Interface
 The KPP-Standalone Interface source code is contained in the
 :file:`GeosCore/kppsa_interface_mod.F90` module in the
 `GEOS-Chem "science codebase"
-<https://github.com/geoschem/geos-chem>`_ repository.  The Interface
+<https://github.com/geoschem/geos-chem>`__ repository.  The Interface
 code is used to archive the GEOS-Chem model state (at the locations
 and times that you choose) for input into the KPP-Standalone Box
 Model.
@@ -64,16 +64,16 @@ This is our fork of the
 - https://github.com/KineticPreProcessor/KPP-Standalone
 
 repository, which is maintained by `the Kinetic PreProcessor
-<https://github.com/KineticPreProcessor>`_ developers.
+<https://github.com/KineticPreProcessor>`__ developers.
 
 When you clone the `GEOS-Chem Classic source code
-<https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/get-code-steps.html#clone-gcclassic-and-fetch-submodules>`_,
+<https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/get-code-steps.html#clone-gcclassic-and-fetch-submodules>`__,
 the KPP-Standalone Box Model code will be copied into this folder:
 
 - :file:`GCClassic/src/GEOS-Chem/KPP/standalone`
 
 Or if you `clone the GCHP source code
-<https://gchp.readthedocs.io/en/stable/user-guide/downloading.html>`_,
+<https://gchp.readthedocs.io/en/stable/user-guide/downloading.html>`__,
 the KPP-Standalone Box Model code will be copied into this folder:
 
 - :file:`gchp/src/GCHP_GridComp/GEOSChem_GridComp/geos-chem/KPP/standalone`.
@@ -106,9 +106,9 @@ Usage instructions
 ==================
 
 #. Download the `GEOS-Chem Classic
-   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/get-code-steps.html#clone-gcclassic-and-fetch-submodules>`_
+   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/get-code-steps.html#clone-gcclassic-and-fetch-submodules>`__
    or `GCHP
-   <https://gchp.readthedocs.io/en/stable/user-guide/downloading.html>`_
+   <https://gchp.readthedocs.io/en/stable/user-guide/downloading.html>`__
    source code. |br|
    |br|
 
@@ -143,9 +143,9 @@ Usage instructions
       Created /path/to/your/fullchem/run/directory
 
 #. Navigate to the run directory and configure the `GEOS-Chem Classic
-   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/compile-cmake.html>`_
+   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/compile-cmake.html>`__
    or `GCHP
-   <https://gchp.readthedocs.io/en/stable/user-guide/compiling.html>`_
+   <https://gchp.readthedocs.io/en/stable/user-guide/compiling.html>`__
    source code using CMake as you normally would.  Then navigate to
    the build folder and apply option :literal:`-DKPPSA=y`:
 
@@ -277,10 +277,10 @@ Usage instructions
    |br|
 
 #. Run your `GEOS-Chem Classic
-   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/run.html>`_
+   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/run.html>`__
    or
    `GCHP
-   <https://gchp.readthedocs.io/en/stable/user-guide/running.html>`_
+   <https://gchp.readthedocs.io/en/stable/user-guide/running.html>`__
    simulation.  Make sure that your simulation spans the time interval
    specified by the :literal:`start_output_at` and
    :literal:`stop_output_at` fields. |br|
@@ -521,5 +521,5 @@ Usage instructions
 #. :program:`GCPy` (the GEOS-Chem Python Toolkit) contains scripts for
    plotting KPP-Standalone Box Model output.  For usage instructions,
    please see the `Visualizing KPP-Standalone box model output
-   <https://gcpy.readthedocs.io/en/stable/KPP-Standalone.html>`_
+   <https://gcpy.readthedocs.io/en/stable/KPP-Standalone.html>`__
    chapter of the GCPy documentation.

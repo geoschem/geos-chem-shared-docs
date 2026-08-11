@@ -48,10 +48,10 @@ Rn222
 - **Purpose:** Used to evaluate convection over land and strat-trop exchange.
 - **Formula:** Rn222
 - **Molecular weight (g):** 222.0
-- **Source:** Emitted naturally from soils based on `Zhang et al., 2021 <https://acp.copernicus.org/articles/21/1861/2021/>`_.
+- **Source:** Emitted naturally from soils based on `Zhang et al., 2021 <https://acp.copernicus.org/articles/21/1861/2021/>`__.
 - **Sinks:** Radioactive decay into :ref:`transport-species-pb210` with a
   half-life of 3.83 days (cf
-  `Liu et al., 2021 <https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2000JD900839>`_).
+  `Liu et al., 2021 <https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2000JD900839>`__).
 
 .. _transport-species-pb210:
 
@@ -88,7 +88,7 @@ Be7
 - **Formula:** Be7
 - **Molecular weight (g):** 7.0
 - **Source:**  Produced by cosmic rays as described in `Lal and B. Peters, 1967
-  <https://link.springer.com/chapter/10.1007/978-3-642-46079-1_7>`_,
+  <https://link.springer.com/chapter/10.1007/978-3-642-46079-1_7>`__,
   with the following modifications (cf. Liu et al, 2001):
 
   #. Use 1900 disintegrations / g air / s (instead of 3000) at 0 hPa

@@ -76,7 +76,7 @@ Sea salt debromination
 ----------------------
 
 In Zhu *et al.* [`2018
-<https://acp.copernicus.org/articles/19/6497/2019/>`_], the authors
+<https://acp.copernicus.org/articles/19/6497/2019/>`__], the authors
 present a mechanistic description of sea salt aerosol debromination.
 This option was originally enabled by in GEOS-Chem 13.4.0, but
 was then changed to be an option (disabled by default) due to the
@@ -107,8 +107,8 @@ Adaptive Rosenbrock solver with mechanism auto-reduction
 
 In :cite:t:`Lin_et_al._2023`, the authors introduce an `adaptive
 Rosenbrock solver with on-the-fly mechanism reduction
-<https://kpp.readthedocs.io/en/stable/tech_info/07_numerical_methods.html#rosenbrock-with-mechanism-auto-reduction>`_
-in `The Kinetic PreProcessor (KPP) <https://kpp.readthedocs.io>`_
+<https://kpp.readthedocs.io/en/stable/tech_info/07_numerical_methods.html#rosenbrock-with-mechanism-auto-reduction>`__
+in `The Kinetic PreProcessor (KPP) <https://kpp.readthedocs.io>`__
 version 3.0.0 and later.  While this adaptive solver is available for all
 GEOS-Chem simulations that use the :literal:`fullchem` simulation, it
 is disabled by default.
@@ -296,7 +296,7 @@ GEOS-Chem and HEMCO diagnostics
 -------------------------------
 
 Please see our `Diagnostics reference
-<https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/diagnostics.html>`_
+<https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/diagnostics.html>`__
 chapter for an overview of how to archive diagnostics from GEOS-Chem
 and HEMCO.
 
@@ -339,7 +339,7 @@ nonlinear scale factors that have functional dependencies on local
 environmental variables such as wind speed or temperature, which are
 best calculated online during execution of the model. HEMCO includes a
 suite of additional modules (aka `HEMCO extensions
-<https://hemco.readthedocs.io/en/stable/hco-ref-guide/extensions.html>`_)
+<https://hemco.readthedocs.io/en/stable/hco-ref-guide/extensions.html>`__)
 that perform **online emissions** calculations for a variety of
 sources.
 
@@ -483,7 +483,7 @@ Photolysis
 Particulate nitrate photolysis
 ------------------------------
 A study by Shah *et al.* [`2023
-<https://doi.org/10.5194/acp-23-1227-2023>`_] showed that particulate
+<https://doi.org/10.5194/acp-23-1227-2023>`__] showed that particulate
 nitrate photolysis increases GEOS-Chem modeled ozone concentrations by
 up to 5 ppbv in the free troposphere in northern extratropical
 regions.  This helps to correct a low bias with respect to

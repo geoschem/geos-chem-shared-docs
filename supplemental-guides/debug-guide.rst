@@ -17,7 +17,7 @@ Check if a solution has been posted to Github
 =============================================
 
 We have migrated support requests from the `GEOS-Chem wiki
-<https://wiki.geos-chem.org>`_ to **Github issues**.  A quick search
+<https://wiki.geos-chem.org>`__ to **Github issues**.  A quick search
 of Github issues (both open and closed) might reveal the answer to your
 question or provide a solution to your problem.
 
@@ -25,14 +25,14 @@ You should also feel free to open a new issue at one of these Github
 links:
 
 - `GEOS-Chem Classic new issues page
-  <https://github.com/geoschem/geos-chem/issues/new/choose/>`_
+  <https://github.com/geoschem/geos-chem/issues/new/choose/>`__
 - `GCHP new issues page
-  <https://github.com/geoschem/GCHP/issues/new/choose>`_
+  <https://github.com/geoschem/GCHP/issues/new/choose>`__
 - `HEMCO new issues page
-  <https://github.com/geoschem/HEMCO/issues/new/choose>`_
+  <https://github.com/geoschem/HEMCO/issues/new/choose>`__
 
 If you are new to Github, we recommend viewing our Github tutorial
-videos at `our GEOS-Chem Youtube site <https://youtube.com/c/geoschem>`_.
+videos at `our GEOS-Chem Youtube site <https://youtube.com/c/geoschem>`__.
 
 .. _debug-guide-config:
 
@@ -47,9 +47,9 @@ computational environment.  Take a moment and refer back to these
 manual pages (on ReadTheDocs) for information on configuring your
 environment:
 
-- `GEOS-Chem Classic manual <https://geos-chem.readthedocs.io>`_
-- `GCHP manual <https://gchp.readthedocs.io>`_
-- `HEMCO manual <https://hemco.readthedocs.io>`_
+- `GEOS-Chem Classic manual <https://geos-chem.readthedocs.io>`__
+- `GCHP manual <https://gchp.readthedocs.io>`__
+- `HEMCO manual <https://hemco.readthedocs.io>`__
 
 .. _debug-guide-usermod:
 
@@ -371,4 +371,4 @@ is taking too long to run, consider using profiling tools to generate
 a list of the time that is spent in each routine. This can help you
 identify badly written and/or poorly-parallelized code.  For more
 information, please see `our Profiling GEOS-Chem wiki
-page <https://wiki.geos-chem.org/Profiling_GEOS-Chem>`_.
+page <https://wiki.geos-chem.org/Profiling_GEOS-Chem>`__.

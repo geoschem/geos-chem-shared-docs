@@ -5,9 +5,9 @@ Parallelize GEOS-Chem and HEMCO source code
 ###########################################
 
 Single-node paralellization in `GEOS-Chem Classic
-<https://geos-chem.readthedocs.io>`_ and `HEMCO
-<https://hemco.readthedocs.io>`_  is acheieved with `OpenMP
-<https://openmp.org>`_. OpenMP directives, which are included in every
+<https://geos-chem.readthedocs.io>`__ and `HEMCO
+<https://hemco.readthedocs.io>`__  is acheieved with `OpenMP
+<https://openmp.org>`__. OpenMP directives, which are included in every
 modern compiler, allow you to divide the work done in DO loops among
 several computational cores. In this Guide, you will learn more about
 how GEOS-Chem Classic and HEMCO utilize OpenMP.
@@ -153,7 +153,7 @@ Environment variable settings for OpenMP
 ========================================
 
 Please see `Set environment variables for parallelization
-<https://geos-chem.readthedocs.io/en/stable/gcc-guide/01-startup/login-env-parallel.html>`_
+<https://geos-chem.readthedocs.io/en/stable/getting-started/login-env-parallel.html>`__
 to learn which environment variables you must add to your login
 environment to control OpenMP parallelization.
 
@@ -444,9 +444,9 @@ Why is GEOS-Chem is not using all the cores I requested?
 
 The number of threads for an OpenMP simulation is determined by the
 environment variable `OMP_NUM_THREADS
-<https://geos-chem.readthedocs.io/gcc-guide/01-startup/login-env-parallel.html>`_.
+<https://geos-chem.readthedocs.io/en/stable/getting-started/login-env-parallel.html>`__.
 You must define :code:`OMP_NUM_THREADS` in your `environment file
-<http://geos-chem.readthedocs.io/gcc-guide/01-startup/login-env-files.html>`_
+<https://geos-chem.readthedocs.io/en/stable/getting-started/login-env-files.html>`__
 to specify the desired number of computational cores for your
 simulation. For the :literal:`bash` shell, use4 this command to
 request 8 cores:
@@ -476,4 +476,4 @@ across nodes).
 GEOS-Chem High Performance (GCHP) uses Earth System Model Framework
 (ESMF) and MAPL libraries to implement MPI parallelization.  For
 detailed information, please see `gchp.readthedocs.io
-<https://gchp.readthedocs.io>`_.
+<https://gchp.readthedocs.io>`__.

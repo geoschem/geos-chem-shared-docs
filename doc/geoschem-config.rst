@@ -362,31 +362,35 @@ Specifies the horizontal resolution of the grid.  Accepted values are:
 
 .. option:: 4.0x5.0
 
-   The GEOS-Chem Classic :ref:`gcc-hgrids-global-4x5`.
+   The GEOS-Chem Classic `4.0° x 5.0° grid
+   <https://geos-chem.readthedocs.io/en/stable/supplemental-guides/horizontal-grids.html#x-5-global-grid>`__.
 
 .. option:: 2.0x2.5
 
-   The GEOS-Chem Classic :ref:`gcc-hgrids-global-2x25`.
+   The GEOS-Chem Classic `2.0° x 2.5° grid <https://geos-chem.readthedocs.io/en/stable/supplemental-guides/horizontal-grids.html#x-2-5-global-grid>`__.
 
 .. option:: 0.5x0.625
 
-   The GEOS-Chem Classic :math:`0.5^{\circ}{\times}0.625^{\circ}`
-   grid.  May be used for global or :ref:`nested-grid simulations
-   <nestgrid-guide>` with :option:`MERRA2` or :option:`GEOS-IT`
+   The GEOS-Chem Classic 0.5° x 0.625° grid.  May be used for `global
+   <https://geos-chem.readthedocs.io/en/stable/supplemental-guides/horizontal-grids.html#x-0-625-global-grid>`__
+   or `nested-grid simulations
+   <https://geos-chem.readthedocs.io/en/stable/supplemental-guides/horizontal-grids.html#nested-grids>`__ with :option:`MERRA2` or :option:`GEOS-IT`
    meteorology.
 
 .. option:: 0.25x0.3125
 
-   The GEOS-Chem Classic :math:`0.25^{\circ}{\times}0.3125^{\circ}`
-   grid.  May be used for global or :ref:`nested-grid simulations
-   <nestgrid-guide>` with :option:`GEOS-FP` meteorology.
+   The GEOS-Chem Classic 0.25° x 0.3125° grid.  May be used for `global
+   <https://geos-chem.readthedocs.io/en/stable/supplemental-guides/horizontal-grids.html#x-0-3125-global-grid>`__
+   or `nested-grid simulations
+   <https://geos-chem.readthedocs.io/en/stable/supplemental-guides/horizontal-grids.html#nested-grids>`__
+   with :option:`GEOS-FP` meteorology.
 
 .. option:: 0.125x0.15625
 
-   The GEOS-Chem Classic global
-   :math:`0.125^{\circ}{\times}0.15625^{\circ}` grid.  May be used for
-   global or :ref:`nested-grid simulations <nestgrid-guide>` with
-   :option:`GEOS-FP` meteorology.
+   The GEOS-Chem Classic global 0.125° x 0.15625° May be used for
+   global or `nested-grid simulations
+   <https://geos-chem.readthedocs.io/en/stable/supplemental-guides/horizontal-grids.html#nested-grids>`__
+   with :option:`GEOS-FP` meteorology.
 
 .. _gc-yml-simulation-rst-numlev:
 

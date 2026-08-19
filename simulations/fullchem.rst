@@ -131,8 +131,8 @@ GMI mechanism.
 Simulation options
 ==================
 
-You may choose one of several fullchem simulation options at :ref:`run
-directory creation time <rundir>`.
+You may choose one of several fullchem simulation options at run
+directory creation time.
 
 .. list-table::
    :header-rows: 1

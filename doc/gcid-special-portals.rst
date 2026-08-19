@@ -124,7 +124,7 @@ The data can be accessed by:
 
 - AWS S3 Explorer (https://gcgrid.s3.amazonaws.com/index.html)
 - Direct HTTP or wget download
-- :ref:`Dry-run simulation <dry-run>`
+- `GEOS-Chem Classic dry-run simulation <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/dry-run.htmldry-run>`__
 
 .. _gcid-special-portals-gcap2:
 
@@ -141,4 +141,4 @@ simulations.
 The data can be accessed by:
 
 - Direct HTTP or wget download (http://atmos.earth.rochester.edu/input/gc/ExtData/)
-- :ref:`Dry run simulation <dry-run>`
+- `GEOS-Chem Classic dry-run simulation <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/dry-run.htmldry-run>`__

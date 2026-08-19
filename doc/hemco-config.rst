@@ -120,10 +120,12 @@ Base emissions
 
    You do not have to edit this section if you just wish to run
    GEOS-Chem Classic with its default emissions configuration.  But if
-   your simulation start date does not match the date of the :ref:`restart
-   file <restart-files-gc>`, or if you simulation contains species not
-   found in the restart file, then you must edit the restart file
-   entry :ref:`as described below <cfg-hco-base-gcc-rst>`.
+   your simulation start date does not match the date of the
+   `restart file
+   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/restart-files-gc.html>`__,
+   or if you simulation contains species not found in the restart
+   file, then you must edit the restart file entry :ref:`as described
+   below <cfg-hco-base-gcc-rst>`.
 
 Specify how emissions and other data sets will be read from disk in
 the `Base Emissions section

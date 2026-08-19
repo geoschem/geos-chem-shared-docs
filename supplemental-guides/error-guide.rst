@@ -500,7 +500,7 @@ because HEMCO could not find a valid timestamp for the
 indicates that the next day's met field data is missing.
 
 **Solution:** Download met field data for the missing date from one of
-the the :ref:`GEOS-Chem data portals <data>`.
+the the :ref:`GEOS-Chem data portals <gcid-data>`.
 
 .. _errguide-runtime-bcerr:
 
@@ -919,7 +919,7 @@ which netCDF depends).  This may indicate a corrupted or incomplete
 netCDF file.
 
 **Solution:** Try re-downloading the file from the relevant
-:ref:`GEOS-Chem data portal <data>`.  Downloading a fresh copy of the
+:ref:`GEOS-Chem data portal <gcid-data>`.  Downloading a fresh copy of the
 file is often sufficient to fix this type of issue.  If the error
 persists, please open a new GitHub issue to alert the GEOS-Chem
 Support team, as the corruption may have occured at the original

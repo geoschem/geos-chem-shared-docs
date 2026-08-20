@@ -115,7 +115,8 @@ Chemical mechanism configuration files are located in these folders:
 Please see the following references for more information about KPP:
 
 #. The KPP user manual (`kpp.readthedocs.io <https://kpp.readthedocs.io>`__)
-#. Supplemental Guide: :ref:`kppguide`
+
+#. `Updating chemical mechanisms with KPP <https://geos-chem.readthedocs.io/en/latest/geos-chem-shared-docs/supplemental-guides/using-kpp-with-gc.html>`__
 
 .. _cfg-phot-chm-phot:
 

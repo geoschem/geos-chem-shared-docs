@@ -190,7 +190,7 @@ Aerodynamic resistances and maximum deposition velocity for aerosols
 Dry deposition of organic VOCs
 ------------------------------
 
-Parameters defined in the :ref:`species_database.yml <spcguide>` file:
+Parameters defined in the :file:`species_database.yml` file:
 
 .. list-table:: OVOC Dry Deposition Parameters
    :widths: 25 25 25 25

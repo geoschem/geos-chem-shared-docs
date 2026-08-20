@@ -210,9 +210,11 @@ GEOS-Chem.  Accepted values are:
 species_database_file
 ---------------------
 
-Path to the :ref:`GEOS-Chem Species Database <spcguide>` file. This
-is stored in the run directory file :file:`./species_database.yml`.
-You should not have to edit this setting.
+Path to the `GEOS-Chem Species Database file
+<https://geos-chem.readthedocs.io/en/latest/geos-chem-shared-docs/supplemental-guides/species-guide.html>`__. This
+is stored in the run directory file
+:file:`./species_database.yml`. You should not have to edit this
+setting. 
 
 .. _gc-yml-simulation-spc-output:
 
@@ -220,8 +222,8 @@ species_metadata_output_file
 ----------------------------
 
 Path to the :file:`geoschem-species-metadata.yml` file.  This file
-contains echoback of information from :ref:`species_database.yml
-<spcguide>`, but only for species that are defined in this
+contains echoback of information from :file:`species_database.yml`,
+but only for species that are defined in this
 simulation (instead of all possible species).  This facilitates
 interfacing GEOS-Chem with external models such as CESM.
 

@@ -237,17 +237,17 @@ and HEMCO 3.7.0, most informational printouts are now deactivated
 by default.  You may choose to activate them (e.g. for debugging
 and/or testing) with the options below:
 
-.. option:: activate
+.. describe:: activate
 
-   .. option:: true
-
-      Activates writing extra informational printout to the screen
-      and/or log file.
-
-   .. option:: false
+   .. describe:: false
 
       Deactivates writing extra informational printout.  This is the
       default setting.
+
+   .. describe:: true
+
+      Activates writing extra informational printout to the screen
+      and/or log file.
 
 .. option:: on_cores
 
@@ -275,12 +275,12 @@ use_gcclassic_timers
    This setting is omitted for GCHP, as the MAPL library provides
    all timer functionality.
 
-.. option:: false
+.. describe:: false
 
    Deactivates the GEOS-Chem Classic timers.  This is the default
    setting.
 
-.. option:: true
+.. describe:: true
 
    Activates the GEOS-Chem Classic timers.  Information about how
    long each component of GEOS-Chem Classic took to execute will be
@@ -306,7 +306,7 @@ read_restart_as_real8
 
 Option controlling how the GEOS-Chem Classic restart file will be read.
 
-.. option:: false
+.. describe:: false
 
    The GEOS-Chem Classic  restart file will be read by HEMCO (which
    reads all data as :code:`REAL*4`).  This is the default option.
@@ -315,7 +315,7 @@ Option controlling how the GEOS-Chem Classic restart file will be read.
    match the simulation grid resolution (HEMCO will remap the initial
    initial species concentrations to the simulation grid).
 
-.. option:: true
+.. describe:: true
 
    The restart file will be read directly by GEOS-Chem Classic as
    :code:`REAL*8`.
@@ -443,14 +443,14 @@ longitude
 
 .. option:: center_at_180
 
-   .. option:: true
+   .. describe:: true
 
       Westernmost grid boxes are centered at :math:`-180^{\circ}`
       longitude (the International Date Line).  This is the default
       for :option:`MERRA2`, :option:`GEOS-FP`, and
       :option:`GEOS-IT` meteorology.
 
-   .. option:: false
+   .. describe:: false
 
       Westernmost grid boxes have their western edges at
       :math:`-180^{\circ}` longitude.  This is the default setting for
@@ -466,14 +466,14 @@ latitude
 
 .. option:: use_halfpolar_boxes
 
-   .. option:: true
+   .. describe:: true
 
       Northernmost and southernmost grid boxes will be
       :math:`\frac{1}{2}` the extent of other grid boxes.  This the
       default for :option:`MERRA2`, :option:`GEOS-FP`, and
       :option:`GEOS-IT` meteorology.
 
-   .. option:: false
+   .. describe:: false
 
       All grid boxes will have the same extent in latitude. This is
       the default for :option:`GCAP2` meteorology.
@@ -481,9 +481,9 @@ latitude
 nested_grid_simulation
 ----------------------
 
-.. option:: activate
+.. describe:: activate
 
-   .. option:: true
+   .. describe:: true
 
       Indicates this indicates that the simulation will use a
       sub-domain of the horizontal grid.
@@ -497,7 +497,7 @@ nested_grid_simulation
 	 <https://github.com/geoschem/geos-chem/issues/3238>`__ caused
 	 by the HEMCO vertical remapping from 72 to 47 levels.
 
-   .. option:: false
+   .. describe:: false
 
       Indicates that the simulation will use the entire global grid
       extent.
@@ -645,11 +645,11 @@ The :command:`operations:chemistry` section contains settings for chemistry:
 activate
 --------
 
-.. option:: true
+.. describe:: true
 
    Activates chemistry in GEOS-Chem.  This is the default setting.
 
-.. option:: false
+.. describe:: false
 
    Deactivates chemistry in GEOS-Chem.
 
@@ -660,27 +660,27 @@ Determines how linearized chemistry will be applied in the
 stratosphere and/or mesosphere.  These apply only to
 :option:`fullchem` simulations.
 
-.. option:: activate
+.. describe:: activate
 
-   .. option:: true
+   .. describe:: true
 
       Activates linearized stratospheric chemistry in the stratosphere
       and/or mesosphere.  This is the default setting.
 
-   .. option:: false
+   .. describe:: false
 
       Deactivates linearized stratospheric chemistry in the
       stratosphere and/or mesosphere.
 
    .. option:: use_linoz_for_O3
 
-      .. option:: true
+      .. describe:: true
 
          Activates `Linoz stratospheric ozone chemistry
          <http://wiki.geos-chem.org/Linoz_stratospheric_ozone_chemistry>`__
          will be used.  This is the default setting.
 
-      .. option:: false
+      .. describe:: false
 
          Activates Synoz (i.e. a synthetic flux of ozone across the
 	 tropopause).
@@ -692,25 +692,25 @@ Determines if water vapor as modeled by GEOS-Chem will be
 allowed to influence humidity fields.  These apply only to
 :option:`fullchem` simulations.
 
-.. option:: activate
+.. describe:: activate
 
-   .. option:: true
+   .. describe:: true
 
       Allows the H2O species in GEOS-Chem to influence specific
       humidity and relative humidity.  This is the default setting.
 
-   .. option:: false
+   .. describe:: false
 
       Prevents the H2O species in GEOS-Chem to influence specific
       humidity and relative humidity.
 
 .. option:: use_static_bnd_cond
 
-   .. option:: true
+   .. describe:: true
 
       Uses a static boundary condition.  This is the default setting.
 
-   .. option:: false
+   .. describe:: false
 
       Does not use a static boundary condition.
 
@@ -727,17 +727,17 @@ Menu for controlling the adaptive mechanism auto-reduction feature,
 which is available in `KPP 3.5.0 <https://kpp.readthedocs.io/>`__ and
 later versions. See :cite:t:`Lin_et_al._2023` for details.
 
-.. option:: activate
+.. describe:: activate
 
-   .. option:: true
-
-      Integrates the chemistry mechanism using the Rosenbrock method
-      with the adaptive auto-reduction feature.
-
-   .. option:: false
+   .. describe:: false
 
       Integrates the chemistry mechanism using the traditional
       Rosenbrock method.  This is the default setting.
+
+   .. describe:: true
+
+      Integrates the chemistry mechanism using the Rosenbrock method
+      with the adaptive auto-reduction feature.
 
 .. option:: use_target_threshold
 
@@ -746,14 +746,14 @@ later versions. See :cite:t:`Lin_et_al._2023` for details.
    production and loss of key species (OH for daytime, NO2 for
    nighttime).
 
-   .. option:: activate
+   .. describe:: activate
 
-      .. option:: true
+      .. describe:: true
 
           Uses OH and NO2 to determine :math:`\partial`.  This is
           the default setting.
 
-      .. option:: false
+      .. describe:: false
 
          Skips computation of :math:`\partial`.
 
@@ -775,12 +775,12 @@ Contains options for setting an absolute threshold
 
 .. option:: scale_by_pressure
 
-   .. option:: true
+   .. describe:: true
 
       Activates using a pressure-dependent method to determine
       :math:`\partial`.
 
-   .. option:: false
+   .. describe:: false
 
       Deactivates using a pressure-dependent method to determine
       :math:`\partial`.
@@ -798,13 +798,13 @@ Contains options for setting an absolute threshold
 keep_halogens_active
 --------------------
 
-.. option:: true
+.. describe:: true
 
    All halogen species will be considered "fast". This may be
    necessary in order to obtain realistic results for ozone and
    other important species.  This is the default setting.
 
-.. option:: false
+.. describe:: false
 
    Halogen species will be determined as "slow" or "fast" depending
    on the partitioning threshold :math:`\partial`.
@@ -812,12 +812,12 @@ keep_halogens_active
 append_in_internal_timestep
 ---------------------------
 
-.. option:: true
+.. describe:: true
 
    Any "slow" species that later become "fast" will be appended to
    the list of "fast" species.
 
-.. option:: false
+.. describe:: false
 
    Any "slow" species that later become  "fast" will NOT be
    appended to the list of "fast" species.
@@ -848,11 +848,11 @@ The :command:`operations:convection` section contains settings for
 activate
 --------
 
-.. option:: true
+.. describe:: true
 
    Activates cloud convection in GEOS-Chem
 
-.. option:: false
+.. describe:: false
 
    Deactivates cloud convection in GEOS-Chem
 
@@ -887,11 +887,11 @@ for :ref:`dry deposition <drydep-guide>`:
 activate
 --------
 
-.. option:: true
+.. describe:: true
 
    Activates dry deposition in GEOS-Chem.
 
-.. option:: false
+.. describe:: false
 
    Deactivates dry deposition in GEOS-Chem.
 
@@ -902,16 +902,16 @@ This sub-section contains options for applying the
 `simple parameterization for the CO2 effect on stomatal resistance
 <http://wiki.geos-chem.org/Dry_deposition#Simple_parameterization_for_CO2_dependence_of_stomatal_resistance>`__.
 
-.. option:: activate
+.. describe:: activate
 
-   .. option:: true
-
-      Activates the CO2 effect on stomatal resistance in dry deposition.
-
-   .. option:: false
+   .. describe:: false
 
       DeActivates the CO2 effect on stomatal resistance in dry
       deposition.  This is the default setting.
+
+   .. describe:: true
+
+      Activates the CO2 effect on stomatal resistance in dry deposition.
 
 .. option:: CO2_level
 
@@ -954,23 +954,23 @@ for :ref:`planetary boundary layer (PBL) mixing <pblguide>`:
 activate
 --------
 
-.. option:: true
+.. describe:: true
 
    Activates planetary boundary layer mixing in GEOS-Chem.
 
-.. option:: false
+.. describe:: false
 
    Deactivates planetary boundary layer mixing in GEOS-Chem.
 
 use_non_local_pbl
 -----------------
 
-.. option:: true
+.. describe:: true
 
    Uses the :ref:`non-local PBL mixing scheme (VDIFF)
    <pblguide-vdiff>`.  This is the default setting.
 
-.. option:: false
+.. describe:: false
 
    Uses the :ref:`full PBL mixing scheme (TURBDAY) <pblguide-turbday>`.
 
@@ -1025,11 +1025,11 @@ The :command:`operations:photolysis` section contains settings for
 activate
 --------
 
-.. option:: true
+.. describe:: true
 
    Activates photolysis in GEOS-Chem.  This is the default setting.
 
-.. option:: false
+.. describe:: false
 
    Deactivates photolysis in GEOS-Chem.
 
@@ -1058,11 +1058,11 @@ photolysis package.
 
 .. option:: verbose
 
-   .. option:: false
+   .. describe:: false
 
       Disables verbose printout from Cloud-J.  This is the default setting.
 
-   .. option:: true
+   .. describe:: true
 
       Enables verbose printout from Cloud-J.  Use this option for debugging.
 
@@ -1227,37 +1227,37 @@ sources are used for photolysis
 
 .. option:: use_online_O3_from_model
 
-   .. option:: true
+   .. describe:: true
 
       Uses the advected O3 species from GEOS-Chem in the extinction
       calculations for photolysis.  This is the recommended setting.
 
-   .. option:: false
+   .. describe:: false
 
       Does not use the advected O3 species from GEOS-Chem in the
       extinction calculations for photolysis.
 
 .. option:: use_column_O3_from_met
 
-   .. option:: true
+   .. describe:: true
 
       Uses ozone columns (e.g. TO3) from the meteorology fields.
       This is the recommended setting.
 
-   .. option:: false
+   .. describe:: false
 
       Does not not use ozone columns from the meteorology fields.
 
 .. option:: use_TOMS_SBUV_O3
 
-   .. option:: true
-
-      Uses ozone columms from the TOMS-SBUV archive.
-
-   .. option:: false
+   .. describe:: false
 
       Does not use ozone columsn from the TOMS-SBUV archive.  This is
       the recommended setting.
+
+   .. describe:: true
+
+      Uses ozone columms from the TOMS-SBUV archive.
 
 photolyze_nitrate_aerosol
 -------------------------
@@ -1265,13 +1265,13 @@ photolyze_nitrate_aerosol
 This section contains settings that control options for nitrate
 aerosol photolysis.
 
-.. option:: activate
+.. describe:: activate
 
-   .. option:: true
+   .. describe:: true
 
       Activates nitrate aerosol photolysis.  This is the recommended setting.
 
-   .. option:: false
+   .. describe:: false
 
       Deactivates nitrate aerosol photolysis.
 
@@ -1328,14 +1328,14 @@ only applies to :option:`fullchem` simultions).
 activate
 --------
 
-.. option:: true
-
-   Activates the RRTMG radiative transfer model.
-
-.. option:: false
+.. describe:: false
 
    Deactivates the RRTMG radiative transfer model.  This is the
    default setting.
+
+.. describe:: true
+
+   Activates the RRTMG radiative transfer model.
 
 aod_wavelengths_in_nm
 ---------------------
@@ -1350,68 +1350,73 @@ aod_wavelengths_in_nm
 longwave_fluxes
 ---------------
 
-.. option:: true
-
-   Activates RRTMG longwave flux calculations.
-
-.. option:: false
+.. describe:: false
 
    Dectivates RRTMG longwave flux calculations.  This is the
    default setting.
 
+.. describe:: true
+
+   Activates RRTMG longwave flux calculations.
+
 shortwave_fluxes
 ----------------
 
-.. option:: true
-
-   Activates RRTMG shortwave flux calculations.
-
-.. option:: false
+.. describe:: false
 
    Dectivates RRTMG shortwave flux calculations.  This is the
    default setting.
 
+.. describe:: true
+
+   Activates RRTMG shortwave flux calculations.
+
 clear_sky_flux
 --------------
 
-.. option:: true
-
-   Activates RRTMG clear-sky flux calculations.
-
-.. option:: false
+.. describe:: false
 
    Dectivates RRTMG clear-sky flux calculations.  This is the
    default setting.
+
+.. describe:: true
+
+   Activates RRTMG clear-sky flux calculations.
 
 all_sky_flux
 ------------
 
-.. option:: true
-
-   Activates RRTMG all-sky flux calculations.
-
-.. option:: false
+.. describe:: false
 
    Dectivates RRTMG clear-sky flux calculations.  This is the
    default setting.
 
+.. describe:: true
+
+   Activates RRTMG all-sky flux calculations.
+
 fixed_dyn_heating
 -----------------
 
-.. option:: true
-
-   Activates fixed dynamic heating (FDH) approximation as described
-   by :cite:t:`Forster_et_al._1997`.
-
-.. option:: false
+.. describe:: false
 
    Deactivates fixed dynamic heating (FDH) approximation.  This is
    the default setting.
 
+.. describe:: true
+
+   Activates fixed dynamic heating (FDH) approximation as described
+   by :cite:t:`Forster_et_al._1997`.
+
 seasonal_fdh
 ------------
 
-.. option:: true
+.. describe:: false
+
+   Deactivates seasonally-evolving fixed dynamic heating (SEFDH)
+   approximation.  This is the default setting.
+
+.. describe:: true
 
    Activates seasonally-evolving fixed dynamic heating (SEFDH)
    approximation as described by :cite:t:`Kiehl_et_al._1999`.
@@ -1421,23 +1426,18 @@ seasonal_fdh
       This option has not been extensively tested, and is considered
       experimental.
 
-.. option:: false
-
-   Deactivates seasonally-evolving fixed dynamic heating (SEFDH)
-   approximation.  This is the default setting.
-
 read_dyn_heating
 ----------------
 
-.. option:: true
-
-   Activates reading previously-archived dynamical heating outputs
-   from disk.
-
-.. option:: false
+.. describe:: false
 
    Dectivates reading previously-archived dynamical heating outputs
    from disk.  This is the default setting.
+
+.. describe:: true
+
+   Activates reading previously-archived dynamical heating outputs
+   from disk.
 
 co2_ppmv
 --------
@@ -1490,25 +1490,25 @@ Options that control species transport in GEOS-Chem
 Classic with the `TPCORE advection scheme
 <http://wiki.geos-chem.org/Advection_scheme_TPCORE>`__:
 
-.. option:: activate
+.. describe:: activate
 
-   .. option:: true
+   .. describe:: true
 
       Activates species transport in GEOS-Chem Classic.  This is the
       default setting.
 
-   .. option:: false
+   .. describe:: false
 
       Deactivates species transport in GEOS-Chem Classic.
 
 .. option:: fill_negative_values
 
-   .. option:: true
+   .. describe:: true
 
       Will replace negative species concentrations with zeros.  This
       is the default setting.
 
-   .. option:: false
+   .. describe:: false
 
       Will not replace negative species concentrations with zeros.
 
@@ -1561,12 +1561,12 @@ for :ref:`wet deposition <wetdep-guide>`:
 activate
 --------
 
-.. option:: true
+.. describe:: true
 
    Activates wet deposition of soluble species in GEOS-Chem.  This is
    the default setting for simulations containing soluble species.
 
-.. option:: false
+.. describe:: false
 
    Deactivates wet deposition of soluble species in GEOS-Chem.  This
    is the default setting for simulations that do not have soluble species.
@@ -1640,25 +1640,25 @@ apply to :ref:`fullchem <fullchem-sim>` and :ref:`aerosol-only
 activate
 --------
 
-.. option:: true
+.. describe:: true
 
    Activates carbon aerosols in GEOS-Chem.  This is the default setting.
 
-.. option:: true
+.. describe:: false
 
    Deactivates carbon aerosols in GEOS-Chem
 
 brown_carbon
 ------------
 
-.. option:: true
-
-   Activates brown carbon aerosols in GEOS-Chem.
-
-.. option:: true
+.. describe:: false
 
    Deactivates brown carbon aerosols in GEOS-Chem.  This is the
    default setting.
+
+.. describe:: true
+
+   Activates brown carbon aerosols in GEOS-Chem.
 
 enhance_black_carbon_absorption
 -------------------------------
@@ -1666,14 +1666,14 @@ enhance_black_carbon_absorption
 Options for enhancing the absorption of black carbon aerosols
 due to external coating.
 
-.. option:: activate
+.. describe:: activate
 
-   .. option:: true
+   .. describe:: true
 
       Activates black carbon absorption enhancement.  This is the
       default setting.
 
-   .. option:: false
+   .. describe:: false
 
       Deactivates black carbon absorption enhancement.
 
@@ -1717,12 +1717,12 @@ This section only applies to :option:`fullchem` and
 activate
 --------
 
-.. option:: true
+.. describe:: true
 
    Activates the complex SOA scheme.  This is the default setting for
    the for the :option:`fullchem` benchmark simulation.
 
-.. option:: false
+.. describe:: false
 
    Deactivates the complex SOA scheme.  This is the default setting
    for all other :option:`fullchem` simulations.
@@ -1730,11 +1730,11 @@ activate
 semivolatile_POA
 ----------------
 
-.. option:: true
+.. describe:: true
 
    Activates the semi-volatile primary organic aerosol (POA) option.
 
-.. option:: false
+.. describe:: false
 
    Deactivates the semi-volatile primary organic aerosol (POA)
    option.  This is the default setting.
@@ -1769,24 +1769,24 @@ This section only apply to :ref:`fullchem
 activate
 --------
 
-.. option:: true
+.. describe:: true
 
    Activates the mineral dust aerosols in GEOS-Chem.  This is the
    default setting.
 
-.. option:: false
+.. describe:: false
 
     Deactivates the mineral dust aerosols in GEOS-Chem.
 
 acid_uptake_on_dust
 -------------------
 
-.. option:: true
+.. describe:: true
 
    Activates the :ref:`acid uptake on dust option
    <fullchem-sim-aciduptake>`, which includes 12 additional species
 
-.. option:: false
+.. describe:: false
 
     Deactivates the acid uptake on dust option.  This is the default setting.
 
@@ -1821,12 +1821,12 @@ to :ref:`fullchem <fullchem-sim>` and :ref:`aerosol-only
 activate
 --------
 
-.. option:: true
+.. describe:: true
 
    Activates sea salt aerosols in GEOS-Chem.  This is the
    default setting.
 
-.. option:: false
+.. describe:: false
 
     Deactivates sea salt aerosols.
 
@@ -1847,16 +1847,16 @@ SALC_radius_bin_in_um
 marine_organic_aerosols
 -----------------------
 
-.. option:: true
+.. describe:: false
+
+   Deactivates emission of marine primary organic aerosols.  This is
+   the default setting.
+
+.. describe:: true
 
    Activates :ref:`emission of marine primary organic aerosols
    <fullchem-sim-mpoa>`.  This option includes two extra species
    (**MOPO** and **MOPI**).
-
-.. option:: false
-
-   Deactivates emission of marine primary organic aerosols.  This is
-   the default setting.
 
 .. _cfg-gc-yml-aerosols-strat:
 
@@ -1892,14 +1892,14 @@ stratopsheric aerosols.  This section only applies to
 settle_strat_aerosol
 --------------------
 
-.. option:: true
+.. describe:: true
 
    Activates gravitational settling of stratospheric solid particulate
    aerosols (SPA, trapezoidal scheme) and stratospheric liquid
    aerosols (SLA, corrected Stokes' Law).  This is the default
    setting.
 
-.. option:: false
+.. describe:: false
 
    Dectivates gravitational settling of stratospheric solid
    particulate aerosols and stratopsheric liquid aerosols.
@@ -1910,39 +1910,39 @@ polar_strat_clouds
 Contains settings for how aerosols are handled in polar
 stratospheric clouds (PSC):
 
-.. option:: activate
+.. describe:: activate
 
-   .. option:: true
+   .. describe:: true
 
       Activates formation of polar stratospheric clouds.  This is the
       default setting.
 
-   .. option:: false
+   .. describe:: false
 
       Dectivates formation of polar stratospheric clouds.
 
 .. option:: het_chem
 
-   .. option:: true
+   .. describe:: true
 
       Activates heterogeneous chemistry within polar stratospheric
       clouds. This is the default setting.
 
-   .. option:: false
+   .. describe:: false
 
       Dectivates heterogeneous chemistry within polar stratospheric
       clouds.
 
 .. option:: allow_homogeneous_NAT
 
-   .. option:: true
-
-      Activates heterogeneous formation of NAT from freezing of HNO3.
-
-   .. option:: false
+   .. describe:: false
 
       Deactivates heterogeneous formation of NAT from freezing of
       HNO3.  This is the default setting.
+
+   .. describe:: true
+
+      Activates heterogeneous formation of NAT from freezing of HNO3.
 
 ..option:: NAT_supercooling_req_in_K
 
@@ -1958,12 +1958,12 @@ stratospheric clouds (PSC):
 
 .. option:: calc_strat_aod
 
-   .. option:: true
+   .. describe:: true
 
       Includes online stratospheric aerosols in extinction
       calculations for photolysis.  This is the default setting.
 
-   .. option:: false
+   .. describe:: false
 
       Excludes online stratospheric aerosols in extinction
       calculations for photolysis.
@@ -1995,23 +1995,23 @@ only applies to :ref:`fullchem <fullchem-sim>` and :ref:`aerosol-only
 activate
 --------
 
-.. option:: true
+.. describe:: true
 
    Activates sulfate aerosols in GEOS-Chem.  This is the default setting.
 
-.. option:: false
+.. describe:: false
 
    Deactivates sulfate aerosols in GEOS-Chem.
 
 metal_cat_SO2_oxidation
 -----------------------
 
-.. option:: true
+.. describe:: true
 
    Activates :ref:`metal catalyzed oxidation of SO2
    <aerguide-sulfur-metal-cat-so2>` This is the default setting.
 
-.. option:: false
+.. describe:: false
 
    Deactivates metal-catalyzed oxidation of SO2.
 
@@ -2045,14 +2045,14 @@ in the :ref:`carbon gases simulation <carbon-sim>`.
 AIRS
 ----
 
-.. option:: true
-
-   Activates the AIRS observational operator.
-
-.. option:: false
+.. describe:: false
 
    Deactivates the AIRS observational operator.  This is the default
    setting.
+
+.. describe:: true
+
+   Activates the AIRS observational operator.
 
 .. _gc-yml-ch4_gosat:
 
@@ -2060,28 +2060,28 @@ AIRS
 GOSAT
 -----
 
-.. option:: true
-
-   Activates the GOSAT observational operator.
-
-.. option:: false
+.. describe:: false
 
    Deactivates the GOSAT observational operator.  This is the default
    setting.
+
+.. describe:: true
+
+   Activates the GOSAT observational operator.
 
 .. _gc-yml-ch4_tccon:
 
 TCCON
 -----
 
-.. option:: true
-
-   Activates the TCCON observational operator.
-
-.. option:: false
+.. describe:: false
 
    Deactivates the TCCON observational operator.  This is the default
    setting.
+
+.. describe:: true
+
+   Activates the TCCON observational operator.
 
 .. _gc-yml-ch4-perturb:
 
@@ -2094,15 +2094,15 @@ perturb_CH4_boundary_conditions
    <carbon-sim>` done within the `Integrated Methane Inversion workflow
    (aka IMI) <https://imi.readthedocs.io>`__.
 
-.. option:: true
-
-   Activates perturbation of CH4 nested-grid boundary conditions in
-   analytical inversions.
-
-.. option:: false
+.. describe:: false
 
    Deactivates perturbation of CH4 nested-grid boundary conditions in
    analytical inversions. This is the default setting.
+
+.. describe:: true
+
+   Activates perturbation of CH4 nested-grid boundary conditions in
+   analytical inversions.
 
 .. _gc-yml-ch4-bc-increase:
 
@@ -2142,28 +2142,28 @@ sources of CO in the :ref:`carbon gases simulation <carbon-sim>`.
 use_fullchem_PCO_from_CH4
 -------------------------
 
-.. option:: true
+.. describe:: true
 
     Activates applying the production of CO from CH\ :sub:`4`.
     This field is archived from a 1-year or 10-year :ref:`fullchem
     <fullchem-sim>` benchmark simulation and is read from disk via
     HEMCO.  This is the default setting.
 
-.. option:: false
+.. describe:: false
 
     Deactivates applying the production of CO from CH\ :sub:`4`.
 
 use_fullchem_PCO_from_NMVOC
 ---------------------------
 
-.. option:: true
+.. describe:: true
 
     Activates applying the production of CO from non-methane volatile
     organic compounds (NMVOCs). This field is archived from a 1-year
     or 10-year :ref:`fullchem <fullchem-sim>` benchmark simulation and
     is read from disk via HEMCO.  This is the default setting.
 
-.. option:: false
+.. describe:: false
 
    Deactivates applying the production of CO from NMVOCs.
 
@@ -2189,12 +2189,12 @@ the :ref:`carbon gases simulation <carbon-sim>`.
 use_archived_PCO2_from_CO
 -------------------------
 
-.. option:: true
+.. describe:: true
 
    Activates CO\ :sub:`2` production by archived chemical oxidation,
    as read by HEMCO.  This is the default setting.
 
-.. option:: false
+.. describe:: false
 
    Deactivates CO\ :sub:`2` production by archived chemical oxidation.
 
@@ -2225,37 +2225,37 @@ for various mercury sources.  This section only applies to the
 use_dynamic_ocean_Hg
 --------------------
 
-.. option:: true
-
-   Activates the online slab ocean mercury model.
-
-.. option:: false
+.. describe:: false
 
    Deactivates the online slab ocean mercury model.  This is the
    default setting.
 
+.. describe:: true
+
+   Activates the online slab ocean mercury model.
+
 use_preindustrial_Hg
 --------------------
 
-.. option:: true
-
-   Activates the preindustrial mercury simulation.  This will turn off all
-   anthropogenic emissions.
-
-.. option:: false
+.. describe:: false
 
    Deactivates the preindustrial mercury simulation.  This is the
    default setting.
 
+.. describe:: true
+
+   Activates the preindustrial mercury simulation.  This will turn off all
+   anthropogenic emissions.
+
 use_arctic_river_Hg
 -------------------
 
-.. option:: true
+.. describe:: true
 
    Activates the source of mercury from arctic rivers.  This is the
    default setting.
 
-.. option:: false
+.. describe:: false
 
    Deactivates the source of mercury from arctic rivers.
 
@@ -2286,13 +2286,13 @@ for mercury chemistry.   This section only applies to the
 tie_HgIIaq_reduction_to_UVB
 ---------------------------
 
-.. option:: true
+.. describe:: true
 
    Activates linking the reduction of aqueous oxidized mercury to UVB
    radiation. (A lifetime of -1 seconds indicates the species has an
    infinite lifetime.)  This is the default setting.
 
-.. option:: false
+.. describe:: false
 
    Deactivates linking the reduction of aqueous oxidized mercury to
    UVB radiation.
@@ -2334,28 +2334,28 @@ the `Obspack diagnostic
 activate
 --------
 
-.. option:: true
-
-   Activates ObsPack diagnostic output in GEOS-Chem Classic.
-
-.. option:: false
+.. describe:: false
 
    Activates ObsPack diagnostic output in GEOS-Chem Classic.  This is
    the default setting.
 
+.. describe:: true
+
+   Activates ObsPack diagnostic output in GEOS-Chem Classic.
+
 quiet_logfile_output
 --------------------
 
-.. option:: true
-
-   Suppresses printing extra informational output from ObsPack to
-   :literal:`stdout` (i.e. the screen or log file).
-
-.. option:: false
+.. describe:: false
 
    Activates printing extra informational output from ObsPack to
    :literal:`stdout` (i.e. the screen or log file).  This is the
    default setting.
+
+.. describe:: true
+
+   Suppresses printing extra informational output from ObsPack to
+   :literal:`stdout` (i.e. the screen or log file).
 
 .. _gc-yml-xdiag-obspack-input-file:
 
@@ -2411,14 +2411,14 @@ the `GEOS-Chem planeflight diagnostic
 activate
 --------
 
-.. option:: true
-
-   Activates the Planeflight diagnostic output in GEOS-Chem Classic.
-
-.. option:: false
+.. describe:: false
 
    Deactivates (:literal:`false`) the Planeflight diagnostic output in
    GEOS-Chem Classic.  This is the default setting.
+
+.. describe:: true
+
+   Activates the Planeflight diagnostic output in GEOS-Chem Classic.
 
 .. _gc-yml-xdiag-plane-flight-track-file:
 

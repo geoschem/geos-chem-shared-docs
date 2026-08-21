@@ -126,6 +126,56 @@ The data can be accessed by:
 - Direct HTTP or wget download
 - `GEOS-Chem Classic dry-run simulation <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/dry-run.htmldry-run>`__
 
+.. _gcid-special-portals-crop:
+
+--------------------------------------------
+Cropping global meteorology to other domains
+--------------------------------------------
+
+If the region that you wish to simulate is not one of the pre-cut
+nested domains listed above, or you don't find the years you need,
+you may crop the global meteorology archive to a domain and a year
+range of your own choosing.  This is a one-time preprocessing step;
+once the cropped files exist, GEOS-Chem reads them exactly as it
+would read the pre-cut nested-grid data.
+
+.. note::
+
+   Reading global meteorology directly into a nested-grid simulation
+   also works, but is much slower and is not recommended.
+
+Sample scripts for cropping the global meteorology archives are
+included at this portal, in the folders listed below.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+   :align: center
+
+   * - Meteorology
+     - Folder containing the cropping scripts
+   * - GEOS-FP |br| (0.25° x 0.3125°)
+     - :file:`GEOS_0.25x0.3125/crop_met_fields` |br|
+       (`README
+       <https://gcgrid.s3.amazonaws.com/GEOS_0.25x0.3125/crop_met_fields/README>`__,
+       `crop_met.sh
+       <https://gcgrid.s3.amazonaws.com/GEOS_0.25x0.3125/crop_met_fields/crop_met.sh>`__)
+   * - MERRA-2 |br| (0.5° x 0.625°)
+     - :file:`GEOS_0.5x0.625/MERRA2/crop_met_fields` |br|
+       (`README
+       <https://gcgrid.s3.amazonaws.com/GEOS_0.5x0.625/MERRA2/crop_met_fields/README>`__,
+       `crop_met.sh
+       <https://gcgrid.s3.amazonaws.com/GEOS_0.5x0.625/MERRA2/crop_met_fields/crop_met.sh>`__)
+
+Each folder contains a :file:`crop_met.sh` script, which downloads the
+global meteorology for a given month and crops it to a user-specified
+longitude/latitude box with the `Climate Data Operators
+<https://code.mpimet.mpg.de/projects/cdo>`__ (:program:`CDO`); a
+:file:`nc_chunk.pl` script, which chunks and compresses the cropped
+files with the `netCDF Operators <https://nco.sourceforge.net/>`__
+(:program:`NCO`); and a :file:`README` with instructions for editing
+the user settings in :file:`crop_met.sh`.
+
 .. _gcid-special-portals-gcap2:
 
 ===========================================

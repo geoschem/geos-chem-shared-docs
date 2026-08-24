@@ -923,6 +923,31 @@ vol\ vol^{-1}` dry air instead.
    restart file.  See `gchp.readthedocs.io
    <https://gchp.readthedocs.io>`__ for more information.
 
+.. _spcguide-defs-other-abstol:
+
+KPP_AbsTol
+----------
+
+Specifies the absolute tolerance that will be used to integrate the
+chemical mechanism forward in time. If not specified,
+:literal:`KPP_AbsTol` will be assigned a default value of
+:literal:`1.0e-2`.
+
+To `denote a passive species
+<https://kpp.readthedocs.io/en/stable/input/filter-passive-spc.html>`_
+(i.e. a species added to the chemical mechanism for diagnostic
+purposes), set :literal:`KPP_AbsTol: 1.0e25`.
+
+.. _spcguide-defs-other-reltol:
+
+KPP_RelTol
+----------
+
+Specifies the relative tolerance that will be used to integrate the
+chemical mechanism forward in time.  If not specified,
+:literal:`KPP_RelTol` will be assigned a default value of
+:literal:`0.5e-2`.
+
 MP_SizeResAer
 -------------
 

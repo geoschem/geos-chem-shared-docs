@@ -186,20 +186,45 @@ Nucleation
 ----------
 
 The choice of nucleation theory is selected in the header section of
-:file:`GeosCore/tomas_mod.F90`. The available options are:
+:file:`GeosCore/tomas_mod.F90`, where each scheme has its own on/off
+switch.  Two schemes are enabled by default; together they form the
+recommended new particle formation mechanism for TOMAS, and are
+intended to be used as a pair (:cite:t:`ODonnell_et_al._2025`):
 
-#. Binary homogeneous nucleation (:cite:t:`Vehkamaki_et_al._2002`) |br|
+#. Inorganic nucleation --- binary and ternary, both neutral and
+   ion-mediated --- (:cite:t:`Dunne_et_al._2016`), set by
+   :code:`dunn_nuc = 1` **(default)** |br|
    |br|
 
-#. Ternary homogeneous nucleation (:cite:t:`Napari_et_al._2002`) --- the
-   ternary nucleation rate is typically scaled by a globally uniform
-   tuning factor of 10 \ :sup:`-4` or 10\ :sup:`-5` |br|
+#. Organic nucleation (:cite:t:`Riccobono_et_al._2014`), set by
+   :code:`ricc_nuc = 1` **(default)**, updated with the temperature
+   dependence of :cite:t:`Yu_et_al._2017`.  Organic nucleation is
+   applied in the troposphere only.
+
+The following schemes are also available, but are switched off by
+default:
+
+#. Binary homogeneous nucleation (:cite:t:`Vehkamaki_et_al._2002`),
+   set by :code:`bin_nuc = 1` |br|
    |br|
 
-#. Ion-mediated nucleation (:cite:t:`Yu_2010a`) |br|
+#. Ternary homogeneous nucleation (:cite:t:`Napari_et_al._2002`), set
+   by :code:`tern_nuc = 1` --- the ternary nucleation rate is typically
+   scaled by a globally uniform tuning factor of 10 \ :sup:`-4` or
+   10\ :sup:`-5` |br|
    |br|
 
-#. Activation nucleation (:cite:t:`Kulmala_et_al._2006`)
+#. Ion-mediated nucleation, set by :code:`ion_nuc = 1` (Modgil) or
+   :code:`ion_nuc = 2` (:cite:t:`Yu_2010a`) |br|
+   |br|
+
+#. Activation nucleation in the boundary layer
+   (:cite:t:`Kulmala_et_al._2006`), set by :code:`act_nuc = 1`
+
+.. attention::
+
+   The :cite:t:`Yu_2010a` ion-mediated nucleation option
+   (:code:`ion_nuc = 2`) is currently non-functional.
 
 In TOMAS12 and TOMAS30, nucleated particles follow the Kerminen
 approximation to grow to the smallest size bin. This has a tendency to
@@ -295,7 +320,9 @@ References
    :cite:t:`Adams_and_Seinfeld_2002`
 #. TOMAS implementation in GEOS-Chem:
    :cite:t:`Trivitayanurak_et_al._2008`
-#. Nucleation in GEOS-Chem: :cite:t:`Westervelt_et_al._2013`
+#. TOMAS new particle formation: :cite:t:`ODonnell_et_al._2025`
+#. TOMAS nucleation; :cite:t:`Dunne_et_al._2016`,
+   :cite:t:`Riccobono_et_al._2014`, :cite:t:`Westervelt_et_al._2013`
 #. TOMAS with sea-salt: :cite:t:`Pierce_and_Adams_2006`
 #. TOMAS with carbonaceous aerosol: :cite:t:`Pierce_et_al._2007`,
    :cite:t:`Trivitayanurak_and_Adams_2014`
@@ -307,3 +334,5 @@ References
 #. TOMAS in GCHP: :cite:t:`Croft_et_al._2024`
 #. Input data used by TOMAS: :cite:t:`Usoskin_and_Kovaltsov_2006`,
    :cite:t:`Yu_2010a`
+#. TOMAS with biomass burning injection height from GFAS:
+   :cite:t:`June_et_al._2025`.

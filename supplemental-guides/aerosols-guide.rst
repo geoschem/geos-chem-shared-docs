@@ -729,6 +729,29 @@ Another explanation is that since SO\ :sub:`4`\s and NITs are
 internally mixed with sea salt, they should be treated identically to
 SALC in the model for all processes.
 
+Multiphase sulfate
+~~~~~~~~~~~~~~~~~~
+
+**Reference:** :cite:t:`Travis_et_al._2025`. From the abstract:
+
+   Missing sulfate production pathways have been implicated as the
+   cause of model underestimates of sulfate during haze events in East
+   Asia. We add multiphase oxidation of SO2 in aerosol particles by
+   H2O2, O3, NO2, HCHO, and O2, catalyzed by transition metal ions
+   (TMIs), to the GEOS-Chem model....Multiphase chemistry contributes
+   14% to 90% to total sulfate production depending on the location
+   and season and increases model daily average sulfate by 2 to 3 μg
+   m–3, with maximum daily increases up to 12 μg m–3. From winter to
+   summer, oxidation pathways shift, with the largest fraction of
+   multiphase sulfate production occurring during spring and summer
+   due to oxidation by H2O2. Multiphase oxidation of SO2 by the H2O2
+   pathway reduces gas-phase H2O2 concentrations by −40% in spring,
+   which improves model agreement with H2O2 airborne observations.
+   Oxidation pathways....The analysis presented here shows that this
+   chemistry is important to the simulation of sulfate year-round, not
+   only during haze events, and is unique in showing coupled gas- and
+   aerosol-phase impacts of multiphase chemistry.
+
 .. _aerguide-pm25:
 
 ====================================================

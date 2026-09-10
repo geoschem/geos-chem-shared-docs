@@ -857,7 +857,7 @@ depth and related quantities from full-chemistry simulations.
    .. code-block::
 
       AODHygWL1_BCPI
-      AODDustWL1_DST1
+      AODDustWL1_bin1
       AODStratLiquidAerWL1
       AODPolarStratCloudWL1
       AODSOAfromAqIsopreneWL1
@@ -870,7 +870,7 @@ depth and related quantities from full-chemistry simulations.
    .. code-block::
 
       AODHyg550nm_BCPI
-      AODDust550nm_DST1
+      AODDust550nm_bin1
       AODStratLiquidAer550nm
       AODPolarStratCloud550nm
       AODSOAfromAqIsoprene550nm
@@ -1512,50 +1512,6 @@ and dry deposition.
 
 .. [#H] GEOS-Chem Classic only
 
-.. _histguide-carbon:
-
-Carbon
-------
-
-The **Carbon** collection contains diagnostic fields specific to the
-GEOS-Chem carbon gases simulation.
-
-**Sample definition section for HISTORY.rc**
-
-.. code-block:: kconfig
-
-     Carbon.template:    '%y4%m2%d2_%h2%n2z.nc4',
-     Carbon.frequency:   00000100 000000
-     Carbon.duration:    00000100 000000
-     Carbon.mode:        'time-averaged'
-     Carbon.fields:      'OHconcAfterChem',
-                         'ProdCOfromCH4  ',
-                         'ProdCOfromNMVOC',
-                         'ProdCO2fromCO  ',
-   ::
-
-**List of diagnostic fields in the Carbon collection**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 30 50 20
-
-   * - Diagnostic field
-     - Description
-     - Units
-   * - OHconcAfterChem
-     - OH concentration immediately after chemistry
-     - molec/cm3
-   * - ProdCOfromCH4
-     - Production of CO from CH4
-     - molec/cm3
-   * - ProdCOfromNMVOC
-     - Production of CO from non-methane VOCs
-     - molec/cm3
-   * - ProdCO2fromCO
-     - Production of CO2 from CO oxidation
-     - molec/cm3
-
 .. _histguide-cloudconvflux:
 
 CloudConvFlux
@@ -2179,6 +2135,7 @@ The **ProdLoss** collection contains chemical production and loss rates.
                           'LossHNO3onSeaSalt           ',
                           'ProdCOfromCH4               ',
                           'ProdCOfromNMVOC             ',
+                          'ProdCO2fromCO               ',
    ::
 
 **List of diagnostic fields in the ProdLoss collection**
@@ -2207,12 +2164,16 @@ The **ProdLoss** collection contains chemical production and loss rates.
      - Production of hydrophilic BC from hydrophobic BC
      - kg
      -
-   * - ProdCOfromCH4\ [#N]_
+   * - ProdCO2fromCO\ [#T]_
+     - P(CO\ :sub:`2`) from CO oxidation
+     - molec/cm3
+     -
+   * - ProdCOfromCH4\ [#S]_
      - P(CO) from CH4
      - molec/cm3
      -
-   * - ProdCOfromNMVOC\ [#N]_
-     - P(CO) from NMVOCs SO3-- loss by OH
+   * - ProdCOfromNMVOC\ [#S]_
+     - P(CO) from NMVOCs
      - molec/cm3
      -
    * - ProdOCPIfromOCPO\ [#M]_
@@ -2293,6 +2254,10 @@ The **ProdLoss** collection contains chemical production and loss rates.
 .. [#M] Defined for aerosol-only and fullchem simulations.
 
 .. [#N] Only defined for fullchem simulations.
+
+.. [#S] Defined for fullchem and carbon simulations.
+
+.. [#T] Only defined for the carbon simulation.
 
 .. _histguide-radionuclide:
 
@@ -3042,25 +3007,25 @@ are stored in the SpeciesConc collection).
 
 .. code-block:: kconfig
 
-     StateChm.template:          %y4%m2%d2_%h2%n2z.nc4',
-     StateChm.frequency:         00000100 000000
-     StateChm.duration:          00000100 000000
+     StateChm.template:          '%y4%m2%d2_%h2%n2z.nc4',
      StateChm.frequency:         ${RUNDIR_HIST_TIME_AVG_FREQ}
      StateChm.duration:          ${RUNDIR_HIST_TIME_AVG_DUR}
      StateChm.mode:              'time-averaged'
-     StateChm.fields:            'Chem_IsorropAeropHAccum       ',
-                                 'Chem_IsorropAeropHCoarse      ',
-                                 'Chem_IsorropHplusAccum        ',
-                                 'Chem_IsorropHplusCoarse       ',
-                                 'Chem_IsorropAeroH2OAccum      ',
-                                 'Chem_IsorropAeroH2OCoarse     ',
-                                 'Chem_IsorropSulfate           ',
-                                 'Chem_IsorropNitrateAccum      ',
-                                 'Chem_IsorropNitrateCoarse     ',
-                                 'Chem_IsorropChlorideAccum     ',
-                                 'Chem_IsorropChlorideCoarse    ',
-                                 'Chem_IsorropBisulfate         ',
+     StateChm.fields:            'Chem_AteAeropHAccum           ',
+                                 'Chem_AteAeropHCoarse          ',
+                                 'Chem_AteHplusAccum            ',
+                                 'Chem_AteHplusCoarse           ',
+                                 'Chem_AteAeroH2OAccum          ',
+                                 'Chem_AteAeroH2OCoarse         ',
+                                 'Chem_AteSulfate               ',
+                                 'Chem_AteNitrateAccum          ',
+                                 'Chem_AteNitrateCoarse         ',
+                                 'Chem_AteChlorideAccum         ',
+                                 'Chem_AteChlorideCoarse        ',
+                                 'Chem_AteBisulfate             ',
+                                 'Chem_AteIONIC                 ',
                                  'Chem_pHCloud                  ',
+                                 'Chem_HPlusCloud               ',
                                  'Chem_isCloud                  ',
                                  'Chem_SSAlkAccumMode           ',
                                  'Chem_SSAlkCoarseMode          ',
@@ -3222,6 +3187,45 @@ are stored in the SpeciesConc collection).
    * - Chem_AeroRadiSULF
      - Dry aerosol radius for tropospheric sulfate
      - cm
+   * - Chem_AteAeroH2OAccum
+     - Aerosol water concentration from ATE, accumulation mode
+     - :math:`\mu`\ g m\ :sup:`-3`
+   * - Chem_AteAeroH2OCoarse
+     - Aerosol water concentration from ATE, coarse mode
+     - :math:`\mu`\ g m\ :sup:`-3`
+   * - Chem_AteAeropHAccum
+     - Aerosol pH from ATE, accumulation mode
+     - 1
+   * - Chem_AteAeropHCoarse
+     - Aerosol pH from ATE, coarse mode
+     - 1
+   * - Chem_AteBisulfate
+     - Bisulfate (general acid) concentration from ATE
+     - mol L\ :sup:`-1`
+   * - Chem_AteChlorideAccum
+     - Chloride concentration from ATE, accumulation mode
+     - mol L\ :sup:`-1`
+   * - Chem_AteChlorideCoarse
+     - Chloride concentration from ATE, coarse mode
+     - mol L\ :sup:`-1`
+   * - Chem_AteHplusAccum
+     - H\ :sup:`+` concentration from ATE, accumulation mode
+     - mol L\ :sup:`-1`
+   * - Chem_AteHplusCoarse
+     - H\ :sup:`+` concentration from ATE, coarse mode
+     - mol L\ :sup:`-1`
+   * - Chem_AteIONIC
+     - Ionic strength from ATE
+     - mol L\ :sup:`-1`
+   * - Chem_AteNitrateAccum
+     - Nitrate concentration from ATE, accumulation mode
+     - mol L\ :sup:`-1`
+   * - Chem_AteNitrateCoarse
+     - Nitrate concentration from ATE, coarse mode
+     - mol L\ :sup:`-1`
+   * - Chem_AteSulfate
+     - Sulfate concentration from ATE
+     - mol L\ :sup:`-1`
    * - Chem_DryDepFreq
      - Dry deposition frequencies
      - s\ :sup:`-1`
@@ -3255,6 +3259,9 @@ are stored in the SpeciesConc collection).
    * - Chem_H2SO4prdr
      - H\ :sub:`2`\ SO\ :sub:`4` production rate in timestep *(MODEL_CESM only)*
      - mol mol\ :sup:`-1`
+   * - Chem_HPlusCloud
+     - Cloud H\ :sup:`+` concentration
+     - 1
    * - Chem_HSO3aq
      - Cloud bisulfite concentration
      - mol L\ :sup:`-1`
@@ -3264,42 +3271,6 @@ are stored in the SpeciesConc collection).
    * - Chem_IsCloud
      - Cloud presence
      - 1
-   * - Chem_IsorropAeroH2OAccum
-     - ISORROPIA aerosol water concentration, accumulation mode
-     - :math:`\mu`\ g m\ :sup:`-3`
-   * - Chem_IsorropAeroH2OCoarse
-     - ISORROPIA aerosol water concentration, coarse mode
-     - :math:`\mu`\ g m\ :sup:`-3`
-   * - Chem_IsorropAerophAccum
-     - ISORROPIA aerosol pH, accumulation mode
-     - 1
-   * - Chem_IsorropAerophCoarse
-     - ISORROPIA aerosol pH, coarse mode
-     - 1
-   * - Chem_IsorropBisulfate
-     - ISORROPIA bisulfate (general acid) concentration
-     - mol L\ :sup:`-1`
-   * - Chem_IsorropChlorideAccum
-     - ISORROPIA chloride concentration, accumulation mode
-     - mol L\ :sup:`-1`
-   * - Chem_IsorropChlorideCoarse
-     - ISORROPIA chloride concentration, coarse mode
-     - mol L\ :sup:`-1`
-   * - Chem_IsorropHplusAccum
-     - ISORROPIA H\ :sup:`+` concentration, accumulation mode
-     - mol L\ :sup:`-1`
-   * - Chem_IsorropHplusCoarse
-     - ISORROPIA H\ :sup:`+` concentration, coarse mode
-     - mol L\ :sup:`-1`
-   * - Chem_IsorropNitrateAccum
-     - ISORROPIA nitrate concentration, accumulation mode
-     - mol L\ :sup:`-1`
-   * - Chem_IsorropNitrateCoarse
-     - ISORROPIA nitrate concentration, coarse mode
-     - mol L\ :sup:`-1`
-   * - Chem_IsorropSulfate
-     - ISORROPIA sulfate concentration
-     - mol L\ :sup:`-1`
    * - Chem_JNO2
      - Surface J-values for reaction NO\ :sub:`2` + h\ :math:`\nu` → NO + O
      - 1

@@ -31,6 +31,8 @@ mechanism including for:
 - RCOOH, monoterpenes, new PNs and ANs: :cite:t:`Travis_et_al._2024`
 - Update to ALK4 and R4N2 chemistry: :cite:t:`Brewer_et_al._2023`
 - PPN photolysis: :cite:t:`Horner_et_al._2024`
+- Methanediol: :cite:t:`Yang_et_al._2025`
+- Multiphase sulfate aerosol: :cite:t:`Travis_et_al._2025`
 
 Photolysis frequencies are computed by :ref:`Cloud-J
 <photolysis-guide-cloudj>`.
@@ -1664,6 +1666,26 @@ The :program:`Standard` fullchem option uses the following species:
      - SO4 from cloud chemistry
      - not listed
      - 96.06
+   * - PSO4MP
+     - Dummy species to track production of multiphase sulfate
+     - not listed
+     - 96.06
+   * - PHMSAQ
+     - Dummy species to track production of HMS in cloud chemistry
+     - not listed
+     - 111.1
+   * - PHMSMP
+     - Dummy species to track production of multiphase HMS
+     - not listed
+     - 111.1
+   * - LHMSAQ
+     - Dummy species to track loss of HMS in cloud chemistry
+     - not listed
+     - 111.1
+   * - LHMSMP
+     - Dummy species to track loss of multiphase HMS
+     - not listed
+     - 111.1
    * - ZRO2
      - RO2 for making lumped aromatic nitrate
      - C7H9O5
@@ -1926,8 +1948,8 @@ TOMAS aerosol microphysics
 Fullchem simulations with :program:`TOMAS aerosol microphysics` use
 all of the :ref:`Standard species <fullchem-sim-standard>`, plus
 several additional size-resolved aerosol species.  Note that the bulk
-dust species (DST1, DST2, DST3, DST4) species are replaced with
-size-resolved dust species (DUST1 .. DUST40).
+dust species (DSTbin1 .. DSTbin7) are replaced with size-resolved
+dust species (DUST1 .. DUST40).
 
 .. list-table:: Additional transported species (TOMAS)
    :header-rows: 1

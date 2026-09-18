@@ -397,7 +397,7 @@ dimension:
      - Dry-deposited species
      - SpeciesConcVV\_?DRY?
    * - ?DRYALT?
-     - Species for the :ref:`histguide-concafterchem` collection
+     - Species for the :ref:`histguide-concabovesfc` collection
      - SpeciesConcVV\_?DRYALT
    * - ?DUSTBIN?
      - Dust bin number
@@ -1603,7 +1603,8 @@ above the canopy at approx. 10m height.
 	surface at which you would like these quantities computed.
 	For example: :literal:`DryDepVelFor10m_?DRYALT?`, etc.
 
-.. [#I] Currently the :literal:`?DRYALT?` species are O3 and HNO3.
+.. [#I] Currently the :literal:`?DRYALT?` species are HNO\ :sub:`3`,
+	NH\ :sub:`4`, NIT, O\ :sub:`3`, SO\ :sub:`4`, and SOAS.
 
 .. _histguide-concafterchem:
 

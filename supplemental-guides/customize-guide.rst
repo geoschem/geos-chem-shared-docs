@@ -517,25 +517,22 @@ Wet deposition
 
 .. _customguide-wetd-luo:
 
-Luo et al 2020 wetdep parameterization
---------------------------------------
+Luo and Yu 2023 wetdep parameterization
+---------------------------------------
 
-In :cite:t:`Luo_et_al._2020`, the authors introduced an updated wet
-deposition parameterization, which is now incorporated into GEOS-Chem as a
-compile-time option.  Follow these steps to activate the Luo et al
-2020 wetdep scheme in your GEOS-Chem simulations.
+The :cite:t:`Luo_and_Yu_2023` wet deposition parameterization (which
+builds on :cite:t:`Luo_et_al._2020`) is the default wet deposition
+cheme in GEOS-Chem Classic 14.9.0 and later versions.  Follow these
+steps if you wish to use the older :cite:t:`Jacob_et_al._2000` scheme
+instead.
 
 #. Create a run directory for the type of simulation that you wish to
    use.
-
-   - CAVEAT: Make sure your simulation uses at least one species that
-     can be wet-scavenged.
-
 #. Navigate to the :file:`build` folder within the run directory.
 #. Then type the following:
 
    .. code-block:: console
 
-      $ cmake .. -DLUO_WETDEP=y
+      $ cmake .. -DLUO_WETDEP=n
       $ make -j
       $ make install

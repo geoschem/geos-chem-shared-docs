@@ -4,10 +4,48 @@
 Wet deposition
 ##############
 
-GEOS-Chem has two wet deposition schemes,
+GEOS-Chem has two wet deposition schemes:
 
-#. :cite:t:`Jacob_et_al._2000`, the default scheme
-#. :cite:t:`Luo_and_Yu_2023`, an optional scheme
+#. :cite:t:`Luo_and_Yu_2023` **(the default option)**
+#. :cite:t:`Jacob_et_al._2000`
+
+.. _wetdep-guide-luo:
+
+=======================================
+Luo and Yu [2023] wet deposition scheme
+=======================================
+
+The :cite:t:`Luo_and_Yu_2023` wet deposition scheme---which builds
+upon the previous :cite:t:`Luo_et_al._2020` study---is now activated
+by default in GEOS-Chem 14.9.0 and later versions.
+
+From the abstract to :cite:t:`Luo_and_Yu_2023`:
+
+   The impacts of cloud mixing and uptake on wet scavenging are not
+   adequately resolved in global models which can lead to an
+   overestimation of the removal of water-soluble gases and aerosols
+   from the atmosphere. To address this issue, we develop and
+   implement novel parameterizations to consider the impacts of these
+   processes. Our analysis of vertical profiles of nitric acid,
+   inorganic nitrate, ammonium, and sulfate concentrations during the
+   Atmospheric Tomography Mission periods indicates that air
+   refreshing limitation has a significant impact above 800 hPa, while
+   cloud ice uptake limitation plays an important role above 500
+   hPa. Incorporating these two processes resulted in a reduction of
+   wet depositions of these species across source regions and a slight
+   increase in their downwind regions. Wet depositions of nitrate,
+   ammonium, and sulfate were reduced in source regions by 22.7%,
+   8.4%, and 8.3%, respectively and increased in downwind regions by
+   10.1%, 7.0%, and 4.3%, respectively.
+
+.. attention::
+
+   :ref:`tomas-guide` is not yet compatible with the
+   :cite:t:`Luo_and_Yu_2023` scheme.  When TOMAS is activated,
+   :literal:`LUO_WETDEP` is automatically set to :literal:`OFF`, and
+   the :cite:t:`Jacob_et_al._2000` scheme is used instead.  The TOMAS
+   developers are working on a fix for this, which will be available
+   in the near future.
 
 .. _wetdep-guide-jacob:
 
@@ -15,10 +53,21 @@ GEOS-Chem has two wet deposition schemes,
 Jacob et. al. [2000] wet deposition scheme
 ==========================================
 
-The default wet deposition scheme is described in
-:cite:t:`Jacob_et_al._2000`.  This scheme was originally developed
-for the NASA GMI model.  Its implementation into GEOS-Chem is
-described fully in :cite:t:`Liu_et_al._2001`.
+The :cite:t:`Jacob_et_al._2000` wet deposition scheme, which was
+originally developed for the NASA GMI model, was the default option in
+GEOS-Chem 14.8.0 and older versions.  Its implementation into
+GEOS-Chem is described fully in :cite:t:`Liu_et_al._2001`.
+
+.. note::
+
+   To activate the :cite:t:`Jacob_et_al._2000` wet deposition scheme,
+   use :code:`-DLUO_WETDEP=n` option at configuration time:
+
+   .. code-block:: console
+
+      $ cmake -DLUO_WETDEP=n ... etc. other CMake options
+      $ make -j
+      $ make install
 
 Several updates have been made to the original implementation.  These
 are described in the sections below.
@@ -96,41 +145,3 @@ From :cite:t:`Wang_et_al._2014`:
    :sup:`210`\ Pb simulations to test the general model representation
    of aerosol deposition and found a lifetime of tropospheric
    :sup:`210`\ Pb aerosol against deposition of 8.6 days.
-
-
-=======================================
-Luo and Yu [2003] wet deposition scheme
-=======================================
-
-:cite:t:`Luo_and_Yu_2023` have developed an optional wet deposition
-scheme that you may use instead of the default
-:cite:t:`Jacob_et_al._2000`.  This work builds on their earlier
-research (see :cite:t:`Luo_et_al._2020`).
-
-.. note::
-
-   To use the :cite:t:`Luo_and_Yu_2023`  scheme you must use the
-   :code:`-DLUO_WETDEP=y` option at configuration time.
-
-   .. code-block:: console
-
-      $ cmake -DLUO_WETDEP=y ... etc. other Cmake options ...
-
-From the abstract to :cite:t:`Luo_and_Yu_2023`:
-
-   The impacts of cloud mixing and uptake on wet scavenging are not
-   adequately resolved in global models which can lead to an
-   overestimation of the removal of water-soluble gases and aerosols
-   from the atmosphere. To address this issue, we develop and
-   implement novel parameterizations to consider the impacts of these
-   processes. Our analysis of vertical profiles of nitric acid,
-   inorganic nitrate, ammonium, and sulfate concentrations during the
-   Atmospheric Tomography Mission periods indicates that air
-   refreshing limitation has a significant impact above 800 hPa, while
-   cloud ice uptake limitation plays an important role above 500
-   hPa. Incorporating these two processes resulted in a reduction of
-   wet depositions of these species across source regions and a slight
-   increase in their downwind regions. Wet depositions of nitrate,
-   ammonium, and sulfate were reduced in source regions by 22.7%,
-   8.4%, and 8.3%, respectively and increased in downwind regions by
-   10.1%, 7.0%, and 4.3%, respectively.

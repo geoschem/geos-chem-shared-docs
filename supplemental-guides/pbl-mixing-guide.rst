@@ -89,6 +89,31 @@ datasets. Nonetheless, the user may enable the online calculation of
 PBL height; this option is available in the code
 :code:`GeosCore/vdiff_mod.F90`.
 
+Emissions and dry deposition
+----------------------------
+
+When VDIFF is used, emissions and dry deposition are applied as
+follows:
+
+- Surface (level 1) emissions and dry deposition are combined into a
+  surface flux (:code:`State_Chm%SurfaceFlux`, computed in routine
+  :code:`Compute_Sflx_For_Vdiff`).  VDIFF applies this flux to the
+  lowest model level, and uses it to compute the non-local
+  (counter-gradient) term. |br|
+  |br|
+
+- Emissions in levels 2 and higher (e.g. from stacks, wildfire
+  injection heights, aircraft, and volcanoes) are added to the species
+  array at their native levels by routine :code:`Do_Emis_Above_Sfc`
+  (in :code:`GeosCore/mixing_mod.F90`), just before VDIFF is called.
+  These emissions are then mixed by VDIFF in the same time step.
+
+.. note::
+
+   In GEOS-Chem versions prior to 14.9.0, emissions from the surface
+   up to the PBL top were summed into the surface flux, so elevated
+   sources within the PBL entered VDIFF at the lowest level.
+
 Validation
 ----------
 
@@ -114,6 +139,9 @@ To use TURBDAY, make sure you have the following settings in your
      activate: true
      use_non_local_pbl: false
 
+When TURBDAY is used, emissions and dry deposition are first applied
+to the species array (routine :code:`Do_Tend` in
+:code:`GeosCore/mixing_mod.F90`), and then the PBL is fully mixed.
 
 The updated concentrations for each tracer N at grid boxes (I,J,L)
 underneath the PBL top are computed as:

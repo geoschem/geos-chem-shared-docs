@@ -268,7 +268,7 @@ Units: A source of silent errors
 
 Unlike a missing file or a bad date, a **units mismatch does not
 always stop your run**.  By default HEMCO's `unit tolerance
-<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#unit-tolerance>`__.
+<https://hemco.readthedocs.io/en/stable/hco-ref-guide/hemco-config.html#unit-tolerance>`__
 setting only prints a warning.  This makes it very easy to end up with
 incorrect emissions without generating any error or warning at all.
 

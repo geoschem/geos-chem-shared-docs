@@ -185,22 +185,24 @@ Follow these steps:
       $ make -j
       $ make install
 
-Hg mechanism
-~~~~~~~~~~~~
-Follow these steps to build an executable with the :literal:`Hg` (mercury)
-mechanism:
+.. only:: GCClassic
 
-#. Create a run directory for the Hg simulation.
-#. Navigate to the :file:`build` folder within the run directory.\
-#. Then type the following:
+   Hg mechanism
+   ~~~~~~~~~~~~
+   Follow these steps to build an executable with the :literal:`Hg` (mercury)
+   mechanism:
 
-   .. code-block:: console
+   #. Create a run directory for the Hg simulation.
+   #. Navigate to the :file:`build` folder within the run directory.\
+   #. Then type the following:
 
-      $ cmake .. -DMECH=Hg
-      $ make -j
-      $ make install
+      .. code-block:: console
 
-.. _customguide-chem-ho2:
+         $ cmake .. -DMECH=Hg
+         $ make -j
+         $ make install
+
+   .. _customguide-chem-ho2:
 
 HO2 heterogeneous chemistry reaction probability
 ------------------------------------------------
@@ -295,10 +297,23 @@ Diagnostics
 GEOS-Chem and HEMCO diagnostics
 -------------------------------
 
-Please see our `Diagnostics reference
-<https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/diagnostics.html>`__
-chapter for an overview of how to archive diagnostics from GEOS-Chem
-and HEMCO.
+.. only:: gcclassic
+
+   The GEOS-Chem and HEMCO diagnostics for GCClassic include the following:
+
+   - `History diagnostics <https://geos-chem.readthedocs.io/en/latest/geos-chem-shared-docs/supplemental-guides/history-diag-guide.html#histguide`__
+   - `HEMCO diagnostics <https://hemco.readthedocs.io/en/latest/hco-ref-guide/diagnostics.html>`__
+   - `Planeflight diagnostics <https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/planeflight.html>`__
+   - `Obspack diagnostics <https://geos-chem.readthedocs.io/en/latest/gcclassic-user-guide/obspack.html>`__
+
+
+.. only:: gchp
+
+   The GEOS-Chem and HEMCO diagnostics for GCHP include the following:
+
+   - `History diagnostics <https://geos-chem.readthedocs.io/en/latest/geos-chem-shared-docs/supplemental-guides/history-diag-guide.html#histguide>`__
+   - `HEMCO diagnostics <https://hemco.readthedocs.io/en/latest/hco-ref-guide/diagnostics.html>`__
+ 
 
 RRTMG radiative transfer diagnostics
 ------------------------------------
@@ -522,7 +537,7 @@ Luo and Yu 2023 wetdep parameterization
 
 The :cite:t:`Luo_and_Yu_2023` wet deposition parameterization (which
 builds on :cite:t:`Luo_et_al._2020`) is the default wet deposition
-cheme in GEOS-Chem Classic 14.9.0 and later versions.  Follow these
+cheme in |model| 14.9.0 and later versions.  Follow these
 steps if you wish to use the older :cite:t:`Jacob_et_al._2000` scheme
 instead.
 

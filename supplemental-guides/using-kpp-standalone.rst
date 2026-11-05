@@ -66,17 +66,23 @@ This is our fork of the
 repository, which is maintained by `the Kinetic PreProcessor
 <https://github.com/KineticPreProcessor>`__ developers.
 
-When you clone the `GEOS-Chem Classic source code
-<https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/get-code-steps.html#clone-gcclassic-and-fetch-submodules>`__,
-the KPP-Standalone Box Model code will be copied into this folder:
+.. only:: gcclassic
 
-- :file:`GCClassic/src/GEOS-Chem/KPP/standalone`
+	When you clone the `GEOS-Chem Classic source code
+	<https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/get-code-steps.html#clone-gcclassic-and-fetch-submodules>`__,
+	the KPP-Standalone Box Model code will be copied into this folder:
 
-Or if you `clone the GCHP source code
-<https://gchp.readthedocs.io/en/stable/user-guide/downloading.html>`__,
-the KPP-Standalone Box Model code will be copied into this folder:
+	- :file:`GCClassic/src/GEOS-Chem/KPP/standalone`
 
-- :file:`gchp/src/GCHP_GridComp/GEOSChem_GridComp/geos-chem/KPP/standalone`.
+
+.. only:: gchp
+
+	When you `clone the GCHP source code
+	<https://gchp.readthedocs.io/en/stable/user-guide/downloading.html>`__,
+	the KPP-Standalone Box Model code will be copied into this folder:
+
+	- :file:`gchp/src/GCHP_GridComp/GEOSChem_GridComp/geos-chem/KPP/standalone`.
+
 
 The :file:`KPP/standalone` folder contains the following files:
 
@@ -105,119 +111,155 @@ The :file:`KPP/standalone` folder contains the following files:
 Usage instructions
 ==================
 
-#. Download the `GEOS-Chem Classic
-   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/get-code-steps.html#clone-gcclassic-and-fetch-submodules>`__
-   or `GCHP
-   <https://gchp.readthedocs.io/en/stable/user-guide/downloading.html>`__
-   source code. |br|
-   |br|
+.. only:: gchp
 
-#. Navigate to the :literal:`run/` folder and create a run directory:
+   1. Download the `GCHP
+      <https://gchp.readthedocs.io/en/stable/user-guide/downloading.html>`__
+      source code. |br|
+      |br|
 
-   .. code-block:: console
+   2. Navigate to the :literal:`gchp/run/` folder and create a run directory:
 
-      $ cd GCClassic/run     # If using GEOS-Chem Classic, or
-      $ cd gchp/run          # If using GCHP
+      .. code-block:: console
 
-      $ ./createRunDir.sh
+         $ cd gchp/run
+         $ ./createRunDir.sh
 
-   Select the :option:`fullchem` simulation (option :literal:`1`) with
-   any extra option (e.g. :literal:`standard`, :literal:`RRTMG`,
-   etc.).  Follow the prompts and provide the necessary
-   information. |br|
-   |br|
+      Select the :option:`fullchem` simulation (option :literal:`1`) with
+      any extra option (e.g. :literal:`standard`, :literal:`RRTMG`,
+      etc.).  Follow the prompts and provide the necessary
+      information. |br|
 
-#. During the run directory creation, you will be asked if you wish to
+.. only:: gcclassic
+
+   1. Download the `GEOS-Chem Classic
+      <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/get-code-steps.html#clone-gcclassic-and-fetch-submodules>`__
+      source code. |br|
+      |br|
+
+   2. Navigate to the :literal:`GCClassic/run/` folder and create a run directory:
+
+      .. code-block:: console
+
+         $ cd GCClassic/run
+         $ ./createRunDir.sh
+
+      Select the :option:`fullchem` simulation (option :literal:`1`) with
+      any extra option (e.g. :literal:`standard`, :literal:`RRTMG`,
+      etc.).  Follow the prompts and provide the necessary
+      information. |br|
+      |br|
+
+3. During the run directory creation, you will be asked if you wish to
    build KPP-Standalone.  Type :literal:`y` and hit return, as shown
    below.
 
    .. code-block:: console
 
-      -----------------------------------------------------------
-      Do you want to build the KPP-Standalone Box Model? (y/n)
-      -----------------------------------------------------------
-      >>> y
+         -----------------------------------------------------------
+         Do you want to build the KPP-Standalone Box Model? (y/n)
+         -----------------------------------------------------------
+         >>> y
 
-      >>>> REMINDER: You must compile with options: -DKPPSA=y <<<<
+         >>>> REMINDER: You must compile with options: -DKPPSA=y <<<<
 
-      Created /path/to/your/fullchem/run/directory
+         Created /path/to/your/fullchem/run/directory
 
-#. Navigate to the run directory and configure the `GEOS-Chem Classic
-   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/compile-cmake.html>`__
-   or `GCHP
-   <https://gchp.readthedocs.io/en/stable/user-guide/compiling.html>`__
-   source code using CMake as you normally would.  Then navigate to
-   the build folder and apply option :literal:`-DKPPSA=y`:
 
-   .. code-block:: console
+.. only:: gchp
 
-      $ cd build
-      $ cmake . -DKPPSA=y
-      $ make -j
-      $ make install
+   4. Navigate to the run directory and configure the `GCHP
+      <https://gchp.readthedocs.io/en/stable/user-guide/compiling.html>`__
+      source code using CMake as you normally would.  Then navigate to
+      the build folder and apply option :literal:`-DKPPSA=y`:
 
-   The KPP-Standalone Box Model code will be compiled to
-   an executable named :file:`kpp_standalone`, which will be copied to
-   the run directory along with the GEOS-Chem Classic or GCHP
-   executable. |br|
-   |br|
+      .. code-block:: console
 
-#. Open the :file:`kpp_standalone_interface.yml` file (located in the
+            $ cd build
+            $ cmake . -DKPPSA=y
+            $ make -j
+            $ make install
+
+         The KPP-Standalone Box Model code will be compiled to an executable
+         named :file:`kpp_standalone`, which will be copied to the run
+         directory along with the GCHP executable. |br|
+         |br|
+
+.. only:: gcclassic
+
+   4. Navigate to the run directory and configure the `GEOS-Chem Classic
+      <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/compile-cmake.html>`__
+      source code using CMake as you normally would.  Then navigate to
+      the build folder and apply option :literal:`-DKPPSA=y`:
+
+      .. code-block:: console
+
+            $ cd build
+            $ cmake . -DKPPSA=y
+            $ make -j
+            $ make install
+
+         The KPP-Standalone Box Model code will be compiled to an executable
+         named :file:`kpp_standalone`, which will be copied to the run
+         directory along with the GEOS-Chem Classic executable. |br|
+         |br|
+   
+5. Open the :file:`kpp_standalone_interface.yml` file (located in the
    run directory) in your favorite editor.  The file will look similar
    to this:
 
    .. code-block:: yaml
 
-      ---
-      # ============================================================================
-      # Configuration file for KPP standalone interface
-      #
-      # This file specifies at which locations we will archive the model
-      # state so that we can initialize KPP standalone box model simulations.
-      # ============================================================================
+         ---
+         # ============================================================================
+         # Configuration file for KPP standalone interface
+         #
+         # This file specifies at which locations we will archive the model
+         # state so that we can initialize KPP standalone box model simulations.
+         # ============================================================================
 
-      # ------------------------------------
-      # General settngs
-      # ------------------------------------
-      settings:
-        activate: false                      # Main on/off switch
-        start_output_at: [19000101, 000000]  # Save model state for KPP standalone
-        stop_output_at:  [21000101, 000000]  # ... if between these 2 datetimes
-        output_directory: "./OutputDir/"     # This directory should already exist
-        levels:                              # Model levels to archive
-          - 1
-          - 2
-	  # ... etc. other levels not shown ...
+         # ------------------------------------
+         # General settngs
+         # ------------------------------------
+         settings:
+           activate: false                      # Main on/off switch
+           start_output_at: [19000101, 000000]  # Save model state for KPP standalone
+           stop_output_at:  [21000101, 000000]  # ... if between these 2 datetimes
+           output_directory: "./OutputDir/"     # This directory should already exist
+           levels:                              # Model levels to archive
+             - 1
+             - 2
+   	 # ... etc. other levels not shown ...
 
-      # ------------------------------------
-      # Where to archive model state?
-      # ------------------------------------
-      active_cells:
-        - Alert
-        - Amazon
-        - AtlanticOcean
-        - Beijing
-        # ... etc. other active_cells not shown ...
+         # ------------------------------------
+         # Where to archive model state?
+         # ------------------------------------
+         active_cells:
+         - Alert
+         - Amazon
+         - AtlanticOcean
+         - Beijing
+         # ... etc. other active_cells not shown ...
 
-      # ------------------------------------
-      # Active cell geographic coordinates
-      # ------------------------------------
-      locations:
-        Alert:
-          latitude: 82.5
-          longitude: -62.3
-        Amazon:
-          latitude: -3.4653
-          longitude: -62.2159
-        AtlanticOcean:
-          latitude: 34.707874
-          longitude: -41.574755
-        Beijing:
-          latitude: 39.9042
-          longitude: 116.4074
-        # ... etc. other locations not shown ...
+         # ------------------------------------
+         # Active cell geographic coordinates
+         # ------------------------------------
+         locations:
+         Alert:
+            latitude: 82.5
+            longitude: -62.3
+         Amazon:
+            latitude: -3.4653
+            longitude: -62.2159
+         AtlanticOcean:
+            latitude: 34.707874
+            longitude: -41.574755
+         Beijing:
+            latitude: 39.9042
+            longitude: 116.4074
+         # ... etc. other locations not shown ...
 
-#. Edit the following entries under the :literal:`settings` section:
+6. Edit the following entries under the :literal:`settings` section:
    |br|
    |br|
 
@@ -261,7 +303,7 @@ Usage instructions
       state. |br|
       |br|
 
-#. Edit the :literal:`active_cells` section to define the names of
+7. Edit the :literal:`active_cells` section to define the names of
    sites where the KPP-Standalone Interface will archive the GEOS-Chem
    model state. The :file:`kpp_standalone_interface.yml` file ships
    with several pre-defined active cells.  You may keep these, remove
@@ -269,257 +311,262 @@ Usage instructions
    the active cell names does not matter. |br|
    |br|
 
-#. Edit the :literal:`locations` section to add geographical
+8. Edit the :literal:`locations` section to add geographical
    coordinates for each of the :literal:`active_cells` that have been
    specified above.  The ordering of the locations does not matter,
    but you must make sure that each active cell has a corresponding
    geographic location defined. |br|
-   |br|
 
-#. Run your `GEOS-Chem Classic
-   <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/run.html>`__
-   or
-   `GCHP
-   <https://gchp.readthedocs.io/en/stable/user-guide/running.html>`__
-   simulation.  Make sure that your simulation spans the time interval
-   specified by the :literal:`start_output_at` and
-   :literal:`stop_output_at` fields. |br|
-   |br|
+.. only:: gchp
 
-#. Once your simulation finishes, navigate to the directory specified
-   by the :literal:`output_directory` field (which in our example is
-   :file:`./OutputDir`) and get a directory listing.
+   9. Run your `GCHP
+      <https://gchp.readthedocs.io/en/stable/user-guide/running.html>`__
+      simulation.  Make sure that your simulation spans the time interval
+      specified by the :literal:`start_output_at` and
+      :literal:`stop_output_at` fields. |br|
 
-   .. code-block:: console
+.. only:: gcclassic
 
-      $ cd OutputDir   # Or whatever you specified for output_directory
-      $ ls -1
+   9. Run your `GEOS-Chem Classic
+      <https://geos-chem.readthedocs.io/en/stable/gcclassic-user-guide/run.html>`__
+      simulation.  Make sure that your simulation spans the time interval
+      specified by the :literal:`start_output_at` and
+      :literal:`stop_output_at` fields. |br|
 
-   You should see several files ending in :file:`*.txt`:
+10. Once your simulation finishes, navigate to the directory specified
+    by the :literal:`output_directory` field (which in our example is
+    :file:`./OutputDir`) and get a directory listing.
 
-   .. code-block:: console
+    .. code-block:: console
 
-      Alert_L1_20190701_0000.txt
-      Alert_L1_20190701_0020.txt
-      Alert_L1_20190701_0040.txt
-      Alert_L2_20190701_0000.txt
-      Alert_L2_20190701_0020.txt
-      Alert_L2_20190701_0040.txt
-      ...
-      Amazon_L1_20190701_0000.txt
-      Amazon_L1_20190701_0020.txt
-      Amazon_L1_20190701_0040.txt
-      Amazon_L2_20190701_0000.txt
-      Amazon_L2_20190701_0020.txt
-      Amazon_L2_20190701_0040.txt
-      ...
-      AtlanticOcean_L1_20190701_0000.txt
-      AtlanticOcean_L1_20190701_0020.txt
-      AtlanticOcean_L1_20190701_0040.txt
-      AtlanticOcean_L2_20190701_0000.txt
-      AtlanticOcean_L2_20190701_0020.txt
-      AtlanticOcean_L2_20190701_0040.txt
-      ...
-      Beijing_L1_20190701_0000.txt
-      Beijing_L1_20190701_0020.txt
-      Beijing_L1_20190701_0040.txt
-      Beijing_L2_20190701_0000.txt
-      Beijing_L2_20190701_0020.txt
-      Beijing_L2_20190701_0040.txt
-      ...
-      ... etc. for other sites & times ...
+       $ cd OutputDir   # Or whatever you specified for output_directory
+       $ ls -1
 
-   These files represent the GEOS-Chem model state at each active
-   cell, model level, date and time.  The format of these files is
-   shown below (using the :file:`Beijing_L1_20190701_0040.txt` as an
-   example:
+    You should see several files ending in :file:`*.txt`:
 
-   .. code-block:: text
+    .. code-block:: console
 
-      60
-      ============================================================================
+       Alert_L1_20190701_0000.txt
+       Alert_L1_20190701_0020.txt
+       Alert_L1_20190701_0040.txt
+       Alert_L2_20190701_0000.txt
+       Alert_L2_20190701_0020.txt
+       Alert_L2_20190701_0040.txt
+       ...
+       Amazon_L1_20190701_0000.txt
+       Amazon_L1_20190701_0020.txt
+       Amazon_L1_20190701_0040.txt
+       Amazon_L2_20190701_0000.txt
+       Amazon_L2_20190701_0020.txt
+       Amazon_L2_20190701_0040.txt
+       ...
+       AtlanticOcean_L1_20190701_0000.txt
+       AtlanticOcean_L1_20190701_0020.txt
+       AtlanticOcean_L1_20190701_0040.txt
+       AtlanticOcean_L2_20190701_0000.txt
+       AtlanticOcean_L2_20190701_0020.txt
+       AtlanticOcean_L2_20190701_0040.txt
+       ...
+       Beijing_L1_20190701_0000.txt
+       Beijing_L1_20190701_0020.txt
+       Beijing_L1_20190701_0040.txt
+       Beijing_L2_20190701_0000.txt
+       Beijing_L2_20190701_0020.txt
+       Beijing_L2_20190701_0040.txt
+       ...
+       ... etc. for other sites & times ...
 
-                        KPP Standalone Atmospheric Chemical State
-      File Description:
-      This file contains model output of the atmospheric chemical state
-      as simulated by the GEOS-Chem chemistry module in a 3D setting.
-      Each grid cell represents the chemical state of an individual location,
-      suitable for input into a separate KPP Standalone program which will
-      replicate the chemical evolution of that grid cell for mechanism analysis.
-      Note that the KPP Standalone will only use concentrations, rate constants,
-      and KPP-specific fields. All other fields are for reference. The first line
-      contains the number of lines in this header. If wanting to use this output
-      for other analysis, a Python class to read these fields is available by
-      request, contact Obin Sturm (psturm@usc.edu).
+    These files represent the GEOS-Chem model state at each active
+    cell, model level, date and time.  The format of these files is
+    shown below (using the :file:`Beijing_L1_20190701_0040.txt` as an
+    example:
 
-      Generated by the GEOS-Chem Model
-             (https://geos-chem.org/)
-      Using the KPP Standalone Interface
-      github.com/GEOS-ESM/geos-chem/tree/feature/psturm/kpp_standalone_interface
-           With contributions from:
-              Obin Sturm (psturm@usc.edu)
-              Christoph Keller
-              Michael Long
-              Sam Silva
+    .. code-block:: text
 
-      Meteorological and general grid cell metadata
+       60
+       ============================================================================
 
-      Location:                                        Beijing
-      Timestamp:                                       2019/07/01 00:40
-      Longitude (degrees):                                115.0000
-      Latitude (degrees):                                  38.0000
-      GEOS-Chem Vertical Level:                             1
-      Pressure (hPa):                                     947.7906
-      Temperature (K):                                      300.29
-      Dry air density (molec/cm3):                      0.2273E+20
-      Water vapor mixing ratio (vol H2O/vol dry air):   0.9784E-02
-      Cloud fraction:                                   0.0000E+00
-      Cosine of solar zenith angle:                     0.6833E+00
+                         KPP Standalone Atmospheric Chemical State
+       File Description:
+       This file contains model output of the atmospheric chemical state
+       as simulated by the GEOS-Chem chemistry module in a 3D setting.
+       Each grid cell represents the chemical state of an individual location,
+       suitable for input into a separate KPP Standalone program which will
+       replicate the chemical evolution of that grid cell for mechanism analysis.
+       Note that the KPP Standalone will only use concentrations, rate constants,
+       and KPP-specific fields. All other fields are for reference. The first line
+       contains the number of lines in this header. If wanting to use this output
+       for other analysis, a Python class to read these fields is available by
+       request, contact Obin Sturm (psturm@usc.edu).
 
-      KPP Integrator-specific parameters
+       Generated by the GEOS-Chem Model
+              (https://geos-chem.org/)
+       Using the KPP Standalone Interface
+       github.com/GEOS-ESM/geos-chem/tree/feature/psturm/kpp_standalone_interface
+            With contributions from:
+               Obin Sturm (psturm@usc.edu)
+               Christoph Keller
+               Michael Long
+               Sam Silva
 
-      Init KPP Timestep (seconds):                         41.0561
-      Exit KPP Timestep (seconds):                         92.6195
-      Chemistry operator timestep (seconds):             1200.0000
-      Number of internal timesteps:                        15
-      ICNTRL integrator options used:
-           1     0     4     0     0     0     1     0     0     0
-           0     0     0   345    -1     0     0     0     0     0
-      RCNTRL integrator options used:
-           0.000000     0.000000    41.056066     0.000000     0.000000
-           0.000000     0.000000     0.000000     0.000000     0.000000
-           0.000000     0.000000     0.000000     0.000050     0.000000
-           0.000000     0.000000     0.000000     0.000000     0.000000
+       Meteorological and general grid cell metadata
 
-      CSV data of full chemical state, including species concentrations,
-      rate constants (R) and instantaneous reaction rates (A).
-      All concentration units are in molec/cm3 and rates in molec/cm3/s.
+       Location:                                        Beijing
+       Timestamp:                                       2019/07/01 00:40
+       Longitude (degrees):                                115.0000
+       Latitude (degrees):                                  38.0000
+       GEOS-Chem Vertical Level:                             1
+       Pressure (hPa):                                     947.7906
+       Temperature (K):                                      300.29
+       Dry air density (molec/cm3):                      0.2273E+20
+       Water vapor mixing ratio (vol H2O/vol dry air):   0.9784E-02
+       Cloud fraction:                                   0.0000E+00
+       Cosine of solar zenith angle:                     0.6833E+00
 
-      ============================================================================
-      Name,   Value,   Absolute Tolerance
-      CH2I2,  5.5790359988082701E+003,  1.00E-02
-      CH2IBr,  4.3058653390896252E+004,  1.00E-02
-      CH2ICl,  5.5586468566915649E+005,  1.00E-02
-      AERI,  1.0841371359954113E+007,  1.00E-02
-      AONITA,  1.0756986064207199E+009,  1.00E-02
-      ...
-      R1   1,  3.9000149380783678E-020
-      R2,  1.9670377782305400E-007
-      R3,  1.6079592890328128E-008
-      R4,  7.2351790708373721E-022
-      ...
-      A1,  4.6780159996820985E+003
-      A2,  4.6780159996820985E+003
-      A3,  4.6780159996820976E+003
-      A4,  5.1949221122605059E+003
+       KPP Integrator-specific parameters
 
-   The file header contains metadata about the meteorological
-   conditions present at the site, as well as parameters used by the
-   KPP solver.  Species concentrations in :math:`molecules\  cm^{-3}` are
-   listed along with the absolute tolerance value for each species.
-   The number at the top of the header (:literal:`60`) indicates the
-   number of lines to skip before the data begins.  Data is saved to
-   comma-separated variable (CSV) format.
+       Init KPP Timestep (seconds):                         41.0561
+       Exit KPP Timestep (seconds):                         92.6195
+       Chemistry operator timestep (seconds):             1200.0000
+       Number of internal timesteps:                        15
+       ICNTRL integrator options used:
+            1     0     4     0     0     0     1     0     0     0
+            0     0     0   345    -1     0     0     0     0     0
+       RCNTRL integrator options used:
+            0.000000     0.000000    41.056066     0.000000     0.000000
+            0.000000     0.000000     0.000000     0.000000     0.000000
+            0.000000     0.000000     0.000000     0.000050     0.000000
+            0.000000     0.000000     0.000000     0.000000     0.000000
 
-   Reaction rate constants (beginning with :math:`R`) and
-   instantaneous reaction rates (beginning with :math:`A`) follow
-   the species concentrations. These are archived in
-   :math:`molecules\  cm^{-3}\  s^{-1}`. |br|
-   |br|
+       CSV data of full chemical state, including species concentrations,
+       rate constants (R) and instantaneous reaction rates (A).
+       All concentration units are in molec/cm3 and rates in molec/cm3/s.
 
-#. Run the KPP-Standalone Box Model for each of the active cells,
-   model levels, dates, and times where the GEOS-Chem model state has
-   been archived.
+       ============================================================================
+       Name,   Value,   Absolute Tolerance
+       CH2I2,  5.5790359988082701E+003,  1.00E-02
+       CH2IBr,  4.3058653390896252E+004,  1.00E-02
+       CH2ICl,  5.5586468566915649E+005,  1.00E-02
+       AERI,  1.0841371359954113E+007,  1.00E-02
+       AONITA,  1.0756986064207199E+009,  1.00E-02
+       ...
+       R1   1,  3.9000149380783678E-020
+       R2,  1.9670377782305400E-007
+       R3,  1.6079592890328128E-008
+       R4,  7.2351790708373721E-022
+       ...
+       A1,  4.6780159996820985E+003
+       A2,  4.6780159996820985E+003
+       A3,  4.6780159996820976E+003
+       A4,  5.1949221122605059E+003
 
-   .. code-block:: console
+    The file header contains metadata about the meteorological
+    conditions present at the site, as well as parameters used by the
+    KPP solver.  Species concentrations in :math:`molecules\  cm^{-3}` are
+    listed along with the absolute tolerance value for each species.
+    The number at the top of the header (:literal:`60`) indicates the
+    number of lines to skip before the data begins.  Data is saved to
+    comma-separated variable (CSV) format.
 
-      $ ./kpp_standalone Beijing_L1_20190701_0040.txt Beijing_L1_20190701_0040.log
-      Processing sample: input/Beijing_L1_20190701_0040.txt
-      Number of internal timesteps (from 3D run):    15
-      Number of internal timesteps ( standalone):    15
-      Hexit (from 3D run):      92.62
-      Hexit ( standalone):      92.62
+    Reaction rate constants (beginning with :math:`R`) and
+    instantaneous reaction rates (beginning with :math:`A`) follow
+    the species concentrations. These are archived in
+    :math:`molecules\  cm^{-3}\  s^{-1}`. |br|
+    |br|
 
-   The first argument to :file:`kpp_standalone` is the file containing
-   the GEOS-Chem model state for a given active cell, level, date, and
-   time.
+11. Run the KPP-Standalone Box Model for each of the active cells,
+    model levels, dates, and times where the GEOS-Chem model state has
+    been archived.
 
-   The second argument is the log file (in our example,
-   :file:`Beijing_L1_20190701_0040.log`) containing the output of the
-   KPP-Standalone Box Model.  The log file will also be printed in CSV
-   format.
+    .. code-block:: console
 
-   The KPP-Standalone Box Model will print some statistics to the
-   screen (aka "standard output" or "stdout").  Ideally the
-   :literal:`Hexit` values should be pretty close to each other.
+       $ ./kpp_standalone Beijing_L1_20190701_0040.txt Beijing_L1_20190701_0040.log
+       Processing sample: input/Beijing_L1_20190701_0040.txt
+       Number of internal timesteps (from 3D run):    15
+       Number of internal timesteps ( standalone):    15
+       Hexit (from 3D run):      92.62
+       Hexit ( standalone):      92.62
 
-   Your KPP-Standalone Box Model output should look similar to this:
+    The first argument to :file:`kpp_standalone` is the file containing
+    the GEOS-Chem model state for a given active cell, level, date, and
+    time.
 
-   .. code-block:: text
+    The second argument is the log file (in our example,
+    :file:`Beijing_L1_20190701_0040.log`) containing the output of the
+    KPP-Standalone Box Model.  The log file will also be printed in CSV
+    format.
 
-      43
-      ===============================================================================
+    The KPP-Standalone Box Model will print some statistics to the
+    screen (aka "standard output" or "stdout").  Ideally the
+    :literal:`Hexit` values should be pretty close to each other.
 
-      KPP Standalone Output
-      This file contains the concentrations of all the chemical species
-      in a single grid cell of a GEOS-Chem 3D run as replicated by the
-      KPP Standalone. Concentrations before and after the operator timestep
-      are in CSV format, below.
+    Your KPP-Standalone Box Model output should look similar to this:
 
-      Generated by the GEOS-Chem KPP Standalone:
-      https://github.com/KineticPreProcessor/KPP-Standalone
+    .. code-block:: text
 
-      Input file used: Beijing_L1_20190701_0040.txt
+       43
+       ===============================================================================
 
-      Meteorological and general grid cell metadata
+       KPP Standalone Output
+       This file contains the concentrations of all the chemical species
+       in a single grid cell of a GEOS-Chem 3D run as replicated by the
+       KPP Standalone. Concentrations before and after the operator timestep
+       are in CSV format, below.
 
-      Location:                                        Beijing
-      Timestamp:                                       2019/07/01 00:40
-      Longitude (degrees):                                115.0000
-      Latitude (degrees):                                  38.0000
-      GEOS-Chem Vertical Level:                             1
-      Pressure (hPa):                                     947.7906
-      Temperature (K):                                      300.29
-      Dry air density (molec/cm3):                      0.2273E+20
-      Water vapor mixing ratio (vol H2O/vol dry air):   0.9784E-02
-      Cloud fraction:                                   0.0000E+00
-      Cosine of solar zenith angle:                     0.6833E+00
+       Generated by the GEOS-Chem KPP Standalone:
+       https://github.com/KineticPreProcessor/KPP-Standalone
 
-      KPP Integrator-specific parameters
+       Input file used: Beijing_L1_20190701_0040.txt
 
-      Init KPP Timestep (seconds):                         41.0561
-      Exit KPP Timestep (seconds):                         92.6195
-      Chemistry operator timestep (seconds):             1200.0000
-      Number of internal timesteps:                        15
-      ICNTRL integrator options used:
-           1     0     4     0     0     0     1     0     0     0
-           0     0     0   345    -1     0     0     0     0     0
-      RCNTRL integrator options used:
-           0.000000     0.000000    41.056066     0.000000     0.000000
-           0.000000     0.000000     0.000000     0.000000     0.000000
-           0.000000     0.000000     0.000000     0.000050     0.000000
-           0.000000     0.000000     0.000000     0.000000     0.000000
+       Meteorological and general grid cell metadata
 
-      ===============================================================================
-      Species Name,Initial Concentration (molec/cm3),Final Concentration (molec/cm3)
-      CH2I2,  5.5790359988082701E+003,  2.8781775861340213E+000
-      CH2IBr,  4.3058653390896252E+004,  2.9971817468639663E+004
-      CH2ICl,  5.5586468566915649E+005,  5.0135868815135013E+005
-      AERI,  1.0841371359954113E+007,  1.0896017942806700E+007
-      AONITA,  1.0756986064207199E+009,  1.0756986064207199E+009
-      BUTDI,  2.0521956658716797E+010,  2.0526479192010277E+010
-      ...
+       Location:                                        Beijing
+       Timestamp:                                       2019/07/01 00:40
+       Longitude (degrees):                                115.0000
+       Latitude (degrees):                                  38.0000
+       GEOS-Chem Vertical Level:                             1
+       Pressure (hPa):                                     947.7906
+       Temperature (K):                                      300.29
+       Dry air density (molec/cm3):                      0.2273E+20
+       Water vapor mixing ratio (vol H2O/vol dry air):   0.9784E-02
+       Cloud fraction:                                   0.0000E+00
+       Cosine of solar zenith angle:                     0.6833E+00
 
-   The header contains the same information as the corresponding input
-   file containing model state archived from GEOS-Chem.  The initial
-   and final concentrations for each species are printed in
-   :math:`molecules\  cm^{-3}`.  The number at the top of the header
-   (:literal:`43`) indicates the number of lines to skip before the
-   data begins. |br|
-   |br|
+       KPP Integrator-specific parameters
 
-#. :program:`GCPy` (the GEOS-Chem Python Toolkit) contains scripts for
-   plotting KPP-Standalone Box Model output.  For usage instructions,
-   please see the `Visualizing KPP-Standalone box model output
-   <https://gcpy.readthedocs.io/en/stable/KPP-Standalone.html>`__
-   chapter of the GCPy documentation.
+       Init KPP Timestep (seconds):                         41.0561
+       Exit KPP Timestep (seconds):                         92.6195
+       Chemistry operator timestep (seconds):             1200.0000
+       Number of internal timesteps:                        15
+       ICNTRL integrator options used:
+            1     0     4     0     0     0     1     0     0     0
+            0     0     0   345    -1     0     0     0     0     0
+       RCNTRL integrator options used:
+            0.000000     0.000000    41.056066     0.000000     0.000000
+            0.000000     0.000000     0.000000     0.000000     0.000000
+            0.000000     0.000000     0.000000     0.000050     0.000000
+            0.000000     0.000000     0.000000     0.000000     0.000000
+
+       ===============================================================================
+       Species Name,Initial Concentration (molec/cm3),Final Concentration (molec/cm3)
+       CH2I2,  5.5790359988082701E+003,  2.8781775861340213E+000
+       CH2IBr,  4.3058653390896252E+004,  2.9971817468639663E+004
+       CH2ICl,  5.5586468566915649E+005,  5.0135868815135013E+005
+       AERI,  1.0841371359954113E+007,  1.0896017942806700E+007
+       AONITA,  1.0756986064207199E+009,  1.0756986064207199E+009
+       BUTDI,  2.0521956658716797E+010,  2.0526479192010277E+010
+       ...
+
+    The header contains the same information as the corresponding input
+    file containing model state archived from GEOS-Chem.  The initial
+    and final concentrations for each species are printed in
+    :math:`molecules\  cm^{-3}`.  The number at the top of the header
+    (:literal:`43`) indicates the number of lines to skip before the
+    data begins. |br|
+    |br|
+
+12. :program:`GCPy` (the GEOS-Chem Python Toolkit) contains scripts for
+    plotting KPP-Standalone Box Model output.  For usage instructions,
+    please see the `Visualizing KPP-Standalone box model output
+    <https://gcpy.readthedocs.io/en/stable/KPP-Standalone.html>`__
+    chapter of the GCPy documentation.
